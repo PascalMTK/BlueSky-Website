@@ -1,0 +1,76 @@
+// Prisma schema for Blue Sky Money Transfer
+// docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum TransferStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  fullName     String
+  email        String   @unique
+  phone        String?
+  country      String?
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  recipients Recipient[]
+  transfers  Transfer[]
+}
+
+model Recipient {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName     String
+  country      String
+  phone        String?
+  relationship String?
+  createdAt    DateTime @default(now())
+
+  transfers Transfer[]
+
+  @@index([userId])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  fullName  String
+  email     String
+  country   String?
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Transfer {
+  id                 String         @id @default(cuid())
+  reference          String         @unique
+  userId             String
+  user               User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipientId        String?
+  recipient          Recipient?     @relation(fields: [recipientId], references: [id], onDelete: SetNull)
+  originCountry      String
+  destinationCountry String
+  amountSent         Float
+  currencySent       String
+  paymentMethod      String
+  status             TransferStatus @default(PENDING)
+  note               String?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  @@index([userId])
+}
