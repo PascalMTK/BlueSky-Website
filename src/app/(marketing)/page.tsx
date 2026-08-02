@@ -9,13 +9,15 @@ import {
   CheckCircle2,
   ArrowRight,
   BadgeCheck,
-  Clock3,
+  ArrowDown,
+  LockKeyhole,
+  CircleDollarSign,
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { Kicker, VerticalRules } from "@/components/ui/kicker";
+import { Kicker } from "@/components/ui/kicker";
 import { LinkButton } from "@/components/ui/button";
 import { CountryCard } from "@/components/country-card";
-import { BlobDivider } from "@/components/ui/blob-divider";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { COUNTRIES } from "@/lib/data/countries";
 import { SITE } from "@/lib/data/site";
 
@@ -64,27 +66,34 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="subtle-grid relative overflow-hidden bg-brand-blue-deep text-white">
-        <div aria-hidden className="absolute left-[-12rem] top-[-12rem] h-[34rem] w-[34rem] rounded-full bg-brand-blue/35 blur-[100px]" />
-        <div aria-hidden className="absolute bottom-[-10rem] right-[-4rem] h-[28rem] w-[28rem] rounded-full bg-brand-cyan/10 blur-[90px]" />
-        <Container className="relative grid min-h-[720px] gap-14 py-16 sm:py-24 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-          <div className="reveal space-y-8 text-center lg:text-left">
-            <Kicker>Transfert d&apos;argent rapide &amp; sécurisé</Kicker>
-            <h1 className="display-title text-5xl leading-[.98] sm:text-6xl lg:text-[5rem]">
-              Votre argent traverse les frontières.{" "}
-              <span className="text-brand-gold">Votre confiance reste entière.</span>
-            </h1>
-            <div className="flex items-center justify-center gap-4 text-white/65 lg:justify-start">
-              <VerticalRules className="text-brand-cyan" />
-              <p className="max-w-xl text-base leading-relaxed sm:text-lg">
-                Blue Sky connecte la RDC, la Zambie, la Namibie, l&apos;Afrique
-                du Sud, le Zimbabwe, le Kenya, la Tanzanie et le Malawi pour
-                des transferts simples, rapides et suivis.
-              </p>
+      <section className="hero-mesh relative overflow-hidden text-white">
+        <div aria-hidden className="hero-photo-merge">
+          <Image
+            src="/images/team-photo.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div aria-hidden className="subtle-grid absolute inset-0 opacity-60" />
+        <div aria-hidden className="orb orb-slow bg-brand-gold/25 h-72 w-72 -top-10 right-[8%]" />
+        <div aria-hidden className="orb orb-delay bg-brand-cyan/20 h-64 w-64 bottom-[6%] left-[4%]" />
+        <Container className="relative grid min-h-[700px] gap-16 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-24">
+          <div className="reveal text-center lg:text-left">
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.07] px-4 py-2 text-xs font-semibold text-white/80 backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-brand-cyan shadow-[0_0_0_5px_rgba(85,216,255,.12)]" />
+              Transferts internationaux, simplement
             </div>
-            <div className="flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
+            <h1 className="display-title max-w-3xl text-5xl leading-[.98] sm:text-6xl lg:text-[4.75rem]">
+              L&apos;argent arrive. <span className="text-brand-gold">La confiance aussi.</span>
+            </h1>
+            <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/68 sm:text-lg lg:mx-0">
+              Envoyez de l&apos;argent à vos proches dans {COUNTRIES.length} pays africains avec un suivi clair et une équipe disponible à chaque étape.
+            </p>
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
               <LinkButton href="/inscription" size="lg">
-                Ouvrir un compte gratuit
+                Commencer un transfert <ArrowRight size={18} />
               </LinkButton>
               <LinkButton
                 href={`https://wa.me/${SITE.whatsappNumber}`}
@@ -92,38 +101,62 @@ export default function HomePage() {
                 variant="outline-light"
                 size="lg"
               >
-                Discuter sur WhatsApp
+                Parler à un conseiller
               </LinkButton>
             </div>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 border-t border-white/10 pt-6 text-sm text-white/65 lg:justify-start">
-              <span className="flex items-center gap-2"><BadgeCheck size={17} className="text-brand-cyan" /> Transactions suivies</span>
-              <span className="flex items-center gap-2"><Clock3 size={17} className="text-brand-cyan" /> Assistance réactive</span>
-              <span className="flex items-center gap-2"><Globe2 size={17} className="text-brand-cyan" /> {COUNTRIES.length} pays connectés</span>
+            <div className="mt-9 flex flex-wrap justify-center gap-x-7 gap-y-3 border-t border-white/10 pt-6 text-xs font-semibold text-white/60 lg:justify-start">
+              <span className="flex items-center gap-2"><LockKeyhole size={15} className="text-brand-cyan" /> Données protégées</span>
+              <span className="flex items-center gap-2"><BadgeCheck size={15} className="text-brand-cyan" /> Transfert suivi</span>
+              <span className="flex items-center gap-2"><Headset size={15} className="text-brand-cyan" /> Support humain</span>
             </div>
           </div>
 
-          <div className="reveal-delay relative mx-auto w-full max-w-lg lg:pl-10">
-            <div className="absolute -left-1 top-14 z-10 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-xl">
-              <p className="text-3xl font-bold text-brand-gold">{COUNTRIES.length}</p>
-              <p className="text-xs uppercase tracking-[.16em] text-white/60">pays desservis</p>
-            </div>
-            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white/5 p-2 shadow-2xl shadow-black/30">
-              <Image
-                src="/images/team-photo.jpg"
-                alt="L'équipe Blue Sky sur le terrain"
-                width={800}
-                height={900}
-                className="h-[440px] w-full rounded-[1.55rem] object-cover sm:h-[540px]"
-                priority
-              />
-            </div>
-            <div className="absolute -bottom-7 right-[-.5rem] w-[82%] rounded-2xl border border-white/10 bg-surface p-5 text-text shadow-2xl">
-              <p className="text-sm font-bold">Une présence humaine, sur le terrain.</p>
-              <p className="mt-1 text-xs leading-relaxed text-text-muted">Des équipes locales disponibles pour vous accompagner à chaque étape.</p>
-            </div>
+          <div className="reveal-delay mx-auto w-full max-w-[490px]">
+            <TiltCard intensity={6} className="rounded-[1.75rem]">
+              <div className="glass-panel rounded-[1.75rem] p-4 shadow-[0_40px_90px_-30px_rgba(0,0,0,.75)] sm:p-6">
+                <div className="mb-6 flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[.16em] text-white/45">Simulation instantanée</p>
+                    <h2 className="mt-1 font-sans text-xl font-bold tracking-tight">Envoyer de l&apos;argent</h2>
+                  </div>
+                  <span className="coin-3d flex h-11 w-11 items-center justify-center rounded-xl bg-brand-gold text-brand-blue-deep">
+                    <span className="coin-3d-spin flex"><CircleDollarSign size={22} /></span>
+                  </span>
+                </div>
+                <div className="route-line">
+                  <div className="rounded-2xl border border-white/10 bg-white/[.08] p-4">
+                    <p className="text-xs text-white/50">Vous envoyez</p>
+                    <div className="mt-2 flex items-end justify-between gap-4">
+                      <span className="text-3xl font-bold tracking-tight">500.00</span>
+                      <span className="rounded-lg bg-white/10 px-3 py-2 text-sm font-bold">USD</span>
+                    </div>
+                  </div>
+                  <span className="absolute left-1 top-[75px] z-10 flex h-8 w-8 items-center justify-center rounded-full border-4 border-[#163765] bg-brand-gold text-brand-blue-deep"><ArrowDown size={14} strokeWidth={3} /></span>
+                </div>
+                <div className="mt-4 rounded-2xl border border-white/10 bg-white/[.08] p-4">
+                  <p className="text-xs text-white/50">Votre proche reçoit</p>
+                  <div className="mt-2 flex items-end justify-between gap-4">
+                    <span className="text-3xl font-bold tracking-tight">—</span>
+                    <span className="rounded-lg bg-white/10 px-3 py-2 text-sm font-bold">CDF</span>
+                  </div>
+                </div>
+                <div className="my-5 grid grid-cols-2 gap-3 text-xs">
+                  <div className="rounded-xl bg-black/10 p-3"><p className="text-white/45">Destination</p><p className="mt-1 font-semibold">R.D. Congo</p></div>
+                  <div className="rounded-xl bg-black/10 p-3"><p className="text-white/45">Délai estimé</p><p className="mt-1 font-semibold">Quelques minutes</p></div>
+                </div>
+                <LinkButton href="/inscription" size="lg" className="w-full">Voir mon estimation <ArrowRight size={17} /></LinkButton>
+                <p className="mt-4 flex items-center justify-center gap-2 text-[11px] text-white/45"><LockKeyhole size={12} /> Aucun engagement · estimation gratuite</p>
+              </div>
+            </TiltCard>
           </div>
         </Container>
-        <BlobDivider />
+        <div className="relative border-t border-white/10 bg-black/10">
+          <Container className="grid grid-cols-2 divide-x divide-white/10 py-5 sm:grid-cols-4">
+            {[['8', 'pays connectés'], ['7', 'moyens de paiement'], ['100%', 'suivi personnalisé'], ['1', 'équipe à votre écoute']].map(([value, label]) => (
+              <div key={label} className="px-3 py-3 text-center"><p className="text-xl font-bold text-white">{value}</p><p className="mt-1 text-[10px] uppercase tracking-[.12em] text-white/45">{label}</p></div>
+            ))}
+          </Container>
+        </div>
       </section>
 
       {/* Features */}
@@ -137,16 +170,15 @@ export default function HomePage() {
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {FEATURES.map(({ icon: Icon, title, text }) => (
-              <div
-                key={title}
-                className="premium-card group rounded-[1.5rem] p-7 transition duration-300 hover:-translate-y-1 hover:border-brand-blue/40"
-              >
-                <div className="mb-8 inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue transition group-hover:bg-brand-blue group-hover:text-white dark:bg-white/10 dark:text-brand-gold-light">
-                  <Icon size={22} />
+              <TiltCard key={title} intensity={8} className="rounded-[1.5rem]">
+                <div className="premium-card group rounded-[1.5rem] p-7 transition-colors duration-300 hover:border-brand-blue/40">
+                  <div className="mb-8 inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue transition group-hover:bg-brand-blue group-hover:text-white dark:bg-white/10 dark:text-brand-gold-light">
+                    <Icon size={22} />
+                  </div>
+                  <h3 className="mb-2 text-lg font-bold">{title}</h3>
+                  <p className="text-sm leading-relaxed text-text-muted">{text}</p>
                 </div>
-                <h3 className="mb-2 text-lg font-bold">{title}</h3>
-                <p className="text-sm leading-relaxed text-text-muted">{text}</p>
-              </div>
+              </TiltCard>
             ))}
           </div>
         </Container>
@@ -163,16 +195,18 @@ export default function HomePage() {
           </div>
           <div className="grid gap-8 md:grid-cols-3">
             {STEPS.map(({ icon: Icon, title, text }, i) => (
-              <div key={title} className="premium-card relative rounded-[1.5rem] p-8">
-                <span className="absolute -top-4 -left-2 text-6xl font-black text-brand-blue/10 dark:text-white/5">
-                  0{i + 1}
-                </span>
-                <div className="relative mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-gold text-brand-blue-deep">
-                  <Icon size={22} />
+              <TiltCard key={title} intensity={7} className="rounded-[1.5rem]">
+                <div className="premium-card relative rounded-[1.5rem] p-8">
+                  <span className="absolute -top-4 -left-2 text-6xl font-black text-brand-blue/10 dark:text-white/5">
+                    0{i + 1}
+                  </span>
+                  <div className="relative mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-gold text-brand-blue-deep">
+                    <Icon size={22} />
+                  </div>
+                  <h3 className="relative mb-2 text-lg font-bold">{title}</h3>
+                  <p className="relative text-sm leading-relaxed text-text-muted">{text}</p>
                 </div>
-                <h3 className="relative mb-2 text-lg font-bold">{title}</h3>
-                <p className="relative text-sm leading-relaxed text-text-muted">{text}</p>
-              </div>
+              </TiltCard>
             ))}
           </div>
           <div className="mt-12 text-center">
@@ -194,7 +228,9 @@ export default function HomePage() {
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {COUNTRIES.map((country) => (
-              <CountryCard key={country.code} country={country} />
+              <TiltCard key={country.code} intensity={7} className="rounded-[1.5rem]">
+                <CountryCard country={country} />
+              </TiltCard>
             ))}
           </div>
         </Container>
@@ -222,15 +258,15 @@ export default function HomePage() {
       {/* Impact teaser */}
       <section className="py-24 sm:py-32">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-[2rem] border-8 border-surface shadow-2xl">
+          <TiltCard intensity={5} glare={false} className="image-merge-wrap">
             <Image
               src="/images/community-outreach-group.jpg"
               alt="Blue Sky aux côtés des enfants d'un orphelinat en Namibie"
               width={900}
               height={700}
-              className="h-[340px] w-full object-cover sm:h-[420px]"
+              className="image-merge h-[340px] w-full object-cover sm:h-[420px]"
             />
-          </div>
+          </TiltCard>
           <div className="space-y-5">
             <Kicker>Au-delà du transfert d&apos;argent</Kicker>
             <h2 className="display-title text-4xl sm:text-5xl">
