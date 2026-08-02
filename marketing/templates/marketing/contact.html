@@ -1,0 +1,67 @@
+{% extends "marketing/base_marketing.html" %}
+{% load icons ui %}
+{% block title %}Contact | Blue Sky{% endblock %}
+{% block description %}Contactez l'équipe Blue Sky par téléphone, WhatsApp, e-mail ou via notre formulaire en ligne.{% endblock %}
+{% block content %}
+
+<section class="bg-brand-blue py-16 text-white sm:py-20">
+  <div class="mx-auto w-full max-w-7xl px-5 text-center sm:px-8">
+    {% kicker "Parlons-en" %}
+    <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-extrabold sm:text-5xl">Une question ? Notre équipe vous répond</h1>
+  </div>
+</section>
+
+<section class="py-20 sm:py-28">
+  <div class="mx-auto grid w-full max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
+    <div class="space-y-6">
+      <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-6">
+        {% icon "map-pin" size=22 css_class="mt-0.5 shrink-0 text-brand-blue dark:text-brand-gold-light" %}
+        <div>
+          <p class="font-bold">Siège social</p>
+          <p class="text-sm text-text-muted">{{ SITE.head_office_address }}</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-6">
+        {% icon "phone" size=22 css_class="mt-0.5 shrink-0 text-brand-blue dark:text-brand-gold-light" %}
+        <div>
+          <p class="font-bold">Téléphone</p>
+          <p class="text-sm text-text-muted">{{ SITE.primary_phone }}</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-6">
+        {% icon "mail" size=22 css_class="mt-0.5 shrink-0 text-brand-blue dark:text-brand-gold-light" %}
+        <div>
+          <p class="font-bold">E-mail</p>
+          <p class="text-sm text-text-muted">{{ SITE.primary_email }}</p>
+        </div>
+      </div>
+      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="flex items-center gap-4 rounded-2xl bg-[#25D366] p-6 text-white transition hover:-translate-y-0.5">
+        {% icon "message-circle" size=22 %}
+        <div>
+          <p class="font-bold">WhatsApp</p>
+          <p class="text-sm text-white/80">{{ SITE.whatsapp_display }}</p>
+        </div>
+      </a>
+    </div>
+
+    {% if sent %}
+      <div class="flex flex-col items-center gap-3 rounded-2xl border border-border bg-surface p-10 text-center">
+        {% icon "check-circle-2" size=40 css_class="text-brand-gold" %}
+        <h3 class="text-lg font-bold">Message envoyé</h3>
+        <p class="text-sm text-text-muted">Merci de nous avoir contactés. Notre équipe vous répondra très prochainement.</p>
+      </div>
+    {% else %}
+      <form method="post" class="space-y-5 rounded-2xl border border-border bg-surface p-8">
+        {% csrf_token %}
+        {% include "core/_form_errors.html" %}
+        {% include "core/_field.html" with field=form.full_name %}
+        {% include "core/_field.html" with field=form.email %}
+        {% include "core/_field.html" with field=form.country %}
+        {% include "core/_field.html" with field=form.message %}
+        <button type="submit" class="btn btn-primary w-full">Envoyer le message</button>
+      </form>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

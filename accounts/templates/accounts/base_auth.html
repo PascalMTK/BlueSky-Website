@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+{% load static icons %}
+{% block body %}
+<div class="grid min-h-screen lg:grid-cols-2">
+  <div class="hero-mesh relative hidden overflow-hidden text-white lg:flex lg:flex-col lg:justify-between lg:p-12">
+    <div aria-hidden class="hero-photo-merge">
+      <img src="{% static 'img/team-photo.jpg' %}" alt="">
+    </div>
+    <div class="relative">{% include "core/partials/logo.html" %}</div>
+    <div class="relative space-y-6">
+      <p class="max-w-sm text-2xl font-semibold leading-snug">{{ SITE.tagline }}</p>
+      <ul class="flex flex-wrap gap-2 text-xs font-semibold text-white/70">
+        {% for country in COUNTRIES %}
+          <li class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5">{{ country.flag }} {{ country.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="relative flex flex-col justify-center px-6 py-16 sm:px-10 lg:px-16">
+    <div class="absolute right-6 top-6">
+      <button type="button" data-theme-toggle aria-label="Basculer le mode sombre" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-text transition hover:border-brand-gold hover:text-brand-gold">
+        {% icon "moon" size=18 css_class="theme-icon-moon" %}
+        {% icon "sun" size=18 css_class="theme-icon-sun hidden" %}
+      </button>
+    </div>
+    <div class="mx-auto w-full max-w-sm">
+      {% block auth_content %}{% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "core/base.html" %}
+{% block body %}
+  {% include "core/partials/header.html" %}
+  <main class="flex-1">{% block content %}{% endblock %}</main>
+  {% include "core/partials/footer.html" %}
+  {% include "core/partials/whatsapp_fab.html" %}
+{% endblock %}

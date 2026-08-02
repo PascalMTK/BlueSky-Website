@@ -1,0 +1,27 @@
+{% load static %}
+<!doctype html>
+<html lang="fr" class="h-full antialiased">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Blue Sky — Transfert d'argent international{% endblock %}</title>
+  <meta name="description" content="{% block description %}Blue Sky connecte la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, la Tanzanie et le Malawi pour des transferts d'argent rapides, fiables et sécurisés.{% endblock %}">
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+  <link rel="stylesheet" href="{% static 'css/output.css' %}">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("bluesky-theme");
+        var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        if (theme === "dark") document.documentElement.classList.add("dark");
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="min-h-full flex flex-col bg-bg text-text">
+  {% block body %}{% endblock %}
+  <script src="{% static 'js/theme.js' %}" defer></script>
+  <script src="{% static 'js/tilt.js' %}" defer></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

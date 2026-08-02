@@ -1,0 +1,24 @@
+{% load icons %}
+<div class="premium-card group rounded-[1.5rem] p-6 transition duration-300 hover:-translate-y-1 hover:border-brand-blue/40">
+  <div class="mb-4 flex items-center gap-3">
+    <span class="text-3xl">{{ country.flag }}</span>
+    <h3 class="text-lg font-bold">{{ country.name }}</h3>
+  </div>
+  {% if country.address %}
+    <p class="mb-3 flex items-start gap-2 text-sm text-text-muted">
+      {% icon "map-pin" size=16 css_class="mt-0.5 shrink-0 text-brand-blue dark:text-brand-gold-light" %}
+      {{ country.address }}
+    </p>
+  {% endif %}
+  <ul class="space-y-1.5">
+    {% for phone in country.phones %}
+      <li class="flex items-center gap-2 text-sm font-semibold">
+        {% icon "phone" size=14 css_class="shrink-0 text-brand-blue dark:text-brand-gold-light" %}
+        {{ phone }}
+      </li>
+    {% endfor %}
+  </ul>
+  {% if country.note %}
+    <p class="mt-3 text-xs text-text-muted">{{ country.note }}</p>
+  {% endif %}
+</div>

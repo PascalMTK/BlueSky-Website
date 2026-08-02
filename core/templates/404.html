@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Page introuvable | Blue Sky{% endblock %}
+{% block body %}
+<div class="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
+  <p class="text-sm font-bold uppercase tracking-[.2em] text-brand-gold">Erreur 404</p>
+  <h1 class="display-title text-4xl sm:text-5xl">Cette page n'existe pas</h1>
+  <p class="max-w-md text-text-muted">La page que vous cherchez a peut-être été déplacée ou n'existe plus.</p>
+  <a href="/" class="btn btn-primary btn-lg mt-2">Retour à l'accueil</a>
+</div>
+{% endblock %}

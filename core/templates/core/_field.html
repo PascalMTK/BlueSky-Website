@@ -1,0 +1,8 @@
+{% comment %}Usage: {% include "core/_field.html" with field=form.email %}{% endcomment %}
+<div class="space-y-1.5">
+  <label for="{{ field.id_for_label }}" class="text-sm font-semibold">{{ field.label }}</label>
+  {{ field }}
+  {% if field.errors %}
+    <p class="text-xs font-medium text-red-500">{{ field.errors.0 }}</p>
+  {% endif %}
+</div>

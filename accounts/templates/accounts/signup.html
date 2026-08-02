@@ -1,0 +1,22 @@
+{% extends "accounts/base_auth.html" %}
+{% block title %}Créer un compte | Blue Sky{% endblock %}
+{% block auth_content %}
+  <h1 class="text-2xl font-extrabold">Ouvrir un compte</h1>
+  <p class="mt-2 text-sm text-text-muted">Créez votre compte Blue Sky en quelques minutes.</p>
+
+  <form method="post" class="mt-8 space-y-5">
+    {% csrf_token %}
+    {% include "core/_form_errors.html" %}
+    {% include "core/_field.html" with field=form.full_name %}
+    {% include "core/_field.html" with field=form.email %}
+    {% include "core/_field.html" with field=form.phone %}
+    {% include "core/_field.html" with field=form.country %}
+    {% include "core/_field.html" with field=form.password %}
+    <button type="submit" class="btn btn-primary btn-lg w-full">Créer mon compte</button>
+  </form>
+
+  <p class="mt-6 text-center text-sm text-text-muted">
+    Déjà un compte ?
+    <a href="{% url 'accounts:login' %}" class="font-semibold text-brand-blue dark:text-brand-gold-light">Se connecter</a>
+  </p>
+{% endblock %}
