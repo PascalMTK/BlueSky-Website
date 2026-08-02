@@ -5,7 +5,7 @@
 {% block content %}
 
 <section class="bg-brand-blue py-16 text-white sm:py-20">
-  <div class="mx-auto w-full max-w-7xl px-5 text-center sm:px-8">
+  <div class="mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
     {% kicker "Nos agences" %}
     <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-extrabold sm:text-5xl">Blue Sky, présent dans {{ COUNTRIES|length }} pays d'Afrique</h1>
     <p class="mx-auto mt-4 max-w-2xl text-white/70">Contactez directement l'agence la plus proche de vous, ou démarrez votre transfert en ligne depuis votre compte Blue Sky.</p>
@@ -13,7 +13,7 @@
 </section>
 
 <section class="py-20 sm:py-28">
-  <div class="mx-auto w-full max-w-7xl px-5 sm:px-8">
+  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {% for country in COUNTRIES %}
         {% include "core/partials/country_card.html" %}

@@ -5,35 +5,35 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --bg: #f7f8fa;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-muted: #edf2f8;
-  --text: #08172b;
-  --text-muted: #647083;
-  --border: #e1e6ed;
-  --brand-blue: #0284c7;
-  --brand-blue-dark: #0369a1;
-  --brand-blue-deep: #04111f;
+  --surface-muted: #f4f6fb;
+  --text: #1e2534;
+  --text-muted: #667085;
+  --border: #e5e8f0;
+  --brand-blue: #4c63b6;
+  --brand-blue-dark: #37478c;
+  --brand-blue-deep: #1b2242;
   --brand-gold: #f9b936;
-  --brand-gold-dark: #e59a0b;
-  --brand-gold-light: #ffd985;
-  --brand-cyan: #38bdf8;
+  --brand-gold-dark: #e0a316;
+  --brand-gold-light: #ffd166;
+  --brand-cyan: #6f93e8;
 }
 
 .dark {
-  --bg: #04111f;
-  --surface: #0b192b;
-  --surface-muted: #0f2035;
-  --text: #f5f8fc;
-  --text-muted: #9eacbd;
-  --border: #20334a;
-  --brand-blue: #38bdf8;
-  --brand-blue-dark: #0ea5e9;
-  --brand-blue-deep: #04111f;
-  --brand-gold: #ffc34d;
+  --bg: #0b1220;
+  --surface: #121a2e;
+  --surface-muted: #1a2338;
+  --text: #eef1f8;
+  --text-muted: #98a2b8;
+  --border: #26314a;
+  --brand-blue: #7b93e8;
+  --brand-blue-dark: #4c63b6;
+  --brand-blue-deep: #0b1220;
+  --brand-gold: #ffc94d;
   --brand-gold-dark: #eda51a;
-  --brand-gold-light: #ffdd94;
-  --brand-cyan: #7dd3fc;
+  --brand-gold-light: #ffdd85;
+  --brand-cyan: #8fb1ff;
 }
 
 @theme inline {
@@ -50,16 +50,17 @@
   --color-brand-gold-dark: var(--brand-gold-dark);
   --color-brand-gold-light: var(--brand-gold-light);
   --color-brand-cyan: var(--brand-cyan);
-  --font-sans: "Aptos", "Segoe UI", Arial, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
 }
 
 * { border-color: var(--color-border); }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 18px; }
 body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans), system-ui, sans-serif;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.018em;
+  line-height: 1.6;
 }
 button, a { -webkit-tap-highlight-color: transparent; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
@@ -69,9 +70,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 h1, h2, h3 { text-wrap: balance; }
 main section h1,
 main section h2 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 500;
-  letter-spacing: -0.04em;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 main section {
   position: relative;
@@ -88,6 +89,14 @@ p { text-wrap: pretty; }
 .brand-rules span { width: 2px; background: currentColor; border-radius: 1px; }
 .diagonal-cut-b { clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%); }
 .diagonal-cut-t { clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%); }
+.diagonal-photo {
+  position: relative;
+  clip-path: polygon(16% 0%, 100% 0%, 100% 100%, 0% 100%);
+  box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--color-brand-blue-deep) 55%, transparent);
+}
+.diamond-photo {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
 
 .eyebrow-line::before {
   content: "";
@@ -96,14 +105,14 @@ p { text-wrap: pretty; }
   background: currentColor;
 }
 .display-title {
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 500;
-  letter-spacing: -0.045em;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 .premium-card {
   border: 1px solid var(--color-border);
-  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
-  box-shadow: 0 18px 50px -36px rgba(5, 26, 56, .45);
+  background: var(--color-surface);
+  box-shadow: 0 14px 0 -8px color-mix(in srgb, var(--color-brand-blue) 13%, transparent);
 }
 .glass-panel {
   border: 1px solid rgba(255,255,255,.14);
@@ -112,10 +121,11 @@ p { text-wrap: pretty; }
   backdrop-filter: blur(22px);
 }
 .hero-mesh {
+  background-color: var(--color-surface-muted);
   background-image:
-    radial-gradient(circle at 78% 18%, rgba(2,132,199,.3), transparent 34%),
-    radial-gradient(circle at 15% 82%, rgba(56,189,248,.15), transparent 28%),
-    linear-gradient(120deg, #04111f 0%, #0c2f4d 55%, #04111f 100%);
+    radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--color-brand-gold) 20%, transparent), transparent 32%),
+    radial-gradient(circle at 8% 92%, color-mix(in srgb, var(--color-brand-blue) 14%, transparent), transparent 30%),
+    linear-gradient(180deg, var(--color-surface-muted) 0%, var(--color-bg) 100%);
 }
 .route-line { position: relative; }
 .route-line::before {
@@ -180,14 +190,14 @@ p { text-wrap: pretty; }
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
-  opacity: .95;
+  filter: grayscale(1) contrast(1.15);
+  opacity: .16;
 }
 .hero-photo-merge::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, rgba(4,17,31,.75) 0%, rgba(4,17,31,.4) 38%, rgba(4,17,31,.22) 65%, rgba(4,17,31,.55) 100%),
-    linear-gradient(0deg, rgba(4,17,31,.65) 0%, transparent 40%);
+  background: linear-gradient(90deg, rgba(15,13,98,.94) 0%, rgba(48,44,255,.7) 62%, rgba(23,20,202,.58) 100%);
 }
 
 /* ---------- Floating gradient orbs (depth / parallax feel) ---------- */
@@ -236,15 +246,16 @@ p { text-wrap: pretty; }
 /* ---------- Shared button component classes (mirrors the old React <Button>) ---------- */
 .btn {
   @apply inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+  letter-spacing: -.02em;
 }
 .btn:disabled { @apply opacity-60 pointer-events-none translate-y-0; }
 .btn-primary {
   color: #fff;
-  background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-cyan));
-  box-shadow: 0 8px 28px color-mix(in srgb, var(--color-brand-blue) 42%, transparent);
+  background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-gold));
+  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--color-brand-blue) 55%, transparent);
 }
 .btn-primary:hover {
-  box-shadow: 0 14px 38px color-mix(in srgb, var(--color-brand-blue) 58%, transparent);
+  box-shadow: 0 14px 32px -8px color-mix(in srgb, var(--color-brand-blue) 65%, transparent);
 }
 .btn-secondary { @apply bg-brand-blue text-white hover:bg-brand-blue-dark shadow-lg shadow-brand-blue/20; }
 .btn-outline-light { @apply border border-white/35 bg-white/5 text-white backdrop-blur hover:bg-white hover:text-brand-blue-deep; }
@@ -254,11 +265,62 @@ p { text-wrap: pretty; }
 
 /* ---------- Gradient hero text (mirrors reference site's h1 em) ---------- */
 .text-gradient-sky {
-  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-cyan));
+  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-gold));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+}
+
+/* 2026 editorial fintech system */
+.page-shell { max-width: 1440px; margin-inline: auto; }
+.editorial-label { font-size: .68rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+.editorial-index { font-size: .7rem; font-weight: 800; letter-spacing: .08em; color: var(--color-text-muted); }
+.editorial-rule { border-top: 1px solid currentColor; }
+.bank-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  background: linear-gradient(145deg, #1b2242, #4c63b6);
+  color: #fff;
+  box-shadow: 0 34px 70px -35px rgba(27,34,66,.8);
+}
+.service-card {
+  background:
+    radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--color-brand-gold) 55%, transparent), transparent 55%),
+    linear-gradient(155deg, var(--color-brand-blue-deep) 10%, var(--color-brand-blue) 100%);
+  box-shadow: 0 30px 60px -32px color-mix(in srgb, var(--color-brand-blue-deep) 70%, transparent);
+  transition: transform .3s ease;
+}
+.service-card:hover { transform: translateY(-4px); }
+.bank-card::after {
+  content: "";
+  position: absolute;
+  width: 14rem;
+  height: 14rem;
+  right: -5rem;
+  top: -7rem;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2rem rgba(255,255,255,.035), 0 0 0 4rem rgba(255,255,255,.025);
+}
+header a, footer a, aside a { letter-spacing: -.01em; }
+main > section:not(.hero-mesh) { isolation: isolate; }
+main > section:not(.hero-mesh):nth-of-type(even) { overflow: hidden; }
+table tbody tr { transition: background-color .2s ease; }
+table tbody tr:hover { background: color-mix(in srgb, var(--color-brand-blue) 5%, transparent); }
+form input, form select, form textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-surface);
+  padding: .85rem 1rem;
+  color: var(--color-text);
+}
+form textarea { min-height: 7rem; resize: vertical; }
+@media (max-width: 767px) {
+  .display-title { letter-spacing: -.055em; }
+  .hero-mesh .glass-panel { border-radius: 1.25rem; }
 }
 
 /* ---------- Pulsing "live" badge dot ---------- */
@@ -268,45 +330,4 @@ p { text-wrap: pretty; }
 @keyframes badge-blink {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: .35; transform: scale(1.6); }
-}
-
-/* ---------- Infinite-scrolling country ticker ---------- */
-.ticker {
-  position: relative;
-  overflow: hidden;
-}
-.ticker::before, .ticker::after {
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 70px;
-  z-index: 2;
-  pointer-events: none;
-}
-.ticker::before { left: 0; background: linear-gradient(to right, var(--color-bg), transparent); }
-.ticker::after { right: 0; background: linear-gradient(to left, var(--color-bg), transparent); }
-.ticker-track {
-  display: flex;
-  gap: 10px;
-  width: max-content;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .ticker-track { animation: ticker-scroll 32s linear infinite; }
-}
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.ticker-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border-radius: 100px;
-  padding: 7px 16px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-  border: 1px solid var(--color-border);
-  background: color-mix(in srgb, var(--color-brand-blue) 6%, transparent);
-  color: var(--color-text-muted);
 }

@@ -9,6 +9,5 @@ register = template.Library()
 def kicker(text, tone="gold"):
     tone_class = "text-brand-blue dark:text-brand-cyan" if tone == "blue" else "text-brand-gold"
     return mark_safe(
-        f'<span class="eyebrow-line inline-flex items-center gap-3 text-[11px] '
-        f'font-bold uppercase tracking-[0.22em] {tone_class}">{escape(text)}</span>'
+        f'<span class="editorial-label {tone_class}">{escape(text)}</span>'
     )

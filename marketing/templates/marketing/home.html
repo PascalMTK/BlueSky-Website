@@ -2,114 +2,90 @@
 {% load icons ui static %}
 {% block content %}
 
-<section class="hero-mesh relative overflow-hidden text-white">
-  <div aria-hidden class="hero-photo-merge">
-    <img src="{% static 'img/team-photo.jpg' %}" alt="">
-  </div>
-  <div aria-hidden class="subtle-grid absolute inset-0 opacity-60"></div>
-  <div aria-hidden class="orb orb-slow bg-brand-gold/25 h-72 w-72 -top-10 right-[8%]"></div>
-  <div aria-hidden class="orb orb-delay bg-brand-cyan/20 h-64 w-64 bottom-[6%] left-[4%]"></div>
-  <div class="relative mx-auto grid w-full max-w-7xl gap-16 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-24">
+<section class="hero-mesh relative overflow-hidden">
+  <div aria-hidden class="subtle-grid absolute inset-0 opacity-40"></div>
+  <div class="relative mx-auto grid w-full max-w-[1440px] gap-16 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1fr_0.92fr] lg:items-center lg:px-10 lg:py-24">
     <div class="reveal text-center lg:text-left">
-      <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.07] px-4 py-2 text-xs font-semibold text-white/80 backdrop-blur">
-        <span class="badge-dot-pulse h-2 w-2 rounded-full bg-brand-cyan shadow-[0_0_0_5px_rgba(56,189,248,.16)]"></span>
-        Système actif · Transferts en temps réel
+      <div class="mb-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.18em] text-brand-blue">
+        <span class="badge-dot-pulse h-2 w-2 rounded-full bg-brand-blue"></span>
+        Blue Sky · Transferts en temps réel
       </div>
-      <h1 class="display-title max-w-3xl text-5xl leading-[.98] sm:text-6xl lg:text-[4.75rem]">
-        L'argent arrive. <span class="text-gradient-sky">La confiance aussi.</span>
+      <h1 class="display-title max-w-xl text-5xl leading-[1.02] sm:text-6xl lg:text-[4.75rem]">
+        De l'idée au virement. <span class="text-gradient-sky">La confiance suit.</span>
       </h1>
-      <p class="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/68 sm:text-lg lg:mx-0">
+      <p class="mx-auto mt-6 max-w-xl text-base leading-relaxed text-text-muted sm:text-lg lg:mx-0">
         Envoyez de l'argent à vos proches dans {{ COUNTRIES|length }} pays africains avec un suivi clair et une équipe disponible à chaque étape.
       </p>
       <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
         <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-lg">Commencer un transfert {% icon "arrow-right" size=18 %}</a>
-        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" class="btn btn-outline-light btn-lg">Parler à un conseiller</a>
+        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" class="btn btn-ghost btn-lg">Parler à un conseiller</a>
       </div>
-      <div class="mt-9 flex flex-wrap justify-center gap-x-7 gap-y-3 border-t border-white/10 pt-6 text-xs font-semibold text-white/60 lg:justify-start">
-        <span class="flex items-center gap-2">{% icon "lock-keyhole" size=15 css_class="text-brand-cyan" %} Données protégées</span>
-        <span class="flex items-center gap-2">{% icon "badge-check" size=15 css_class="text-brand-cyan" %} Transfert suivi</span>
-        <span class="flex items-center gap-2">{% icon "headset" size=15 css_class="text-brand-cyan" %} Support humain</span>
+      <div class="mt-9 flex flex-wrap justify-center gap-x-7 gap-y-3 border-t border-border pt-6 text-xs font-semibold text-text-muted lg:justify-start">
+        <span class="flex items-center gap-2">{% icon "lock-keyhole" size=15 css_class="text-brand-blue" %} Données protégées</span>
+        <span class="flex items-center gap-2">{% icon "badge-check" size=15 css_class="text-brand-blue" %} Transfert suivi</span>
+        <span class="flex items-center gap-2">{% icon "headset" size=15 css_class="text-brand-blue" %} Support humain</span>
       </div>
     </div>
 
-    <div class="reveal-delay mx-auto w-full max-w-[490px]">
-      <div class="tilt-3d rounded-[1.75rem]" data-tilt data-tilt-intensity="6">
+    <div class="reveal-delay relative mx-auto w-full max-w-[480px] pb-14 pl-10 sm:pb-20 sm:pl-16">
+      <div class="diagonal-photo aspect-[4/5] w-full overflow-hidden rounded-[1.5rem]">
+        <img src="{% static 'img/team-photo.jpg' %}" alt="Équipe Blue Sky" class="h-full w-full object-cover" style="object-position:center 25%">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/55 via-transparent to-transparent"></div>
+      </div>
+      <div class="tilt-3d absolute -bottom-2 -left-2 w-[280px] max-w-[78%] rounded-[1.5rem] sm:w-[300px]" data-tilt data-tilt-intensity="6">
         <div class="tilt-3d-inner">
-          <div class="glass-panel rounded-[1.75rem] p-4 shadow-[0_40px_90px_-30px_rgba(0,0,0,.75)] sm:p-6">
-            <div class="mb-6 flex items-center justify-between">
+          <div class="bank-card p-5">
+            <div class="mb-4 flex items-center justify-between">
               <div>
-                <p class="text-xs font-semibold uppercase tracking-[.16em] text-white/45">Simulation instantanée</p>
-                <h2 class="mt-1 font-sans text-xl font-bold tracking-tight">Envoyer de l'argent</h2>
+                <p class="text-[10px] font-semibold uppercase tracking-[.16em] text-white/45">Simulation</p>
+                <h2 class="mt-0.5 font-sans text-base font-bold tracking-tight">Envoyer de l'argent</h2>
               </div>
-              <span class="coin-3d flex h-11 w-11 items-center justify-center rounded-xl bg-brand-gold text-brand-blue-deep">
-                <span class="coin-3d-spin flex">{% icon "circle-dollar-sign" size=22 %}</span>
+              <span class="coin-3d flex h-9 w-9 items-center justify-center rounded-full bg-brand-gold text-brand-blue-deep">
+                <span class="coin-3d-spin flex">{% icon "circle-dollar-sign" size=18 %}</span>
               </span>
             </div>
-            <div class="route-line">
-              <div class="rounded-2xl border border-white/10 bg-white/[.08] p-4">
-                <p class="text-xs text-white/50">Vous envoyez</p>
-                <div class="mt-2 flex items-end justify-between gap-4">
-                  <span class="text-3xl font-bold tracking-tight">500.00</span>
-                  <span class="rounded-lg bg-white/10 px-3 py-2 text-sm font-bold">USD</span>
-                </div>
-              </div>
-              <span class="absolute left-1 top-[75px] z-10 flex h-8 w-8 items-center justify-center rounded-full border-4 border-[#163765] bg-brand-gold text-brand-blue-deep">{% icon "arrow-down" size=14 stroke_width="3" %}</span>
-            </div>
-            <div class="mt-4 rounded-2xl border border-white/10 bg-white/[.08] p-4">
-              <p class="text-xs text-white/50">Votre proche reçoit</p>
-              <div class="mt-2 flex items-end justify-between gap-4">
-                <span class="text-3xl font-bold tracking-tight">—</span>
-                <span class="rounded-lg bg-white/10 px-3 py-2 text-sm font-bold">CDF</span>
+            <div class="rounded-xl border border-white/10 bg-white/[.08] p-3">
+              <p class="text-[11px] text-white/50">Vous envoyez</p>
+              <div class="mt-1 flex items-end justify-between gap-4">
+                <span class="text-xl font-bold tracking-tight">500.00</span>
+                <span class="rounded-lg bg-white/10 px-2 py-1 text-xs font-bold">USD</span>
               </div>
             </div>
-            <div class="my-5 grid grid-cols-2 gap-3 text-xs">
-              <div class="rounded-xl bg-black/10 p-3"><p class="text-white/45">Destination</p><p class="mt-1 font-semibold">R.D. Congo</p></div>
-              <div class="rounded-xl bg-black/10 p-3"><p class="text-white/45">Délai estimé</p><p class="mt-1 font-semibold">Quelques minutes</p></div>
-            </div>
-            <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-lg w-full">Voir mon estimation {% icon "arrow-right" size=17 %}</a>
-            <p class="mt-4 flex items-center justify-center gap-2 text-[11px] text-white/45">{% icon "lock-keyhole" size=12 %} Aucun engagement · estimation gratuite</p>
+            <a href="{% url 'accounts:signup' %}" class="btn btn-primary mt-4 w-full py-2.5 text-sm">Voir mon estimation {% icon "arrow-right" size=15 %}</a>
           </div>
           <span aria-hidden class="tilt-glare"></span>
         </div>
       </div>
     </div>
   </div>
-  <div class="relative border-t border-white/10 bg-black/10">
-    <div class="mx-auto grid w-full max-w-7xl grid-cols-2 divide-x divide-white/10 px-5 py-5 sm:grid-cols-4 sm:px-8">
+  <div class="relative border-t border-border bg-surface">
+    <div class="mx-auto grid w-full max-w-[1440px] grid-cols-2 divide-x divide-border px-5 py-5 sm:grid-cols-4 sm:px-8 lg:px-10">
       {% for value, label in hero_stats %}
-        <div class="px-3 py-3 text-center"><p class="text-xl font-bold text-white">{{ value }}</p><p class="mt-1 text-[10px] uppercase tracking-[.12em] text-white/45">{{ label }}</p></div>
+        <div class="px-3 py-3 text-left sm:px-7"><p class="text-2xl font-bold text-brand-blue">{{ value }}</p><p class="mt-1 text-[10px] uppercase tracking-[.16em] text-text-muted">{{ label }}</p></div>
       {% endfor %}
     </div>
   </div>
 </section>
 
-<div class="ticker border-b border-border py-4">
-  <div class="ticker-track">
-    {% for country in COUNTRIES %}
-      <span class="ticker-chip">{{ country.flag }} {{ country.name }}</span>
-    {% endfor %}
-    {% for country in COUNTRIES %}
-      <span class="ticker-chip" aria-hidden="true">{{ country.flag }} {{ country.name }}</span>
-    {% endfor %}
-  </div>
-</div>
-
 <section class="py-24 sm:py-32">
-  <div class="mx-auto w-full max-w-7xl px-5 sm:px-8">
-    <div class="mx-auto mb-14 max-w-2xl text-center">
-      {% kicker "Pourquoi Blue Sky" tone="blue" %}
-      <h2 class="display-title mt-5 text-4xl sm:text-5xl">Une agence pensée pour la diaspora et les familles africaines</h2>
+  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
+    <div class="mb-14 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+      <div class="max-w-xl">
+        {% kicker "Pourquoi Blue Sky" tone="blue" %}
+        <h2 class="display-title mt-5 text-4xl sm:text-5xl">Une agence pensée pour la diaspora et les familles africaines</h2>
+      </div>
+      <a href="{% url 'marketing:contact' %}" class="btn btn-ghost btn-md shrink-0">Toutes nos garanties {% icon "arrow-right" size=15 %}</a>
     </div>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {% for icon_name, title, text in features %}
         <div class="tilt-3d rounded-[1.5rem]" data-tilt data-tilt-intensity="8">
           <div class="tilt-3d-inner">
-            <div class="premium-card group rounded-[1.5rem] p-7 transition-colors duration-300 hover:border-brand-blue/40">
-              <div class="mb-8 inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue transition group-hover:bg-brand-blue group-hover:text-white dark:bg-white/10 dark:text-brand-gold-light">
+            <div class="service-card group relative flex h-full min-h-[260px] flex-col justify-end overflow-hidden rounded-[1.5rem] p-7">
+              <div class="relative z-10 mb-8 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur transition group-hover:bg-white group-hover:text-brand-blue">
                 {% icon icon_name size=22 %}
               </div>
-              <h3 class="mb-2 text-lg font-bold">{{ title }}</h3>
-              <p class="text-sm leading-relaxed text-text-muted">{{ text }}</p>
+              <h3 class="relative z-10 mb-2 text-lg font-bold text-white">{{ title }}</h3>
+              <p class="relative z-10 text-sm leading-relaxed text-white/70">{{ text }}</p>
             </div>
             <span aria-hidden class="tilt-glare"></span>
           </div>
@@ -120,7 +96,7 @@
 </section>
 
 <section class="border-y border-border bg-surface-muted py-24 sm:py-32">
-  <div class="mx-auto w-full max-w-7xl px-5 sm:px-8">
+  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
     <div class="mx-auto mb-14 max-w-2xl text-center">
       {% kicker "Comment ça marche" %}
       <h2 class="display-title mt-5 text-4xl sm:text-5xl">Trois étapes pour envoyer votre premier transfert</h2>
@@ -149,7 +125,7 @@
 </section>
 
 <section class="py-24 sm:py-32">
-  <div class="mx-auto w-full max-w-7xl px-5 sm:px-8">
+  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
     <div class="mx-auto mb-14 max-w-2xl text-center">
       {% kicker "Notre couverture" tone="blue" %}
       <h2 class="display-title mt-5 text-4xl sm:text-5xl">Nos agences à travers l'Afrique</h2>
@@ -168,7 +144,7 @@
 </section>
 
 <section class="border-y border-border bg-brand-blue-deep py-16 text-white">
-  <div class="mx-auto w-full max-w-7xl px-5 sm:px-8">
+  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
     <p class="mb-8 text-center text-xs font-bold uppercase tracking-[.2em] text-white/50">Moyens de paiement &amp; partenaires mobiles</p>
     <div class="flex flex-wrap items-center justify-center gap-4">
       {% for partner in SITE.payment_partners %}
@@ -179,10 +155,16 @@
 </section>
 
 <section class="py-24 sm:py-32">
-  <div class="mx-auto grid w-full max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2">
-    <div class="tilt-3d image-merge-wrap" data-tilt data-tilt-intensity="5">
-      <div class="tilt-3d-inner">
-        <img src="{% static 'img/community-outreach-group.jpg' %}" alt="Blue Sky aux côtés des enfants d'un orphelinat en Namibie" class="image-merge h-[340px] w-full object-cover sm:h-[420px]">
+  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-16 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
+    <div class="relative mx-auto w-full max-w-md">
+      <div class="tilt-3d diamond-photo aspect-square w-full" data-tilt data-tilt-intensity="4">
+        <div class="tilt-3d-inner h-full w-full">
+          <img src="{% static 'img/community-outreach-group.jpg' %}" alt="Blue Sky aux côtés des enfants d'un orphelinat en Namibie" class="h-full w-full object-cover">
+        </div>
+      </div>
+      <div class="absolute -bottom-6 left-1/2 w-[85%] -translate-x-1/2 rounded-2xl bg-gradient-to-r from-brand-blue to-brand-blue-dark px-6 py-4 text-center text-white shadow-xl">
+        <p class="text-2xl font-bold leading-none">8 pays</p>
+        <p class="mt-1 text-[11px] font-semibold uppercase tracking-[.14em] text-white/80">D'engagement communautaire</p>
       </div>
     </div>
     <div class="space-y-5">
@@ -191,13 +173,29 @@
       <p class="leading-relaxed text-text-muted">
         L'équipe Blue Sky se rend régulièrement auprès d'enfants d'un orphelinat en Namibie pour offrir du temps, des ressources et du soutien — parce que connecter les familles va au-delà des transactions.
       </p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="flex items-start gap-3 rounded-xl border border-border p-4">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue">{% icon "heart-handshake" size=18 %}</span>
+          <div>
+            <p class="text-sm font-bold">Présence locale</p>
+            <p class="text-xs text-text-muted">Des équipes sur le terrain, pas seulement en ligne.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 rounded-xl border border-border p-4">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue">{% icon "hand-heart" size=18 %}</span>
+          <div>
+            <p class="text-sm font-bold">Impact direct</p>
+            <p class="text-xs text-text-muted">Du temps et des ressources pour les communautés locales.</p>
+          </div>
+        </div>
+      </div>
       <a href="{% url 'marketing:impact' %}" class="btn btn-ghost">Découvrir notre impact {% icon "arrow-right" size=16 %}</a>
     </div>
   </div>
 </section>
 
 <section class="subtle-grid bg-brand-blue-deep py-20 text-white sm:py-24">
-  <div class="mx-auto w-full max-w-7xl px-5 text-center sm:px-8">
+  <div class="mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
     {% kicker "Commencez aujourd'hui" %}
     <h2 class="display-title mx-auto mt-5 max-w-3xl text-4xl sm:text-5xl">Prêt à envoyer votre argent en toute confiance ?</h2>
     <p class="mx-auto mt-4 max-w-xl text-white/70">Ouvrez votre compte Blue Sky gratuitement et suivez chacun de vos transferts depuis votre tableau de bord.</p>

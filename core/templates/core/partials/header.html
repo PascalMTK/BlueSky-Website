@@ -1,16 +1,23 @@
 {% load icons %}
-<header class="sticky top-0 z-50 border-b border-border/70 bg-surface/90 shadow-[0_18px_40px_-32px_rgba(5,26,56,.6)] backdrop-blur-xl">
-  <div class="mx-auto flex h-[72px] w-full max-w-7xl items-center justify-between px-5 sm:px-8">
+<header class="sticky top-0 z-50 border-b border-border bg-bg/95 backdrop-blur-xl">
+  <div class="hidden bg-brand-blue-deep px-5 py-2 text-[11px] font-medium text-white/70 sm:flex sm:items-center sm:justify-between sm:px-8 lg:px-10">
+    <div class="flex items-center gap-5">
+      <span class="flex items-center gap-1.5">{% icon "mail" size=12 %} {{ SITE.primary_email }}</span>
+      <span class="flex items-center gap-1.5">{% icon "phone" size=12 %} {{ SITE.primary_phone }}</span>
+    </div>
+    <span class="flex items-center gap-1.5">{% icon "clock" size=12 %} Lun&ndash;Sam&nbsp;: 08h00&ndash;18h00</span>
+  </div>
+  <div class="mx-auto flex h-[82px] w-full max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-10">
     <div class="transition-transform duration-300 hover:-translate-y-0.5">
       {% include "core/partials/logo.html" %}
     </div>
 
-    <nav class="hidden lg:flex items-center gap-0.5 text-[13px] font-semibold">
+    <nav class="hidden lg:flex items-center gap-1 text-[13px] font-bold uppercase tracking-[.06em]">
       {% for href, label in nav_items %}
-        <a href="{{ href }}" class="relative rounded-lg px-3 py-2 transition-all hover:-translate-y-0.5 hover:bg-surface-muted hover:text-brand-blue dark:hover:text-brand-gold-light {% if request.path == href %}bg-surface-muted text-brand-blue dark:text-brand-gold-light{% else %}text-text-muted{% endif %}">
+        <a href="{{ href }}" class="relative rounded-full px-4 py-2 transition-all hover:bg-surface hover:text-brand-blue {% if request.path == href %}bg-surface text-brand-blue{% else %}text-text-muted{% endif %}">
           {{ label }}
           {% if request.path == href %}
-            <span class="absolute inset-x-3 -bottom-[1px] h-[2px] rounded-full bg-brand-blue shadow-[0_0_10px_2px_rgba(8,87,201,.5)] dark:bg-brand-gold-light dark:shadow-[0_0_10px_2px_rgba(255,217,133,.5)]"></span>
+            <span class="absolute left-1/2 -bottom-1 h-1 w-1 -translate-x-1/2 rounded-full bg-brand-blue"></span>
           {% endif %}
         </a>
       {% endfor %}
@@ -25,7 +32,7 @@
         <a href="{% url 'transfers:overview' %}" class="inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 px-5 py-2.5 text-sm bg-brand-blue text-white hover:bg-brand-blue-dark shadow-lg shadow-brand-blue/20">Tableau de bord</a>
       {% else %}
         <a href="{% url 'accounts:login' %}" class="inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 px-5 py-2.5 text-sm border border-border bg-surface/50 text-text hover:border-brand-blue hover:text-brand-blue">Connexion</a>
-        <a href="{% url 'accounts:signup' %}" class="inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 px-5 py-2.5 text-sm bg-brand-gold text-brand-blue-deep hover:bg-brand-gold-light shadow-lg shadow-brand-gold/20">Ouvrir un compte {% icon "arrow-up-right" size=15 %}</a>
+        <a href="{% url 'accounts:signup' %}" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-blue px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-brand-blue-dark">Ouvrir un compte {% icon "arrow-up-right" size=15 %}</a>
       {% endif %}
     </div>
 

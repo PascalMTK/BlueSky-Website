@@ -7,6 +7,9 @@
   <title>{% block title %}Blue Sky — Transfert d'argent international{% endblock %}</title>
   <meta name="description" content="{% block description %}Blue Sky connecte la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, la Tanzanie et le Malawi pour des transferts d'argent rapides, fiables et sécurisés.{% endblock %}">
   <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/output.css' %}">
   <script>
     (function () {
@@ -18,7 +21,7 @@
     })();
   </script>
 </head>
-<body class="min-h-full flex flex-col bg-bg text-text">
+<body class="min-h-full flex flex-col bg-bg text-text selection:bg-brand-gold selection:text-brand-blue-deep">
   {% block body %}{% endblock %}
   <script src="{% static 'js/theme.js' %}" defer></script>
   <script src="{% static 'js/tilt.js' %}" defer></script>

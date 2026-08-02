@@ -1,8 +1,8 @@
 {% extends "core/base.html" %}
 {% load icons %}
 {% block body %}
-<div class="min-h-screen bg-surface-muted lg:grid lg:grid-cols-[292px_1fr]">
-  <aside class="hidden border-r border-border bg-brand-blue-deep text-white lg:flex lg:flex-col lg:justify-between lg:p-6">
+<div class="min-h-screen bg-bg lg:grid lg:grid-cols-[272px_1fr]">
+  <aside class="hidden bg-brand-blue-deep text-white lg:flex lg:flex-col lg:justify-between lg:p-7">
     <div>
       {% include "core/partials/logo.html" %}
       <div class="mt-8">
@@ -24,7 +24,7 @@
   </aside>
 
   <div class="flex min-h-screen flex-col">
-    <header class="flex items-center justify-between border-b border-border bg-surface px-5 py-4 lg:justify-end lg:px-8">
+    <header class="flex items-center justify-between border-b border-border bg-bg px-5 py-5 lg:justify-end lg:px-10">
       <div class="lg:hidden">{% include "core/partials/logo.html" %}</div>
       <div class="flex items-center gap-3">
         <button type="button" data-theme-toggle aria-label="Basculer le mode sombre" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-text transition hover:border-brand-gold hover:text-brand-gold">
@@ -38,7 +38,7 @@
       {% include "core/partials/dashboard_nav.html" with nav_class="flex flex-row gap-1" %}
     </nav>
 
-    <main class="flex-1 p-5 sm:p-8">{% block dashboard_content %}{% endblock %}</main>
+    <main class="mx-auto w-full max-w-[1400px] flex-1 p-5 sm:p-8 lg:p-10">{% block dashboard_content %}{% endblock %}</main>
 
     <div class="border-t border-border bg-surface p-4 lg:hidden">
       <form method="post" action="{% url 'accounts:logout' %}">

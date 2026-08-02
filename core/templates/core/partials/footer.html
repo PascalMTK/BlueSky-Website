@@ -1,6 +1,12 @@
 {% load icons %}
-<footer class="subtle-grid bg-brand-blue-deep text-white">
-  <div class="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-[1.3fr_1fr_1.2fr]">
+<footer class="bg-brand-blue-deep text-white">
+  <div class="mx-auto w-full max-w-[1440px] px-5 pt-16 sm:px-8 lg:px-10">
+    <div class="mb-16 grid gap-6 border-b border-white/15 pb-14 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+      <p class="editorial-label text-brand-gold">Blue Sky / Afrique australe</p>
+      <p class="display-title max-w-4xl text-4xl leading-[.95] sm:text-6xl">L'argent voyage.<br>La confiance reste.</p>
+    </div>
+  </div>
+  <div class="mx-auto grid w-full max-w-[1440px] gap-12 px-5 pb-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1.2fr] lg:px-10">
     <div class="space-y-5">
       {% include "core/partials/logo.html" with tagline_class="text-white/60" %}
       <p class="max-w-sm text-sm leading-relaxed text-white/70">{{ SITE.mission }}</p>
@@ -36,7 +42,7 @@
   </div>
 
   <div class="border-t border-white/10">
-    <div class="mx-auto flex w-full max-w-7xl flex-col gap-2 px-5 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+    <div class="mx-auto flex w-full max-w-[1440px] flex-col gap-2 px-5 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
       <p>&copy; {% now "Y" %} Blue Sky Money Transfer. Tous droits réservés.</p>
       <p class="flex flex-wrap gap-x-2">
         Présent dans {{ COUNTRIES|length }} pays :
