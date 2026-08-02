@@ -4,11 +4,12 @@
 {% block description %}Rencontrez l'équipe Blue Sky, présente sur le terrain dans chacun de nos pays pour accompagner vos transferts d'argent.{% endblock %}
 {% block content %}
 
-<section class="bg-brand-blue py-16 text-white sm:py-20">
-  <div class="mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
-    {% kicker "L'équipe Blue Sky" %}
-    <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-extrabold sm:text-5xl">Des visages, pas seulement une plateforme</h1>
-    <p class="mx-auto mt-4 max-w-2xl text-white/70">Derrière chaque transfert Blue Sky, une équipe basée en Afrique australe travaille chaque jour pour que votre argent arrive vite et en sécurité.</p>
+<section class="hero-mesh relative overflow-hidden">
+  <div aria-hidden class="subtle-grid absolute inset-0 opacity-40"></div>
+  <div class="relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
+    {% kicker "L'équipe Blue Sky" tone="blue" %}
+    <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Des visages, pas seulement une plateforme</h1>
+    <p class="mx-auto mt-4 max-w-2xl text-text-muted">Derrière chaque transfert Blue Sky, une équipe basée en Afrique australe travaille chaque jour pour que votre argent arrive vite et en sécurité.</p>
   </div>
 </section>
 
@@ -27,7 +28,7 @@
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
     <div class="mx-auto mb-14 max-w-2xl text-center">
       {% kicker "Ce qui nous anime" tone="blue" %}
-      <h2 class="mt-4 text-3xl font-extrabold sm:text-4xl">Les valeurs qui guident notre équipe</h2>
+      <h2 class="display-title mt-4 text-3xl sm:text-4xl">Les valeurs qui guident notre équipe</h2>
     </div>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {% for icon_name, title, text in values %}

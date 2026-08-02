@@ -5,7 +5,7 @@
 <div class="space-y-8">
   <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
     <div>
-      <h1 class="text-2xl font-extrabold sm:text-3xl">Bonjour, {{ first_name }} 👋</h1>
+      <h1 class="display-title text-2xl sm:text-3xl">Bonjour, {{ first_name }} 👋</h1>
       <p class="mt-1 text-sm text-text-muted">Voici un aperçu de votre activité Blue Sky.</p>
     </div>
     <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">{% icon "send" size=16 %} Nouveau transfert</a>
@@ -15,7 +15,7 @@
     {% for icon_name, label, value in stats %}
       <div class="rounded-2xl border border-border bg-surface p-6">
         <div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue dark:bg-white/10 dark:text-brand-gold-light">{% icon icon_name size=18 %}</div>
-        <p class="text-2xl font-extrabold">{{ value }}</p>
+        <p class="text-2xl font-bold text-brand-blue">{{ value }}</p>
         <p class="text-sm text-text-muted">{{ label }}</p>
       </div>
     {% endfor %}

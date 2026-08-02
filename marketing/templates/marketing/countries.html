@@ -4,11 +4,12 @@
 {% block description %}Retrouvez les coordonnées de toutes les agences Blue Sky en RDC, Zambie, Namibie, Afrique du Sud, Zimbabwe, Kenya, Tanzanie et Malawi.{% endblock %}
 {% block content %}
 
-<section class="bg-brand-blue py-16 text-white sm:py-20">
-  <div class="mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
-    {% kicker "Nos agences" %}
-    <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-extrabold sm:text-5xl">Blue Sky, présent dans {{ COUNTRIES|length }} pays d'Afrique</h1>
-    <p class="mx-auto mt-4 max-w-2xl text-white/70">Contactez directement l'agence la plus proche de vous, ou démarrez votre transfert en ligne depuis votre compte Blue Sky.</p>
+<section class="hero-mesh relative overflow-hidden">
+  <div aria-hidden class="subtle-grid absolute inset-0 opacity-40"></div>
+  <div class="relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
+    {% kicker "Nos agences" tone="blue" %}
+    <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Blue Sky, présent dans {{ COUNTRIES|length }} pays d'Afrique</h1>
+    <p class="mx-auto mt-4 max-w-2xl text-text-muted">Contactez directement l'agence la plus proche de vous, ou démarrez votre transfert en ligne depuis votre compte Blue Sky.</p>
   </div>
 </section>
 
