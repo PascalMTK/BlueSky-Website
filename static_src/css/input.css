@@ -167,7 +167,8 @@ p { text-wrap: pretty; }
   inset: -2.5rem 12% 31% -8%;
   z-index: -1;
   background: linear-gradient(135deg, var(--color-brand-blue), #6881c5);
-  clip-path: polygon(25% 0, 100% 0, 68% 100%, 0 100%);
+  border-radius: 2.75rem;
+  transform: rotate(-7deg);
 }
 .geo-hero-visual::after {
   content: "";
@@ -178,7 +179,8 @@ p { text-wrap: pretty; }
   left: -2rem;
   z-index: -1;
   background: var(--color-surface-muted);
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  border-radius: 2.25rem;
+  transform: rotate(45deg);
 }
 .geo-hero-photo {
   clip-path: polygon(16% 8%, 100% 8%, 100% 100%, 0 100%, 0 34%);
@@ -618,8 +620,8 @@ th { font-size: .75rem; letter-spacing: .06em; }
   50% { background-position: 100% center; }
 }
 @keyframes geo-breathe {
-  0%, 100% { transform: translate3d(0,0,0) rotate(-1deg); }
-  50% { transform: translate3d(8px,-10px,0) rotate(1deg); }
+  0%, 100% { transform: translate3d(0,0,0) rotate(-7deg); }
+  50% { transform: translate3d(8px,-10px,0) rotate(-5deg); }
 }
 @keyframes card-orbit {
   0%, 100% { transform: translate3d(0,0,0); }
