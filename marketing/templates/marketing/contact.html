@@ -1,5 +1,5 @@
 {% extends "marketing/base_marketing.html" %}
-{% load icons ui %}
+{% load icons ui static %}
 {% block title %}Contact | Blue Sky{% endblock %}
 {% block description %}Contactez l'équipe Blue Sky par téléphone, WhatsApp, e-mail ou via notre formulaire en ligne.{% endblock %}
 {% block content %}
@@ -62,6 +62,22 @@
         <button type="submit" class="btn btn-primary w-full">Envoyer le message</button>
       </form>
     {% endif %}
+  </div>
+</section>
+
+<!-- Community Pride Section -->
+<section class="border-t border-border bg-surface-muted py-16 sm:py-24">
+  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
+    <div class="reveal-on-scroll space-y-5 text-center lg:text-left">
+      {% kicker "Fierté locale" tone="blue" %}
+      <h2 class="display-title text-3xl sm:text-4xl">Une équipe joignable, une communauté fidèle</h2>
+      <p class="mx-auto max-w-md leading-relaxed text-text-muted lg:mx-0">
+        Que ce soit par téléphone, WhatsApp ou en agence, notre équipe reste à l'écoute — merci à toutes les personnes qui portent fièrement les couleurs Blue Sky partout où elles se trouvent.
+      </p>
+    </div>
+    <figure class="reveal-on-scroll overflow-hidden rounded-[1.75rem] border border-border shadow-2xl">
+      <img src="{% static 'img/community-brand-student-2.png' %}" alt="Un membre de la communauté Blue Sky portant un t-shirt à l'effigie de la marque" class="aspect-[4/3] h-full w-full object-cover" loading="lazy">
+    </figure>
   </div>
 </section>
 
