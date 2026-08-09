@@ -134,6 +134,7 @@ p { text-wrap: pretty; }
 }
 .premium-card {
   border: 1px solid var(--color-border);
+  border-radius: 1.5rem;
   background: var(--color-surface);
   box-shadow: 0 18px 48px -34px color-mix(in srgb, var(--color-brand-blue-deep) 42%, transparent);
   transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
@@ -314,6 +315,7 @@ p { text-wrap: pretty; }
 /* ---------- Shared button component classes (mirrors the old React <Button>) ---------- */
 .btn {
   @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+  min-height: 2.75rem;
   letter-spacing: -.02em;
 }
 .btn > svg { flex: 0 0 auto; }
@@ -380,6 +382,7 @@ table tbody tr { transition: background-color .2s ease; }
 table tbody tr:hover { background: color-mix(in srgb, var(--color-brand-blue) 5%, transparent); }
 form input, form select, form textarea {
   width: 100%;
+  min-height: 3rem;
   border: 1px solid var(--color-border);
   border-radius: 1rem;
   background: var(--color-surface);
@@ -387,6 +390,27 @@ form input, form select, form textarea {
   color: var(--color-text);
 }
 form textarea { min-height: 7rem; resize: vertical; }
+
+/* Consistent geometry and readable content across marketing and dashboard UI. */
+main article,
+main form,
+main [class*="shadow"] {
+  background-clip: padding-box;
+}
+.service-image-card,
+.service-image-card img,
+.service-image-card::after {
+  border-radius: inherit;
+}
+.service-image-card h3 { line-height: 1.2; }
+.service-image-card p { line-height: 1.65; }
+.bank-card { border-radius: 1.75rem; }
+table { font-size: .875rem; }
+th { font-size: .75rem; letter-spacing: .06em; }
+@media (min-width: 768px) {
+  [data-reveal-group] { align-items: stretch; }
+  [data-reveal-group] > * { height: 100%; }
+}
 @media (max-width: 767px) {
   .display-title { letter-spacing: -.055em; }
   .hero-mesh .glass-panel { border-radius: 1.25rem; }
@@ -433,6 +457,98 @@ form textarea { min-height: 7rem; resize: vertical; }
     color-mix(in srgb, var(--color-brand-blue-deep) 92%, transparent) 100%);
 }
 
+/* ---------- Scroll-triggered entrance animations ----------
+   Elements start hidden/offset and settle into place the first time they
+   cross into the viewport (see static_src/js/reveal.js). Wrap a set of
+   siblings with [data-reveal-group] to stagger their entrance in DOM order. */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px) scale(.985);
+  transition: opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);
+  transition-delay: calc(var(--reveal-index, 0) * 80ms);
+  will-change: opacity, transform;
+}
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- Campaign-poster accents (sunburst rays + contact pill) ----------
+   Borrowed from Blue Sky's own social campaign artwork: bold diagonal rays
+   radiating from a corner, and a two-tone pill for "call us now" moments. */
+.sunburst-rays {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.sunburst-rays span {
+  position: absolute;
+  top: -10%;
+  left: 8%;
+  width: 3px;
+  height: 46%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--color-brand-gold), transparent);
+  transform-origin: top center;
+  opacity: .85;
+}
+.sunburst-rays span:nth-child(1) { left: 6%;  transform: rotate(-22deg); height: 38%; }
+.sunburst-rays span:nth-child(2) { left: 14%; transform: rotate(-6deg);  height: 50%; }
+.sunburst-rays span:nth-child(3) { left: 22%; transform: rotate(10deg); height: 34%; }
+.sunburst-rays span:nth-child(4) { left: 30%; transform: rotate(24deg); height: 26%; }
+@media (prefers-reduced-motion: no-preference) {
+  .sunburst-rays span { animation: ray-flicker 4.5s ease-in-out infinite; }
+  .sunburst-rays span:nth-child(2) { animation-delay: -1.2s; }
+  .sunburst-rays span:nth-child(3) { animation-delay: -2.4s; }
+  .sunburst-rays span:nth-child(4) { animation-delay: -3.3s; }
+}
+@keyframes ray-flicker {
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--color-brand-gold);
+  box-shadow: 0 14px 32px -14px color-mix(in srgb, var(--color-brand-gold-dark) 70%, transparent);
+}
+.contact-pill-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: .2rem;
+  border-radius: 999px;
+  background: var(--color-brand-blue-deep);
+  color: #fff;
+  flex-shrink: 0;
+}
+.contact-pill-text {
+  padding: 0 1.25rem 0 .75rem;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: var(--color-brand-blue-deep);
+  white-space: nowrap;
+}
+.contact-pill-text small {
+  display: block;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  opacity: .75;
+}
+
 /* ---------- Pulsing "live" badge dot ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .badge-dot-pulse { animation: badge-blink 1.6s infinite; }
@@ -440,4 +556,76 @@ form textarea { min-height: 7rem; resize: vertical; }
 @keyframes badge-blink {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: .35; transform: scale(1.6); }
+}
+
+/* ---------- Immersive motion layer ---------- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 100;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-cyan), var(--color-brand-gold));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color-brand-gold) 65%, transparent);
+}
+.cursor-aura {
+  position: fixed;
+  z-index: 0;
+  width: 28rem;
+  height: 28rem;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .15;
+  filter: blur(10px);
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-brand-cyan) 34%, transparent), transparent 68%);
+  transform: translate3d(calc(var(--aura-x, -30rem) - 50%), calc(var(--aura-y, -30rem) - 50%), 0);
+  transition: opacity .35s ease;
+}
+[data-parallax] {
+  translate: 0 var(--parallax-y, 0);
+  will-change: translate;
+}
+.reference-hero .text-brand-blue {
+  background: linear-gradient(100deg, var(--color-brand-blue) 15%, var(--color-brand-cyan) 48%, var(--color-brand-blue) 82%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.service-image-card .absolute.inset-x-0,
+.premium-card > div:last-child {
+  transition: transform .45s cubic-bezier(.16,.8,.24,1);
+}
+.service-image-card:hover .absolute.inset-x-0 { transform: translateY(-7px); }
+.premium-card:hover > div:last-child { transform: translateY(-4px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .reference-hero { animation: hero-grid-drift 18s linear infinite; }
+  .reference-hero .text-brand-blue { animation: text-shimmer 5s ease-in-out infinite; }
+  .geo-hero-visual::before { animation: geo-breathe 7s ease-in-out infinite; }
+  .bank-card::after { animation: card-orbit 9s ease-in-out infinite; }
+}
+@keyframes hero-grid-drift {
+  to { background-position: 56px 56px, 56px 56px, 0 0; }
+}
+@keyframes text-shimmer {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+@keyframes geo-breathe {
+  0%, 100% { transform: translate3d(0,0,0) rotate(-1deg); }
+  50% { transform: translate3d(8px,-10px,0) rotate(1deg); }
+}
+@keyframes card-orbit {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(-14px,12px,0); }
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-aura { display: none; }
+  [data-parallax] { translate: none; }
 }

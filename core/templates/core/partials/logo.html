@@ -1,21 +1,9 @@
-<a href="{% url 'marketing:home' %}" class="inline-flex items-center gap-2.5 {{ extra_class }}">
-  <svg width="42" height="42" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Blue Sky" class="drop-shadow-sm">
-    <circle cx="20" cy="20" r="20" fill="var(--color-brand-blue)" />
-    <g transform="translate(11 9) rotate(-12 9 11)">
-      <rect x="0" y="4" width="14" height="18" rx="2.4" fill="white" fill-opacity="0.28" />
-    </g>
-    <g transform="translate(13 8) rotate(-4 9 11)">
-      <rect x="0" y="4" width="14" height="18" rx="2.4" fill="white" fill-opacity="0.55" />
-    </g>
-    <g transform="translate(15 7) rotate(6 9 11)">
-      <rect x="0" y="4" width="14" height="18" rx="2.4" fill="white" />
-      <circle cx="7" cy="13" r="3.1" fill="var(--color-brand-blue)" />
-    </g>
-    <circle cx="10.5" cy="29.5" r="6" fill="var(--color-brand-gold)" />
-    <text x="10.5" y="33" text-anchor="middle" font-size="7.5" font-weight="700" fill="var(--color-brand-blue-deep)" font-family="system-ui, sans-serif">S</text>
-  </svg>
-  <span class="flex flex-col leading-none">
-    <span class="text-xl font-extrabold tracking-[-.04em]">Blue<span class="text-brand-gold">Sky</span></span>
-    <span class="mt-0.5 text-[9px] font-bold uppercase tracking-[0.22em] text-text-muted {{ tagline_class }}">Money Transfer</span>
-  </span>
+{% load static %}
+<a href="{% url 'marketing:home' %}" class="inline-flex items-center {{ extra_class }}" aria-label="Blue Sky — Accueil">
+  {% if light_logo %}
+    <img src="{% static 'img/WhatsApp_Image_2026-01-27_at_11.11.59_PM-removebg-preview.png' %}" alt="Blue Sky" class="h-14 w-auto object-contain sm:h-16" width="370" height="219">
+  {% else %}
+    <img src="{% static 'img/WhatsApp_Image_2026-01-27_at_11.11.59_PM__1_-removebg-preview.png' %}" alt="Blue Sky" class="h-14 w-auto object-contain dark:hidden sm:h-16" width="340" height="209">
+    <img src="{% static 'img/WhatsApp_Image_2026-01-27_at_11.11.59_PM-removebg-preview.png' %}" alt="" aria-hidden="true" class="hidden h-14 w-auto object-contain dark:block sm:h-16" width="370" height="219">
+  {% endif %}
 </a>

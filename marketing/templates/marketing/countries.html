@@ -1,23 +1,45 @@
 {% extends "marketing/base_marketing.html" %}
-{% load ui %}
+{% load static icons ui %}
 {% block title %}Nos agences | Blue Sky{% endblock %}
-{% block description %}Retrouvez les coordonnées de toutes les agences Blue Sky en RDC, Zambie, Namibie, Afrique du Sud, Zimbabwe, Kenya, Tanzanie et Malawi.{% endblock %}
+{% block description %}Retrouvez les coordonnées de toutes les agences Blue Sky en RDC, Zambie, Namibie, Afrique du Sud, Zimbabwe, Kenya, Ouganda, Tanzanie et Malawi.{% endblock %}
 {% block content %}
 
 <section class="hero-mesh relative overflow-hidden">
   <div aria-hidden class="subtle-grid absolute inset-0 opacity-40"></div>
-  <div class="relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
+  <div class="reveal-on-scroll relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
     {% kicker "Nos agences" tone="blue" %}
     <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Blue Sky, présent dans {{ COUNTRIES|length }} pays d'Afrique</h1>
     <p class="mx-auto mt-4 max-w-2xl text-text-muted">Contactez directement l'agence la plus proche de vous pour effectuer votre transfert en toute confiance.</p>
   </div>
 </section>
 
+<section class="relative overflow-hidden border-b border-border bg-surface py-14 sm:py-20">
+  <div class="sunburst-rays opacity-60" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <div class="relative z-10 mx-auto grid w-full max-w-[1440px] items-center gap-10 px-5 sm:px-8 lg:grid-cols-[.8fr_1.2fr] lg:px-10">
+    <div class="reveal-on-scroll order-2 lg:order-1">
+      {% kicker "Destination Kenya" tone="blue" %}
+      <h2 class="display-title mt-5 text-4xl sm:text-5xl">Envoyez de l’argent au Kenya simplement</h2>
+      <p class="mt-5 max-w-xl text-base leading-relaxed text-text-muted sm:text-lg">
+        Blue Sky vous accompagne pour vos transferts vers le Kenya avec sécurité, rapidité et transparence.
+      </p>
+      <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+        <a href="tel:+254117194191" class="btn btn-primary btn-lg">{% icon "phone" size=18 %} +254 117 194 191</a>
+        <a href="{% url 'marketing:contact' %}" class="btn btn-ghost btn-lg">Nous contacter {% icon "arrow-right" size=18 %}</a>
+      </div>
+    </div>
+    <figure class="reveal-on-scroll order-1 overflow-hidden rounded-[2rem] border border-border bg-surface-muted shadow-[0_28px_70px_-42px_rgba(12,24,54,.6)] lg:order-2">
+      <img src="{% static 'img/kenya-transfer-campaign.jpeg' %}" alt="Campagne Blue Sky pour les transferts d’argent vers le Kenya" class="aspect-square h-full w-full object-cover" loading="lazy">
+    </figure>
+  </div>
+</section>
+
 <section class="py-20 sm:py-28">
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
       {% for country in COUNTRIES %}
-        {% include "core/partials/country_card.html" %}
+        <div class="reveal-on-scroll">
+          {% include "core/partials/country_card.html" %}
+        </div>
       {% endfor %}
     </div>
   </div>

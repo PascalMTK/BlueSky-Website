@@ -26,9 +26,9 @@ SITE = {
     "definition": (
         "Blue Sky est une agence de transfert d'argent spécialisée dans les "
         "transactions internationales entre la République Démocratique du Congo, la "
-        "Namibie, la Zambie, l'Afrique du Sud, le Zimbabwe, le Kenya, la Tanzanie et le "
-        "Malawi. Nous offrons des solutions rapides, fiables et sécurisées pour "
-        "envoyer et recevoir de l'argent à travers ces pays."
+        "Namibie, la Zambie, l'Afrique du Sud, le Zimbabwe, le Kenya, l'Ouganda, la "
+        "Tanzanie et le Malawi. Nous offrons des solutions rapides, fiables et "
+        "sécurisées pour envoyer et recevoir de l'argent à travers ces pays."
     ),
     "payment_partners": [
         "M-Pesa",
@@ -91,7 +91,15 @@ COUNTRIES = [
         "flag": "🇰🇪",
         "address": "",
         "phones": ["+254 117 194 191"],
-        "note": "",
+        "note": "Envoyez de l'argent au Kenya facilement, rapidement et en toute sécurité.",
+    },
+    {
+        "code": "UG",
+        "name": "Ouganda",
+        "flag": "🇺🇬",
+        "address": "Kampala",
+        "phones": ["+243 972 113 974"],
+        "note": "Nouvelle agence",
     },
     {
         "code": "ZW",
@@ -111,4 +119,4 @@ COUNTRIES = [
     },
 ]
 
-CURRENCIES = ["USD", "CDF", "ZMW", "NAD", "ZAR", "KES", "TZS", "MWK"]
+CURRENCIES = ["USD", "CDF", "ZMW", "NAD", "ZAR", "KES", "UGX", "TZS", "MWK"]

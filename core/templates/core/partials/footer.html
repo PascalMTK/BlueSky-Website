@@ -23,7 +23,7 @@
   <div class="relative mx-auto grid w-full max-w-[1440px] gap-12 px-6 pb-20 sm:px-8 md:grid-cols-12 lg:px-12">
     <!-- Brand Info -->
     <div class="space-y-6 md:col-span-5 lg:col-span-5">
-      {% include "core/partials/logo.html" with tagline_class="text-white/60" %}
+      {% include "core/partials/logo.html" with light_logo=True %}
       <p class="max-w-md text-sm leading-relaxed text-white/70 font-normal">
         {{ SITE.mission }}
       </p>
@@ -55,19 +55,19 @@
       <h3 class="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">Contact direct</h3>
       <ul class="space-y-4 text-sm text-white/70">
         <li class="flex items-start gap-3">
-          <div class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/5 text-brand-gold">
+          <div class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-brand-gold">
             {% icon "map-pin" size=16 %}
           </div>
           <span class="leading-relaxed">{{ SITE.head_office_address }}</span>
         </li>
         <li class="flex items-center gap-3">
-          <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/5 text-brand-gold">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-brand-gold">
             {% icon "phone" size=16 %}
           </div>
           <span>{{ SITE.primary_phone }}</span>
         </li>
         <li class="flex items-center gap-3">
-          <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/5 text-brand-gold">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-brand-gold">
             {% icon "mail" size=16 %}
           </div>
           <span>{{ SITE.primary_email }}</span>
@@ -86,7 +86,7 @@
         <span class="text-white/40">Présent dans {{ COUNTRIES|length }} pays :</span>
         <div class="flex flex-wrap items-center gap-1.5">
           {% for c in COUNTRIES %}
-            <span class="rounded bg-white/5 px-2 py-0.5 font-medium text-white/70 border border-white/5">{{ c.name }}</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-medium text-white/70">{{ c.name }}</span>
           {% endfor %}
         </div>
       </div>

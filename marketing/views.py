@@ -45,16 +45,14 @@ STEPS = [
     ),
 ]
 
-HERO_STATS = [
-    ("8", "pays connectés"),
-    ("7", "moyens de paiement"),
-    ("100%", "suivi personnalisé"),
-    ("1", "équipe à votre écoute"),
-]
-
-
 def home(request):
-    context = {"features": FEATURES, "steps": STEPS, "hero_stats": HERO_STATS}
+    hero_stats = [
+        (str(len(COUNTRIES)), "pays connectés"),
+        ("7", "moyens de paiement"),
+        ("100%", "suivi personnalisé"),
+        ("1", "équipe à votre écoute"),
+    ]
+    context = {"features": FEATURES, "steps": STEPS, "hero_stats": hero_stats}
     return render(request, "marketing/home.html", context)
 
 

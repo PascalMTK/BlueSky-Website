@@ -7,9 +7,9 @@
   <aside class="sticky top-0 hidden h-screen bg-brand-blue-deep text-white lg:flex lg:flex-col lg:justify-between lg:p-6 lg:border-r lg:border-white/10">
     <div class="space-y-8">
       <!-- Logo Container -->
-      <a href="/" class="block px-2 transition-opacity hover:opacity-90">
-        {% include "core/partials/logo.html" %}
-      </a>
+      <div class="px-2 transition-opacity hover:opacity-90">
+        {% include "core/partials/logo.html" with light_logo=True %}
+      </div>
 
       <!-- Navigation -->
       <nav class="space-y-1">
