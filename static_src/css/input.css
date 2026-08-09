@@ -5,19 +5,19 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --bg: #ffffff;
+  --bg: #fbfcfe;
   --surface: #ffffff;
-  --surface-muted: #f4f6fb;
-  --text: #1e2534;
+  --surface-muted: #f3f6fa;
+  --text: #111827;
   --text-muted: #667085;
-  --border: #e5e8f0;
-  --brand-blue: #4c63b6;
-  --brand-blue-dark: #37478c;
-  --brand-blue-deep: #1b2242;
-  --brand-gold: #f9b936;
-  --brand-gold-dark: #e0a316;
-  --brand-gold-light: #ffd166;
-  --brand-cyan: #6f93e8;
+  --border: #e2e8f0;
+  --brand-blue: #2447a8;
+  --brand-blue-dark: #173580;
+  --brand-blue-deep: #0c1836;
+  --brand-gold: #f4b83f;
+  --brand-gold-dark: #d8991f;
+  --brand-gold-light: #ffcf6b;
+  --brand-cyan: #6d8fe5;
 }
 
 .dark {
@@ -59,8 +59,30 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans), system-ui, sans-serif;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.012em;
   line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+.site-header { box-shadow: 0 1px 0 rgba(12,24,54,.06), 0 12px 34px rgba(12,24,54,.045); }
+.trust-pill {
+  padding: .55rem .8rem;
+  border: 1px solid color-mix(in srgb, var(--color-brand-blue) 18%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  box-shadow: 0 8px 24px -18px var(--color-brand-blue-deep);
+}
+.client-avatar {
+  display: inline-flex;
+  width: 2.15rem;
+  height: 2.15rem;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-bg);
+  border-radius: 999px;
+  color: white;
+  font-size: .55rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
 }
 button, a { -webkit-tap-highlight-color: transparent; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
@@ -107,13 +129,16 @@ p { text-wrap: pretty; }
 .display-title {
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.045em;
+  line-height: .98;
 }
 .premium-card {
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: 0 14px 0 -8px color-mix(in srgb, var(--color-brand-blue) 13%, transparent);
+  box-shadow: 0 18px 48px -34px color-mix(in srgb, var(--color-brand-blue-deep) 42%, transparent);
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
 }
+.premium-card:hover { border-color: color-mix(in srgb, var(--color-brand-blue) 25%, var(--color-border)); box-shadow: 0 24px 55px -36px color-mix(in srgb, var(--color-brand-blue-deep) 55%, transparent); transform: translateY(-2px); }
 .glass-panel {
   border: 1px solid rgba(255,255,255,.14);
   background: rgba(255,255,255,.09);
@@ -121,11 +146,54 @@ p { text-wrap: pretty; }
   backdrop-filter: blur(22px);
 }
 .hero-mesh {
-  background-color: var(--color-surface-muted);
+  background-color: var(--color-bg);
   background-image:
-    radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--color-brand-gold) 20%, transparent), transparent 32%),
-    radial-gradient(circle at 8% 92%, color-mix(in srgb, var(--color-brand-blue) 14%, transparent), transparent 30%),
-    linear-gradient(180deg, var(--color-surface-muted) 0%, var(--color-bg) 100%);
+    radial-gradient(circle at 88% 6%, color-mix(in srgb, var(--color-brand-gold) 13%, transparent), transparent 30%),
+    radial-gradient(circle at 4% 88%, color-mix(in srgb, var(--color-brand-blue) 9%, transparent), transparent 28%),
+    linear-gradient(180deg, var(--color-surface-muted) 0%, var(--color-bg) 88%);
+}
+.reference-hero {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--color-brand-blue) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--color-brand-blue) 4%, transparent) 1px, transparent 1px),
+    var(--color-bg);
+  background-size: 56px 56px;
+}
+.geo-hero-visual { position: relative; isolation: isolate; }
+.geo-hero-visual::before {
+  content: "";
+  position: absolute;
+  inset: -2.5rem 12% 31% -8%;
+  z-index: -1;
+  background: linear-gradient(135deg, var(--color-brand-blue), #6881c5);
+  clip-path: polygon(25% 0, 100% 0, 68% 100%, 0 100%);
+}
+.geo-hero-visual::after {
+  content: "";
+  position: absolute;
+  width: 9rem;
+  height: 9rem;
+  bottom: 0;
+  left: -2rem;
+  z-index: -1;
+  background: var(--color-surface-muted);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+.geo-hero-photo {
+  clip-path: polygon(16% 8%, 100% 8%, 100% 100%, 0 100%, 0 34%);
+}
+.service-image-card { position: relative; min-height: 25rem; overflow: hidden; }
+.service-image-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 32%, rgba(12,24,54,.18) 54%, rgba(12,24,54,.94) 100%);
+}
+.service-image-card img { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
+.service-image-card:hover img { transform: scale(1.045); }
+.geo-about-photo {
+  clip-path: polygon(50% 0, 100% 32%, 84% 86%, 50% 100%, 8% 82%, 0 34%);
+  filter: drop-shadow(0 28px 35px rgba(12,24,54,.16));
 }
 .route-line { position: relative; }
 .route-line::before {
@@ -189,15 +257,15 @@ p { text-wrap: pretty; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
-  filter: grayscale(1) contrast(1.15);
-  opacity: .16;
+  object-position: center 22%;
+  filter: grayscale(.25) contrast(1.05);
+  opacity: .6;
 }
 .hero-photo-merge::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(15,13,98,.94) 0%, rgba(48,44,255,.7) 62%, rgba(23,20,202,.58) 100%);
+  background: linear-gradient(100deg, rgba(15,13,98,.7) 0%, rgba(48,44,255,.42) 62%, rgba(23,20,202,.32) 100%);
 }
 
 /* ---------- Floating gradient orbs (depth / parallax feel) ---------- */
@@ -245,17 +313,19 @@ p { text-wrap: pretty; }
 
 /* ---------- Shared button component classes (mirrors the old React <Button>) ---------- */
 .btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
   letter-spacing: -.02em;
 }
+.btn > svg { flex: 0 0 auto; }
 .btn:disabled { @apply opacity-60 pointer-events-none translate-y-0; }
 .btn-primary {
-  color: #fff;
-  background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-gold));
-  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--color-brand-blue) 55%, transparent);
+  color: var(--color-brand-blue-deep);
+  background: linear-gradient(135deg, var(--color-brand-gold-light), var(--color-brand-gold));
+  box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--color-brand-gold-dark) 65%, transparent);
 }
 .btn-primary:hover {
-  box-shadow: 0 14px 32px -8px color-mix(in srgb, var(--color-brand-blue) 65%, transparent);
+  background: var(--color-brand-gold-light);
+  box-shadow: 0 14px 32px -8px color-mix(in srgb, var(--color-brand-gold-dark) 65%, transparent);
 }
 .btn-secondary { @apply bg-brand-blue text-white hover:bg-brand-blue-dark shadow-lg shadow-brand-blue/20; }
 .btn-outline-light { @apply border border-white/35 bg-white/5 text-white backdrop-blur hover:bg-white hover:text-brand-blue-deep; }
@@ -286,13 +356,12 @@ p { text-wrap: pretty; }
   box-shadow: 0 34px 70px -35px rgba(27,34,66,.8);
 }
 .service-card {
-  background:
-    radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--color-brand-gold) 55%, transparent), transparent 55%),
-    linear-gradient(155deg, var(--color-brand-blue-deep) 10%, var(--color-brand-blue) 100%);
-  box-shadow: 0 30px 60px -32px color-mix(in srgb, var(--color-brand-blue-deep) 70%, transparent);
-  transition: transform .3s ease;
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(145deg, #13234a 0%, var(--color-brand-blue) 100%);
+  box-shadow: 0 24px 55px -34px color-mix(in srgb, var(--color-brand-blue-deep) 82%, transparent);
+  transition: transform .25s ease, box-shadow .25s ease;
 }
-.service-card:hover { transform: translateY(-4px); }
+.service-card:hover { transform: translateY(-3px); box-shadow: 0 30px 62px -34px color-mix(in srgb, var(--color-brand-blue-deep) 88%, transparent); }
 .bank-card::after {
   content: "";
   position: absolute;
@@ -321,6 +390,47 @@ form textarea { min-height: 7rem; resize: vertical; }
 @media (max-width: 767px) {
   .display-title { letter-spacing: -.055em; }
   .hero-mesh .glass-panel { border-radius: 1.25rem; }
+  html { font-size: 16px; }
+  .hero-mesh .display-title { font-size: clamp(2.65rem, 13vw, 3.65rem); }
+  .geo-hero-visual::before { inset: -1.5rem 8% 38% -5%; }
+  .service-image-card { min-height: 22rem; }
+}
+
+/* ---------- Faint full-bleed background photography ----------
+   Drop as the first child of a `position:relative` section, followed by
+   the section's real content wrapped in `relative z-10`. The photo sits
+   behind everything at low opacity with a brand-colored wash on top so
+   it reads as texture/mood rather than a foreground subject. */
+.section-photo-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.section-photo-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .16;
+  filter: grayscale(.3) contrast(1.05);
+}
+.section-photo-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    var(--color-bg) 0%,
+    color-mix(in srgb, var(--color-bg) 58%, transparent) 45%,
+    var(--color-bg) 100%);
+}
+/* Variant for sections already on the deep navy brand background. */
+.section-photo-bg-dark img { opacity: .22; filter: grayscale(.15) contrast(1.05); }
+.section-photo-bg-dark::after {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--color-brand-blue-deep) 90%, transparent) 0%,
+    color-mix(in srgb, var(--color-brand-blue-deep) 78%, transparent) 45%,
+    color-mix(in srgb, var(--color-brand-blue-deep) 92%, transparent) 100%);
 }
 
 /* ---------- Pulsing "live" badge dot ---------- */
