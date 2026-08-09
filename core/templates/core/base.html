@@ -1,28 +1,47 @@
 {% load static %}
 <!doctype html>
-<html lang="fr" class="h-full antialiased">
+<html lang="fr" class="h-full scroll-smooth antialiased dark">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>{% block title %}Blue Sky — Transfert d'argent international{% endblock %}</title>
   <meta name="description" content="{% block description %}Blue Sky connecte la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, la Tanzanie et le Malawi pour des transferts d'argent rapides, fiables et sécurisés.{% endblock %}">
+
+  <!-- Local favicon: keep the first render independent from third-party hosts. -->
   <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#0F172A">
+
+  <!-- The stylesheet uses a local system-font stack, so page rendering never
+       waits on Google Fonts or another third-party host. -->
   <link rel="stylesheet" href="{% static 'css/output.css' %}">
+
+  <!-- Theme Detection & Global CSS Variables Injection -->
   <script>
     (function () {
       try {
-        var stored = localStorage.getItem("bluesky-theme");
-        var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        if (theme === "dark") document.documentElement.classList.add("dark");
-      } catch (e) {}
+        const stored = localStorage.getItem("bluesky-theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (stored === "dark" || (!stored && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      } catch (e) {
+        document.documentElement.classList.add("dark");
+      }
     })();
   </script>
+
+  {% block extra_head %}{% endblock %}
 </head>
-<body class="min-h-full flex flex-col bg-bg text-text selection:bg-brand-gold selection:text-brand-blue-deep">
-  {% block body %}{% endblock %}
+<body class="min-h-full flex flex-col font-sans bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-amber-400 selection:text-slate-950 transition-colors duration-200">
+  
+  <!-- Content Wrapper -->
+  <main class="flex-grow flex flex-col">
+    {% block body %}{% endblock %}
+  </main>
+
+  <!-- Global Deferred Scripts -->
   <script src="{% static 'js/theme.js' %}" defer></script>
   <script src="{% static 'js/tilt.js' %}" defer></script>
   {% block extra_scripts %}{% endblock %}

@@ -30,26 +30,21 @@
   </div>
 </section>
 
-<section class="bg-surface-muted py-20 sm:py-28">
-  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-[0.85fr_1.15fr]">
-    <div class="relative mx-auto w-full max-w-sm">
-      <div class="absolute -inset-4 -z-10 rounded-[2.5rem] bg-brand-blue/10"></div>
-      <div class="overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="{% static 'img/founder-portrait.jpg' %}" alt="Fondatrice de Blue Sky" class="h-[480px] w-full object-cover object-top">
-      </div>
-    </div>
-    <div class="space-y-6">
-      {% kicker "Notre vision" tone="blue" %}
-      <div class="text-brand-gold">{% icon "quote" size=36 %}</div>
-      <p class="text-2xl font-semibold leading-snug sm:text-3xl">
-        &laquo; Nous voulons qu'aucune distance, aucune frontière n'empêche une famille de prendre soin des siens. Blue Sky existe pour que chaque franc, chaque kwacha, chaque rand envoyé arrive à destination avec la même confiance qu'une remise en main propre. &raquo;
-      </p>
-      <p class="text-sm text-text-muted">L'équipe de direction, Blue Sky</p>
-      <p class="leading-relaxed text-text-muted">
-        Cette vision guide chacune de nos décisions : ouvrir de nouvelles agences là où les familles en ont besoin, simplifier chaque étape du transfert, et rester joignables humainement, pas seulement via une application.
-      </p>
-      <a href="{% url 'accounts:signup' %}" class="btn btn-secondary btn-md">Rejoindre Blue Sky</a>
-    </div>
+<section class="relative overflow-hidden bg-brand-blue-deep py-24 text-white sm:py-32">
+  <div class="section-photo-bg section-photo-bg-dark" aria-hidden="true">
+    <img src="{% static 'img/founder-portrait.jpg' %}" alt="">
+  </div>
+  <div class="relative z-10 mx-auto max-w-3xl px-5 text-center sm:px-8">
+    {% kicker "Notre vision" %}
+    <div class="mt-5 flex justify-center text-brand-gold">{% icon "quote" size=36 %}</div>
+    <p class="mt-5 text-2xl font-semibold leading-snug sm:text-3xl">
+      &laquo; Nous voulons qu'aucune distance, aucune frontière n'empêche une famille de prendre soin des siens. Blue Sky existe pour que chaque franc, chaque kwacha, chaque rand envoyé arrive à destination avec la même confiance qu'une remise en main propre. &raquo;
+    </p>
+    <p class="mt-4 text-sm text-white/60">L'équipe de direction, Blue Sky</p>
+    <p class="mx-auto mt-6 max-w-xl leading-relaxed text-white/75">
+      Cette vision guide chacune de nos décisions : ouvrir de nouvelles agences là où les familles en ont besoin, simplifier chaque étape du transfert, et rester joignables humainement, pas seulement via une application.
+    </p>
+    <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-md mt-8">Nous contacter</a>
   </div>
 </section>
 

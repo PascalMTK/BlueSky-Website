@@ -1,40 +1,86 @@
 {% extends "marketing/base_marketing.html" %}
 {% load icons ui static %}
+
 {% block title %}Notre équipe | Blue Sky{% endblock %}
 {% block description %}Rencontrez l'équipe Blue Sky, présente sur le terrain dans chacun de nos pays pour accompagner vos transferts d'argent.{% endblock %}
+
 {% block content %}
 
-<section class="hero-mesh relative overflow-hidden">
-  <div aria-hidden class="subtle-grid absolute inset-0 opacity-40"></div>
-  <div class="relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
+<!-- Hero Header Section -->
+<section class="relative overflow-hidden bg-gradient-to-b from-brand-blue-deep/5 via-bg to-bg py-20 sm:py-28">
+  <div aria-hidden="true" class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-40 dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]"></div>
+  
+  <div class="relative mx-auto w-full max-w-[1440px] px-6 text-center sm:px-8 lg:px-12">
     {% kicker "L'équipe Blue Sky" tone="blue" %}
-    <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Des visages, pas seulement une plateforme</h1>
-    <p class="mx-auto mt-4 max-w-2xl text-text-muted">Derrière chaque transfert Blue Sky, une équipe basée en Afrique australe travaille chaque jour pour que votre argent arrive vite et en sécurité.</p>
-  </div>
-</section>
-
-<section class="py-20 sm:py-28">
-  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="overflow-hidden rounded-[2rem] shadow-2xl">
-      <img src="{% static 'img/team-photo.jpg' %}" alt="L'équipe Blue Sky réunie sur le terrain" class="h-[320px] w-full object-cover sm:h-[480px]">
-    </div>
-    <p class="mx-auto mt-8 max-w-3xl text-center leading-relaxed text-text-muted">
-      Notre équipe combine des profils opérationnels, un service client réactif et des agents locaux répartis dans nos {{ countries_count }} pays de couverture — de Lubumbashi à Windhoek, en passant par Lusaka et Lilongwe.
+    <h1 class="font-display mx-auto mt-4 max-w-4xl text-4xl font-extrabold tracking-tight text-text sm:text-6xl sm:leading-tight">
+      Des visages humains derrière vos transferts
+    </h1>
+    <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg">
+      Derrière chaque transfert Blue Sky, une équipe ancrée en Afrique australe veille chaque jour à ce que votre argent arrive vite et en toute sécurité.
     </p>
   </div>
 </section>
 
-<section class="bg-surface-muted py-20 sm:py-28">
-  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="mx-auto mb-14 max-w-2xl text-center">
-      {% kicker "Ce qui nous anime" tone="blue" %}
-      <h2 class="display-title mt-4 text-3xl sm:text-4xl">Les valeurs qui guident notre équipe</h2>
+<!-- Team Photo & Core Mission Section -->
+<section class="py-12 sm:py-20">
+  <div class="mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">
+    <div class="relative overflow-hidden rounded-3xl border border-border/80 bg-surface shadow-2xl">
+      <div class="relative h-[360px] w-full bg-brand-blue-deep sm:h-[520px]">
+        <img
+          src="{% static 'img/team-photo.jpg' %}"
+          alt="L'équipe Blue Sky réunie sur le terrain"
+          class="h-full w-full object-cover opacity-35"
+          style="object-position: center 20%"
+        >
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/90 via-brand-blue-deep/40 to-brand-blue-deep/60"></div>
+        <div class="absolute bottom-6 left-6 right-6 sm:bottom-10 sm:left-10 sm:right-10 text-white">
+          <span class="inline-flex items-center gap-2 rounded-full bg-brand-gold/20 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand-gold backdrop-blur-md border border-brand-gold/30">
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-gold animate-pulse"></span>
+            Proximité & Terrain
+          </span>
+          <h2 class="mt-3 text-2xl font-bold sm:text-4xl text-white">Une présence locale forte dans chaque agence.</h2>
+        </div>
+      </div>
     </div>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+    <!-- Impact Numbers Banner -->
+    <div class="mt-12 grid gap-8 lg:grid-cols-12 lg:items-center">
+      <p class="text-base leading-relaxed text-text-muted sm:text-lg lg:col-span-8">
+        Notre équipe combine des profils opérationnels, un service client réactif et des agents locaux répartis dans nos <strong class="font-bold text-text">{{ countries_count }} pays</strong> de couverture — de Lubumbashi à Windhoek, en passant par Lusaka et Lilongwe.
+      </p>
+      
+      <div class="flex items-center justify-around rounded-2xl border border-border/60 bg-surface-muted/60 p-6 backdrop-blur-sm lg:col-span-4">
+        <div class="text-center">
+          <span class="block text-3xl font-extrabold text-brand-blue sm:text-4xl">{{ countries_count }}</span>
+          <span class="text-xs font-medium uppercase tracking-wider text-text-muted">Pays couverts</span>
+        </div>
+        <div class="h-10 w-px bg-border"></div>
+        <div class="text-center">
+          <span class="block text-3xl font-extrabold text-brand-gold sm:text-4xl">100%</span>
+          <span class="text-xs font-medium uppercase tracking-wider text-text-muted">Ancrage local</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values Cards Section -->
+<section class="border-t border-border/60 bg-surface-muted/60 py-20 sm:py-28">
+  <div class="mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">
+    <div class="mx-auto mb-16 max-w-2xl text-center">
+      {% kicker "Ce qui nous anime" tone="blue" %}
+      <h2 class="font-display mt-4 text-3xl font-extrabold tracking-tight text-text sm:text-4xl">
+        Les valeurs qui guident notre équipe
+      </h2>
+    </div>
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
       {% for icon_name, title, text in values %}
-        <div class="rounded-2xl bg-surface p-7 shadow-sm">
-          <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-gold text-brand-blue-deep">{% icon icon_name size=22 %}</div>
-          <h3 class="mb-2 text-lg font-bold">{{ title }}</h3>
+        <div class="group relative rounded-2xl border border-border/80 bg-surface p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/30 hover:shadow-xl">
+          <div class="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-gold/15 text-brand-blue-deep transition-colors group-hover:bg-brand-gold group-hover:text-brand-blue-deep dark:text-brand-gold">
+            {% icon icon_name size=24 %}
+          </div>
+          <h3 class="mb-3 text-lg font-bold text-text">{{ title }}</h3>
           <p class="text-sm leading-relaxed text-text-muted">{{ text }}</p>
         </div>
       {% endfor %}
