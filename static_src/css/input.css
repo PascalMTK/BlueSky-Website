@@ -200,7 +200,6 @@ p { text-wrap: pretty; }
 }
 .service-image-card img { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
 .service-image-card:hover img { transform: scale(1.045); }
-.service-image-card,
 .service-image-card > img,
 .service-image-card::after {
   overflow: hidden;
@@ -410,11 +409,6 @@ main article,
 main form,
 main [class*="shadow"] {
   background-clip: padding-box;
-}
-.service-image-card,
-.service-image-card img,
-.service-image-card::after {
-  border-radius: inherit;
 }
 .service-image-card h3 { line-height: 1.2; }
 .service-image-card p { line-height: 1.65; }
