@@ -106,7 +106,7 @@
     <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-reveal-group>
       {% for icon_name, title, text in features %}
         {% cycle 'img/community-outreach-portrait.jpg' 'img/community-brand-duo.png' 'img/community-brand-student-1.png' 'img/community-brand-student-2.png' as feature_image silent %}
-        <article class="service-image-card reveal-on-scroll group rounded-[3rem] border border-brand-blue/15 bg-brand-blue-deep shadow-[0_28px_65px_-30px_rgba(12,24,54,.75)]">
+        <article class="service-image-card reveal-on-scroll group rounded-[3rem] bg-brand-blue-deep">
           <img src="{% static feature_image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
           <div class="absolute inset-x-0 bottom-0 z-10 p-7 text-white">
               <div class="icon-chip-photo mb-5">
@@ -200,7 +200,7 @@
     </div>
     <div class="grid auto-rows-fr gap-6 md:grid-cols-3" data-reveal-group>
       {% for icon_name, title, text, image in savings_segments %}
-        <article class="service-image-card reveal-on-scroll group rounded-[3rem] border border-brand-blue/15 bg-brand-blue-deep shadow-[0_28px_65px_-30px_rgba(12,24,54,.75)]">
+        <article class="service-image-card reveal-on-scroll group rounded-[3rem] bg-brand-blue-deep">
           <img src="{% static image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
           <div class="absolute inset-x-0 bottom-0 z-10 p-7 text-white">
             <div class="icon-chip-photo mb-5">
