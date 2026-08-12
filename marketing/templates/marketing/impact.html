@@ -92,6 +92,69 @@
   </div>
 </section>
 
+<!-- Families / Students / Entrepreneurs Support Section -->
+<section class="overflow-hidden bg-surface-muted/55 py-16 sm:py-24">
+  <div aria-hidden="true" class="absolute -left-24 top-16 h-72 w-72 rounded-full bg-brand-blue/10 blur-3xl"></div>
+  <div aria-hidden="true" class="absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-brand-gold/15 blur-3xl"></div>
+  <div class="mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">
+    <div class="reveal-on-scroll relative mx-auto mb-12 max-w-3xl text-center sm:mb-16">
+      {% kicker "Ce que permet chaque transfert" tone="blue" %}
+      <h2 class="font-display mt-5 text-3xl font-extrabold tracking-tight text-text sm:text-5xl">Votre argent fait avancer ce qui compte vraiment</h2>
+      <p class="mx-auto mt-5 max-w-2xl leading-relaxed text-text-muted">Un transfert ne se résume pas à un montant. C'est un repas partagé, un diplôme qui se rapproche ou une idée qui devient une vraie activité.</p>
+    </div>
+    <div class="relative grid gap-6 md:grid-cols-3" data-reveal-group>
+      <article class="reveal-on-scroll group overflow-hidden rounded-[2rem] border border-border/80 bg-surface shadow-[0_24px_60px_-38px_rgba(12,24,54,.55)] transition duration-300 hover:-translate-y-2 hover:border-brand-blue/25 hover:shadow-[0_30px_70px_-35px_rgba(12,24,54,.5)]">
+        <div class="relative h-64 overflow-hidden bg-brand-blue-deep sm:h-72">
+          <img src="{% static 'img/african-descent-family-house-home-resting-living.jpg' %}" alt="Une famille africaine épargnant ensemble à la maison" loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/75 via-transparent to-transparent"></div>
+          <span class="absolute left-5 top-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-white/90 text-brand-blue-deep shadow-lg backdrop-blur-sm">{% icon "users" size=22 %}</span>
+          <span class="absolute bottom-5 left-5 rounded-full border border-white/20 bg-brand-blue-deep/70 px-3 py-1 text-xs font-bold uppercase tracking-[.16em] text-brand-gold backdrop-blur-md">Familles</span>
+        </div>
+        <div class="p-6 sm:p-7">
+          <h3 class="font-display text-xl font-extrabold tracking-tight text-text">Toujours proche des siens</h3>
+          <p class="mt-3 text-sm leading-relaxed text-text-muted">Contribuer au quotidien, aux soins et aux projets de la famille, même lorsque des frontières vous séparent.</p>
+          <p class="mt-6 flex items-center gap-2 text-sm font-bold text-brand-blue">Soutenir le quotidien <span class="transition-transform group-hover:translate-x-1">→</span></p>
+        </div>
+      </article>
+
+      <article class="reveal-on-scroll group overflow-hidden rounded-[2rem] border border-border/80 bg-surface shadow-[0_24px_60px_-38px_rgba(12,24,54,.55)] transition duration-300 hover:-translate-y-2 hover:border-brand-blue/25 hover:shadow-[0_30px_70px_-35px_rgba(12,24,54,.5)] md:-translate-y-4 md:hover:-translate-y-6">
+        <div class="relative h-64 overflow-hidden bg-brand-blue-deep sm:h-72">
+          <img src="{% static 'img/studious-teen-girl-with-backpack-notebooks-yellow-backdrop-smiling-pointing-aside.jpg' %}" alt="Une étudiante avec ses cahiers, soutenue par sa famille via Blue Sky" loading="lazy" class="h-full w-full object-cover object-left transition duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/75 via-transparent to-transparent"></div>
+          <span class="absolute left-5 top-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-brand-gold text-brand-blue-deep shadow-lg">{% icon "graduation-cap" size=23 %}</span>
+          <span class="absolute bottom-5 left-5 rounded-full border border-white/20 bg-brand-blue-deep/70 px-3 py-1 text-xs font-bold uppercase tracking-[.16em] text-brand-gold backdrop-blur-md">Étudiants</span>
+        </div>
+        <div class="p-6 sm:p-7">
+          <h3 class="font-display text-xl font-extrabold tracking-tight text-text">Investir dans leur avenir</h3>
+          <p class="mt-3 text-sm leading-relaxed text-text-muted">Payer les frais de scolarité, le logement ou le matériel nécessaire pour apprendre et réussir sereinement.</p>
+          <p class="mt-6 flex items-center gap-2 text-sm font-bold text-brand-blue">Financer les études <span class="transition-transform group-hover:translate-x-1">→</span></p>
+        </div>
+      </article>
+
+      <article class="reveal-on-scroll group overflow-hidden rounded-[2rem] border border-border/80 bg-surface shadow-[0_24px_60px_-38px_rgba(12,24,54,.55)] transition duration-300 hover:-translate-y-2 hover:border-brand-blue/25 hover:shadow-[0_30px_70px_-35px_rgba(12,24,54,.5)]">
+        <div class="relative h-64 overflow-hidden bg-brand-blue-deep sm:h-72">
+          <img src="{% static 'img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg' %}" alt="Une jeune entrepreneure africaine au téléphone devant son commerce" loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/75 via-transparent to-transparent"></div>
+          <span class="absolute left-5 top-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-white/90 text-brand-blue-deep shadow-lg backdrop-blur-sm">{% icon "briefcase" size=22 %}</span>
+          <span class="absolute bottom-5 left-5 rounded-full border border-white/20 bg-brand-blue-deep/70 px-3 py-1 text-xs font-bold uppercase tracking-[.16em] text-brand-gold backdrop-blur-md">Entrepreneurs</span>
+        </div>
+        <div class="p-6 sm:p-7">
+          <h3 class="font-display text-xl font-extrabold tracking-tight text-text">Donner de l'élan aux idées</h3>
+          <p class="mt-3 text-sm leading-relaxed text-text-muted">Acheter du matériel, payer un fournisseur ou renforcer la trésorerie pour transformer une ambition en activité durable.</p>
+          <p class="mt-6 flex items-center gap-2 text-sm font-bold text-brand-blue">Faire grandir l'activité <span class="transition-transform group-hover:translate-x-1">→</span></p>
+        </div>
+      </article>
+    </div>
+    <div class="reveal-on-scroll relative mx-auto mt-10 flex max-w-3xl flex-col items-center justify-between gap-5 rounded-3xl border border-brand-blue/15 bg-brand-blue-deep px-6 py-6 text-center shadow-xl sm:flex-row sm:px-8 sm:text-left">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[.18em] text-brand-gold">Construire demain</p>
+        <p class="mt-1 font-semibold text-white">Un projet en tête ? Découvrez une épargne pensée pour vos objectifs.</p>
+      </div>
+      <a href="{% url 'marketing:home' %}#epargne" class="btn btn-secondary shrink-0">Découvrir l'Épargne {% icon "arrow-right" size=16 %}</a>
+    </div>
+  </div>
+</section>
+
 <!-- Community Call-to-Action Banner Section -->
 <section class="border-t border-border/60 bg-surface-muted/60 py-20 sm:py-28">
   <div class="mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">

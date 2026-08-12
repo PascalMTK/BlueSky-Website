@@ -180,10 +180,23 @@
 
 <section id="epargne" class="py-24 sm:py-32">
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="reveal-on-scroll mx-auto mb-14 max-w-2xl text-center">
-      {% kicker "Notre branche Épargne" tone="blue" %}
-      <h2 class="display-title mt-5 text-4xl sm:text-5xl">{{ SITE.savings_tagline }}</h2>
-      <p class="mx-auto mt-4 max-w-xl text-text-muted">{{ SITE.savings_description }}</p>
+    <div class="reveal-on-scroll mb-14 grid items-center gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-16">
+      <div class="relative mx-auto w-full max-w-sm px-4 py-6 lg:mx-0">
+        <div aria-hidden class="absolute inset-0 -z-10 -translate-x-4 rounded-full bg-brand-gold/10"></div>
+        <div class="geo-about-photo relative aspect-square overflow-hidden bg-brand-blue-deep">
+          <img src="{% static 'img/flags/womans-hand-stacks-silver-coins-symbolizing-financial-growth-investment-increase-side-view-w.jpg' %}" alt="Pièces empilées symbolisant la croissance de l'épargne" class="h-full w-full object-cover opacity-80">
+          <div class="absolute inset-0 bg-gradient-to-br from-brand-blue-deep/50 via-transparent to-brand-blue/30"></div>
+        </div>
+        <div class="absolute bottom-3 right-0 flex items-center gap-3 rounded-2xl bg-brand-gold px-5 py-3.5 text-brand-blue-deep shadow-xl">
+          {% icon "piggy-bank" size=22 %}
+          <p class="max-w-[9rem] text-xs font-bold uppercase leading-snug tracking-[.1em]">Épargner un peu, chaque mois</p>
+        </div>
+      </div>
+      <div class="text-center lg:text-left">
+        {% kicker "Notre branche Épargne" tone="blue" %}
+        <h2 class="display-title mt-5 text-4xl sm:text-5xl">{{ SITE.savings_tagline }}</h2>
+        <p class="mx-auto mt-4 max-w-xl text-text-muted lg:mx-0">{{ SITE.savings_description }}</p>
+      </div>
     </div>
     <div class="grid auto-rows-fr gap-6 md:grid-cols-3" data-reveal-group>
       {% for icon_name, title, text, image in savings_segments %}
