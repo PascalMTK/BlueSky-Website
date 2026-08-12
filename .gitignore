@@ -10,6 +10,7 @@ db.sqlite3
 staticfiles/
 media/
 debug_next.txt
+django-server.*.log
 
 # Node (Tailwind build tooling only, never run on the server)
 node_modules/

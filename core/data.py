@@ -13,6 +13,7 @@ SITE = {
     "social": {
         "tiktok": "https://www.tiktok.com/@africa_bluesky",
         "facebook": "https://www.facebook.com/profile.php?id=61588726012210",
+        "instagram": "https://www.instagram.com/reel/Dam1JrQKAHQ/?igsh=MTRiZzZqOXV2NWd4Nw==",
     },
     "mission": (
         "Connecter les pays, les continents et les monnaies à une seule table qui est "
@@ -39,6 +40,13 @@ SITE = {
         "Illicocash",
         "PMobile",
     ],
+    "savings_tagline": "Épargnez sereinement, à votre rythme",
+    "savings_description": (
+        "En plus du transfert d'argent, Blue Sky propose une branche Épargne : "
+        "un moyen simple et sécurisé de mettre de l'argent de côté pour vos études, "
+        "votre famille ou votre activité, avec le même accompagnement humain que pour "
+        "chaque transfert."
+    ),
 }
 
 COUNTRIES = [

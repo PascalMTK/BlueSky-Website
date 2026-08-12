@@ -149,8 +149,9 @@ p { text-wrap: pretty; }
 .hero-mesh {
   background-color: var(--color-bg);
   background-image:
-    radial-gradient(circle at 88% 6%, color-mix(in srgb, var(--color-brand-gold) 13%, transparent), transparent 30%),
-    radial-gradient(circle at 4% 88%, color-mix(in srgb, var(--color-brand-blue) 9%, transparent), transparent 28%),
+    radial-gradient(circle at 88% 6%, color-mix(in srgb, var(--color-brand-gold) 9%, transparent), transparent 30%),
+    radial-gradient(circle at 4% 88%, color-mix(in srgb, var(--color-brand-blue) 15%, transparent), transparent 32%),
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--color-brand-cyan) 9%, transparent), transparent 40%),
     linear-gradient(180deg, var(--color-surface-muted) 0%, var(--color-bg) 88%);
 }
 .reference-hero {
@@ -166,8 +167,8 @@ p { text-wrap: pretty; }
   position: absolute;
   inset: -2.5rem 12% 31% -8%;
   z-index: -1;
-  background: linear-gradient(135deg, var(--color-brand-blue), #6881c5);
-  border-radius: 2.75rem;
+  background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-cyan));
+  border-radius: 50%;
   transform: rotate(-7deg);
 }
 .geo-hero-visual::after {
@@ -179,11 +180,10 @@ p { text-wrap: pretty; }
   left: -2rem;
   z-index: -1;
   background: var(--color-surface-muted);
-  border-radius: 2.25rem;
-  transform: rotate(45deg);
+  border-radius: 50%;
 }
 .geo-hero-photo {
-  clip-path: polygon(16% 8%, 100% 8%, 100% 100%, 0 100%, 0 34%);
+  border-radius: 3.5rem 3.5rem 3.5rem 9rem;
 }
 .service-image-card { position: relative; min-height: 25rem; overflow: hidden; }
 .service-image-card::after {
@@ -195,7 +195,7 @@ p { text-wrap: pretty; }
 .service-image-card img { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
 .service-image-card:hover img { transform: scale(1.045); }
 .geo-about-photo {
-  clip-path: polygon(50% 0, 100% 32%, 84% 86%, 50% 100%, 8% 82%, 0 34%);
+  border-radius: 50%;
   filter: drop-shadow(0 28px 35px rgba(12,24,54,.16));
 }
 .route-line { position: relative; }
@@ -339,7 +339,7 @@ p { text-wrap: pretty; }
 
 /* ---------- Gradient hero text (mirrors reference site's h1 em) ---------- */
 .text-gradient-sky {
-  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-gold));
+  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-cyan));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -355,7 +355,7 @@ p { text-wrap: pretty; }
   position: relative;
   overflow: hidden;
   border-radius: 1.75rem;
-  background: linear-gradient(145deg, #1b2242, #4c63b6);
+  background: linear-gradient(145deg, #14204a, #3467dd);
   color: #fff;
   box-shadow: 0 34px 70px -35px rgba(27,34,66,.8);
 }
@@ -465,17 +465,19 @@ th { font-size: .75rem; letter-spacing: .06em; }
    siblings with [data-reveal-group] to stagger their entrance in DOM order. */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(28px) scale(.985);
-  transition: opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);
-  transition-delay: calc(var(--reveal-index, 0) * 80ms);
-  will-change: opacity, transform;
+  transform: translateY(46px) scale(.92) rotate(-1.2deg);
+  filter: blur(7px);
+  transition: opacity .85s cubic-bezier(.19,1,.22,1), transform .85s cubic-bezier(.19,1,.22,1), filter .7s ease-out;
+  transition-delay: calc(var(--reveal-index, 0) * 90ms);
+  will-change: opacity, transform, filter;
 }
 .reveal-on-scroll.is-visible {
   opacity: 1;
   transform: none;
+  filter: blur(0);
 }
 @media (prefers-reduced-motion: reduce) {
-  .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
+  .reveal-on-scroll { opacity: 1; transform: none; filter: none; transition: none; }
 }
 
 /* ---------- Campaign-poster accents (sunburst rays + contact pill) ----------
@@ -495,7 +497,7 @@ th { font-size: .75rem; letter-spacing: .06em; }
   width: 3px;
   height: 46%;
   border-radius: 999px;
-  background: linear-gradient(180deg, var(--color-brand-gold), transparent);
+  background: linear-gradient(180deg, var(--color-brand-cyan), transparent);
   transform-origin: top center;
   opacity: .85;
 }

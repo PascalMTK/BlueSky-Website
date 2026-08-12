@@ -9,6 +9,11 @@
   <div class="relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
     {% kicker "Parlons-en" tone="blue" %}
     <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Une question ? Notre équipe vous répond</h1>
+    {% if requested_service == "epargne" %}
+      <p class="mx-auto mt-5 inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-brand-gold/10 px-4 py-2 text-sm font-semibold text-brand-blue dark:text-brand-gold-light">
+        {% icon "piggy-bank" size=16 %} Vous vous enrôlez pour le service Épargne
+      </p>
+    {% endif %}
   </div>
 </section>
 
@@ -58,6 +63,7 @@
         {% include "core/_field.html" with field=form.full_name %}
         {% include "core/_field.html" with field=form.email %}
         {% include "core/_field.html" with field=form.country %}
+        {% include "core/_field.html" with field=form.service %}
         {% include "core/_field.html" with field=form.message %}
         <button type="submit" class="btn btn-primary w-full">Envoyer le message</button>
       </form>

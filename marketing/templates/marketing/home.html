@@ -3,6 +3,8 @@
 {% block content %}
 
 <section class="reference-hero relative overflow-hidden">
+  <div aria-hidden="true" class="orb orb-slow" style="width:24rem;height:24rem;top:-8rem;right:-6rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-blue) 50%, transparent), transparent 70%);"></div>
+  <div aria-hidden="true" class="orb orb-slow orb-delay" style="width:15rem;height:15rem;bottom:-2rem;left:-4rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-cyan) 55%, transparent), transparent 70%);"></div>
   <div class="relative mx-auto grid min-h-[680px] w-full max-w-[1440px] gap-20 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:px-12 lg:py-24">
     <div class="reveal text-center lg:text-left">
       <div class="mb-7 inline-flex items-center gap-3 text-xs font-extrabold uppercase tracking-[.18em] text-brand-blue">
@@ -73,12 +75,28 @@
   </div>
 </section>
 
+<section class="relative overflow-hidden bg-brand-blue-deep py-20 text-white sm:py-28">
+  <div class="section-photo-bg section-photo-bg-dark">
+    <img src="{% static 'img/flags/construction-site-showcasing-modern-house-development-amidst-overcast-skies.jpg' %}" alt="" loading="lazy">
+  </div>
+  <div aria-hidden="true" class="orb orb-slow" style="width:20rem;height:20rem;top:-6rem;left:-4rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-gold) 45%, transparent), transparent 70%);"></div>
+  <div class="reveal-on-scroll relative z-10 mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
+    {% kicker "Bâtissons ensemble" %}
+    <h2 class="display-title mx-auto mt-5 max-w-3xl text-4xl sm:text-5xl">Construisez votre avenir en toute <span class="text-brand-gold">sécurité</span> et en toute <span class="text-brand-gold">confiance</span> avec Blue Sky</h2>
+    <p class="mx-auto mt-5 max-w-2xl text-white/75">Qu'il s'agisse de financer un projet de construction, de soutenir votre famille ou de faire grandir votre activité, Blue Sky vous accompagne dans {{ COUNTRIES|length }} pays d'Afrique avec la même rigueur à chaque transfert.</p>
+    <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">Nous contacter pour ce service {% icon "arrow-right" size=18 %}</a>
+      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" class="btn btn-outline-light btn-lg">Parler à un conseiller</a>
+    </div>
+  </div>
+</section>
+
 <section class="py-24 sm:py-28">
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
     <div class="reveal-on-scroll mb-12 grid gap-7 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
       <div class="max-w-xl">
         {% kicker "Pourquoi Blue Sky" tone="blue" %}
-        <h2 class="display-title mt-5 text-4xl sm:text-5xl">Des services conçus autour de votre confiance</h2>
+        <h2 class="display-title mt-5 text-4xl sm:text-5xl">Des services construits autour de la confiance</h2>
       </div>
       <div class="flex items-end justify-between gap-5 border-l-0 border-border lg:border-l lg:pl-8">
         <p class="max-w-md text-sm leading-relaxed text-text-muted">Une présence locale, un suivi transparent et une équipe disponible pour que chaque transfert reste simple du départ à l'arrivée.</p>
@@ -87,11 +105,11 @@
     </div>
     <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-reveal-group>
       {% for icon_name, title, text in features %}
-        {% cycle 'img/team-photo.jpg' 'img/community-outreach-group.jpg' 'img/community-outreach-portrait.jpg' 'img/team-photo.jpg' as feature_image silent %}
+        {% cycle 'img/community-outreach-portrait.jpg' 'img/community-brand-duo.png' 'img/community-brand-student-1.png' 'img/community-brand-student-2.png' as feature_image silent %}
         <article class="service-image-card reveal-on-scroll group rounded-[1.75rem] bg-brand-blue-deep shadow-[0_24px_55px_-35px_rgba(12,24,54,.7)]">
           <img src="{% static feature_image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
           <div class="absolute inset-x-0 bottom-0 z-10 p-7 text-white">
-              <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/30 bg-white/10 text-white backdrop-blur-sm transition group-hover:bg-white group-hover:text-brand-blue">
+              <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm transition group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue">
                 {% icon icon_name size=22 %}
               </div>
               <h3 class="mb-2 text-xl font-bold">{{ title }}</h3>
@@ -113,7 +131,7 @@
       {% for icon_name, title, text in steps %}
         <article class="premium-card reveal-on-scroll group relative flex min-h-[17rem] flex-col overflow-hidden rounded-[1.5rem] p-7 sm:p-8">
           <span aria-hidden="true" class="absolute right-6 top-5 font-sans text-5xl font-black leading-none tracking-[-.08em] text-brand-blue/10 transition-colors group-hover:text-brand-blue/15 dark:text-white/5 dark:group-hover:text-white/10">0{{ forloop.counter }}</span>
-          <div class="relative mb-8 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-gold text-brand-blue-deep shadow-[0_10px_24px_-14px_rgba(245,180,43,.9)]">
+          <div class="relative mb-8 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-blue text-white shadow-[0_10px_24px_-14px_rgba(36,71,168,.75)] transition-transform duration-300 ease-out group-hover:scale-110 group-hover:-rotate-6">
             {% icon icon_name size=22 %}
           </div>
           <div class="relative mt-auto">
@@ -160,10 +178,40 @@
   </div>
 </section>
 
+<section id="epargne" class="py-24 sm:py-32">
+  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
+    <div class="reveal-on-scroll mx-auto mb-14 max-w-2xl text-center">
+      {% kicker "Notre branche Épargne" tone="blue" %}
+      <h2 class="display-title mt-5 text-4xl sm:text-5xl">{{ SITE.savings_tagline }}</h2>
+      <p class="mx-auto mt-4 max-w-xl text-text-muted">{{ SITE.savings_description }}</p>
+    </div>
+    <div class="grid auto-rows-fr gap-6 md:grid-cols-3" data-reveal-group>
+      {% for icon_name, title, text, image in savings_segments %}
+        <article class="service-image-card reveal-on-scroll group rounded-[1.75rem] bg-brand-blue-deep shadow-[0_24px_55px_-35px_rgba(12,24,54,.7)]">
+          <img src="{% static image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
+          <div class="absolute inset-x-0 bottom-0 z-10 p-7 text-white">
+            <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm transition group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue">
+              {% icon icon_name size=22 %}
+            </div>
+            <h3 class="mb-2 text-xl font-bold">{{ title }}</h3>
+            <p class="text-sm leading-relaxed text-white/72">{{ text }}</p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+    <div class="mt-12 flex flex-col items-center gap-3">
+      <a href="{% url 'marketing:contact' %}?service=epargne" class="btn btn-primary btn-lg">
+        {% icon "piggy-bank" size=18 %} S'enrôler au service épargne
+      </a>
+      <p class="text-xs text-text-muted">Ou écrivez-nous directement sur <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" class="font-semibold text-brand-blue hover:underline dark:text-brand-gold-light">WhatsApp</a></p>
+    </div>
+  </div>
+</section>
+
 <section class="py-24 sm:py-32">
   <div class="mx-auto grid w-full max-w-[1440px] items-center gap-20 px-5 sm:px-8 lg:grid-cols-[.95fr_1.05fr] lg:px-12">
     <div class="reveal-on-scroll relative mx-auto w-full max-w-lg px-6 py-8">
-      <div aria-hidden class="absolute inset-0 -z-10 translate-x-4 rotate-6 rounded-[3rem] bg-brand-blue/8"></div>
+      <div aria-hidden class="absolute inset-0 -z-10 translate-x-4 rounded-full bg-brand-blue/8"></div>
       <div class="geo-about-photo relative aspect-square overflow-hidden bg-brand-blue-deep">
         <img src="{% static 'img/community-outreach-group.jpg' %}" alt="Blue Sky aux côtés des enfants d'un orphelinat en Namibie" class="h-full w-full object-cover opacity-35">
         <div class="absolute inset-0 bg-gradient-to-br from-brand-blue-deep/60 via-transparent to-brand-blue/50"></div>
@@ -181,14 +229,14 @@
       </p>
       <div class="grid gap-4 sm:grid-cols-2">
         <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-5 shadow-sm">
-          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-blue/20 bg-brand-blue/5 text-brand-blue">{% icon "heart-handshake" size=19 %}</span>
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-blue/20 bg-brand-blue/5 text-brand-blue">{% icon "heart-handshake" size=19 %}</span>
           <div>
             <p class="text-sm font-bold">Présence locale</p>
             <p class="mt-1 text-sm leading-relaxed text-text-muted">Des équipes sur le terrain, pas seulement en ligne.</p>
           </div>
         </div>
         <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-5 shadow-sm">
-          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-blue/20 bg-brand-blue/5 text-brand-blue">{% icon "hand-heart" size=19 %}</span>
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-blue/20 bg-brand-blue/5 text-brand-blue">{% icon "hand-heart" size=19 %}</span>
           <div>
             <p class="text-sm font-bold">Impact direct</p>
             <p class="mt-1 text-sm leading-relaxed text-text-muted">Du temps et des ressources pour les communautés locales.</p>
@@ -202,6 +250,7 @@
 
 <section class="subtle-grid relative overflow-hidden bg-brand-blue-deep py-20 text-white sm:py-24">
   <div class="sunburst-rays" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <div aria-hidden="true" class="orb orb-slow" style="width:22rem;height:22rem;bottom:-8rem;right:-5rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-blue) 55%, transparent), transparent 70%);"></div>
   <div class="reveal-on-scroll relative z-10 mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
     {% kicker "Commencez aujourd'hui" %}
     <h2 class="display-title mx-auto mt-5 max-w-3xl text-4xl sm:text-5xl">Prêt à envoyer votre argent en toute confiance ?</h2>
