@@ -189,8 +189,7 @@ p { text-wrap: pretty; }
   position: relative;
   min-height: 25rem;
   overflow: hidden;
-  border: 7px solid var(--color-surface);
-  box-shadow: 0 0 0 1px var(--color-border), 0 26px 55px -28px color-mix(in srgb, var(--color-brand-blue-deep) 60%, transparent);
+  box-shadow: 0 26px 55px -28px color-mix(in srgb, var(--color-brand-blue-deep) 60%, transparent);
 }
 .service-image-card::after {
   content: "";
