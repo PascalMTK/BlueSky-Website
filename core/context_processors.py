@@ -20,6 +20,7 @@ DASHBOARD_NAV_ROUTES = [
 
 def site_data(request):
     nav_items = [(reverse(name), label) for name, label in NAV_ROUTES]
+    nav_items.insert(1, (f"{reverse('marketing:home')}#epargne", "Épargne"))
     dashboard_nav_items = [
         (reverse(name), label, icon_name, True)
         for name, label, icon_name in DASHBOARD_NAV_ROUTES

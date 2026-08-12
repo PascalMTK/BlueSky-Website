@@ -27,7 +27,7 @@
     
     <!-- Text Content Column -->
     <div class="reveal-on-scroll space-y-6 lg:col-span-6">
-      <div class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-gold/15 text-brand-blue-deep dark:text-brand-gold ring-1 ring-brand-gold/30">
+      <div class="icon-chip icon-chip-gold-soft">
         {% icon "hand-heart" size=24 %}
       </div>
       
@@ -57,7 +57,7 @@
 
     <!-- Portrait Card Image Column -->
     <div class="reveal-on-scroll relative lg:col-span-6">
-      <div class="relative overflow-hidden rounded-3xl border border-border/80 bg-brand-blue-deep shadow-2xl">
+      <div class="relative overflow-hidden rounded-4xl border border-border/80 bg-brand-blue-deep shadow-2xl">
         <img
           src="{% static 'img/community-outreach-portrait.jpg' %}"
           alt="Une membre de l'équipe Blue Sky avec une enfant de l'orphelinat"
@@ -103,12 +103,12 @@
       <p class="mx-auto mt-5 max-w-2xl leading-relaxed text-text-muted">Un transfert ne se résume pas à un montant. C'est un repas partagé, un diplôme qui se rapproche ou une idée qui devient une vraie activité.</p>
     </div>
     <div class="relative grid gap-6 md:grid-cols-3" data-reveal-group>
-      <article class="reveal-on-scroll group overflow-hidden rounded-[2rem] border border-border/80 bg-surface shadow-[0_24px_60px_-38px_rgba(12,24,54,.55)] transition duration-300 hover:-translate-y-2 hover:border-brand-blue/25 hover:shadow-[0_30px_70px_-35px_rgba(12,24,54,.5)]">
-        <div class="relative h-64 overflow-hidden bg-brand-blue-deep sm:h-72">
-          <img src="{% static 'img/african-descent-family-house-home-resting-living.jpg' %}" alt="Une famille africaine épargnant ensemble à la maison" loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+      <article class="framed-card reveal-on-scroll group">
+        <div class="framed-card-photo relative h-64 bg-brand-blue-deep sm:h-72">
+          <img src="{% static 'img/african-descent-family-house-home-resting-living.jpg' %}" alt="Une famille africaine épargnant ensemble à la maison" loading="lazy" class="h-full w-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/75 via-transparent to-transparent"></div>
-          <span class="absolute left-5 top-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-white/90 text-brand-blue-deep shadow-lg backdrop-blur-sm">{% icon "users" size=22 %}</span>
-          <span class="absolute bottom-5 left-5 rounded-full border border-white/20 bg-brand-blue-deep/70 px-3 py-1 text-xs font-bold uppercase tracking-[.16em] text-brand-gold backdrop-blur-md">Familles</span>
+          <span class="icon-chip-photo absolute left-5 top-5">{% icon "users" size=20 %}</span>
+          <span class="photo-tag absolute bottom-5 left-5">Familles</span>
         </div>
         <div class="p-6 sm:p-7">
           <h3 class="font-display text-xl font-extrabold tracking-tight text-text">Toujours proche des siens</h3>
@@ -117,12 +117,12 @@
         </div>
       </article>
 
-      <article class="reveal-on-scroll group overflow-hidden rounded-[2rem] border border-border/80 bg-surface shadow-[0_24px_60px_-38px_rgba(12,24,54,.55)] transition duration-300 hover:-translate-y-2 hover:border-brand-blue/25 hover:shadow-[0_30px_70px_-35px_rgba(12,24,54,.5)] md:-translate-y-4 md:hover:-translate-y-6">
-        <div class="relative h-64 overflow-hidden bg-brand-blue-deep sm:h-72">
-          <img src="{% static 'img/studious-teen-girl-with-backpack-notebooks-yellow-backdrop-smiling-pointing-aside.jpg' %}" alt="Une étudiante avec ses cahiers, soutenue par sa famille via Blue Sky" loading="lazy" class="h-full w-full object-cover object-left transition duration-700 group-hover:scale-105">
+      <article class="framed-card reveal-on-scroll group md:-translate-y-4">
+        <div class="framed-card-photo relative h-64 bg-brand-blue-deep sm:h-72">
+          <img src="{% static 'img/studious-teen-girl-with-backpack-notebooks-yellow-backdrop-smiling-pointing-aside.jpg' %}" alt="Une étudiante avec ses cahiers, soutenue par sa famille via Blue Sky" loading="lazy" class="h-full w-full object-cover object-left">
           <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/75 via-transparent to-transparent"></div>
-          <span class="absolute left-5 top-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-brand-gold text-brand-blue-deep shadow-lg">{% icon "graduation-cap" size=23 %}</span>
-          <span class="absolute bottom-5 left-5 rounded-full border border-white/20 bg-brand-blue-deep/70 px-3 py-1 text-xs font-bold uppercase tracking-[.16em] text-brand-gold backdrop-blur-md">Étudiants</span>
+          <span class="icon-chip-photo icon-chip-gold absolute left-5 top-5">{% icon "graduation-cap" size=21 %}</span>
+          <span class="photo-tag absolute bottom-5 left-5">Étudiants</span>
         </div>
         <div class="p-6 sm:p-7">
           <h3 class="font-display text-xl font-extrabold tracking-tight text-text">Investir dans leur avenir</h3>
@@ -131,12 +131,12 @@
         </div>
       </article>
 
-      <article class="reveal-on-scroll group overflow-hidden rounded-[2rem] border border-border/80 bg-surface shadow-[0_24px_60px_-38px_rgba(12,24,54,.55)] transition duration-300 hover:-translate-y-2 hover:border-brand-blue/25 hover:shadow-[0_30px_70px_-35px_rgba(12,24,54,.5)]">
-        <div class="relative h-64 overflow-hidden bg-brand-blue-deep sm:h-72">
-          <img src="{% static 'img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg' %}" alt="Une jeune entrepreneure africaine au téléphone devant son commerce" loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+      <article class="framed-card reveal-on-scroll group">
+        <div class="framed-card-photo relative h-64 bg-brand-blue-deep sm:h-72">
+          <img src="{% static 'img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg' %}" alt="Une jeune entrepreneure africaine au téléphone devant son commerce" loading="lazy" class="h-full w-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/75 via-transparent to-transparent"></div>
-          <span class="absolute left-5 top-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-white/90 text-brand-blue-deep shadow-lg backdrop-blur-sm">{% icon "briefcase" size=22 %}</span>
-          <span class="absolute bottom-5 left-5 rounded-full border border-white/20 bg-brand-blue-deep/70 px-3 py-1 text-xs font-bold uppercase tracking-[.16em] text-brand-gold backdrop-blur-md">Entrepreneurs</span>
+          <span class="icon-chip-photo absolute left-5 top-5">{% icon "briefcase" size=20 %}</span>
+          <span class="photo-tag absolute bottom-5 left-5">Entrepreneurs</span>
         </div>
         <div class="p-6 sm:p-7">
           <h3 class="font-display text-xl font-extrabold tracking-tight text-text">Donner de l'élan aux idées</h3>
@@ -145,12 +145,24 @@
         </div>
       </article>
     </div>
-    <div class="reveal-on-scroll relative mx-auto mt-10 flex max-w-3xl flex-col items-center justify-between gap-5 rounded-3xl border border-brand-blue/15 bg-brand-blue-deep px-6 py-6 text-center shadow-xl sm:flex-row sm:px-8 sm:text-left">
-      <div>
-        <p class="text-xs font-bold uppercase tracking-[.18em] text-brand-gold">Construire demain</p>
-        <p class="mt-1 font-semibold text-white">Un projet en tête ? Découvrez une épargne pensée pour vos objectifs.</p>
+    <div class="reveal-on-scroll relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-[2rem] bg-brand-blue-deep shadow-[0_28px_70px_-30px_rgba(12,24,54,.75)]">
+      <div aria-hidden="true" class="subtle-grid absolute inset-0 opacity-60"></div>
+      <div aria-hidden="true" class="absolute -right-14 -top-20 h-60 w-60 rounded-full bg-brand-gold/20 blur-3xl"></div>
+      <div class="relative grid items-center gap-7 px-6 py-8 sm:px-9 sm:py-9 lg:grid-cols-[auto_1fr_auto] lg:gap-8">
+        <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-gold text-brand-blue-deep shadow-lg shadow-brand-gold/15">{% icon "piggy-bank" size=26 %}</span>
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[.2em] text-brand-gold">Préparez vos projets avec confiance</p>
+          <h3 class="mt-2 text-xl font-bold tracking-tight text-white sm:text-2xl">Une épargne simple, régulière et adaptée à vos ambitions</h3>
+          <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/65">Études, projet familial ou développement d'activité : avancez à votre rythme avec un accompagnement humain et un suivi transparent.</p>
+        </div>
+        <a href="{% url 'marketing:home' %}#epargne" class="group inline-flex w-full items-center justify-between gap-4 rounded-2xl border border-brand-gold/30 bg-brand-gold px-5 py-3.5 text-left text-sm font-extrabold leading-tight text-brand-blue-deep shadow-[0_14px_30px_-14px_rgba(244,184,63,.8)] transition duration-200 hover:-translate-y-0.5 hover:bg-brand-gold-light hover:shadow-[0_18px_35px_-12px_rgba(244,184,63,.8)] sm:w-auto sm:min-w-[15rem] lg:justify-self-end">
+          <span>
+            <span class="block text-[.62rem] font-bold uppercase tracking-[.16em] opacity-65">Branche Blue Sky</span>
+            <span class="mt-0.5 block">Découvrir l'épargne</span>
+          </span>
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-blue-deep text-white transition-transform duration-200 group-hover:translate-x-1">{% icon "arrow-right" size=16 %}</span>
+        </a>
       </div>
-      <a href="{% url 'marketing:home' %}#epargne" class="btn btn-secondary shrink-0">Découvrir l'Épargne {% icon "arrow-right" size=16 %}</a>
     </div>
   </div>
 </section>
@@ -160,7 +172,7 @@
   <div class="mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">
     
     <!-- Hero Group Photo Container -->
-    <div class="reveal-on-scroll relative overflow-hidden rounded-3xl border border-border/80 bg-brand-blue-deep shadow-2xl">
+    <div class="reveal-on-scroll relative overflow-hidden rounded-4xl border border-border/80 bg-brand-blue-deep shadow-2xl">
       <img
         src="{% static 'img/community-outreach-group.jpg' %}"
         alt="L'équipe Blue Sky entourée des enfants de l'orphelinat lors d'une visite"

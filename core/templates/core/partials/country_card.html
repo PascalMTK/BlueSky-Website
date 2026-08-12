@@ -1,27 +1,27 @@
 {% load icons static %}
-<article class="group relative flex h-full min-h-[24rem] flex-col overflow-hidden rounded-[1.75rem] border border-border/80 bg-surface shadow-[0_22px_55px_-38px_rgba(12,24,54,.6)] transition duration-300 hover:-translate-y-1.5 hover:border-brand-blue/30 hover:shadow-[0_28px_65px_-34px_rgba(12,24,54,.52)]">
-  <div class="relative h-40 overflow-hidden bg-brand-blue-deep">
-    <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" srcset="{% static 'img/flags/'|add:country.code|lower|add:'@2x.png' %} 2x" width="160" height="107" alt="Drapeau de {{ country.name }}" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" loading="lazy">
+<article class="framed-card group flex h-full min-h-[30rem] flex-col">
+  <div class="framed-card-photo relative h-40 bg-brand-blue-deep ring-1 ring-black/5">
+    <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" srcset="{% static 'img/flags/'|add:country.code|lower|add:'@2x.png' %} 2x" width="160" height="107" alt="Drapeau de {{ country.name }}" class="h-full w-full object-cover" loading="lazy">
     <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/65 via-transparent to-white/5"></div>
     <div class="absolute inset-x-5 bottom-4 flex items-end justify-between gap-3">
       <h3 class="text-2xl font-extrabold leading-tight tracking-tight text-white drop-shadow-md">{{ country.name }}</h3>
-      <span class="shrink-0 rounded-full border px-2.5 py-1 text-[.62rem] font-bold uppercase tracking-[.12em] backdrop-blur-md {% if country.address %}border-white/25 bg-white/90 text-brand-blue-deep{% else %}border-brand-gold/40 bg-brand-gold text-brand-blue-deep{% endif %}">
-        {% if country.address %}Agence{% else %}En ligne{% endif %}
+      <span class="photo-tag {% if country.address %}border-white/25 bg-white/90 text-brand-blue-deep{% else %}border-brand-gold/40 bg-brand-gold text-brand-blue-deep{% endif %}">
+        {% if country.address %}Agence{% else %}Transfert digital{% endif %}
       </span>
     </div>
   </div>
 
   <div class="flex flex-1 flex-col p-5 sm:p-6">
-    <div class="flex min-h-[4.5rem] items-start gap-3">
-      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl {% if country.address %}bg-brand-blue/10 text-brand-blue dark:bg-brand-blue/15 dark:text-brand-gold-light{% else %}bg-brand-gold/20 text-brand-gold-dark dark:text-brand-gold-light{% endif %}">
+    <div class="flex min-h-[7rem] items-start gap-3">
+      <span class="icon-chip {% if not country.address %}icon-chip-gold-soft{% endif %}">
         {% if country.address %}{% icon "map-pin" size=18 %}{% else %}{% icon "zap" size=18 %}{% endif %}
       </span>
       <div>
         <p class="text-[.66rem] font-bold uppercase tracking-[.14em] text-text-muted">
-          {% if country.address %}Adresse de l'agence{% else %}Opérations électroniques{% endif %}
+          {% if country.address %}Adresse de l'agence{% else %}Service de transfert électronique{% endif %}
         </p>
         <p class="mt-1 text-sm font-semibold leading-relaxed text-text">
-          {% if country.address %}{{ country.address }}{% else %}Service à distance, sans agence physique.{% endif %}
+          {% if country.address %}{{ country.address }}{% else %}Effectuez vos opérations à distance avec l'accompagnement direct de notre équipe. Un point d'accueil physique sera annoncé prochainement.{% endif %}
         </p>
       </div>
     </div>
@@ -31,7 +31,7 @@
       <ul class="space-y-2">
         {% for phone in country.phones %}
           <li>
-            <a href="tel:{{ phone }}" class="flex items-center justify-between gap-3 rounded-xl bg-surface-muted px-3.5 py-2.5 text-sm font-bold text-text transition hover:bg-brand-blue hover:text-white">
+            <a href="tel:{{ phone }}" class="flex items-center justify-between gap-3 rounded-2xl bg-surface-muted px-3.5 py-2.5 text-sm font-bold text-text transition hover:bg-brand-blue hover:text-white">
               <span class="flex items-center gap-2.5">{% icon "phone" size=15 css_class="shrink-0" %} {{ phone }}</span>
               {% icon "arrow-up-right" size=14 css_class="shrink-0 opacity-60" %}
             </a>
@@ -40,8 +40,12 @@
       </ul>
     </div>
 
-    {% if country.note %}
-      <p class="mt-4 rounded-xl border border-brand-gold/20 bg-brand-gold/10 px-3.5 py-2.5 text-xs font-medium leading-relaxed text-text-muted">{{ country.note }}</p>
-    {% endif %}
+    <div class="mt-auto pt-4">
+      {% if country.note %}
+        <p class="rounded-2xl border border-brand-gold/20 bg-brand-gold/10 px-3.5 py-2.5 text-xs font-medium leading-relaxed text-text-muted">{{ country.note }}</p>
+      {% else %}
+        <span class="block h-[2.5rem]" aria-hidden="true"></span>
+      {% endif %}
+    </div>
   </div>
 </article>

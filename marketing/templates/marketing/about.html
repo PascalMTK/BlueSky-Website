@@ -16,13 +16,13 @@
   <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-2">
     <p class="reveal-on-scroll text-lg leading-relaxed text-text-muted">{{ SITE.definition }}</p>
     <div class="grid gap-6 sm:grid-cols-2" data-reveal-group>
-      <div class="reveal-on-scroll rounded-2xl border border-border bg-surface p-7">
-        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-gold text-brand-blue-deep transition-transform duration-300 hover:scale-110">{% icon "target" size=22 %}</div>
+      <div class="content-card reveal-on-scroll group p-7">
+        <div class="icon-chip icon-chip-gold mb-4">{% icon "target" size=22 %}</div>
         <h3 class="mb-2 text-lg font-bold">Notre but</h3>
         <p class="text-sm leading-relaxed text-text-muted">{{ SITE.purpose }}</p>
       </div>
-      <div class="reveal-on-scroll rounded-2xl border border-border bg-surface p-7">
-        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue dark:bg-white/10 dark:text-brand-gold-light transition-transform duration-300 hover:scale-110">{% icon "compass" size=22 %}</div>
+      <div class="content-card reveal-on-scroll group p-7">
+        <div class="icon-chip mb-4">{% icon "compass" size=22 %}</div>
         <h3 class="mb-2 text-lg font-bold">Notre mission</h3>
         <p class="text-sm leading-relaxed text-text-muted">{{ SITE.mission }}</p>
       </div>
@@ -45,7 +45,7 @@
         class="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-3xl"
         style="object-position: center 12%"
       >
-      <div class="relative z-10 aspect-[4/5] w-full overflow-hidden rounded-[2.5rem] shadow-[0_40px_90px_-30px_rgba(0,0,0,.75)] ring-1 ring-white/15">
+      <div class="relative z-10 aspect-[4/5] w-full overflow-hidden rounded-4xl shadow-[0_40px_90px_-30px_rgba(0,0,0,.75)] ring-1 ring-white/15">
         <img
           src="{% static 'img/founder-portrait.jpg' %}"
           alt="Portrait de la direction de Blue Sky"
@@ -55,7 +55,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/70 via-transparent to-transparent"></div>
       </div>
     </div>
-    <div class="reveal-on-scroll glass-panel relative overflow-hidden rounded-[2rem] p-8 sm:p-12 lg:p-14">
+    <div class="reveal-on-scroll glass-panel relative overflow-hidden rounded-4xl p-8 sm:p-12 lg:p-14">
       <span aria-hidden="true" class="pointer-events-none absolute -top-6 left-6 font-sans text-[7rem] font-black leading-none text-brand-gold/15 sm:text-[9rem]">&rdquo;</span>
       <div class="relative">
         {% kicker "Notre vision" %}

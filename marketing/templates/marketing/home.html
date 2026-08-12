@@ -106,11 +106,11 @@
     <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-reveal-group>
       {% for icon_name, title, text in features %}
         {% cycle 'img/community-outreach-portrait.jpg' 'img/community-brand-duo.png' 'img/community-brand-student-1.png' 'img/community-brand-student-2.png' as feature_image silent %}
-        <article class="service-image-card reveal-on-scroll group rounded-[1.75rem] bg-brand-blue-deep shadow-[0_24px_55px_-35px_rgba(12,24,54,.7)]">
+        <article class="service-image-card reveal-on-scroll group rounded-[3rem] border border-brand-blue/15 bg-brand-blue-deep shadow-[0_28px_65px_-30px_rgba(12,24,54,.75)]">
           <img src="{% static feature_image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
           <div class="absolute inset-x-0 bottom-0 z-10 p-7 text-white">
-              <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm transition group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue">
-                {% icon icon_name size=22 %}
+              <div class="icon-chip-photo mb-5">
+                {% icon icon_name size=20 %}
               </div>
               <h3 class="mb-2 text-xl font-bold">{{ title }}</h3>
               <p class="text-sm leading-relaxed text-white/72">{{ text }}</p>
@@ -156,8 +156,8 @@
     </div>
     <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-reveal-group>
       {% for country in COUNTRIES %}
-        <div class="tilt-3d reveal-on-scroll rounded-[1.5rem]" data-tilt data-tilt-intensity="7">
-          <div class="tilt-3d-inner">
+        <div class="tilt-3d reveal-on-scroll h-full rounded-[1.75rem]" data-tilt data-tilt-intensity="7">
+          <div class="tilt-3d-inner h-full">
             {% include "core/partials/country_card.html" %}
             <span aria-hidden class="tilt-glare"></span>
           </div>
@@ -200,11 +200,11 @@
     </div>
     <div class="grid auto-rows-fr gap-6 md:grid-cols-3" data-reveal-group>
       {% for icon_name, title, text, image in savings_segments %}
-        <article class="service-image-card reveal-on-scroll group rounded-[1.75rem] bg-brand-blue-deep shadow-[0_24px_55px_-35px_rgba(12,24,54,.7)]">
+        <article class="service-image-card reveal-on-scroll group rounded-[3rem] border border-brand-blue/15 bg-brand-blue-deep shadow-[0_28px_65px_-30px_rgba(12,24,54,.75)]">
           <img src="{% static image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
           <div class="absolute inset-x-0 bottom-0 z-10 p-7 text-white">
-            <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm transition group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue">
-              {% icon icon_name size=22 %}
+            <div class="icon-chip-photo mb-5">
+              {% icon icon_name size=20 %}
             </div>
             <h3 class="mb-2 text-xl font-bold">{{ title }}</h3>
             <p class="text-sm leading-relaxed text-white/72">{{ text }}</p>
@@ -241,22 +241,28 @@
         L'équipe Blue Sky se rend régulièrement auprès d'enfants d'un orphelinat en Namibie pour offrir du temps, des ressources et du soutien — parce que connecter les familles va au-delà des transactions.
       </p>
       <div class="grid gap-4 sm:grid-cols-2">
-        <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-5 shadow-sm">
-          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-blue/20 bg-brand-blue/5 text-brand-blue">{% icon "heart-handshake" size=19 %}</span>
+        <div class="content-card flex items-start gap-4 p-5">
+          <span class="icon-chip">{% icon "heart-handshake" size=18 %}</span>
           <div>
             <p class="text-sm font-bold">Présence locale</p>
             <p class="mt-1 text-sm leading-relaxed text-text-muted">Des équipes sur le terrain, pas seulement en ligne.</p>
           </div>
         </div>
-        <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-5 shadow-sm">
-          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-blue/20 bg-brand-blue/5 text-brand-blue">{% icon "hand-heart" size=19 %}</span>
+        <div class="content-card flex items-start gap-4 p-5">
+          <span class="icon-chip">{% icon "hand-heart" size=18 %}</span>
           <div>
             <p class="text-sm font-bold">Impact direct</p>
             <p class="mt-1 text-sm leading-relaxed text-text-muted">Du temps et des ressources pour les communautés locales.</p>
           </div>
         </div>
       </div>
-      <a href="{% url 'marketing:impact' %}" class="btn btn-ghost">Découvrir notre impact {% icon "arrow-right" size=16 %}</a>
+      <a href="{% url 'marketing:impact' %}" class="group inline-flex w-full items-center justify-between gap-5 rounded-2xl border border-brand-blue/15 bg-brand-blue-deep px-5 py-3.5 text-white shadow-[0_16px_34px_-18px_rgba(12,24,54,.7)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-gold/40 hover:shadow-[0_20px_40px_-16px_rgba(12,24,54,.72)] sm:w-auto sm:min-w-[15rem]">
+        <span class="text-left">
+          <span class="block text-[.62rem] font-bold uppercase tracking-[.16em] text-brand-gold">Engagement communautaire</span>
+          <span class="mt-0.5 block text-sm font-extrabold">Découvrir notre impact</span>
+        </span>
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-gold text-brand-blue-deep transition-transform duration-200 group-hover:translate-x-1">{% icon "arrow-right" size=16 %}</span>
+      </a>
     </div>
   </div>
 </section>

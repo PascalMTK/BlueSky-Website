@@ -73,7 +73,7 @@ COUNTRIES = [
         "code": "NA",
         "name": "Namibie",
         "flag": "🇳🇦",
-        "address": "Windhoek",
+        "address": "3 Weber Street, Windhoek — près de l'entrée principale de NUST",
         "phones": ["+264 857 681 484"],
         "note": "",
     },

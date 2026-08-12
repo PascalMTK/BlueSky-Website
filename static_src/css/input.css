@@ -194,6 +194,12 @@ p { text-wrap: pretty; }
 }
 .service-image-card img { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
 .service-image-card:hover img { transform: scale(1.045); }
+.service-image-card,
+.service-image-card > img,
+.service-image-card::after {
+  overflow: hidden;
+  border-radius: inherit;
+}
 .geo-about-photo {
   border-radius: 50%;
   filter: drop-shadow(0 28px 35px rgba(12,24,54,.16));
@@ -457,6 +463,94 @@ th { font-size: .75rem; letter-spacing: .06em; }
     color-mix(in srgb, var(--color-brand-blue-deep) 90%, transparent) 0%,
     color-mix(in srgb, var(--color-brand-blue-deep) 78%, transparent) 45%,
     color-mix(in srgb, var(--color-brand-blue-deep) 92%, transparent) 100%);
+}
+
+/* ---------- Unified card / icon-chip / framed-photo system ----------
+   One shared visual vocabulary used across every page so cards, icon
+   badges and photo treatments read as the same design system instead of
+   drifting per-section. Three tiers: framed grid cards (.framed-card),
+   plain content cards (.content-card), and two icon-chip sizes — one for
+   icons sitting in a card, one for icons floating on top of a photo. */
+.framed-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  padding: .5rem;
+  box-shadow: 0 24px 60px -38px color-mix(in srgb, var(--color-brand-blue-deep) 55%, transparent);
+  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.framed-card:hover {
+  border-color: color-mix(in srgb, var(--color-brand-blue) 25%, var(--color-border));
+  box-shadow: 0 30px 70px -35px color-mix(in srgb, var(--color-brand-blue-deep) 62%, transparent);
+  transform: translateY(-4px);
+}
+.framed-card-photo { position: relative; overflow: hidden; border-radius: 1.25rem; }
+.framed-card-photo img { transition: transform .7s cubic-bezier(.2,.8,.2,1); }
+.framed-card:hover .framed-card-photo img { transform: scale(1.06); }
+
+.content-card {
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 16px 40px -32px color-mix(in srgb, var(--color-brand-blue-deep) 40%, transparent);
+  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.content-card:hover {
+  border-color: color-mix(in srgb, var(--color-brand-blue) 22%, var(--color-border));
+  box-shadow: 0 22px 50px -32px color-mix(in srgb, var(--color-brand-blue-deep) 48%, transparent);
+  transform: translateY(-3px);
+}
+
+.icon-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-brand-blue) 10%, transparent);
+  color: var(--color-brand-blue);
+  transition: transform .3s ease, background-color .3s ease, color .3s ease;
+}
+.dark .icon-chip { background: color-mix(in srgb, var(--color-brand-blue) 20%, transparent); color: var(--color-brand-gold-light); }
+.icon-chip-gold { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
+.dark .icon-chip-gold { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
+.icon-chip-gold-soft { background: color-mix(in srgb, var(--color-brand-gold) 20%, transparent); color: var(--color-brand-gold-dark); }
+.dark .icon-chip-gold-soft { color: var(--color-brand-gold-light); }
+.group:hover .icon-chip { transform: scale(1.1) rotate(-4deg); background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
+
+.icon-chip-photo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.92);
+  color: var(--color-brand-blue-deep);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 24px -12px rgba(0,0,0,.4);
+  transition: transform .3s ease;
+}
+.group:hover .icon-chip-photo { transform: scale(1.1); }
+.photo-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: color-mix(in srgb, var(--color-brand-blue-deep) 70%, transparent);
+  backdrop-filter: blur(6px);
+  padding: .3rem .75rem;
+  font-size: .68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--color-brand-gold);
 }
 
 /* ---------- Scroll-triggered entrance animations ----------

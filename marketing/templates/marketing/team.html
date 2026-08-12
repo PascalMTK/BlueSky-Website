@@ -24,8 +24,8 @@
 <!-- Team Photo & Core Mission Section -->
 <section class="py-12 sm:py-20">
   <div class="mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">
-    <div class="reveal-on-scroll relative overflow-hidden rounded-3xl border border-border/80 bg-surface shadow-2xl">
-      <div class="relative h-[360px] w-full bg-brand-blue-deep sm:h-[520px]">
+    <div class="reveal-on-scroll relative overflow-hidden rounded-[2rem] border border-border/80 bg-surface p-2 shadow-2xl">
+      <div class="relative h-[360px] w-full overflow-hidden rounded-[1.5rem] bg-brand-blue-deep sm:h-[520px]">
         <img
           src="{% static 'img/team-photo.jpg' %}"
           alt="L'équipe Blue Sky réunie sur le terrain"
@@ -76,8 +76,8 @@
 
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4" data-reveal-group>
       {% for icon_name, title, text in values %}
-        <div class="reveal-on-scroll group relative rounded-2xl border border-border/80 bg-surface p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/30 hover:shadow-xl">
-          <div class="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-gold/15 text-brand-blue-deep transition group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-brand-blue-deep dark:text-brand-gold">
+        <div class="content-card reveal-on-scroll group p-8">
+          <div class="icon-chip mb-6">
             {% icon icon_name size=24 %}
           </div>
           <h3 class="mb-3 text-lg font-bold text-text">{{ title }}</h3>

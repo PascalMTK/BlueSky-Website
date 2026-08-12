@@ -9,10 +9,10 @@
   <div class="reveal-on-scroll relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
     {% kicker "Notre réseau africain" tone="blue" %}
     <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Plus proches de vous, dans {{ COUNTRIES|length }} pays</h1>
-    <p class="mx-auto mt-5 max-w-2xl text-text-muted">Retrouvez les adresses et contacts de nos agences. Lorsqu'aucune adresse n'est affichée, nos opérations sont assurées entièrement à distance.</p>
+    <p class="mx-auto mt-5 max-w-2xl text-text-muted">Retrouvez les adresses et contacts de nos agences. Dans les pays en développement de réseau, vos opérations sont assurées par transfert électronique avec l'accompagnement direct de notre équipe.</p>
     <div class="mt-7 flex flex-wrap items-center justify-center gap-3 text-xs font-bold uppercase tracking-[.12em]">
       <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-3.5 py-2 text-text shadow-sm">{% icon "map-pin" size=14 css_class="text-brand-blue" %} Agence physique</span>
-      <span class="inline-flex items-center gap-2 rounded-full border border-brand-gold/25 bg-brand-gold/10 px-3.5 py-2 text-text shadow-sm">{% icon "zap" size=14 css_class="text-brand-gold-dark dark:text-brand-gold-light" %} Opérations électroniques</span>
+      <span class="inline-flex items-center gap-2 rounded-full border border-brand-gold/25 bg-brand-gold/10 px-3.5 py-2 text-text shadow-sm">{% icon "zap" size=14 css_class="text-brand-gold-dark dark:text-brand-gold-light" %} Transfert électronique accompagné</span>
     </div>
   </div>
 </section>
@@ -23,7 +23,7 @@
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
     <div class="relative grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
       {% for country in COUNTRIES %}
-        <div class="reveal-on-scroll">
+        <div class="reveal-on-scroll h-full">
           {% include "core/partials/country_card.html" %}
         </div>
       {% endfor %}
