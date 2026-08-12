@@ -7,15 +7,21 @@
 <section class="hero-mesh relative overflow-hidden">
   <div aria-hidden class="subtle-grid absolute inset-0 opacity-40"></div>
   <div class="reveal-on-scroll relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
-    {% kicker "Nos agences" tone="blue" %}
-    <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Blue Sky, présent dans {{ COUNTRIES|length }} pays d'Afrique</h1>
-    <p class="mx-auto mt-4 max-w-2xl text-text-muted">Contactez directement l'agence la plus proche de vous pour effectuer votre transfert en toute confiance.</p>
+    {% kicker "Notre réseau africain" tone="blue" %}
+    <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Plus proches de vous, dans {{ COUNTRIES|length }} pays</h1>
+    <p class="mx-auto mt-5 max-w-2xl text-text-muted">Retrouvez les adresses et contacts de nos agences. Lorsqu'aucune adresse n'est affichée, nos opérations sont assurées entièrement à distance.</p>
+    <div class="mt-7 flex flex-wrap items-center justify-center gap-3 text-xs font-bold uppercase tracking-[.12em]">
+      <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-3.5 py-2 text-text shadow-sm">{% icon "map-pin" size=14 css_class="text-brand-blue" %} Agence physique</span>
+      <span class="inline-flex items-center gap-2 rounded-full border border-brand-gold/25 bg-brand-gold/10 px-3.5 py-2 text-text shadow-sm">{% icon "zap" size=14 css_class="text-brand-gold-dark dark:text-brand-gold-light" %} Opérations électroniques</span>
+    </div>
   </div>
 </section>
 
-<section class="py-20 sm:py-28">
+<section class="overflow-hidden bg-surface-muted/45 py-20 sm:py-28">
+  <div aria-hidden="true" class="absolute -left-24 top-32 h-72 w-72 rounded-full bg-brand-blue/10 blur-3xl"></div>
+  <div aria-hidden="true" class="absolute -right-20 bottom-20 h-72 w-72 rounded-full bg-brand-gold/10 blur-3xl"></div>
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+    <div class="relative grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
       {% for country in COUNTRIES %}
         <div class="reveal-on-scroll">
           {% include "core/partials/country_card.html" %}
