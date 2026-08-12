@@ -134,6 +134,7 @@ p { text-wrap: pretty; }
 }
 .premium-card {
   border: 1px solid var(--color-border);
+  border-radius: 1.5rem;
   background: var(--color-surface);
   box-shadow: 0 18px 48px -34px color-mix(in srgb, var(--color-brand-blue-deep) 42%, transparent);
   transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
@@ -148,8 +149,9 @@ p { text-wrap: pretty; }
 .hero-mesh {
   background-color: var(--color-bg);
   background-image:
-    radial-gradient(circle at 88% 6%, color-mix(in srgb, var(--color-brand-gold) 13%, transparent), transparent 30%),
-    radial-gradient(circle at 4% 88%, color-mix(in srgb, var(--color-brand-blue) 9%, transparent), transparent 28%),
+    radial-gradient(circle at 88% 6%, color-mix(in srgb, var(--color-brand-gold) 9%, transparent), transparent 30%),
+    radial-gradient(circle at 4% 88%, color-mix(in srgb, var(--color-brand-blue) 15%, transparent), transparent 32%),
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--color-brand-cyan) 9%, transparent), transparent 40%),
     linear-gradient(180deg, var(--color-surface-muted) 0%, var(--color-bg) 88%);
 }
 .reference-hero {
@@ -165,8 +167,9 @@ p { text-wrap: pretty; }
   position: absolute;
   inset: -2.5rem 12% 31% -8%;
   z-index: -1;
-  background: linear-gradient(135deg, var(--color-brand-blue), #6881c5);
-  clip-path: polygon(25% 0, 100% 0, 68% 100%, 0 100%);
+  background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-cyan));
+  border-radius: 50%;
+  transform: rotate(-7deg);
 }
 .geo-hero-visual::after {
   content: "";
@@ -177,10 +180,10 @@ p { text-wrap: pretty; }
   left: -2rem;
   z-index: -1;
   background: var(--color-surface-muted);
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  border-radius: 50%;
 }
 .geo-hero-photo {
-  clip-path: polygon(16% 8%, 100% 8%, 100% 100%, 0 100%, 0 34%);
+  border-radius: 3.5rem 3.5rem 3.5rem 9rem;
 }
 .service-image-card { position: relative; min-height: 25rem; overflow: hidden; }
 .service-image-card::after {
@@ -191,8 +194,14 @@ p { text-wrap: pretty; }
 }
 .service-image-card img { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
 .service-image-card:hover img { transform: scale(1.045); }
+.service-image-card,
+.service-image-card > img,
+.service-image-card::after {
+  overflow: hidden;
+  border-radius: inherit;
+}
 .geo-about-photo {
-  clip-path: polygon(50% 0, 100% 32%, 84% 86%, 50% 100%, 8% 82%, 0 34%);
+  border-radius: 50%;
   filter: drop-shadow(0 28px 35px rgba(12,24,54,.16));
 }
 .route-line { position: relative; }
@@ -314,6 +323,7 @@ p { text-wrap: pretty; }
 /* ---------- Shared button component classes (mirrors the old React <Button>) ---------- */
 .btn {
   @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+  min-height: 2.75rem;
   letter-spacing: -.02em;
 }
 .btn > svg { flex: 0 0 auto; }
@@ -335,7 +345,7 @@ p { text-wrap: pretty; }
 
 /* ---------- Gradient hero text (mirrors reference site's h1 em) ---------- */
 .text-gradient-sky {
-  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-gold));
+  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-cyan));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -351,7 +361,7 @@ p { text-wrap: pretty; }
   position: relative;
   overflow: hidden;
   border-radius: 1.75rem;
-  background: linear-gradient(145deg, #1b2242, #4c63b6);
+  background: linear-gradient(145deg, #14204a, #3467dd);
   color: #fff;
   box-shadow: 0 34px 70px -35px rgba(27,34,66,.8);
 }
@@ -380,6 +390,7 @@ table tbody tr { transition: background-color .2s ease; }
 table tbody tr:hover { background: color-mix(in srgb, var(--color-brand-blue) 5%, transparent); }
 form input, form select, form textarea {
   width: 100%;
+  min-height: 3rem;
   border: 1px solid var(--color-border);
   border-radius: 1rem;
   background: var(--color-surface);
@@ -387,6 +398,27 @@ form input, form select, form textarea {
   color: var(--color-text);
 }
 form textarea { min-height: 7rem; resize: vertical; }
+
+/* Consistent geometry and readable content across marketing and dashboard UI. */
+main article,
+main form,
+main [class*="shadow"] {
+  background-clip: padding-box;
+}
+.service-image-card,
+.service-image-card img,
+.service-image-card::after {
+  border-radius: inherit;
+}
+.service-image-card h3 { line-height: 1.2; }
+.service-image-card p { line-height: 1.65; }
+.bank-card { border-radius: 1.75rem; }
+table { font-size: .875rem; }
+th { font-size: .75rem; letter-spacing: .06em; }
+@media (min-width: 768px) {
+  [data-reveal-group] { align-items: stretch; }
+  [data-reveal-group] > * { height: 100%; }
+}
 @media (max-width: 767px) {
   .display-title { letter-spacing: -.055em; }
   .hero-mesh .glass-panel { border-radius: 1.25rem; }
@@ -433,6 +465,188 @@ form textarea { min-height: 7rem; resize: vertical; }
     color-mix(in srgb, var(--color-brand-blue-deep) 92%, transparent) 100%);
 }
 
+/* ---------- Unified card / icon-chip / framed-photo system ----------
+   One shared visual vocabulary used across every page so cards, icon
+   badges and photo treatments read as the same design system instead of
+   drifting per-section. Three tiers: framed grid cards (.framed-card),
+   plain content cards (.content-card), and two icon-chip sizes — one for
+   icons sitting in a card, one for icons floating on top of a photo. */
+.framed-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  padding: .5rem;
+  box-shadow: 0 24px 60px -38px color-mix(in srgb, var(--color-brand-blue-deep) 55%, transparent);
+  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.framed-card:hover {
+  border-color: color-mix(in srgb, var(--color-brand-blue) 25%, var(--color-border));
+  box-shadow: 0 30px 70px -35px color-mix(in srgb, var(--color-brand-blue-deep) 62%, transparent);
+  transform: translateY(-4px);
+}
+.framed-card-photo { position: relative; overflow: hidden; border-radius: 1.25rem; }
+.framed-card-photo img { transition: transform .7s cubic-bezier(.2,.8,.2,1); }
+.framed-card:hover .framed-card-photo img { transform: scale(1.06); }
+
+.content-card {
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 16px 40px -32px color-mix(in srgb, var(--color-brand-blue-deep) 40%, transparent);
+  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.content-card:hover {
+  border-color: color-mix(in srgb, var(--color-brand-blue) 22%, var(--color-border));
+  box-shadow: 0 22px 50px -32px color-mix(in srgb, var(--color-brand-blue-deep) 48%, transparent);
+  transform: translateY(-3px);
+}
+
+.icon-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-brand-blue) 10%, transparent);
+  color: var(--color-brand-blue);
+  transition: transform .3s ease, background-color .3s ease, color .3s ease;
+}
+.dark .icon-chip { background: color-mix(in srgb, var(--color-brand-blue) 20%, transparent); color: var(--color-brand-gold-light); }
+.icon-chip-gold { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
+.dark .icon-chip-gold { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
+.icon-chip-gold-soft { background: color-mix(in srgb, var(--color-brand-gold) 20%, transparent); color: var(--color-brand-gold-dark); }
+.dark .icon-chip-gold-soft { color: var(--color-brand-gold-light); }
+.group:hover .icon-chip { transform: scale(1.1) rotate(-4deg); background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
+
+.icon-chip-photo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.92);
+  color: var(--color-brand-blue-deep);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 24px -12px rgba(0,0,0,.4);
+  transition: transform .3s ease;
+}
+.group:hover .icon-chip-photo { transform: scale(1.1); }
+.photo-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: color-mix(in srgb, var(--color-brand-blue-deep) 70%, transparent);
+  backdrop-filter: blur(6px);
+  padding: .3rem .75rem;
+  font-size: .68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--color-brand-gold);
+}
+
+/* ---------- Scroll-triggered entrance animations ----------
+   Elements start hidden/offset and settle into place the first time they
+   cross into the viewport (see static_src/js/reveal.js). Wrap a set of
+   siblings with [data-reveal-group] to stagger their entrance in DOM order. */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(46px) scale(.92) rotate(-1.2deg);
+  filter: blur(7px);
+  transition: opacity .85s cubic-bezier(.19,1,.22,1), transform .85s cubic-bezier(.19,1,.22,1), filter .7s ease-out;
+  transition-delay: calc(var(--reveal-index, 0) * 90ms);
+  will-change: opacity, transform, filter;
+}
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll { opacity: 1; transform: none; filter: none; transition: none; }
+}
+
+/* ---------- Campaign-poster accents (sunburst rays + contact pill) ----------
+   Borrowed from Blue Sky's own social campaign artwork: bold diagonal rays
+   radiating from a corner, and a two-tone pill for "call us now" moments. */
+.sunburst-rays {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.sunburst-rays span {
+  position: absolute;
+  top: -10%;
+  left: 8%;
+  width: 3px;
+  height: 46%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--color-brand-cyan), transparent);
+  transform-origin: top center;
+  opacity: .85;
+}
+.sunburst-rays span:nth-child(1) { left: 6%;  transform: rotate(-22deg); height: 38%; }
+.sunburst-rays span:nth-child(2) { left: 14%; transform: rotate(-6deg);  height: 50%; }
+.sunburst-rays span:nth-child(3) { left: 22%; transform: rotate(10deg); height: 34%; }
+.sunburst-rays span:nth-child(4) { left: 30%; transform: rotate(24deg); height: 26%; }
+@media (prefers-reduced-motion: no-preference) {
+  .sunburst-rays span { animation: ray-flicker 4.5s ease-in-out infinite; }
+  .sunburst-rays span:nth-child(2) { animation-delay: -1.2s; }
+  .sunburst-rays span:nth-child(3) { animation-delay: -2.4s; }
+  .sunburst-rays span:nth-child(4) { animation-delay: -3.3s; }
+}
+@keyframes ray-flicker {
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--color-brand-gold);
+  box-shadow: 0 14px 32px -14px color-mix(in srgb, var(--color-brand-gold-dark) 70%, transparent);
+}
+.contact-pill-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: .2rem;
+  border-radius: 999px;
+  background: var(--color-brand-blue-deep);
+  color: #fff;
+  flex-shrink: 0;
+}
+.contact-pill-text {
+  padding: 0 1.25rem 0 .75rem;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: var(--color-brand-blue-deep);
+  white-space: nowrap;
+}
+.contact-pill-text small {
+  display: block;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  opacity: .75;
+}
+
 /* ---------- Pulsing "live" badge dot ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .badge-dot-pulse { animation: badge-blink 1.6s infinite; }
@@ -440,4 +654,76 @@ form textarea { min-height: 7rem; resize: vertical; }
 @keyframes badge-blink {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: .35; transform: scale(1.6); }
+}
+
+/* ---------- Immersive motion layer ---------- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 100;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-cyan), var(--color-brand-gold));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color-brand-gold) 65%, transparent);
+}
+.cursor-aura {
+  position: fixed;
+  z-index: 0;
+  width: 28rem;
+  height: 28rem;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .15;
+  filter: blur(10px);
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-brand-cyan) 34%, transparent), transparent 68%);
+  transform: translate3d(calc(var(--aura-x, -30rem) - 50%), calc(var(--aura-y, -30rem) - 50%), 0);
+  transition: opacity .35s ease;
+}
+[data-parallax] {
+  translate: 0 var(--parallax-y, 0);
+  will-change: translate;
+}
+.reference-hero .text-brand-blue {
+  background: linear-gradient(100deg, var(--color-brand-blue) 15%, var(--color-brand-cyan) 48%, var(--color-brand-blue) 82%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.service-image-card .absolute.inset-x-0,
+.premium-card > div:last-child {
+  transition: transform .45s cubic-bezier(.16,.8,.24,1);
+}
+.service-image-card:hover .absolute.inset-x-0 { transform: translateY(-7px); }
+.premium-card:hover > div:last-child { transform: translateY(-4px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .reference-hero { animation: hero-grid-drift 18s linear infinite; }
+  .reference-hero .text-brand-blue { animation: text-shimmer 5s ease-in-out infinite; }
+  .geo-hero-visual::before { animation: geo-breathe 7s ease-in-out infinite; }
+  .bank-card::after { animation: card-orbit 9s ease-in-out infinite; }
+}
+@keyframes hero-grid-drift {
+  to { background-position: 56px 56px, 56px 56px, 0 0; }
+}
+@keyframes text-shimmer {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+@keyframes geo-breathe {
+  0%, 100% { transform: translate3d(0,0,0) rotate(-7deg); }
+  50% { transform: translate3d(8px,-10px,0) rotate(-5deg); }
+}
+@keyframes card-orbit {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(-14px,12px,0); }
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-aura { display: none; }
+  [data-parallax] { translate: none; }
 }

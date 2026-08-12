@@ -26,6 +26,11 @@ class ContactForm(StyledFormMixin, forms.ModelForm):
         required=False,
         widget=forms.TextInput(attrs={"placeholder": "Ex : RDC, Zambie…"}),
     )
+    service = forms.ChoiceField(
+        label="Sujet de votre demande",
+        choices=ContactMessage.Service.choices,
+        initial=ContactMessage.Service.TRANSFER,
+    )
     message = forms.CharField(
         label="Votre message",
         min_length=10,
@@ -38,7 +43,7 @@ class ContactForm(StyledFormMixin, forms.ModelForm):
 
     class Meta:
         model = ContactMessage
-        fields = ["full_name", "email", "country", "message"]
+        fields = ["full_name", "email", "country", "service", "message"]
 
     def clean_email(self):
         return self.cleaned_data["email"].strip().lower()

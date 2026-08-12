@@ -6,7 +6,7 @@
     <div aria-hidden class="hero-photo-merge">
       <img src="{% static 'img/team-photo.jpg' %}" alt="">
     </div>
-    <div class="relative">{% include "core/partials/logo.html" %}</div>
+    <div class="relative">{% include "core/partials/logo.html" with light_logo=True %}</div>
     <div class="relative space-y-8">
       <p class="editorial-label text-brand-gold">Un réseau. Huit pays.</p>
       <p class="display-title max-w-xl text-6xl leading-[.92]">L'argent arrive.<br>La confiance aussi.</p>

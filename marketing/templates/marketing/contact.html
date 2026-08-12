@@ -1,67 +1,135 @@
 {% extends "marketing/base_marketing.html" %}
-{% load icons ui %}
+{% load icons ui static %}
 {% block title %}Contact | Blue Sky{% endblock %}
 {% block description %}Contactez l'équipe Blue Sky par téléphone, WhatsApp, e-mail ou via notre formulaire en ligne.{% endblock %}
 {% block content %}
 
 <section class="hero-mesh relative overflow-hidden">
   <div aria-hidden class="subtle-grid absolute inset-0 opacity-40"></div>
-  <div class="relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
+  <div class="reveal-on-scroll relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
     {% kicker "Parlons-en" tone="blue" %}
-    <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Une question ? Notre équipe vous répond</h1>
+    <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Parlons de votre prochain transfert</h1>
+    <p class="mx-auto mt-5 max-w-2xl leading-relaxed text-text-muted">Une question, un projet ou besoin d'aide ? Écrivez-nous : un membre de notre équipe vous accompagne personnellement.</p>
+    {% if requested_service == "epargne" %}
+      <p class="mx-auto mt-5 inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-brand-gold/10 px-4 py-2 text-sm font-semibold text-brand-blue dark:text-brand-gold-light">
+        {% icon "piggy-bank" size=16 %} Vous vous enrôlez pour le service Épargne
+      </p>
+    {% endif %}
   </div>
 </section>
 
-<section class="py-20 sm:py-28">
-  <div class="mx-auto grid w-full max-w-[1440px] gap-14 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
-    <div class="space-y-6">
-      <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-6">
-        {% icon "map-pin" size=22 css_class="mt-0.5 shrink-0 text-brand-blue dark:text-brand-gold-light" %}
-        <div>
-          <p class="font-bold">Siège social</p>
-          <p class="text-sm text-text-muted">{{ SITE.head_office_address }}</p>
+<section class="overflow-hidden py-20 sm:py-28">
+  <div aria-hidden="true" class="absolute -left-24 top-24 h-72 w-72 rounded-full bg-brand-blue/10 blur-3xl"></div>
+  <div class="relative mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
+    <div class="grid overflow-hidden rounded-4xl border border-border/80 bg-surface shadow-2xl lg:grid-cols-[.86fr_1.14fr]">
+      <aside class="relative overflow-hidden bg-brand-blue-deep p-7 text-white sm:p-10 lg:p-12">
+        <div aria-hidden="true" class="subtle-grid absolute inset-0 opacity-50"></div>
+        <div aria-hidden="true" class="absolute -bottom-28 -right-24 h-72 w-72 rounded-full bg-brand-blue/45 blur-3xl"></div>
+        <div class="relative">
+          <p class="text-xs font-bold uppercase tracking-[.2em] text-brand-gold">Contact direct</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Nous sommes à votre écoute</h2>
+          <p class="mt-4 max-w-md text-sm leading-relaxed text-white/65">Choisissez le canal qui vous convient. Notre équipe répond avec attention et vous guide à chaque étape.</p>
+
+          <div class="mt-9 space-y-3">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+Hypnose+Lubumbashi" target="_blank" rel="noreferrer noopener" class="group flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[.07] p-4 transition hover:border-brand-gold/40 hover:bg-white/10">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-gold text-brand-blue-deep">{% icon "map-pin" size=19 %}</span>
+              <span><strong class="block text-sm">Siège social</strong><small class="mt-1 block leading-relaxed text-white/60">{{ SITE.head_office_address }}</small></span>
+            </a>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <a href="tel:{{ SITE.primary_phone }}" class="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[.07] p-4 transition hover:border-brand-gold/40 hover:bg-white/10">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand-gold">{% icon "phone" size=18 %}</span>
+                <span><small class="block text-[.62rem] font-bold uppercase tracking-wider text-white/45">Téléphone</small><strong class="mt-0.5 block text-sm">{{ SITE.primary_phone }}</strong></span>
+              </a>
+              <a href="mailto:{{ SITE.primary_email }}" class="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[.07] p-4 transition hover:border-brand-gold/40 hover:bg-white/10">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand-gold">{% icon "mail" size=18 %}</span>
+                <span class="min-w-0"><small class="block text-[.62rem] font-bold uppercase tracking-wider text-white/45">E-mail</small><strong class="mt-0.5 block truncate text-sm">{{ SITE.primary_email }}</strong></span>
+              </a>
+            </div>
+          </div>
+
+          <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="group mt-6 flex items-center justify-between gap-4 rounded-2xl bg-[#25D366] px-5 py-4 text-white shadow-[0_16px_35px_-18px_rgba(37,211,102,.8)] transition hover:-translate-y-0.5 hover:bg-[#20bd5a]">
+            <span class="flex items-center gap-3">{% icon "message-circle" size=21 %}<span><small class="block text-[.62rem] font-bold uppercase tracking-wider text-white/70">Réponse rapide</small><strong class="block">Écrivez-nous sur WhatsApp</strong></span></span>
+            {% icon "arrow-up-right" size=17 css_class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" %}
+          </a>
+          <div class="mt-8 flex items-center gap-3 border-t border-white/10 pt-6 text-xs text-white/55">
+            <span class="h-2 w-2 rounded-full bg-[#25D366] shadow-[0_0_0_5px_rgba(37,211,102,.12)]"></span>
+            Disponible du lundi au samedi, de 08h00 à 18h00
+          </div>
         </div>
-      </div>
-      <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-6">
-        {% icon "phone" size=22 css_class="mt-0.5 shrink-0 text-brand-blue dark:text-brand-gold-light" %}
-        <div>
-          <p class="font-bold">Téléphone</p>
-          <p class="text-sm text-text-muted">{{ SITE.primary_phone }}</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-4 rounded-2xl border border-border bg-surface p-6">
-        {% icon "mail" size=22 css_class="mt-0.5 shrink-0 text-brand-blue dark:text-brand-gold-light" %}
-        <div>
-          <p class="font-bold">E-mail</p>
-          <p class="text-sm text-text-muted">{{ SITE.primary_email }}</p>
-        </div>
-      </div>
-      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="flex items-center gap-4 rounded-2xl bg-[#25D366] p-6 text-white transition hover:-translate-y-0.5">
-        {% icon "message-circle" size=22 %}
-        <div>
-          <p class="font-bold">WhatsApp</p>
-          <p class="text-sm text-white/80">{{ SITE.whatsapp_display }}</p>
-        </div>
-      </a>
-    </div>
+      </aside>
 
     {% if sent %}
-      <div class="flex flex-col items-center gap-3 rounded-2xl border border-border bg-surface p-10 text-center">
+      <div class="reveal-on-scroll flex flex-col items-center justify-center gap-3 p-10 text-center sm:p-14">
         {% icon "check-circle-2" size=40 css_class="text-brand-gold" %}
         <h3 class="text-lg font-bold">Message envoyé</h3>
         <p class="text-sm text-text-muted">Merci de nous avoir contactés. Notre équipe vous répondra très prochainement.</p>
       </div>
     {% else %}
-      <form method="post" class="space-y-5 rounded-2xl border border-border bg-surface p-8">
+      <form method="post" class="reveal-on-scroll p-7 sm:p-10 lg:p-12">
         {% csrf_token %}
+        <div class="mb-8">
+          <p class="text-xs font-bold uppercase tracking-[.18em] text-brand-blue dark:text-brand-gold-light">Envoyez votre demande</p>
+          <h2 class="mt-2 text-2xl font-extrabold tracking-tight text-text">Comment pouvons-nous vous aider ?</h2>
+          <p class="mt-2 text-sm text-text-muted">Remplissez ce formulaire et nous vous répondrons dans les meilleurs délais.</p>
+        </div>
         {% include "core/_form_errors.html" %}
-        {% include "core/_field.html" with field=form.full_name %}
-        {% include "core/_field.html" with field=form.email %}
-        {% include "core/_field.html" with field=form.country %}
-        {% include "core/_field.html" with field=form.message %}
-        <button type="submit" class="btn btn-primary w-full">Envoyer le message</button>
+        <div class="grid gap-5 sm:grid-cols-2">
+          {% include "core/_field.html" with field=form.full_name %}
+          {% include "core/_field.html" with field=form.email %}
+        </div>
+        <div class="mt-5 grid gap-5 sm:grid-cols-2">
+          {% include "core/_field.html" with field=form.country %}
+          {% include "core/_field.html" with field=form.service %}
+        </div>
+        <div class="mt-5">{% include "core/_field.html" with field=form.message %}</div>
+        <button type="submit" class="btn btn-primary btn-lg group mt-6 w-full">
+          Envoyer le message {% icon "send" size=17 css_class="transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5" %}
+        </button>
+        <p class="mt-4 text-center text-xs text-text-muted">Vos informations restent confidentielles et servent uniquement à vous répondre.</p>
       </form>
     {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Head office location map -->
+<section class="pb-20 sm:pb-28">
+  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
+    <div class="reveal-on-scroll overflow-hidden rounded-4xl border border-border/80 bg-surface p-2 shadow-2xl">
+      <div class="relative overflow-hidden rounded-4xl">
+        <div class="absolute left-4 top-4 z-10 max-w-[calc(100%-2rem)] rounded-2xl border border-white/70 bg-white/90 p-4 shadow-xl backdrop-blur-xl sm:left-6 sm:top-6 sm:max-w-sm sm:p-5">
+          <p class="text-[.62rem] font-bold uppercase tracking-[.18em] text-brand-blue">Siège social · Lubumbashi</p>
+          <p class="mt-1 text-sm font-bold text-brand-blue-deep">En face de l'Hôtel Hypnose</p>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+Hypnose+Lubumbashi" target="_blank" rel="noreferrer noopener" class="mt-3 inline-flex items-center gap-2 text-xs font-extrabold text-brand-blue hover:underline">Obtenir l'itinéraire {% icon "arrow-up-right" size=14 %}</a>
+        </div>
+        <div class="min-h-[27rem] bg-surface-muted">
+          <iframe
+            src="https://www.google.com/maps?q=Hotel+Hypnose,+Lubumbashi,+Democratic+Republic+of+the+Congo&amp;output=embed"
+            title="Carte du siège social Blue Sky à Lubumbashi"
+            class="h-full min-h-[27rem] w-full border-0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Community Pride Section -->
+<section class="border-t border-border bg-surface-muted py-16 sm:py-24">
+  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
+    <div class="reveal-on-scroll space-y-5 text-center lg:text-left">
+      {% kicker "Fierté locale" tone="blue" %}
+      <h2 class="display-title text-3xl sm:text-4xl">Une équipe joignable, une communauté fidèle</h2>
+      <p class="mx-auto max-w-md leading-relaxed text-text-muted lg:mx-0">
+        Que ce soit par téléphone, WhatsApp ou en agence, notre équipe reste à l'écoute — merci à toutes les personnes qui portent fièrement les couleurs Blue Sky partout où elles se trouvent.
+      </p>
+    </div>
+    <figure class="reveal-on-scroll overflow-hidden rounded-[1.75rem] border border-border shadow-2xl">
+      <img src="{% static 'img/community-brand-student-2.png' %}" alt="Un membre de la communauté Blue Sky portant un t-shirt à l'effigie de la marque" class="aspect-[4/3] h-full w-full object-cover" loading="lazy">
+    </figure>
   </div>
 </section>
 

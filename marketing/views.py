@@ -3,6 +3,7 @@ from django.shortcuts import render
 from core.data import COUNTRIES
 
 from .forms import ContactForm
+from .models import ContactMessage
 
 FEATURES = [
     (
@@ -27,6 +28,27 @@ FEATURES = [
     ),
 ]
 
+SAVINGS_SEGMENTS = [
+    (
+        "graduation-cap",
+        "Étudiants",
+        "Mettez de côté pour vos frais académiques et vos projets d'avenir, à votre rythme.",
+        "img/flags/portrait-male-student-with-books.jpg",
+    ),
+    (
+        "house",
+        "Familles",
+        "Construisez un fonds commun pour les imprévus, les études des enfants ou un projet familial.",
+        "img/flags/medium-shot-happy-african-people.jpg",
+    ),
+    (
+        "briefcase",
+        "Entreprises",
+        "Épargnez pour votre fonds de roulement ou vos investissements, avec un suivi dédié.",
+        "img/flags/tailors-working-with-quality-fabrics.jpg",
+    ),
+]
+
 STEPS = [
     (
         "user-plus",
@@ -45,16 +67,19 @@ STEPS = [
     ),
 ]
 
-HERO_STATS = [
-    ("8", "pays connectés"),
-    ("7", "moyens de paiement"),
-    ("100%", "suivi personnalisé"),
-    ("1", "équipe à votre écoute"),
-]
-
-
 def home(request):
-    context = {"features": FEATURES, "steps": STEPS, "hero_stats": HERO_STATS}
+    hero_stats = [
+        (str(len(COUNTRIES)), "pays connectés"),
+        ("7", "moyens de paiement"),
+        ("100%", "suivi personnalisé"),
+        ("1", "équipe à votre écoute"),
+    ]
+    context = {
+        "features": FEATURES,
+        "steps": STEPS,
+        "hero_stats": hero_stats,
+        "savings_segments": SAVINGS_SEGMENTS,
+    }
     return render(request, "marketing/home.html", context)
 
 
@@ -101,6 +126,10 @@ def countries(request):
 
 def contact(request):
     sent = False
+    requested_service = request.GET.get("service")
+    if requested_service not in dict(ContactMessage.Service.choices):
+        requested_service = None
+
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -108,5 +137,10 @@ def contact(request):
             sent = True
             form = ContactForm()
     else:
-        form = ContactForm()
-    return render(request, "marketing/contact.html", {"form": form, "sent": sent})
+        initial = {"service": requested_service} if requested_service else None
+        form = ContactForm(initial=initial)
+    return render(
+        request,
+        "marketing/contact.html",
+        {"form": form, "sent": sent, "requested_service": requested_service},
+    )

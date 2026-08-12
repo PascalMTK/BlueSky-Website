@@ -5,10 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>{% block title %}Blue Sky — Transfert d'argent international{% endblock %}</title>
-  <meta name="description" content="{% block description %}Blue Sky connecte la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, la Tanzanie et le Malawi pour des transferts d'argent rapides, fiables et sécurisés.{% endblock %}">
+  <meta name="description" content="{% block description %}Blue Sky connecte la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, l'Ouganda, la Tanzanie et le Malawi pour des transferts d'argent rapides, fiables et sécurisés.{% endblock %}">
 
-  <!-- Local favicon: keep the first render independent from third-party hosts. -->
-  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+  <!-- Local favicon (Blue Sky logo mark): keep the first render independent from third-party hosts. -->
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32.png' %}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/favicon-192.png' %}">
+  <link rel="icon" type="image/png" sizes="512x512" href="{% static 'img/favicon-512.png' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon.png' %}">
   <meta name="theme-color" content="#0F172A">
 
   <!-- The stylesheet uses a local system-font stack, so page rendering never
@@ -44,6 +48,8 @@
   <!-- Global Deferred Scripts -->
   <script src="{% static 'js/theme.js' %}" defer></script>
   <script src="{% static 'js/tilt.js' %}" defer></script>
+  <script src="{% static 'js/reveal.js' %}" defer></script>
+  <script src="{% static 'js/motion.js' %}" defer></script>
   {% block extra_scripts %}{% endblock %}
 </body>
 </html>

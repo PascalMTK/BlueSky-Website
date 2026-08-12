@@ -10,7 +10,7 @@
 <section class="relative overflow-hidden bg-gradient-to-b from-brand-blue-deep/5 via-bg to-bg py-20 sm:py-28">
   <div aria-hidden="true" class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-40 dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]"></div>
   
-  <div class="relative mx-auto w-full max-w-[1440px] px-6 text-center sm:px-8 lg:px-12">
+  <div class="reveal-on-scroll relative mx-auto w-full max-w-[1440px] px-6 text-center sm:px-8 lg:px-12">
     {% kicker "L'équipe Blue Sky" tone="blue" %}
     <h1 class="font-display mx-auto mt-4 max-w-4xl text-4xl font-extrabold tracking-tight text-text sm:text-6xl sm:leading-tight">
       Des visages humains derrière vos transferts
@@ -24,8 +24,8 @@
 <!-- Team Photo & Core Mission Section -->
 <section class="py-12 sm:py-20">
   <div class="mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">
-    <div class="relative overflow-hidden rounded-3xl border border-border/80 bg-surface shadow-2xl">
-      <div class="relative h-[360px] w-full bg-brand-blue-deep sm:h-[520px]">
+    <div class="reveal-on-scroll relative overflow-hidden rounded-[2rem] border border-border/80 bg-surface p-2 shadow-2xl">
+      <div class="relative h-[360px] w-full overflow-hidden rounded-[1.5rem] bg-brand-blue-deep sm:h-[520px]">
         <img
           src="{% static 'img/team-photo.jpg' %}"
           alt="L'équipe Blue Sky réunie sur le terrain"
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Impact Numbers Banner -->
-    <div class="mt-12 grid gap-8 lg:grid-cols-12 lg:items-center">
+    <div class="reveal-on-scroll mt-12 grid gap-8 lg:grid-cols-12 lg:items-center">
       <p class="text-base leading-relaxed text-text-muted sm:text-lg lg:col-span-8">
         Notre équipe combine des profils opérationnels, un service client réactif et des agents locaux répartis dans nos <strong class="font-bold text-text">{{ countries_count }} pays</strong> de couverture — de Lubumbashi à Windhoek, en passant par Lusaka et Lilongwe.
       </p>
@@ -74,16 +74,32 @@
       </h2>
     </div>
 
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4" data-reveal-group>
       {% for icon_name, title, text in values %}
-        <div class="group relative rounded-2xl border border-border/80 bg-surface p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/30 hover:shadow-xl">
-          <div class="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-gold/15 text-brand-blue-deep transition-colors group-hover:bg-brand-gold group-hover:text-brand-blue-deep dark:text-brand-gold">
+        <div class="content-card reveal-on-scroll group p-8">
+          <div class="icon-chip mb-6">
             {% icon icon_name size=24 %}
           </div>
           <h3 class="mb-3 text-lg font-bold text-text">{{ title }}</h3>
           <p class="text-sm leading-relaxed text-text-muted">{{ text }}</p>
         </div>
       {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Community Pride Section -->
+<section class="py-20 sm:py-28">
+  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-6 sm:px-8 lg:grid-cols-2 lg:px-12">
+    <figure class="reveal-on-scroll overflow-hidden rounded-[1.75rem] border border-border/80 shadow-2xl">
+      <img src="{% static 'img/community-brand-duo.png' %}" alt="Deux membres de la communauté Blue Sky portant des t-shirts à l'effigie de la marque" class="aspect-[4/3] h-full w-full object-cover" loading="lazy">
+    </figure>
+    <div class="reveal-on-scroll space-y-5">
+      {% kicker "Fierté locale" tone="blue" %}
+      <h2 class="font-display text-3xl font-extrabold tracking-tight text-text sm:text-4xl">Une équipe portée par sa communauté</h2>
+      <p class="leading-relaxed text-text-muted">
+        Au-delà des bureaux et des agences, Blue Sky c'est aussi les personnes qui portent fièrement nos couleurs au quotidien — collègues, proches et membres de la communauté qui nous font confiance.
+      </p>
     </div>
   </div>
 </section>

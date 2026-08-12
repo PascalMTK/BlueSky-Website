@@ -5,6 +5,14 @@ from .models import ContactMessage
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-    list_display = ["full_name", "email", "country", "created_at"]
+    list_display = ["full_name", "email", "country", "service", "created_at"]
+    list_filter = ["service"]
     search_fields = ["full_name", "email", "message"]
-    readonly_fields = ["full_name", "email", "country", "message", "created_at"]
+    readonly_fields = [
+        "full_name",
+        "email",
+        "country",
+        "service",
+        "message",
+        "created_at",
+    ]
