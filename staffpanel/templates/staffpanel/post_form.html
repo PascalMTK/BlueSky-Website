@@ -1,0 +1,26 @@
+{% extends "staffpanel/base_staff.html" %}
+{% load icons %}
+{% block title %}{% if post %}Modifier{% else %}Nouvelle publication{% endif %} | Administration{% endblock %}
+{% block dashboard_content %}
+
+<a href="{% url 'staffpanel:posts' %}" class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:underline">{% icon "arrow-right" size=15 css_class="rotate-180" %} Publications</a>
+
+<h1 class="display-title mt-4 text-2xl sm:text-3xl">{% if post %}Modifier la publication{% else %}Nouvelle publication{% endif %}</h1>
+
+<form method="post" enctype="multipart/form-data" class="content-card mt-8 max-w-2xl space-y-5 p-7">
+  {% csrf_token %}
+  {% include "core/_form_errors.html" %}
+  {% include "core/_field.html" with field=form.title %}
+  {% include "core/_field.html" with field=form.excerpt %}
+  {% include "core/_field.html" with field=form.body %}
+  {% include "core/_field.html" with field=form.cover_image %}
+  {% if post.cover_image %}
+    <img src="{{ post.cover_image.url }}" alt="" class="h-32 w-auto rounded-2xl object-cover">
+  {% endif %}
+  <label class="flex items-center gap-3 text-sm font-semibold">
+    {{ form.is_published }} {{ form.is_published.label }}
+  </label>
+  <button type="submit" class="btn btn-primary btn-lg w-full">Enregistrer</button>
+</form>
+
+{% endblock %}

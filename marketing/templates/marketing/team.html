@@ -1,5 +1,5 @@
 {% extends "marketing/base_marketing.html" %}
-{% load icons ui static %}
+{% load icons ui static i18n_extra %}
 
 {% block title %}Notre équipe | Blue Sky{% endblock %}
 {% block description %}Rencontrez l'équipe Blue Sky, présente sur le terrain dans chacun de nos pays pour accompagner vos transferts d'argent.{% endblock %}
@@ -13,10 +13,10 @@
   <div class="reveal-on-scroll relative mx-auto w-full max-w-[1440px] px-6 text-center sm:px-8 lg:px-12">
     {% kicker "L'équipe Blue Sky" tone="blue" %}
     <h1 class="font-display mx-auto mt-4 max-w-4xl text-4xl font-extrabold tracking-tight text-text sm:text-6xl sm:leading-tight">
-      Des visages humains derrière vos transferts
+      {% t "Des visages humains derrière vos transferts" %}
     </h1>
     <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg">
-      Derrière chaque transfert Blue Sky, une équipe ancrée en Afrique australe veille chaque jour à ce que votre argent arrive vite et en toute sécurité.
+      {% t "Derrière chaque transfert Blue Sky, une équipe ancrée en Afrique australe veille chaque jour à ce que votre argent arrive vite et en toute sécurité." %}
     </p>
   </div>
 </section>
@@ -35,27 +35,27 @@
         <div class="absolute bottom-6 left-6 right-6 sm:bottom-10 sm:left-10 sm:right-10 text-white">
           <span class="inline-flex items-center gap-2 rounded-full bg-brand-gold/20 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand-gold backdrop-blur-md border border-brand-gold/30">
             <span class="h-1.5 w-1.5 rounded-full bg-brand-gold animate-pulse"></span>
-            Proximité & Terrain
+            {% t "Proximité & Terrain" %}
           </span>
-          <h2 class="mt-3 text-2xl font-bold sm:text-4xl text-white">Une présence locale forte dans chaque agence.</h2>
+          <h2 class="mt-3 text-2xl font-bold sm:text-4xl text-white">{% t "Une présence locale forte dans chaque agence." %}</h2>
         </div>
     </div>
 
     <!-- Impact Numbers Banner -->
     <div class="reveal-on-scroll mt-12 grid gap-8 lg:grid-cols-12 lg:items-center">
       <p class="text-base leading-relaxed text-text-muted sm:text-lg lg:col-span-8">
-        Notre équipe combine des profils opérationnels, un service client réactif et des agents locaux répartis dans nos <strong class="font-bold text-text">{{ countries_count }} pays</strong> de couverture — de Lubumbashi à Windhoek, en passant par Lusaka et Lilongwe.
+        {% t "Notre équipe combine des profils opérationnels, un service client réactif et des agents locaux répartis dans nos" %} <strong class="font-bold text-text">{{ countries_count }} {% t "pays" %}</strong> {% t "de couverture — de Lubumbashi à Windhoek, en passant par Lusaka et Lilongwe." %}
       </p>
-      
+
       <div class="flex items-center justify-around rounded-2xl border border-border/60 bg-surface-muted/60 p-6 backdrop-blur-sm lg:col-span-4">
         <div class="text-center">
           <span class="block text-3xl font-extrabold text-brand-blue sm:text-4xl">{{ countries_count }}</span>
-          <span class="text-xs font-medium uppercase tracking-wider text-text-muted">Pays couverts</span>
+          <span class="text-xs font-medium uppercase tracking-wider text-text-muted">{% t "Pays couverts" %}</span>
         </div>
         <div class="h-10 w-px bg-border"></div>
         <div class="text-center">
           <span class="block text-3xl font-extrabold text-brand-gold sm:text-4xl">100%</span>
-          <span class="text-xs font-medium uppercase tracking-wider text-text-muted">Ancrage local</span>
+          <span class="text-xs font-medium uppercase tracking-wider text-text-muted">{% t "Ancrage local" %}</span>
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@
     <div class="mx-auto mb-16 max-w-2xl text-center">
       {% kicker "Ce qui nous anime" tone="blue" %}
       <h2 class="font-display mt-4 text-3xl font-extrabold tracking-tight text-text sm:text-4xl">
-        Les valeurs qui guident notre équipe
+        {% t "Les valeurs qui guident notre équipe" %}
       </h2>
     </div>
 
@@ -78,8 +78,8 @@
           <div class="icon-chip mb-6">
             {% icon icon_name size=24 %}
           </div>
-          <h3 class="mb-3 text-lg font-bold text-text">{{ title }}</h3>
-          <p class="text-sm leading-relaxed text-text-muted">{{ text }}</p>
+          <h3 class="mb-3 text-lg font-bold text-text">{% t title %}</h3>
+          <p class="text-sm leading-relaxed text-text-muted">{% t text %}</p>
         </div>
       {% endfor %}
     </div>
@@ -94,9 +94,9 @@
     </figure>
     <div class="reveal-on-scroll space-y-5">
       {% kicker "Fierté locale" tone="blue" %}
-      <h2 class="font-display text-3xl font-extrabold tracking-tight text-text sm:text-4xl">Une équipe portée par sa communauté</h2>
+      <h2 class="font-display text-3xl font-extrabold tracking-tight text-text sm:text-4xl">{% t "Une équipe portée par sa communauté" %}</h2>
       <p class="leading-relaxed text-text-muted">
-        Au-delà des bureaux et des agences, Blue Sky c'est aussi les personnes qui portent fièrement nos couleurs au quotidien — collègues, proches et membres de la communauté qui nous font confiance.
+        {% t "Au-delà des bureaux et des agences, Blue Sky c'est aussi les personnes qui portent fièrement nos couleurs au quotidien — collègues, proches et membres de la communauté qui nous font confiance." %}
       </p>
     </div>
   </div>

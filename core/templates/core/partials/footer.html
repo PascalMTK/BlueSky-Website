@@ -1,4 +1,4 @@
-{% load icons %}
+{% load icons i18n_extra %}
 <footer class="relative overflow-hidden bg-brand-blue-deep text-white">
   <!-- Decorative Ambient Glow -->
   <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl"></div>
@@ -9,11 +9,11 @@
       <div class="space-y-3">
         <span class="inline-flex items-center gap-2 rounded-full bg-brand-gold/10 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand-gold backdrop-blur-md border border-brand-gold/20">
           <span class="h-1.5 w-1.5 rounded-full bg-brand-gold animate-pulse"></span>
-          Blue Sky / Afrique australe
+          {% t "Blue Sky / Afrique australe" %}
         </span>
         <h2 class="font-display max-w-3xl text-4xl font-extrabold tracking-tight leading-[1.05] text-white sm:text-6xl">
-          L'argent voyage.<br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-brand-gold">La confiance reste.</span>
+          {% t "L'argent voyage." %}<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-brand-gold">{% t "La confiance reste." %}</span>
         </h2>
       </div>
     </div>
@@ -45,18 +45,18 @@
     <div class="md:col-span-3 lg:col-span-3">
       <h3 class="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">Navigation</h3>
       <ul class="space-y-3 text-sm text-white/70">
-        <li><a href="{% url 'marketing:about' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">À propos</a></li>
-        <li><a href="{% url 'marketing:team' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">Notre équipe</a></li>
-        <li><a href="{% url 'marketing:impact' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">Notre impact</a></li>
-        <li><a href="{% url 'marketing:countries' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">Nos agences</a></li>
-        <li><a href="{% url 'marketing:home' %}#epargne" class="inline-block transition-all hover:translate-x-1 hover:text-white">Épargne</a></li>
-        <li><a href="{% url 'marketing:contact' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">Contact</a></li>
+        <li><a href="{% url 'marketing:about' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">{% t "À propos" %}</a></li>
+        <li><a href="{% url 'marketing:team' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">{% t "Notre équipe" %}</a></li>
+        <li><a href="{% url 'marketing:impact' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">{% t "Notre impact" %}</a></li>
+        <li><a href="{% url 'marketing:countries' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">{% t "Nos agences" %}</a></li>
+        <li><a href="{% url 'marketing:home' %}#epargne" class="inline-block transition-all hover:translate-x-1 hover:text-white">{% t "Épargne" %}</a></li>
+        <li><a href="{% url 'marketing:contact' %}" class="inline-block transition-all hover:translate-x-1 hover:text-white">{% t "Contact" %}</a></li>
       </ul>
     </div>
 
     <!-- Contact Info -->
     <div class="md:col-span-4 lg:col-span-4">
-      <h3 class="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">Contact direct</h3>
+      <h3 class="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">{% t "Contact direct" %}</h3>
       <ul class="space-y-4 text-sm text-white/70">
         <li class="flex items-start gap-3">
           <div class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-brand-gold">
@@ -83,14 +83,14 @@
   <!-- Bottom Legal & Regional Scope -->
   <div class="border-t border-white/10 bg-black/20 backdrop-blur-sm">
     <div class="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-6 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
-      <p>&copy; {% now "Y" %} Blue Sky Money Transfer. Tous droits réservés.</p>
-      
+      <p>&copy; {% now "Y" %} Blue Sky Money Transfer. {% t "Tous droits réservés." %}</p>
+
       {% if COUNTRIES %}
       <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <span class="text-white/40">Présent dans {{ COUNTRIES|length }} pays :</span>
+        <span class="text-white/40">{% t "Présent dans" %} {{ COUNTRIES|length }} {% t "pays" %} :</span>
         <div class="flex flex-wrap items-center gap-1.5">
           {% for c in COUNTRIES %}
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-medium text-white/70">{{ c.name }}</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-medium text-white/70">{% t c.name %}</span>
           {% endfor %}
         </div>
       </div>

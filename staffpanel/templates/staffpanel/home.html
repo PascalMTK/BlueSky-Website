@@ -1,0 +1,32 @@
+{% extends "staffpanel/base_staff.html" %}
+{% load icons %}
+{% block title %}Administration | Blue Sky{% endblock %}
+{% block dashboard_content %}
+
+<h1 class="display-title text-2xl sm:text-3xl">Tableau de bord</h1>
+<p class="mt-1 text-sm text-text-muted">Vue d'ensemble des demandes en attente.</p>
+
+<div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+  <a href="{% url 'staffpanel:savings_accounts' %}?status=PENDING" class="content-card group p-6">
+    <span class="icon-chip icon-chip-gold">{% icon "piggy-bank" size=20 %}</span>
+    <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_accounts }}</p>
+    <p class="mt-1 text-sm font-semibold text-text-muted">Demandes d'épargne en attente</p>
+  </a>
+  <a href="{% url 'staffpanel:savings_accounts' %}" class="content-card group p-6">
+    <span class="icon-chip">{% icon "clock" size=20 %}</span>
+    <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_operations }}</p>
+    <p class="mt-1 text-sm font-semibold text-text-muted">Opérations à confirmer</p>
+  </a>
+  <a href="{% url 'staffpanel:posts' %}" class="content-card group p-6">
+    <span class="icon-chip">{% icon "newspaper" size=20 %}</span>
+    <p class="mt-4 text-3xl font-extrabold text-text">{{ published_posts }}</p>
+    <p class="mt-1 text-sm font-semibold text-text-muted">Publications en ligne</p>
+  </a>
+  <a href="{% url 'staffpanel:posts' %}" class="content-card group p-6">
+    <span class="icon-chip">{% icon "pencil" size=20 %}</span>
+    <p class="mt-4 text-3xl font-extrabold text-text">{{ draft_posts }}</p>
+    <p class="mt-1 text-sm font-semibold text-text-muted">Brouillons</p>
+  </a>
+</div>
+
+{% endblock %}

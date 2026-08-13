@@ -1,8 +1,15 @@
 from django import forms
 
+from core.data import COUNTRIES
 from core.forms import StyledFormMixin
 
 from .models import ContactMessage
+
+COUNTRY_CHOICES = (
+    [("", "Sélectionnez votre pays")]
+    + [(c["name"], f"{c['flag']} {c['name']}") for c in COUNTRIES]
+    + [("Autre", "Autre pays")]
+)
 
 
 class ContactForm(StyledFormMixin, forms.ModelForm):
@@ -21,10 +28,10 @@ class ContactForm(StyledFormMixin, forms.ModelForm):
             "invalid": "Adresse e-mail invalide",
         },
     )
-    country = forms.CharField(
+    country = forms.ChoiceField(
         label="Pays",
         required=False,
-        widget=forms.TextInput(attrs={"placeholder": "Ex : RDC, Zambie…"}),
+        choices=COUNTRY_CHOICES,
     )
     service = forms.ChoiceField(
         label="Sujet de votre demande",

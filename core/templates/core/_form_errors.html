@@ -1,5 +1,6 @@
+{% load i18n_extra %}
 {% if form.errors %}
   <p class="rounded-lg bg-red-500/10 px-4 py-3 text-sm font-medium text-red-500">
-    {% if form.non_field_errors %}{{ form.non_field_errors.0 }}{% else %}Merci de corriger les champs indiqués.{% endif %}
+    {% if form.non_field_errors %}{% t form.non_field_errors.0 %}{% else %}{% t "Merci de corriger les champs indiqués." %}{% endif %}
   </p>
 {% endif %}

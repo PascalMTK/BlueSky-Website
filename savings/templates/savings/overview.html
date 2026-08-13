@@ -1,0 +1,107 @@
+{% extends "core/base_dashboard.html" %}
+{% load icons static %}
+{% block title %}Épargne | Blue Sky{% endblock %}
+{% block dashboard_content %}
+
+{% if not account %}
+  <div class="content-card mx-auto grid max-w-4xl overflow-hidden lg:grid-cols-[.85fr_1fr]">
+    <div class="relative hidden min-h-64 lg:block">
+      <img src="{% static 'img/writing-blank-notebook.jpg' %}" alt="" class="absolute inset-0 h-full w-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-br from-brand-blue-deep/75 via-brand-blue-deep/25 to-brand-blue/40"></div>
+      <div class="relative flex h-full flex-col justify-between p-8 text-white">
+        <span class="icon-chip-photo">{% icon "piggy-bank" size=22 %}</span>
+        <div class="space-y-2">
+          <p class="editorial-label text-brand-gold-light">Quelques minutes suffisent</p>
+          <p class="display-title text-2xl leading-tight">Notez vos infos, on s'occupe du reste.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-7 sm:p-9">
+      <h1 class="display-title text-2xl sm:text-3xl">Ouvrir un compte épargne</h1>
+      <p class="mt-2 text-sm text-text-muted">Remplissez ces quelques informations pour soumettre votre demande. Notre équipe activera votre compte après vérification.</p>
+
+      <form method="post" class="mt-7 space-y-5">
+        {% csrf_token %}
+        {% include "core/_form_errors.html" %}
+        {% include "core/_field.html" with field=form.id_number %}
+        {% include "core/_field.html" with field=form.address %}
+        <button type="submit" class="btn btn-primary btn-lg w-full">Soumettre ma demande {% icon "arrow-right" size=16 %}</button>
+      </form>
+    </div>
+  </div>
+
+{% else %}
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <h1 class="display-title text-2xl sm:text-3xl">Mon épargne</h1>
+      <p class="mt-1 text-sm text-text-muted">
+        {% if account.fiche_number %}Fiche {{ account.fiche_number }}{% else %}Votre demande est en cours de vérification{% endif %}
+      </p>
+    </div>
+    {% include "core/partials/status_badge.html" with status=account.status status_label=account.get_status_display %}
+  </div>
+
+  <div class="mt-8 grid gap-6 sm:grid-cols-3">
+    <div class="content-card p-6">
+      <p class="text-xs font-bold uppercase tracking-[.12em] text-text-muted">Solde disponible</p>
+      <p class="mt-2 text-3xl font-extrabold text-brand-blue">{{ account.balance }}</p>
+    </div>
+    <div class="content-card p-6">
+      <p class="text-xs font-bold uppercase tracking-[.12em] text-text-muted">Total déposé</p>
+      <p class="mt-2 text-3xl font-extrabold text-text">{{ totals.deposits|default:0 }}</p>
+    </div>
+    <div class="content-card p-6">
+      <p class="text-xs font-bold uppercase tracking-[.12em] text-text-muted">Total retiré</p>
+      <p class="mt-2 text-3xl font-extrabold text-text">{{ totals.withdrawals|default:0 }}</p>
+    </div>
+  </div>
+
+  {% if account.status == "ACTIVE" %}
+    <div class="content-card mt-8 p-7">
+      <h2 class="text-lg font-bold">Demander une opération</h2>
+      <p class="mt-1 text-sm text-text-muted">Chaque dépôt ou retrait doit être confirmé par notre équipe avant de mettre à jour votre solde.</p>
+      <form method="post" action="{% url 'savings:request_operation' %}" class="mt-5 grid gap-5 sm:grid-cols-2">
+        {% csrf_token %}
+        {% include "core/_form_errors.html" with form=operation_form %}
+        {% include "core/_field.html" with field=operation_form.operation_type %}
+        {% include "core/_field.html" with field=operation_form.amount %}
+        <div class="sm:col-span-2">{% include "core/_field.html" with field=operation_form.note %}</div>
+        <button type="submit" class="btn btn-primary btn-md sm:col-span-2">Envoyer la demande {% icon "arrow-right" size=15 %}</button>
+      </form>
+    </div>
+  {% elif account.status == "PENDING" %}
+    <p class="content-card mt-8 p-6 text-sm text-text-muted">Votre compte n'est pas encore actif — vous pourrez demander un dépôt ou un retrait une fois qu'il sera activé par notre équipe.</p>
+  {% endif %}
+
+  <div class="content-card mt-8 overflow-x-auto p-2">
+    <table class="w-full min-w-[640px] text-left text-sm">
+      <thead>
+        <tr class="text-xs font-bold uppercase tracking-wider text-text-muted">
+          <th class="px-4 py-3">Date</th>
+          <th class="px-4 py-3">Type</th>
+          <th class="px-4 py-3">Montant</th>
+          <th class="px-4 py-3">Nouveau solde</th>
+          <th class="px-4 py-3">Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for op in operations %}
+          <tr class="border-t border-border/60">
+            <td class="px-4 py-3 text-text-muted">{{ op.requested_at|date:"d/m/Y H:i" }}</td>
+            <td class="px-4 py-3 font-semibold">{{ op.get_operation_type_display }}</td>
+            <td class="px-4 py-3 font-semibold">{{ op.amount }}</td>
+            <td class="px-4 py-3 text-text-muted">{{ op.new_balance|default:"—" }}</td>
+            <td class="px-4 py-3">
+              {% include "core/partials/status_badge.html" with status=op.status status_label=op.get_status_display %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="5" class="px-4 py-8 text-center text-text-muted">Aucune opération pour le moment.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+
+{% endblock %}

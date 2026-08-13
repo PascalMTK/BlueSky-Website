@@ -1,18 +1,18 @@
 {% extends "core/base.html" %}
-{% load static icons %}
+{% load static icons i18n_extra %}
 {% block body %}
 <div class="grid min-h-screen bg-bg lg:grid-cols-[1.08fr_.92fr]">
   <div class="hero-mesh relative hidden overflow-hidden text-white lg:flex lg:flex-col lg:justify-between lg:p-14">
     <div aria-hidden class="hero-photo-merge">
-      <img src="{% static 'img/team-photo.jpg' %}" alt="">
+      {% block auth_photo %}<img src="{% static 'img/team-photo.jpg' %}" alt="">{% endblock %}
     </div>
     <div class="relative">{% include "core/partials/logo.html" with light_logo=True %}</div>
     <div class="relative space-y-8">
-      <p class="editorial-label text-brand-gold">Un réseau. Huit pays.</p>
-      <p class="display-title max-w-xl text-6xl leading-[.92]">L'argent arrive.<br>La confiance aussi.</p>
+      <p class="editorial-label text-brand-gold">{% block auth_kicker %}{% t "Un réseau. Huit pays." %}{% endblock %}</p>
+      <p class="display-title max-w-xl text-6xl leading-[.92]">{% block auth_tagline %}{% blockt %}L'argent arrive.<br>La confiance aussi.{% endblockt %}{% endblock %}</p>
       <ul class="flex flex-wrap gap-2 text-xs font-semibold text-white/70">
         {% for country in COUNTRIES %}
-          <li class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5">{{ country.flag }} {{ country.name }}</li>
+          <li class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5">{{ country.flag }} {% t country.name %}</li>
         {% endfor %}
       </ul>
     </div>
@@ -21,7 +21,7 @@
 
   <div class="relative flex flex-col justify-center px-6 py-16 sm:px-10 lg:px-20">
     <div class="absolute right-6 top-6">
-      <button type="button" data-theme-toggle aria-label="Basculer le mode sombre" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-text transition hover:border-brand-gold hover:text-brand-gold">
+      <button type="button" data-theme-toggle aria-label="{% t 'Basculer le mode sombre' %}" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-text transition hover:border-brand-gold hover:text-brand-gold">
         {% icon "moon" size=18 css_class="theme-icon-moon" %}
         {% icon "sun" size=18 css_class="theme-icon-sun hidden" %}
       </button>

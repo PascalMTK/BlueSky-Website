@@ -1,22 +1,27 @@
 {% extends "accounts/base_auth.html" %}
+{% load static i18n_extra %}
 {% block title %}Créer un compte | Blue Sky{% endblock %}
+{% block auth_photo %}<img src="{% static 'img/writing-blank-notebook.jpg' %}" alt="">{% endblock %}
+{% block auth_kicker %}{% t "Quelques minutes suffisent" %}{% endblock %}
+{% block auth_tagline %}{% blockt %}Notez vos infos.<br>On s'occupe du reste.{% endblockt %}{% endblock %}
 {% block auth_content %}
-  <h1 class="display-title text-2xl">Ouvrir un compte</h1>
-  <p class="mt-2 text-sm text-text-muted">Créez votre compte Blue Sky en quelques minutes.</p>
+  <h1 class="display-title text-2xl">{% t "Ouvrir un compte" %}</h1>
+  <p class="mt-2 text-sm text-text-muted">{% t "Créez votre compte Blue Sky en quelques minutes." %}</p>
 
   <form method="post" class="mt-8 space-y-5">
     {% csrf_token %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
     {% include "core/_form_errors.html" %}
     {% include "core/_field.html" with field=form.full_name %}
     {% include "core/_field.html" with field=form.email %}
     {% include "core/_field.html" with field=form.phone %}
     {% include "core/_field.html" with field=form.country %}
     {% include "core/_field.html" with field=form.password %}
-    <button type="submit" class="btn btn-primary btn-lg w-full">Créer mon compte</button>
+    <button type="submit" class="btn btn-primary btn-lg w-full">{% t "Créer mon compte" %}</button>
   </form>
 
   <p class="mt-6 text-center text-sm text-text-muted">
-    Déjà un compte ?
-    <a href="{% url 'accounts:login' %}" class="font-semibold text-brand-blue dark:text-brand-gold-light">Se connecter</a>
+    {% t "Déjà un compte ?" %}
+    <a href="{% url 'accounts:login' %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="font-semibold text-brand-blue dark:text-brand-gold-light">{% t "Se connecter" %}</a>
   </p>
 {% endblock %}

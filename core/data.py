@@ -44,8 +44,9 @@ SITE = {
     "savings_description": (
         "En plus du transfert d'argent, Blue Sky propose une branche Épargne : "
         "un moyen simple et sécurisé de mettre de l'argent de côté pour vos études, "
-        "votre famille ou votre activité, avec le même accompagnement humain que pour "
-        "chaque transfert."
+        "votre famille ou votre activité. Vous êtes enregistré dans notre programme "
+        "d'épargne et vous pouvez suivre votre compte à tout moment, avec le même "
+        "accompagnement humain qu'en agence."
     ),
 }
 

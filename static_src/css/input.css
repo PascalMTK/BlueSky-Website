@@ -392,7 +392,7 @@ main > section:not(.hero-mesh) { isolation: isolate; }
 main > section:not(.hero-mesh):nth-of-type(even) { overflow: hidden; }
 table tbody tr { transition: background-color .2s ease; }
 table tbody tr:hover { background: color-mix(in srgb, var(--color-brand-blue) 5%, transparent); }
-form input, form select, form textarea {
+form input:not([type="checkbox"]):not([type="radio"]), form select, form textarea {
   width: 100%;
   min-height: 3rem;
   border: 1px solid var(--color-border);
@@ -402,6 +402,34 @@ form input, form select, form textarea {
   color: var(--color-text);
 }
 form textarea { min-height: 7rem; resize: vertical; }
+
+/* Checkboxes/radios opt out of the block-input treatment above — they stay
+   small, square, and inline with their label instead of stretching to a
+   full-width 3rem-tall box. */
+form input[type="checkbox"], form input[type="radio"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  min-height: 0;
+  flex-shrink: 0;
+  accent-color: var(--color-brand-blue);
+  cursor: pointer;
+}
+form input[type="checkbox"] { border-radius: .3rem; }
+
+/* Language switcher pill (header nav) — a <select> that lives inside a
+   <form> for zero-JS submission, but opts out of the block-input treatment
+   above so it reads as a small nav control, not a form field. */
+.lang-switcher-select {
+  width: auto;
+  min-height: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.lang-switcher-select:focus { outline: none; box-shadow: none; }
 
 /* Consistent geometry and readable content across marketing and dashboard UI. */
 main article,
@@ -558,10 +586,10 @@ th { font-size: .75rem; letter-spacing: .06em; }
    siblings with [data-reveal-group] to stagger their entrance in DOM order. */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(46px) scale(.92) rotate(-1.2deg);
-  filter: blur(7px);
-  transition: opacity .85s cubic-bezier(.19,1,.22,1), transform .85s cubic-bezier(.19,1,.22,1), filter .7s ease-out;
-  transition-delay: calc(var(--reveal-index, 0) * 90ms);
+  transform: translateY(22px);
+  filter: blur(4px);
+  transition: opacity .5s cubic-bezier(.19,1,.22,1), transform .5s cubic-bezier(.19,1,.22,1), filter .4s ease-out;
+  transition-delay: calc(var(--reveal-index, 0) * 55ms);
   will-change: opacity, transform, filter;
 }
 .reveal-on-scroll.is-visible {

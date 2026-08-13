@@ -1,5 +1,5 @@
 {% extends "marketing/base_marketing.html" %}
-{% load icons ui static %}
+{% load icons ui static i18n_extra %}
 {% block title %}À propos | Blue Sky{% endblock %}
 {% block description %}Découvrez la mission, la vision et l'histoire de Blue Sky, agence de transfert d'argent au service de l'Afrique australe et de l'Est.{% endblock %}
 {% block content %}
@@ -8,23 +8,23 @@
   <div aria-hidden class="subtle-grid absolute inset-0 opacity-40"></div>
   <div class="reveal-on-scroll relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
     {% kicker "Qui sommes-nous ?" tone="blue" %}
-    <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Une agence bâtie pour rapprocher les familles africaines</h1>
+    <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">{% t "Une agence bâtie pour rapprocher les familles africaines" %}</h1>
   </div>
 </section>
 
 <section class="py-20 sm:py-28">
   <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-2">
-    <p class="reveal-on-scroll text-lg leading-relaxed text-text-muted">{{ SITE.definition }}</p>
+    <p class="reveal-on-scroll text-lg leading-relaxed text-text-muted">{% t SITE.definition %}</p>
     <div class="grid gap-6 sm:grid-cols-2" data-reveal-group>
       <div class="content-card reveal-on-scroll group p-7">
         <div class="icon-chip icon-chip-gold mb-4">{% icon "target" size=22 %}</div>
-        <h3 class="mb-2 text-lg font-bold">Notre but</h3>
-        <p class="text-sm leading-relaxed text-text-muted">{{ SITE.purpose }}</p>
+        <h3 class="mb-2 text-lg font-bold">{% t "Notre but" %}</h3>
+        <p class="text-sm leading-relaxed text-text-muted">{% t SITE.purpose %}</p>
       </div>
       <div class="content-card reveal-on-scroll group p-7">
         <div class="icon-chip mb-4">{% icon "compass" size=22 %}</div>
-        <h3 class="mb-2 text-lg font-bold">Notre mission</h3>
-        <p class="text-sm leading-relaxed text-text-muted">{{ SITE.mission }}</p>
+        <h3 class="mb-2 text-lg font-bold">{% t "Notre mission" %}</h3>
+        <p class="text-sm leading-relaxed text-text-muted">{% t SITE.mission %}</p>
       </div>
     </div>
   </div>
@@ -60,16 +60,16 @@
       <div class="relative">
         {% kicker "Notre vision" %}
         <p class="mt-6 text-2xl font-semibold leading-snug sm:text-3xl">
-          &laquo; Nous voulons qu'aucune distance, aucune frontière n'empêche une famille de prendre soin des siens. Blue Sky existe pour que chaque franc, chaque kwacha, chaque rand envoyé arrive à destination avec la même confiance qu'une remise en main propre. &raquo;
+          {% blockt %}&laquo; Nous voulons qu'aucune distance, aucune frontière n'empêche une famille de prendre soin des siens. Blue Sky existe pour que chaque franc, chaque kwacha, chaque rand envoyé arrive à destination avec la même confiance qu'une remise en main propre. &raquo;{% endblockt %}
         </p>
         <div class="mt-6 flex items-center gap-3">
           <span aria-hidden="true" class="h-px w-8 bg-brand-gold"></span>
-          <p class="text-xs font-bold uppercase tracking-[.14em] text-white/60">L'équipe de direction, Blue Sky</p>
+          <p class="text-xs font-bold uppercase tracking-[.14em] text-white/60">{% t "L'équipe de direction, Blue Sky" %}</p>
         </div>
         <p class="mt-5 max-w-lg leading-relaxed text-white/75">
-          Cette vision guide chacune de nos décisions : ouvrir de nouvelles agences là où les familles en ont besoin, simplifier chaque étape du transfert, et rester joignables humainement, pas seulement via une application.
+          {% t "Cette vision guide chacune de nos décisions : ouvrir de nouvelles agences là où les familles en ont besoin, simplifier chaque étape du transfert, et rester joignables humainement, pas seulement via une application." %}
         </p>
-        <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-md mt-8 w-fit">Nous contacter</a>
+        <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-md mt-8 w-fit">{% t "Nous contacter" %}</a>
       </div>
     </div>
   </div>

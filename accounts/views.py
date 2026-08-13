@@ -19,7 +19,9 @@ def _safe_next(request, next_url):
 
 @guest_only
 def signup_view(request):
+    next_url = request.GET.get("next", "")
     if request.method == "POST":
+        next_url = request.POST.get("next", next_url)
         form = SignupForm(request.POST)
         if form.is_valid():
             user = User.objects.create_user(
@@ -30,10 +32,10 @@ def signup_view(request):
                 country=form.cleaned_data["country"],
             )
             login(request, user)
-            return redirect(_safe_next(request, request.POST.get("next")))
+            return redirect(_safe_next(request, next_url))
     else:
         form = SignupForm()
-    return render(request, "accounts/signup.html", {"form": form})
+    return render(request, "accounts/signup.html", {"form": form, "next": next_url})
 
 
 @guest_only

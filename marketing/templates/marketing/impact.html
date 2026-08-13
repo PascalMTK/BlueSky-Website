@@ -1,5 +1,5 @@
 {% extends "marketing/base_marketing.html" %}
-{% load icons ui static %}
+{% load icons ui static i18n_extra %}
 
 {% block title %}Notre impact | Blue Sky{% endblock %}
 {% block description %}Blue Sky s'engage auprès des communautés qu'elle sert, notamment à travers des visites régulières à un orphelinat en Namibie.{% endblock %}
@@ -13,10 +13,10 @@
   <div class="relative mx-auto w-full max-w-[1440px] px-6 text-center sm:px-8 lg:px-12">
     {% kicker "Responsabilité sociale" tone="blue" %}
     <h1 class="font-display mx-auto mt-4 max-w-4xl text-4xl font-extrabold tracking-tight text-text sm:text-6xl sm:leading-tight">
-      Connecter les familles, soutenir les communautés
+      {% t "Connecter les familles, soutenir les communautés" %}
     </h1>
     <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg">
-      Le métier de Blue Sky est de rapprocher les familles séparées par la distance. Nous croyons fermement que cette mission ne s'arrête pas aux transactions financières.
+      {% t "Le métier de Blue Sky est de rapprocher les familles séparées par la distance. Nous croyons fermement que cette mission ne s'arrête pas aux transactions financières." %}
     </p>
   </div>
 </section>
@@ -32,12 +32,12 @@
       </div>
       
       <h2 class="font-display text-3xl font-extrabold tracking-tight text-text sm:text-4xl sm:leading-tight">
-        Aux côtés d'un orphelinat en Namibie
+        {% t "Aux côtés d'un orphelinat en Namibie" %}
       </h2>
-      
+
       <div class="space-y-4 text-base leading-relaxed text-text-muted sm:text-lg">
         <p>
-          L'équipe Blue Sky se déplace régulièrement auprès d'enfants d'un orphelinat en Namibie pour partager du temps, apporter des ressources et rester à l'écoute de leurs besoins au quotidien.
+          {% t "L'équipe Blue Sky se déplace régulièrement auprès d'enfants d'un orphelinat en Namibie pour partager du temps, apporter des ressources et rester à l'écoute de leurs besoins au quotidien." %}
         </p>
         <p>
           Ces visites font partie intégrante de l'ADN de Blue Sky : une entreprise africaine, construite par et pour ses communautés. Une partie de notre présence locale dans chaque pays sert ainsi à identifier des initiatives à fort impact que nous pouvons soutenir dans la durée.
@@ -47,10 +47,10 @@
       <!-- Quick Metrics/Badges -->
       <div class="pt-4 flex flex-wrap gap-3">
         <span class="inline-flex items-center gap-2 rounded-full border border-border/80 bg-surface px-4 py-2 text-xs font-semibold text-text shadow-sm">
-          {% icon "heart" size=14 css_class="text-brand-gold" %} Engagements récurrents
+          {% icon "heart" size=14 css_class="text-brand-gold" %} {% t "Engagements récurrents" %}
         </span>
         <span class="inline-flex items-center gap-2 rounded-full border border-border/80 bg-surface px-4 py-2 text-xs font-semibold text-text shadow-sm">
-          {% icon "map-pin" size=14 css_class="text-brand-blue" %} Action locale en Namibie
+          {% icon "map-pin" size=14 css_class="text-brand-blue" %} {% t "Action locale en Namibie" %}
         </span>
       </div>
     </div>
@@ -67,8 +67,8 @@
         >
         <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/85 via-brand-blue-deep/30 to-brand-blue-deep/55"></div>
         <div class="absolute bottom-6 left-6 right-6 text-white sm:bottom-8 sm:left-8 sm:right-8">
-          <p class="text-xs font-semibold uppercase tracking-wider text-brand-gold">Proximité & Entraide</p>
-          <p class="mt-1 text-lg font-bold sm:text-xl">Créer un impact tangible au-delà des frontières.</p>
+          <p class="text-xs font-semibold uppercase tracking-wider text-brand-gold">{% t "Proximité & Entraide" %}</p>
+          <p class="mt-1 text-lg font-bold sm:text-xl">{% t "Créer un impact tangible au-delà des frontières." %}</p>
         </div>
       </div>
     </div>
@@ -84,9 +84,9 @@
     </figure>
     <div class="reveal-on-scroll order-1 space-y-5 lg:order-2 lg:col-span-7">
       {% kicker "Fierté locale" tone="blue" %}
-      <h2 class="font-display text-3xl font-extrabold tracking-tight text-text sm:text-4xl">Grandir aux côtés de la jeunesse africaine</h2>
+      <h2 class="font-display text-3xl font-extrabold tracking-tight text-text sm:text-4xl">{% t "Grandir aux côtés de la jeunesse africaine" %}</h2>
       <p class="leading-relaxed text-text-muted">
-        Soutenir l'éducation et la réussite des jeunes fait partie de notre engagement — parce qu'investir dans une génération, c'est investir dans l'avenir des familles que nous connectons chaque jour.
+        {% t "Soutenir l'éducation et la réussite des jeunes fait partie de notre engagement — parce qu'investir dans une génération, c'est investir dans l'avenir des familles que nous connectons chaque jour." %}
       </p>
     </div>
   </div>
@@ -99,8 +99,8 @@
   <div class="mx-auto w-full max-w-[1440px] px-6 sm:px-8 lg:px-12">
     <div class="reveal-on-scroll relative mx-auto mb-12 max-w-3xl text-center sm:mb-16">
       {% kicker "Ce que permet chaque transfert" tone="blue" %}
-      <h2 class="font-display mt-5 text-3xl font-extrabold tracking-tight text-text sm:text-5xl">Votre argent fait avancer ce qui compte vraiment</h2>
-      <p class="mx-auto mt-5 max-w-2xl leading-relaxed text-text-muted">Un transfert ne se résume pas à un montant. C'est un repas partagé, un diplôme qui se rapproche ou une idée qui devient une vraie activité.</p>
+      <h2 class="font-display mt-5 text-3xl font-extrabold tracking-tight text-text sm:text-5xl">{% t "Votre argent fait avancer ce qui compte vraiment" %}</h2>
+      <p class="mx-auto mt-5 max-w-2xl leading-relaxed text-text-muted">{% t "Un transfert ne se résume pas à un montant. C'est un repas partagé, un diplôme qui se rapproche ou une idée qui devient une vraie activité." %}</p>
     </div>
     <div class="relative grid gap-6 md:grid-cols-3" data-reveal-group>
       <article class="framed-card reveal-on-scroll group">
@@ -108,12 +108,12 @@
           <img src="{% static 'img/african-descent-family-house-home-resting-living.jpg' %}" alt="Une famille africaine épargnant ensemble à la maison" loading="lazy" class="h-full w-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/75 via-transparent to-transparent"></div>
           <span class="icon-chip-photo absolute left-5 top-5">{% icon "users" size=20 %}</span>
-          <span class="photo-tag absolute bottom-5 left-5">Familles</span>
+          <span class="photo-tag absolute bottom-5 left-5">{% t "Familles" %}</span>
         </div>
         <div class="p-6 sm:p-7">
-          <h3 class="font-display text-xl font-extrabold tracking-tight text-text">Toujours proche des siens</h3>
-          <p class="mt-3 text-sm leading-relaxed text-text-muted">Contribuer au quotidien, aux soins et aux projets de la famille, même lorsque des frontières vous séparent.</p>
-          <p class="mt-6 flex items-center gap-2 text-sm font-bold text-brand-blue">Soutenir le quotidien <span class="transition-transform group-hover:translate-x-1">→</span></p>
+          <h3 class="font-display text-xl font-extrabold tracking-tight text-text">{% t "Toujours proche des siens" %}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-text-muted">{% t "Contribuer au quotidien, aux soins et aux projets de la famille, même lorsque des frontières vous séparent." %}</p>
+          <p class="mt-6 flex items-center gap-2 text-sm font-bold text-brand-blue">{% t "Soutenir le quotidien" %} <span class="transition-transform group-hover:translate-x-1">→</span></p>
         </div>
       </article>
 
@@ -122,12 +122,12 @@
           <img src="{% static 'img/studious-teen-girl-with-backpack-notebooks-yellow-backdrop-smiling-pointing-aside.jpg' %}" alt="Une étudiante avec ses cahiers, soutenue par sa famille via Blue Sky" loading="lazy" class="h-full w-full object-cover object-left">
           <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/75 via-transparent to-transparent"></div>
           <span class="icon-chip-photo icon-chip-gold absolute left-5 top-5">{% icon "graduation-cap" size=21 %}</span>
-          <span class="photo-tag absolute bottom-5 left-5">Étudiants</span>
+          <span class="photo-tag absolute bottom-5 left-5">{% t "Étudiants" %}</span>
         </div>
         <div class="p-6 sm:p-7">
-          <h3 class="font-display text-xl font-extrabold tracking-tight text-text">Investir dans leur avenir</h3>
-          <p class="mt-3 text-sm leading-relaxed text-text-muted">Payer les frais de scolarité, le logement ou le matériel nécessaire pour apprendre et réussir sereinement.</p>
-          <p class="mt-6 flex items-center gap-2 text-sm font-bold text-brand-blue">Financer les études <span class="transition-transform group-hover:translate-x-1">→</span></p>
+          <h3 class="font-display text-xl font-extrabold tracking-tight text-text">{% t "Investir dans leur avenir" %}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-text-muted">{% t "Payer les frais de scolarité, le logement ou le matériel nécessaire pour apprendre et réussir sereinement." %}</p>
+          <p class="mt-6 flex items-center gap-2 text-sm font-bold text-brand-blue">{% t "Financer les études" %} <span class="transition-transform group-hover:translate-x-1">→</span></p>
         </div>
       </article>
 
@@ -136,12 +136,12 @@
           <img src="{% static 'img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg' %}" alt="Une jeune entrepreneure africaine au téléphone devant son commerce" loading="lazy" class="h-full w-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/75 via-transparent to-transparent"></div>
           <span class="icon-chip-photo absolute left-5 top-5">{% icon "briefcase" size=20 %}</span>
-          <span class="photo-tag absolute bottom-5 left-5">Entrepreneurs</span>
+          <span class="photo-tag absolute bottom-5 left-5">{% t "Entrepreneurs" %}</span>
         </div>
         <div class="p-6 sm:p-7">
-          <h3 class="font-display text-xl font-extrabold tracking-tight text-text">Donner de l'élan aux idées</h3>
-          <p class="mt-3 text-sm leading-relaxed text-text-muted">Acheter du matériel, payer un fournisseur ou renforcer la trésorerie pour transformer une ambition en activité durable.</p>
-          <p class="mt-6 flex items-center gap-2 text-sm font-bold text-brand-blue">Faire grandir l'activité <span class="transition-transform group-hover:translate-x-1">→</span></p>
+          <h3 class="font-display text-xl font-extrabold tracking-tight text-text">{% t "Donner de l'élan aux idées" %}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-text-muted">{% t "Acheter du matériel, payer un fournisseur ou renforcer la trésorerie pour transformer une ambition en activité durable." %}</p>
+          <p class="mt-6 flex items-center gap-2 text-sm font-bold text-brand-blue">{% t "Faire grandir l'activité" %} <span class="transition-transform group-hover:translate-x-1">→</span></p>
         </div>
       </article>
     </div>
@@ -151,14 +151,14 @@
       <div class="relative grid items-center gap-7 px-6 py-8 sm:px-9 sm:py-9 lg:grid-cols-[auto_1fr_auto] lg:gap-8">
         <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-gold text-brand-blue-deep shadow-lg shadow-brand-gold/15">{% icon "piggy-bank" size=26 %}</span>
         <div>
-          <p class="text-xs font-bold uppercase tracking-[.2em] text-brand-gold">Préparez vos projets avec confiance</p>
-          <h3 class="mt-2 text-xl font-bold tracking-tight text-white sm:text-2xl">Une épargne simple, régulière et adaptée à vos ambitions</h3>
-          <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/65">Études, projet familial ou développement d'activité : avancez à votre rythme avec un accompagnement humain et un suivi transparent.</p>
+          <p class="text-xs font-bold uppercase tracking-[.2em] text-brand-gold">{% t "Préparez vos projets avec confiance" %}</p>
+          <h3 class="mt-2 text-xl font-bold tracking-tight text-white sm:text-2xl">{% t "Une épargne simple, régulière et adaptée à vos ambitions" %}</h3>
+          <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/65">{% t "Études, projet familial ou développement d'activité : avancez à votre rythme avec un accompagnement humain et un suivi transparent." %}</p>
         </div>
         <a href="{% url 'marketing:home' %}#epargne" class="group inline-flex w-full items-center justify-between gap-4 rounded-2xl border border-brand-gold/30 bg-brand-gold px-5 py-3.5 text-left text-sm font-extrabold leading-tight text-brand-blue-deep shadow-[0_14px_30px_-14px_rgba(244,184,63,.8)] transition duration-200 hover:-translate-y-0.5 hover:bg-brand-gold-light hover:shadow-[0_18px_35px_-12px_rgba(244,184,63,.8)] sm:w-auto sm:min-w-[15rem] lg:justify-self-end">
           <span>
-            <span class="block text-[.62rem] font-bold uppercase tracking-[.16em] opacity-65">Branche Blue Sky</span>
-            <span class="mt-0.5 block">Découvrir l'épargne</span>
+            <span class="block text-[.62rem] font-bold uppercase tracking-[.16em] opacity-65">{% t "Branche Blue Sky" %}</span>
+            <span class="mt-0.5 block">{% t "Découvrir l'épargne" %}</span>
           </span>
           <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-blue-deep text-white transition-transform duration-200 group-hover:translate-x-1">{% icon "arrow-right" size=16 %}</span>
         </a>
@@ -184,23 +184,23 @@
       <div class="absolute bottom-6 left-6 right-6 text-white sm:bottom-10 sm:left-10 sm:right-10">
         <span class="inline-flex items-center gap-2 rounded-full bg-brand-gold/20 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand-gold backdrop-blur-md border border-brand-gold/30">
           <span class="h-1.5 w-1.5 rounded-full bg-brand-gold animate-pulse"></span>
-          Sur le terrain
+          {% t "Sur le terrain" %}
         </span>
-        <h3 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Un engagement soutenu aux côtés des acteurs locaux</h3>
+        <h3 class="mt-3 text-2xl font-bold text-white sm:text-3xl">{% t "Un engagement soutenu aux côtés des acteurs locaux" %}</h3>
       </div>
     </div>
 
     <!-- Interactive CTA Block -->
     <div class="reveal-on-scroll mx-auto mt-14 max-w-2xl text-center">
       <h2 class="font-display text-2xl font-extrabold tracking-tight text-text sm:text-3xl">
-        Vous connaissez une initiative locale à soutenir ?
+        {% t "Vous connaissez une initiative locale à soutenir ?" %}
       </h2>
       <p class="mt-4 text-base leading-relaxed text-text-muted">
-        Parlez-nous de votre communauté — nous sommes toujours à l'écoute de nouvelles façons de nous rendre utiles là où nous opérons.
+        {% t "Parlez-nous de votre communauté — nous sommes toujours à l'écoute de nouvelles façons de nous rendre utiles là où nous opérons." %}
       </p>
       <div class="mt-8 flex justify-center">
         <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">
-          <span>Nous écrire</span>
+          <span>{% t "Nous écrire" %}</span>
           {% icon "arrow-right" size=16 css_class="transition-transform group-hover:translate-x-1" %}
         </a>
       </div>

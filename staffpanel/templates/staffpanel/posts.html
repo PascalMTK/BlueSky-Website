@@ -1,0 +1,56 @@
+{% extends "staffpanel/base_staff.html" %}
+{% load icons %}
+{% block title %}Publications | Administration{% endblock %}
+{% block dashboard_content %}
+
+<div class="flex flex-wrap items-center justify-between gap-4">
+  <h1 class="display-title text-2xl sm:text-3xl">Publications</h1>
+  <a href="{% url 'staffpanel:post_create' %}" class="btn btn-primary btn-md">{% icon "plus" size=16 %} Nouvelle publication</a>
+</div>
+
+<div class="content-card mt-8 overflow-x-auto p-2">
+  <table class="w-full min-w-[640px] text-left text-sm">
+    <thead>
+      <tr class="text-xs font-bold uppercase tracking-wider text-text-muted">
+        <th class="px-4 py-3">Titre</th>
+        <th class="px-4 py-3">Auteur</th>
+        <th class="px-4 py-3">Statut</th>
+        <th class="px-4 py-3">Publié le</th>
+        <th class="px-4 py-3 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in posts %}
+        <tr class="border-t border-border/60">
+          <td class="px-4 py-3 font-semibold">{{ post.title }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ post.author.full_name|default:"—" }}</td>
+          <td class="px-4 py-3">
+            {% if post.is_published %}
+              {% include "core/partials/status_badge.html" with status="CONFIRMED" status_label="Publié" %}
+            {% else %}
+              {% include "core/partials/status_badge.html" with status="PENDING" status_label="Brouillon" %}
+            {% endif %}
+          </td>
+          <td class="px-4 py-3 text-text-muted">{{ post.published_at|date:"d/m/Y"|default:"—" }}</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center justify-end gap-2">
+              <a href="{% url 'staffpanel:post_edit' post.pk %}" class="btn btn-ghost btn-md">{% icon "pencil" size=15 %} Modifier</a>
+              <form method="post" action="{% url 'staffpanel:toggle_post_published' post.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-ghost btn-md">{% if post.is_published %}Dépublier{% else %}Publier{% endif %}</button>
+              </form>
+              <form method="post" action="{% url 'staffpanel:delete_post' post.pk %}" onsubmit="return confirm('Supprimer cette publication ?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-ghost btn-md text-red-600 hover:border-red-400">{% icon "trash-2" size=15 %}</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="px-4 py-8 text-center text-text-muted">Aucune publication pour le moment.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
