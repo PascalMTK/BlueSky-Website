@@ -4,12 +4,17 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ==========================================================================
+   Design tokens
+   One dominant brand color (navy), one supporting color (gold), neutrals do
+   the rest. Every token has a light and dark pairing, toggled by .dark.
+   ========================================================================== */
 :root {
   --bg: #fbfcfe;
   --surface: #ffffff;
   --surface-muted: #f3f6fa;
   --text: #111827;
-  --text-muted: #667085;
+  --text-muted: #64748b;
   --border: #e2e8f0;
   --brand-blue: #2447a8;
   --brand-blue-dark: #173580;
@@ -17,7 +22,61 @@
   --brand-gold: #f4b83f;
   --brand-gold-dark: #d8991f;
   --brand-gold-light: #ffcf6b;
-  --brand-cyan: #6d8fe5;
+  --brand-cyan: #4c6fcc;
+}
+
+/* ---------- Cinematic 3D hero ---------- */
+.hero-premium { isolation: isolate; }
+.hero-atmosphere { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.hero-orb { position: absolute; border-radius: 999px; filter: blur(1px); opacity: .55; }
+.hero-orb-one {
+  width: 28rem; height: 28rem; right: -8rem; top: -10rem;
+  background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--color-brand-cyan) 32%, transparent), transparent 68%);
+}
+.hero-orb-two {
+  width: 20rem; height: 20rem; left: -10rem; bottom: -12rem;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-brand-gold) 20%, transparent), transparent 70%);
+}
+.hero-grid-plane {
+  position: absolute; width: 48rem; height: 30rem; right: -8rem; bottom: -20rem;
+  background-image: linear-gradient(color-mix(in srgb, var(--color-brand-blue) 13%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--color-brand-blue) 13%, transparent) 1px, transparent 1px);
+  background-size: 42px 42px; transform: perspective(500px) rotateX(62deg); transform-origin: 50% 0;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 72%);
+}
+.hero-visual {
+  perspective: 1400px; transform-style: preserve-3d;
+  transform: perspective(1400px) rotateX(var(--scene-rx, 0deg)) rotateY(var(--scene-ry, 0deg));
+  transition: transform .7s var(--motion-ease-out); will-change: transform;
+}
+.hero-visual [data-depth] { transform: translate3d(var(--depth-x, 0), var(--depth-y, 0), 0); transition: transform .7s var(--motion-ease-out); }
+.hero-frame {
+  box-shadow: 0 40px 80px -32px rgba(12,24,54,.58), 0 0 0 1px rgba(255,255,255,.14) inset;
+  transform-style: preserve-3d;
+}
+.hero-frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(145deg, rgba(255,255,255,.09), transparent 38%, rgba(12,24,54,.16)); pointer-events: none; }
+.hero-frame-shine { position: absolute; inset: 0; opacity: .75; background: radial-gradient(360px circle at var(--shine-x, 30%) var(--shine-y, 20%), rgba(255,255,255,.22), transparent 52%); mix-blend-mode: soft-light; pointer-events: none; }
+.hero-route-card, .hero-security-chip {
+  position: absolute; z-index: 20; display: flex; align-items: center; gap: .65rem;
+  border: 1px solid rgba(255,255,255,.2); color: #fff;
+  background: rgba(12,24,54,.78); box-shadow: 0 18px 42px rgba(5,12,30,.28);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.hero-route-card { top: 12%; left: -7%; padding: .75rem 1rem; border-radius: .9rem; font-size: .72rem; letter-spacing: .04em; }
+.hero-route-card strong { color: var(--color-brand-gold); font-size: 1.05rem; margin-right: .18rem; }
+.hero-route-dot { width: .55rem; height: .55rem; border-radius: 50%; background: #56e39f; box-shadow: 0 0 0 5px rgba(86,227,159,.13); }
+.hero-security-chip { top: 29%; right: -8%; padding: .7rem .9rem; border-radius: .8rem; font-size: .72rem; font-weight: 700; }
+.hero-security-chip svg { color: var(--color-brand-gold); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-orb-one { animation: hero-orbit 12s ease-in-out infinite alternate; }
+  .hero-orb-two { animation: hero-orbit 15s ease-in-out -4s infinite alternate-reverse; }
+  .hero-route-dot { animation: route-pulse 2.4s ease-out infinite; }
+  @keyframes hero-orbit { to { transform: translate3d(-30px, 24px, 0) scale(1.08); } }
+  @keyframes route-pulse { 50% { box-shadow: 0 0 0 9px rgba(86,227,159,0); } }
+}
+@media (max-width: 639px) {
+  .hero-route-card { left: .75rem; top: 8%; }
+  .hero-security-chip { right: .75rem; top: 24%; }
 }
 
 .dark {
@@ -25,7 +84,7 @@
   --surface: #121a2e;
   --surface-muted: #1a2338;
   --text: #eef1f8;
-  --text-muted: #98a2b8;
+  --text-muted: #94a1b8;
   --border: #26314a;
   --brand-blue: #7b93e8;
   --brand-blue-dark: #4c63b6;
@@ -50,365 +109,338 @@
   --color-brand-gold-dark: var(--brand-gold-dark);
   --color-brand-gold-light: var(--brand-gold-light);
   --color-brand-cyan: var(--brand-cyan);
-  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
+/* ==========================================================================
+   Base
+   ========================================================================== */
 * { border-color: var(--color-border); }
-html { scroll-behavior: smooth; font-size: 18px; }
+html { scroll-behavior: smooth; font-size: 16px; }
 body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans), system-ui, sans-serif;
-  letter-spacing: -0.012em;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
 }
-.site-header { box-shadow: 0 1px 0 rgba(12,24,54,.06), 0 12px 34px rgba(12,24,54,.045); }
-.trust-pill {
-  padding: .55rem .8rem;
-  border: 1px solid color-mix(in srgb, var(--color-brand-blue) 18%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
-  box-shadow: 0 8px 24px -18px var(--color-brand-blue-deep);
-}
-.client-avatar {
-  display: inline-flex;
-  width: 2.15rem;
-  height: 2.15rem;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--color-bg);
-  border-radius: 999px;
-  color: white;
-  font-size: .55rem;
-  font-weight: 800;
-  letter-spacing: -.02em;
-}
-button, a { -webkit-tap-highlight-color: transparent; }
-a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--color-brand-cyan) 65%, transparent);
-  outline-offset: 3px;
-}
-h1, h2, h3 { text-wrap: balance; }
-main section h1,
-main section h2 {
-  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-main section {
-  position: relative;
-}
-input, textarea, select {
-  font: inherit;
-}
-input:focus, textarea:focus, select:focus {
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-brand-blue) 12%, transparent);
-}
-p { text-wrap: pretty; }
-
-.brand-rules { display: inline-flex; align-items: stretch; gap: .3em; height: 1em; }
-.brand-rules span { width: 2px; background: currentColor; border-radius: 1px; }
-.diagonal-cut-b { clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%); }
-.diagonal-cut-t { clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%); }
-.diagonal-photo {
-  position: relative;
-  clip-path: polygon(16% 0%, 100% 0%, 100% 100%, 0% 100%);
-  box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--color-brand-blue-deep) 55%, transparent);
-}
-.diamond-photo {
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-}
-
-.eyebrow-line::before {
-  content: "";
-  width: 2.25rem;
-  height: 1px;
-  background: currentColor;
-}
-.display-title {
-  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: .98;
-}
-.premium-card {
-  border: 1px solid var(--color-border);
-  border-radius: 1.5rem;
-  background: var(--color-surface);
-  box-shadow: 0 18px 48px -34px color-mix(in srgb, var(--color-brand-blue-deep) 42%, transparent);
-  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
-}
-.premium-card:hover { border-color: color-mix(in srgb, var(--color-brand-blue) 25%, var(--color-border)); box-shadow: 0 24px 55px -36px color-mix(in srgb, var(--color-brand-blue-deep) 55%, transparent); transform: translateY(-2px); }
-.glass-panel {
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.09);
-  box-shadow: 0 32px 80px -36px rgba(0,0,0,.7);
-  backdrop-filter: blur(22px);
-}
-.hero-mesh {
-  background-color: var(--color-bg);
-  background-image:
-    radial-gradient(circle at 88% 6%, color-mix(in srgb, var(--color-brand-gold) 9%, transparent), transparent 30%),
-    radial-gradient(circle at 4% 88%, color-mix(in srgb, var(--color-brand-blue) 15%, transparent), transparent 32%),
-    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--color-brand-cyan) 9%, transparent), transparent 40%),
-    linear-gradient(180deg, var(--color-surface-muted) 0%, var(--color-bg) 88%);
-}
-.reference-hero {
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--color-brand-blue) 4%, transparent) 1px, transparent 1px),
-    linear-gradient(color-mix(in srgb, var(--color-brand-blue) 4%, transparent) 1px, transparent 1px),
-    var(--color-bg);
-  background-size: 56px 56px;
-}
-.geo-hero-visual { position: relative; isolation: isolate; }
-.geo-hero-visual::before {
-  content: "";
-  position: absolute;
-  inset: -2.5rem 12% 31% -8%;
-  z-index: -1;
-  background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-cyan));
-  border-radius: 50%;
-  transform: rotate(-7deg);
-}
-.geo-hero-visual::after {
-  content: "";
-  position: absolute;
-  width: 9rem;
-  height: 9rem;
-  bottom: 0;
-  left: -2rem;
-  z-index: -1;
-  background: var(--color-surface-muted);
-  border-radius: 50%;
-}
-.geo-hero-photo {
-  border-radius: 3.5rem 3.5rem 3.5rem 9rem;
-}
-.service-image-card {
-  position: relative;
-  min-height: 25rem;
-  overflow: hidden;
-  box-shadow: 0 26px 55px -28px color-mix(in srgb, var(--color-brand-blue-deep) 60%, transparent);
-}
-.service-image-card::after {
-  content: "";
-  position: absolute;
+/* ---------- Ambient background ----------
+   One continuous, very-low-opacity gradient wash fixed behind the whole
+   site (see core/base.html), drifting slowly. Deliberately restrained:
+   a single soft light source in each corner, no hard edges, no cursor
+   tracking, no per-section repetition — it reads as ambiance behind the
+   opaque section backgrounds that sit above it, not a decorative effect. */
+.ambient-bg {
+  position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, transparent 32%, rgba(12,24,54,.18) 54%, rgba(12,24,54,.94) 100%);
-}
-.service-image-card img { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
-.service-image-card:hover img { transform: scale(1.045); }
-.service-image-card > img,
-.service-image-card::after {
+  z-index: 0;
   overflow: hidden;
-  border-radius: inherit;
+  pointer-events: none;
 }
-.geo-about-photo {
-  border-radius: 50%;
-  filter: drop-shadow(0 28px 35px rgba(12,24,54,.16));
-}
-.route-line { position: relative; }
-.route-line::before {
+.ambient-bg::before {
   content: "";
   position: absolute;
-  left: 19px;
-  top: 34px;
-  bottom: -17px;
-  border-left: 1px dashed rgba(255,255,255,.24);
-}
-.subtle-grid {
-  background-image:
-    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
-  background-size: 46px 46px;
-}
-::selection { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
-
-@media (prefers-reduced-motion: no-preference) {
-  .reveal { animation: reveal .65s cubic-bezier(.2,.8,.2,1) both; }
-  .reveal-delay { animation: reveal .65s .12s cubic-bezier(.2,.8,.2,1) both; }
-}
-@keyframes reveal {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ---------- 3D tilt + glare ---------- */
-.tilt-3d { perspective: 1400px; }
-.tilt-3d-inner {
-  position: relative;
-  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transform-style: preserve-3d;
-  transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  inset: -20%;
+  background:
+    radial-gradient(52% 42% at 18% 8%, color-mix(in srgb, var(--color-brand-blue) 28%, transparent), transparent 72%),
+    radial-gradient(46% 38% at 86% 88%, color-mix(in srgb, var(--color-brand-gold) 22%, transparent), transparent 72%),
+    radial-gradient(60% 50% at 50% 45%, color-mix(in srgb, var(--color-brand-cyan) 12%, transparent), transparent 75%);
   will-change: transform;
 }
-.tilt-glare {
+.dark .ambient-bg::before {
+  background:
+    radial-gradient(52% 42% at 18% 8%, color-mix(in srgb, var(--color-brand-blue) 22%, transparent), transparent 72%),
+    radial-gradient(46% 38% at 86% 88%, color-mix(in srgb, var(--color-brand-gold) 16%, transparent), transparent 72%),
+    radial-gradient(60% 50% at 50% 45%, color-mix(in srgb, var(--color-brand-cyan) 16%, transparent), transparent 75%);
+}
+button, a { -webkit-tap-highlight-color: transparent; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--color-brand-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.dark a:focus-visible, .dark button:focus-visible, .dark input:focus-visible, .dark select:focus-visible, .dark textarea:focus-visible {
+  outline-color: var(--color-brand-gold-light);
+}
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+input, textarea, select { font: inherit; }
+::selection { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
+
+/* Editorial display type — carries most of the visual identity. A serif
+   face for headlines (distinct from the sans used for UI/body/nav) reads as
+   a deliberate, considered choice rather than a default framework look. */
+.display-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.12;
+}
+main article, main form, main [class*="shadow"] { background-clip: padding-box; }
+
+/* ==========================================================================
+   Layout helpers
+   ========================================================================== */
+.page-shell { max-width: 1440px; margin-inline: auto; }
+.editorial-label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.editorial-index { font-size: .7rem; font-weight: 700; letter-spacing: .06em; color: var(--color-text-muted); }
+.editorial-rule { border-top: 1px solid currentColor; }
+.brand-rules { display: inline-flex; align-items: stretch; gap: .3em; height: 1em; }
+.brand-rules span { width: 2px; background: currentColor; border-radius: 1px; }
+header a, footer a, aside a { letter-spacing: -.005em; }
+
+/* ==========================================================================
+   Buttons — three variants: solid primary, outlined secondary, text link.
+   No gradients, no full-pill shape, no bounce on hover.
+   ========================================================================== */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-semibold transition-colors duration-150;
+  min-height: 2.75rem;
+}
+.btn > svg { flex: 0 0 auto; }
+.btn:disabled { @apply opacity-50 pointer-events-none; }
+.btn-primary {
+  background: var(--color-brand-gold);
+  color: var(--color-brand-blue-deep);
+}
+.btn-primary:hover { background: var(--color-brand-gold-dark); }
+.btn-secondary {
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid color-mix(in srgb, currentColor 32%, transparent);
+}
+.btn-secondary:hover { background: color-mix(in srgb, currentColor 7%, transparent); border-color: color-mix(in srgb, currentColor 45%, transparent); }
+.btn-ghost {
+  background: transparent;
+  color: var(--color-brand-blue);
+  padding-inline: .25rem;
+  min-height: auto;
+}
+.dark .btn-ghost { color: var(--color-brand-gold-light); }
+.btn-ghost:hover { text-decoration: underline; text-underline-offset: 3px; }
+.btn-md { @apply px-5 py-2.5 text-sm; }
+.btn-lg { @apply px-6 py-3 text-base; }
+
+/* ==========================================================================
+   Cards
+   Two tiers: .content-card (plain bordered container) and .framed-card
+   (photo-topped card). Both keep radius and shadow restrained.
+   ========================================================================== */
+.content-card {
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .04);
+  transition: border-color .2s ease;
+}
+.content-card:hover { border-color: color-mix(in srgb, var(--color-brand-blue) 30%, var(--color-border)); }
+
+.framed-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: border-color .2s ease;
+}
+.framed-card:hover { border-color: color-mix(in srgb, var(--color-brand-blue) 30%, var(--color-border)); }
+.framed-card-photo { position: relative; overflow: hidden; }
+.framed-card-photo img { transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.framed-card:hover .framed-card-photo img { transform: scale(1.035); }
+
+/* Numbered step card (how-it-works). Ghost index number is a legitimate
+   editorial device, kept modest. */
+.premium-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: border-color .2s ease;
+}
+.premium-card:hover { border-color: color-mix(in srgb, var(--color-brand-blue) 30%, var(--color-border)); }
+
+/* Full-bleed photo card with a bottom scrim for overlaid text (services,
+   savings segments). Kept as a legitimate image-led section pattern. */
+.service-image-card {
+  position: relative;
+  min-height: 22rem;
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+.service-image-card::after {
+  content: "";
   position: absolute;
   inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.4), transparent 45%);
-  opacity: 0;
-  transition: opacity .35s ease;
-  pointer-events: none;
-  z-index: 1;
+  background: linear-gradient(180deg, transparent 30%, rgba(12,24,54,.2) 55%, rgba(12,24,54,.92) 100%);
 }
-.tilt-3d:hover .tilt-glare { opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .tilt-3d-inner { transition: none; }
+.service-image-card img { transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.service-image-card:hover img { transform: scale(1.03); }
+.service-image-card h3 { line-height: 1.2; }
+.service-image-card p { line-height: 1.6; }
+
+/* Dark, static "summary" panel — replaces the old spinning-coin bank-card
+   mockup with a plain, confident panel. */
+.summary-card {
+  border-radius: 1.25rem;
+  background: var(--color-brand-blue-deep);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.08);
 }
 
-/* ---------- Hero photo merging into background ---------- */
-.hero-photo-merge {
+/* ==========================================================================
+   Icon chips — one small circular badge system, restrained hover.
+   ========================================================================== */
+.icon-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  border-radius: .75rem;
+  background: color-mix(in srgb, var(--color-brand-blue) 10%, transparent);
+  color: var(--color-brand-blue);
+  transition: background-color .2s ease, color .2s ease;
+}
+.dark .icon-chip { background: color-mix(in srgb, var(--color-brand-blue) 20%, transparent); color: var(--color-brand-gold-light); }
+.icon-chip-gold { background: color-mix(in srgb, var(--color-brand-gold) 18%, transparent); color: var(--color-brand-gold-dark); }
+.dark .icon-chip-gold { color: var(--color-brand-gold-light); }
+.icon-chip-gold-soft { background: color-mix(in srgb, var(--color-brand-gold) 14%, transparent); color: var(--color-brand-gold-dark); }
+.dark .icon-chip-gold-soft { color: var(--color-brand-gold-light); }
+.group:hover .icon-chip { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
+
+.icon-chip-photo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: .75rem;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.92);
+  color: var(--color-brand-blue-deep);
+}
+.photo-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: .5rem;
+  border: 1px solid rgba(255,255,255,.2);
+  background: color-mix(in srgb, var(--color-brand-blue-deep) 75%, transparent);
+  padding: .3rem .7rem;
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--color-brand-gold);
+}
+
+/* ==========================================================================
+   Section backgrounds — faint, textural, never a foreground effect.
+   ========================================================================== */
+.section-photo-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.hero-photo-merge img {
+.section-photo-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 22%;
-  filter: grayscale(.25) contrast(1.05);
-  opacity: .6;
+  opacity: .14;
+  filter: grayscale(.35) contrast(1.05);
 }
-.hero-photo-merge::after {
+.section-photo-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, rgba(15,13,98,.7) 0%, rgba(48,44,255,.42) 62%, rgba(23,20,202,.32) 100%);
+  background: linear-gradient(180deg,
+    var(--color-bg) 0%,
+    color-mix(in srgb, var(--color-bg) 55%, transparent) 45%,
+    var(--color-bg) 100%);
+}
+.section-photo-bg-dark img { opacity: .2; filter: grayscale(.2) contrast(1.05); }
+.section-photo-bg-dark::after {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--color-brand-blue-deep) 88%, transparent) 0%,
+    color-mix(in srgb, var(--color-brand-blue-deep) 74%, transparent) 45%,
+    color-mix(in srgb, var(--color-brand-blue-deep) 90%, transparent) 100%);
+}
+/* Faint dot texture for a calm hero background — no animation. */
+.subtle-grid {
+  background-image: radial-gradient(color-mix(in srgb, currentColor 14%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
-/* ---------- Floating gradient orbs (depth / parallax feel) ---------- */
-.orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(64px);
-  pointer-events: none;
-  z-index: 0;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .orb { animation: orb-float 10s ease-in-out infinite; }
-  .orb-slow { animation-duration: 15s; }
-  .orb-delay { animation-delay: -4s; }
-}
-@keyframes orb-float {
-  0%, 100% { transform: translate3d(0,0,0) scale(1); }
-  50% { transform: translate3d(0,-26px,0) scale(1.08); }
-}
-
-/* ---------- Slow-spinning 3D coin badge ---------- */
-.coin-3d { transform-style: preserve-3d; perspective: 600px; }
-@media (prefers-reduced-motion: no-preference) {
-  .coin-3d-spin { animation: coin-spin 7s linear infinite; }
-}
-@keyframes coin-spin {
-  0% { transform: rotateY(0deg); }
-  100% { transform: rotateY(360deg); }
-}
-
-/* ---------- Image merging into surrounding background ---------- */
-.image-merge-wrap { position: relative; isolation: isolate; }
-.image-merge-wrap::before {
-  content: "";
-  position: absolute;
-  inset: -10%;
-  z-index: -1;
-  background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-brand-blue) 30%, transparent), transparent 70%);
-  filter: blur(40px);
-}
-.image-merge {
-  mask-image: radial-gradient(ellipse 88% 86% at 50% 50%, black 62%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 88% 86% at 50% 50%, black 62%, transparent 100%);
-}
-
-/* ---------- Shared button component classes (mirrors the old React <Button>) ---------- */
-.btn {
-  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-bold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
-  min-height: 2.75rem;
-  letter-spacing: -.02em;
-}
-.btn > svg { flex: 0 0 auto; }
-.btn:disabled { @apply opacity-60 pointer-events-none translate-y-0; }
-.btn-primary {
-  color: var(--color-brand-blue-deep);
-  background: linear-gradient(135deg, var(--color-brand-gold-light), var(--color-brand-gold));
-  box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--color-brand-gold-dark) 65%, transparent);
-}
-.btn-primary:hover {
-  background: var(--color-brand-gold-light);
-  box-shadow: 0 14px 32px -8px color-mix(in srgb, var(--color-brand-gold-dark) 65%, transparent);
-}
-.btn-secondary { @apply bg-brand-blue text-white hover:bg-brand-blue-dark shadow-lg shadow-brand-blue/20; }
-.btn-outline-light { @apply border border-white/35 bg-white/5 text-white backdrop-blur hover:bg-white hover:text-brand-blue-deep; }
-.btn-ghost { @apply border border-border bg-surface/50 text-text hover:border-brand-blue hover:text-brand-blue; }
-.btn-md { @apply px-5 py-2.5 text-sm; }
-.btn-lg { @apply px-7 py-3.5 text-base; }
-
-/* ---------- Gradient hero text (mirrors reference site's h1 em) ---------- */
-.text-gradient-sky {
-  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-cyan));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-/* 2026 editorial fintech system */
-.page-shell { max-width: 1440px; margin-inline: auto; }
-.editorial-label { font-size: .68rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
-.editorial-index { font-size: .7rem; font-weight: 800; letter-spacing: .08em; color: var(--color-text-muted); }
-.editorial-rule { border-top: 1px solid currentColor; }
-.bank-card {
-  position: relative;
+/* Two-tone "call us" pill — derived from Blue Sky's own campaign artwork,
+   kept as a genuine brand device rather than a generic CTA gimmick. */
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: .875rem;
   overflow: hidden;
-  border-radius: 1.75rem;
-  background: linear-gradient(145deg, #14204a, #3467dd);
+  background: var(--color-brand-gold);
+}
+.contact-pill-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: .2rem;
+  border-radius: .625rem;
+  background: var(--color-brand-blue-deep);
   color: #fff;
-  box-shadow: 0 34px 70px -35px rgba(27,34,66,.8);
+  flex-shrink: 0;
 }
-.service-card {
-  border: 1px solid rgba(255,255,255,.12);
-  background: linear-gradient(145deg, #13234a 0%, var(--color-brand-blue) 100%);
-  box-shadow: 0 24px 55px -34px color-mix(in srgb, var(--color-brand-blue-deep) 82%, transparent);
-  transition: transform .25s ease, box-shadow .25s ease;
+.contact-pill-text {
+  padding: 0 1.1rem 0 .65rem;
+  font-weight: 700;
+  color: var(--color-brand-blue-deep);
+  white-space: nowrap;
 }
-.service-card:hover { transform: translateY(-3px); box-shadow: 0 30px 62px -34px color-mix(in srgb, var(--color-brand-blue-deep) 88%, transparent); }
-.bank-card::after {
-  content: "";
-  position: absolute;
-  width: 14rem;
-  height: 14rem;
-  right: -5rem;
-  top: -7rem;
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 50%;
-  box-shadow: 0 0 0 2rem rgba(255,255,255,.035), 0 0 0 4rem rgba(255,255,255,.025);
+.contact-pill-text small {
+  display: block;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  opacity: .75;
 }
-header a, footer a, aside a { letter-spacing: -.01em; }
-main > section:not(.hero-mesh) { isolation: isolate; }
-main > section:not(.hero-mesh):nth-of-type(even) { overflow: hidden; }
-table tbody tr { transition: background-color .2s ease; }
-table tbody tr:hover { background: color-mix(in srgb, var(--color-brand-blue) 5%, transparent); }
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
 form input:not([type="checkbox"]):not([type="radio"]), form select, form textarea {
   width: 100%;
-  min-height: 3rem;
+  min-height: 2.9rem;
   border: 1px solid var(--color-border);
-  border-radius: 1rem;
+  border-radius: .625rem;
   background: var(--color-surface);
-  padding: .85rem 1rem;
+  padding: .7rem .9rem;
   color: var(--color-text);
 }
 form textarea { min-height: 7rem; resize: vertical; }
-
-/* Checkboxes/radios opt out of the block-input treatment above — they stay
-   small, square, and inline with their label instead of stretching to a
-   full-width 3rem-tall box. */
+input:focus, textarea:focus, select:focus {
+  border-color: var(--color-brand-blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-blue) 15%, transparent);
+}
+.dark input:focus, .dark textarea:focus, .dark select:focus {
+  border-color: var(--color-brand-gold);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-gold) 18%, transparent);
+}
 form input[type="checkbox"], form input[type="radio"] {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.1rem;
+  height: 1.1rem;
   min-height: 0;
   flex-shrink: 0;
   accent-color: var(--color-brand-blue);
@@ -416,9 +448,8 @@ form input[type="checkbox"], form input[type="radio"] {
 }
 form input[type="checkbox"] { border-radius: .3rem; }
 
-/* Language switcher pill (header nav) — a <select> that lives inside a
-   <form> for zero-JS submission, but opts out of the block-input treatment
-   above so it reads as a small nav control, not a form field. */
+/* Language switcher control — a <select> living inside a <form>, opted out
+   of the block-input treatment above so it reads as a nav control. */
 .lang-switcher-select {
   width: auto;
   min-height: 0;
@@ -431,326 +462,343 @@ form input[type="checkbox"] { border-radius: .3rem; }
 }
 .lang-switcher-select:focus { outline: none; box-shadow: none; }
 
-/* Consistent geometry and readable content across marketing and dashboard UI. */
-main article,
-main form,
-main [class*="shadow"] {
-  background-clip: padding-box;
-}
-.service-image-card h3 { line-height: 1.2; }
-.service-image-card p { line-height: 1.65; }
-.bank-card { border-radius: 1.75rem; }
 table { font-size: .875rem; }
-th { font-size: .75rem; letter-spacing: .06em; }
-@media (min-width: 768px) {
-  [data-reveal-group] { align-items: stretch; }
-  [data-reveal-group] > * { height: 100%; }
-}
-@media (max-width: 767px) {
-  .display-title { letter-spacing: -.055em; }
-  .hero-mesh .glass-panel { border-radius: 1.25rem; }
-  html { font-size: 16px; }
-  .hero-mesh .display-title { font-size: clamp(2.65rem, 13vw, 3.65rem); }
-  .geo-hero-visual::before { inset: -1.5rem 8% 38% -5%; }
-  .service-image-card { min-height: 22rem; }
+th { font-size: .72rem; letter-spacing: .05em; }
+table tbody tr { transition: background-color .15s ease; }
+table tbody tr:hover { background: color-mix(in srgb, var(--color-brand-blue) 4%, transparent); }
+
+/* ==========================================================================
+   Motion system — bold, choreographed and progressively enhanced. Every
+   effect below degrades gracefully: no JS → static layout; coarse pointer →
+   no cursor/tilt effects; prefers-reduced-motion → everything collapses to
+   near-instant via the global override at the bottom of this section.
+   ========================================================================== */
+:root {
+  --motion-fast: 150ms;
+  --motion-normal: 250ms;
+  --motion-slow: 480ms;
+  --motion-slower: 900ms;
+  --motion-ease-out: cubic-bezier(.16, 1, .3, 1);
+  --motion-ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --motion-ease: cubic-bezier(.4, 0, .2, 1);
 }
 
-/* ---------- Faint full-bleed background photography ----------
-   Drop as the first child of a `position:relative` section, followed by
-   the section's real content wrapped in `relative z-10`. The photo sits
-   behind everything at low opacity with a brand-colored wash on top so
-   it reads as texture/mood rather than a foreground subject. */
-.section-photo-bg {
+header {
+  transition: background-color var(--motion-normal) var(--motion-ease),
+              border-color var(--motion-normal) var(--motion-ease),
+              box-shadow var(--motion-normal) var(--motion-ease);
+}
+header.is-scrolled { box-shadow: 0 6px 20px rgba(12, 24, 54, .08); }
+.dark header.is-scrolled { box-shadow: 0 6px 20px rgba(0, 0, 0, .2); }
+header nav a::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
+  inset: auto 0 0;
+  height: 2px;
+  background: var(--color-brand-blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--motion-normal) var(--motion-ease-out);
+}
+.dark header nav a::after { background: var(--color-brand-gold-light); }
+header nav a:hover::after, header nav a:focus-visible::after { transform: scaleX(1); }
+
+.mobile-nav-enhanced {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: grid-template-rows var(--motion-normal) var(--motion-ease-out),
+              opacity var(--motion-fast) ease-out,
+              transform var(--motion-normal) var(--motion-ease-out),
+              visibility 0s var(--motion-normal);
+}
+.mobile-nav-enhanced > div { min-height: 0; overflow: hidden; }
+.mobile-nav-enhanced.is-open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.btn, button, .contact-pill, [role="button"] {
+  transition: transform var(--motion-fast) var(--motion-ease),
+              background-color var(--motion-normal) var(--motion-ease),
+              border-color var(--motion-normal) var(--motion-ease),
+              color var(--motion-normal) var(--motion-ease),
+              box-shadow var(--motion-normal) var(--motion-ease);
+}
+.btn svg, a[class*="group"] svg { transition: transform var(--motion-normal) var(--motion-ease-out); }
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover, .contact-pill:hover { transform: translateY(-1px); }
+  .btn:hover svg, a[class*="group"]:hover svg { transform: translateX(3px); }
+  .content-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(12, 24, 54, .09);
+  }
+  /* .summary-card already has its own idle float animation (below), which
+     would fight a hover transform for control of the same property — so
+     it only gains the shadow lift here, not the translateY. */
+  .summary-card:hover { box-shadow: 0 10px 28px rgba(12, 24, 54, .09); }
+}
+.btn:active, button:active, .contact-pill:active, [role="button"]:active { transform: translateY(0) scale(.99); }
+.content-card, .summary-card {
+  transition: transform var(--motion-normal) var(--motion-ease),
+              box-shadow var(--motion-normal) var(--motion-ease),
+              border-color var(--motion-normal) var(--motion-ease);
+}
+
+/* ---------- Scroll-linked reveal ----------
+   [data-motion] targets fade + rise into view (assigned by motion.js, which
+   also decides whether to animate a whole section as one block or stagger
+   its card children individually for a choreographed, cascading entrance). */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-ready [data-motion] {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0) scale(.98);
+    transition: opacity var(--motion-slow) ease-out,
+                transform var(--motion-slow) var(--motion-ease-out);
+    transition-delay: var(--motion-delay, 0ms);
+  }
+  .motion-ready [data-motion].is-visible { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  .motion-ready [data-hero-motion] {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: hero-enter 620ms var(--motion-ease-spring) forwards;
+    animation-delay: var(--motion-delay, 0ms);
+  }
+  .motion-ready .hero-visual[data-hero-motion] {
+    transform: perspective(1400px) rotateX(var(--scene-rx, 0deg)) rotateY(var(--scene-ry, 0deg));
+    animation-name: hero-visual-enter;
+  }
+  @keyframes hero-enter { to { opacity: 1; transform: translateY(0); } }
+  @keyframes hero-visual-enter { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: none; } }
+}
+
+/* ---------- Ambient background drift ----------
+   The fixed gradient wash behind the site slowly breathes — large-scale,
+   glacial movement, never a distraction, always beneath opaque content. */
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-bg::before { animation: ambient-drift 24s ease-in-out infinite; }
+  @keyframes ambient-drift {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate3d(1.5%, -2%, 0) scale(1.07) rotate(2deg); }
+  }
+}
+
+/* ---------- Scroll progress bar ----------
+   Fixed hairline at the very top of the viewport, created by motion.js,
+   tracking reading/scroll progress with a slow-shifting brand gradient. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  z-index: 70;
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--color-brand-gold), var(--color-brand-cyan), var(--color-brand-blue));
+  background-size: 200% 100%;
   pointer-events: none;
 }
-.section-photo-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: .16;
-  filter: grayscale(.3) contrast(1.05);
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-progress { animation: progress-shift 7s linear infinite; }
+  @keyframes progress-shift { to { background-position: -200% 0; } }
 }
-.section-photo-bg::after {
+
+/* ---------- Cursor aura ----------
+   A soft glow that trails the pointer across the whole page (fine pointers
+   only), created and smoothed (lerped) by motion.js. Ambient light, not a
+   spotlight — it sits behind content and never intercepts clicks. */
+.cursor-aura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 46rem;
+  height: 46rem;
+  margin: -23rem 0 0 -23rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-brand-gold) 14%, transparent), transparent 70%);
+  transform: translate3d(var(--aura-x, -9999px), var(--aura-y, -9999px), 0);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity .4s ease;
+}
+.dark .cursor-aura { background: radial-gradient(circle, color-mix(in srgb, var(--color-brand-blue) 20%, transparent), transparent 70%); }
+
+/* ---------- 3D tilt (framed / premium / full-bleed photo cards) ----------
+   motion.js writes --tilt-rx/--tilt-ry from pointer position; the lift on
+   hover is pure CSS so it still works without JS or on imprecise pointers. */
+.framed-card, .premium-card, .service-image-card {
+  transform: perspective(1200px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg)) translateY(var(--tilt-y, 0px));
+  transition: transform .5s var(--motion-ease-out), box-shadow .35s ease, border-color .2s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .framed-card:hover, .premium-card:hover, .service-image-card:hover {
+    --tilt-y: -6px;
+    box-shadow: 0 22px 44px -14px rgba(12, 24, 54, .22);
+  }
+}
+
+/* ---------- Spotlight glow (content cards, summary panel) ----------
+   A soft radial highlight that follows the cursor across the card surface —
+   lighter than a full tilt, so it reads well on dense dashboard cards too.
+   isolation:isolate + a negative z-index keeps the glow above the card's
+   own background but below its actual content. */
+.content-card, .summary-card { position: relative; isolation: isolate; }
+.content-card::before, .summary-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-    var(--color-bg) 0%,
-    color-mix(in srgb, var(--color-bg) 58%, transparent) 45%,
-    var(--color-bg) 100%);
-}
-/* Variant for sections already on the deep navy brand background. */
-.section-photo-bg-dark img { opacity: .22; filter: grayscale(.15) contrast(1.05); }
-.section-photo-bg-dark::after {
-  background: linear-gradient(180deg,
-    color-mix(in srgb, var(--color-brand-blue-deep) 90%, transparent) 0%,
-    color-mix(in srgb, var(--color-brand-blue-deep) 78%, transparent) 45%,
-    color-mix(in srgb, var(--color-brand-blue-deep) 92%, transparent) 100%);
-}
-
-/* ---------- Unified card / icon-chip / framed-photo system ----------
-   One shared visual vocabulary used across every page so cards, icon
-   badges and photo treatments read as the same design system instead of
-   drifting per-section. Three tiers: framed grid cards (.framed-card),
-   plain content cards (.content-card), and two icon-chip sizes — one for
-   icons sitting in a card, one for icons floating on top of a photo. */
-.framed-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 1.75rem;
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  padding: .5rem;
-  box-shadow: 0 24px 60px -38px color-mix(in srgb, var(--color-brand-blue-deep) 55%, transparent);
-  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
-}
-.framed-card:hover {
-  border-color: color-mix(in srgb, var(--color-brand-blue) 25%, var(--color-border));
-  box-shadow: 0 30px 70px -35px color-mix(in srgb, var(--color-brand-blue-deep) 62%, transparent);
-  transform: translateY(-4px);
-}
-.framed-card-photo { position: relative; overflow: hidden; border-radius: 1.25rem; }
-.framed-card-photo img { transition: transform .7s cubic-bezier(.2,.8,.2,1); }
-.framed-card:hover .framed-card-photo img { transform: scale(1.06); }
-
-.content-card {
-  border-radius: 1.5rem;
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  box-shadow: 0 16px 40px -32px color-mix(in srgb, var(--color-brand-blue-deep) 40%, transparent);
-  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
-}
-.content-card:hover {
-  border-color: color-mix(in srgb, var(--color-brand-blue) 22%, var(--color-border));
-  box-shadow: 0 22px 50px -32px color-mix(in srgb, var(--color-brand-blue-deep) 48%, transparent);
-  transform: translateY(-3px);
-}
-
-.icon-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  flex-shrink: 0;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-brand-blue) 10%, transparent);
-  color: var(--color-brand-blue);
-  transition: transform .3s ease, background-color .3s ease, color .3s ease;
-}
-.dark .icon-chip { background: color-mix(in srgb, var(--color-brand-blue) 20%, transparent); color: var(--color-brand-gold-light); }
-.icon-chip-gold { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
-.dark .icon-chip-gold { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
-.icon-chip-gold-soft { background: color-mix(in srgb, var(--color-brand-gold) 20%, transparent); color: var(--color-brand-gold-dark); }
-.dark .icon-chip-gold-soft { color: var(--color-brand-gold-light); }
-.group:hover .icon-chip { transform: scale(1.1) rotate(-4deg); background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
-
-.icon-chip-photo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  flex-shrink: 0;
-  border-radius: 1rem;
-  border: 1px solid rgba(255,255,255,.3);
-  background: rgba(255,255,255,.92);
-  color: var(--color-brand-blue-deep);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 10px 24px -12px rgba(0,0,0,.4);
-  transition: transform .3s ease;
-}
-.group:hover .icon-chip-photo { transform: scale(1.1); }
-.photo-tag {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.2);
-  background: color-mix(in srgb, var(--color-brand-blue-deep) 70%, transparent);
-  backdrop-filter: blur(6px);
-  padding: .3rem .75rem;
-  font-size: .68rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .14em;
-  color: var(--color-brand-gold);
-}
-
-/* ---------- Scroll-triggered entrance animations ----------
-   Elements start hidden/offset and settle into place the first time they
-   cross into the viewport (see static_src/js/reveal.js). Wrap a set of
-   siblings with [data-reveal-group] to stagger their entrance in DOM order. */
-.reveal-on-scroll {
+  z-index: -1;
+  border-radius: inherit;
   opacity: 0;
-  transform: translateY(22px);
-  filter: blur(4px);
-  transition: opacity .5s cubic-bezier(.19,1,.22,1), transform .5s cubic-bezier(.19,1,.22,1), filter .4s ease-out;
-  transition-delay: calc(var(--reveal-index, 0) * 55ms);
-  will-change: opacity, transform, filter;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--color-brand-blue) 12%, transparent), transparent 65%);
+  transition: opacity .4s ease;
+  pointer-events: none;
 }
-.reveal-on-scroll.is-visible {
-  opacity: 1;
-  transform: none;
-  filter: blur(0);
+.dark .content-card::before, .dark .summary-card::before {
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--color-brand-gold) 14%, transparent), transparent 65%);
 }
-@media (prefers-reduced-motion: reduce) {
-  .reveal-on-scroll { opacity: 1; transform: none; filter: none; transition: none; }
+@media (hover: hover) and (pointer: fine) {
+  .content-card:hover::before, .summary-card:hover::before { opacity: 1; }
 }
 
-/* ---------- Campaign-poster accents (sunburst rays + contact pill) ----------
-   Borrowed from Blue Sky's own social campaign artwork: bold diagonal rays
-   radiating from a corner, and a two-tone pill for "call us now" moments. */
-.sunburst-rays {
+/* ---------- Magnetic buttons ----------
+   Primary CTAs and the WhatsApp pill get a subtle pull toward the cursor
+   while hovered (class + --mag-x/--mag-y written by motion.js), replacing
+   the plain translateY hover above for just these elements. */
+.magnetic {
+  transition: transform .35s var(--motion-ease-spring), background-color var(--motion-normal) var(--motion-ease), box-shadow .3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .magnetic:hover {
+    transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0) scale(1.045);
+    box-shadow: 0 12px 28px -8px rgba(12, 24, 54, .28);
+  }
+}
+
+/* Diagonal light sweep across primary buttons on hover — a brief shine,
+   not a permanent effect. */
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: skewX(-20deg);
+  transition: left .65s var(--motion-ease-out);
+  pointer-events: none;
+}
+.btn-primary:hover::after { left: 130%; }
+
+/* Gentle idle float for the floating hero summary panel — alive, not busy. */
+@media (prefers-reduced-motion: no-preference) {
+  .summary-card { animation: gentle-float 6s ease-in-out infinite; }
+  @keyframes gentle-float {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, -10px); }
+  }
+}
+
+/* ---------- Parallax photo backgrounds ----------
+   motion.js drives translateY on section background photos as the page
+   scrolls, at a slower rate than the page itself. */
+.section-photo-bg img { will-change: transform; }
+
+/* ---------- Animated counters ----------
+   A soft pop when a stat's count-up animation lands (class toggled briefly
+   by motion.js), so the final number registers as an arrival, not a cut. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-count-in { animation: count-pop .4s var(--motion-ease-spring); }
+  @keyframes count-pop { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
+}
+
+/* ---------- Live status pulse ----------
+   A small breathing dot on in-progress status badges (pending/processing). */
+.status-pulse-dot {
+  position: relative;
+  display: inline-block;
+  width: .4rem;
+  height: .4rem;
+  margin-right: .4rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .status-pulse-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: currentColor;
+    animation: status-pulse 1.8s ease-out infinite;
+  }
+  @keyframes status-pulse {
+    0% { transform: scale(1); opacity: .6; }
+    100% { transform: scale(2.6); opacity: 0; }
+  }
+}
+
+/* ---------- WhatsApp FAB ----------
+   Pops in on load and keeps a slow breathing ring to draw the eye without
+   nagging. */
+/* Relies on the element's own `fixed` positioning (Tailwind utility) as
+   the containing block for the ::before ring — deliberately not set here,
+   so this rule can never win a cascade fight over position: fixed. */
+.whatsapp-fab::before {
+  content: "";
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-.sunburst-rays span {
-  position: absolute;
-  top: -10%;
-  left: 8%;
-  width: 3px;
-  height: 46%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, var(--color-brand-cyan), transparent);
-  transform-origin: top center;
-  opacity: .85;
-}
-.sunburst-rays span:nth-child(1) { left: 6%;  transform: rotate(-22deg); height: 38%; }
-.sunburst-rays span:nth-child(2) { left: 14%; transform: rotate(-6deg);  height: 50%; }
-.sunburst-rays span:nth-child(3) { left: 22%; transform: rotate(10deg); height: 34%; }
-.sunburst-rays span:nth-child(4) { left: 30%; transform: rotate(24deg); height: 26%; }
-@media (prefers-reduced-motion: no-preference) {
-  .sunburst-rays span { animation: ray-flicker 4.5s ease-in-out infinite; }
-  .sunburst-rays span:nth-child(2) { animation-delay: -1.2s; }
-  .sunburst-rays span:nth-child(3) { animation-delay: -2.4s; }
-  .sunburst-rays span:nth-child(4) { animation-delay: -3.3s; }
-}
-@keyframes ray-flicker {
-  0%, 100% { opacity: .55; }
-  50% { opacity: 1; }
-}
-
-.contact-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  border-radius: 999px;
-  overflow: hidden;
-  background: var(--color-brand-gold);
-  box-shadow: 0 14px 32px -14px color-mix(in srgb, var(--color-brand-gold-dark) 70%, transparent);
-}
-.contact-pill-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  margin: .2rem;
-  border-radius: 999px;
-  background: var(--color-brand-blue-deep);
-  color: #fff;
-  flex-shrink: 0;
-}
-.contact-pill-text {
-  padding: 0 1.25rem 0 .75rem;
-  font-weight: 800;
-  letter-spacing: -.01em;
-  color: var(--color-brand-blue-deep);
-  white-space: nowrap;
-}
-.contact-pill-text small {
-  display: block;
-  font-size: .62rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .14em;
-  opacity: .75;
-}
-
-/* ---------- Pulsing "live" badge dot ---------- */
-@media (prefers-reduced-motion: no-preference) {
-  .badge-dot-pulse { animation: badge-blink 1.6s infinite; }
-}
-@keyframes badge-blink {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .35; transform: scale(1.6); }
-}
-
-/* ---------- Immersive motion layer ---------- */
-.scroll-progress {
-  position: fixed;
-  inset: 0 auto auto 0;
-  z-index: 100;
-  width: 100%;
-  height: 3px;
-  pointer-events: none;
-  transform: scaleX(var(--scroll-progress, 0));
-  transform-origin: left;
-  background: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-cyan), var(--color-brand-gold));
-  box-shadow: 0 0 18px color-mix(in srgb, var(--color-brand-gold) 65%, transparent);
-}
-.cursor-aura {
-  position: fixed;
-  z-index: 0;
-  width: 28rem;
-  height: 28rem;
-  left: 0;
-  top: 0;
   border-radius: 50%;
-  pointer-events: none;
-  opacity: .15;
-  filter: blur(10px);
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-brand-cyan) 34%, transparent), transparent 68%);
-  transform: translate3d(calc(var(--aura-x, -30rem) - 50%), calc(var(--aura-y, -30rem) - 50%), 0);
-  transition: opacity .35s ease;
+  background: inherit;
+  z-index: -1;
 }
-[data-parallax] {
-  translate: 0 var(--parallax-y, 0);
-  will-change: translate;
-}
-.reference-hero .text-brand-blue {
-  background: linear-gradient(100deg, var(--color-brand-blue) 15%, var(--color-brand-cyan) 48%, var(--color-brand-blue) 82%);
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.service-image-card .absolute.inset-x-0,
-.premium-card > div:last-child {
-  transition: transform .45s cubic-bezier(.16,.8,.24,1);
-}
-.service-image-card:hover .absolute.inset-x-0 { transform: translateY(-7px); }
-.premium-card:hover > div:last-child { transform: translateY(-4px); }
-
 @media (prefers-reduced-motion: no-preference) {
-  .reference-hero { animation: hero-grid-drift 18s linear infinite; }
-  .reference-hero .text-brand-blue { animation: text-shimmer 5s ease-in-out infinite; }
-  .geo-hero-visual::before { animation: geo-breathe 7s ease-in-out infinite; }
-  .bank-card::after { animation: card-orbit 9s ease-in-out infinite; }
+  .whatsapp-fab { animation: fab-pop-in .5s var(--motion-ease-spring) both; animation-delay: .3s; opacity: 0; }
+  .whatsapp-fab::before { animation: fab-ring 2.6s ease-out infinite; animation-delay: 1s; }
+  @keyframes fab-pop-in { from { opacity: 0; transform: scale(.4) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  @keyframes fab-ring { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.7); opacity: 0; } }
 }
-@keyframes hero-grid-drift {
-  to { background-position: 56px 56px, 56px 56px, 0 0; }
+
+/* ---------- Cross-document page transitions ----------
+   Native browser view-transitions for full page navigations, where
+   supported — a soft cross-fade instead of a hard cut between pages.
+   No-op (default instant navigation) in unsupported browsers. Kept at the
+   top level (not nested in a media query) since @view-transition is only
+   reliably recognized there; the pseudo-elements it creates live outside
+   the regular DOM tree, so the reduced-motion override below can't reach
+   them via `*` and gets an explicit rule of its own instead. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) {
+  animation-duration: .38s;
+  animation-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
-@keyframes text-shimmer {
-  0%, 100% { background-position: 0% center; }
-  50% { background-position: 100% center; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .01ms !important; }
+  .cursor-aura, .scroll-progress { display: none; }
 }
-@keyframes geo-breathe {
-  0%, 100% { transform: translate3d(0,0,0) rotate(-7deg); }
-  50% { transform: translate3d(8px,-10px,0) rotate(-5deg); }
-}
-@keyframes card-orbit {
-  0%, 100% { transform: translate3d(0,0,0); }
-  50% { transform: translate3d(-14px,12px,0); }
-}
-@media (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .cursor-aura { display: none; }
-  [data-parallax] { translate: none; }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 767px) {
+  .service-image-card { min-height: 19rem; }
 }
