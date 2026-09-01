@@ -1,0 +1,128 @@
+:root {
+  --primary: #2447a8;
+  --secondary: #0c1836;
+  --accent: #f4b83f;
+  --primary-fg: #fff;
+  --body-fg: #182238;
+  --body-bg: #f3f6fb;
+  --body-quiet-color: #64748b;
+  --header-color: #fff;
+  --header-branding-color: #fff;
+  --header-bg: #0c1836;
+  --header-link-color: #fff;
+  --breadcrumbs-fg: #dce5ff;
+  --breadcrumbs-link-fg: #fff;
+  --breadcrumbs-bg: #173580;
+  --link-fg: #2447a8;
+  --link-hover-color: #173580;
+  --link-selected-fg: #173580;
+  --hairline-color: #e2e8f0;
+  --border-color: #dce3ee;
+  --error-fg: #b42318;
+  --message-success-bg: #e9f9f0;
+  --message-warning-bg: #fff7df;
+  --message-error-bg: #fff0ef;
+  --darkened-bg: #edf1f7;
+  --selected-bg: #e9efff;
+  --selected-row: #f7f9fd;
+  --button-fg: #0c1836;
+  --button-bg: #f4b83f;
+  --button-hover-bg: #d8991f;
+  --default-button-bg: #2447a8;
+  --default-button-hover-bg: #173580;
+  --delete-button-bg: #c53b35;
+  --delete-button-hover-bg: #9f2e29;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html, body { font-family: Inter, "Segoe UI", system-ui, sans-serif; }
+body { background: radial-gradient(circle at 88% 8%, rgba(36,71,168,.08), transparent 28rem), var(--body-bg); }
+#container { min-height: 100vh; }
+
+#header {
+  min-height: 84px; padding: 10px clamp(18px, 3vw, 44px);
+  background: rgba(12,24,54,.97); border-bottom: 3px solid var(--accent);
+  box-shadow: 0 12px 35px -24px rgba(4,12,32,.8);
+}
+#branding { display: flex; align-items: center; }
+.bluesky-admin-brand { display: inline-flex; align-items: center; gap: 13px; color: #fff !important; text-decoration: none; }
+.bluesky-admin-logo { display: flex; align-items: center; justify-content: center; width: 76px; height: 60px; }
+.bluesky-admin-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.bluesky-admin-name { display: flex; flex-direction: column; line-height: 1.1; }
+.bluesky-admin-name strong { font-size: 19px; letter-spacing: -.02em; }
+.bluesky-admin-name small { margin-top: 5px; color: rgba(255,255,255,.58); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+#user-tools { color: rgba(255,255,255,.65); font-size: 12px; }
+#user-tools a { color: #fff; border-bottom-color: rgba(255,255,255,.24); }
+.bluesky-admin-links { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.bluesky-admin-links a { padding: 8px 12px; border: 1px solid rgba(255,255,255,.14); border-radius: 9px; color: rgba(255,255,255,.82) !important; font-size: 12px; font-weight: 700; text-decoration: none; }
+.bluesky-admin-links a:hover { border-color: var(--accent); color: var(--accent) !important; }
+
+div.breadcrumbs { padding: 13px clamp(18px, 3vw, 44px); background: #173580; font-size: 12px; }
+#content { padding: 34px clamp(18px, 3vw, 44px) 50px; }
+#content h1 { margin: 0 0 26px; color: #0c1836; font-size: clamp(24px, 3vw, 34px); font-weight: 800; letter-spacing: -.035em; }
+#content-main { min-width: 0; }
+
+.module, .inline-group, #changelist .actions, .submit-row {
+  overflow: hidden; border: 1px solid var(--border-color); border-radius: 16px;
+  background: rgba(255,255,255,.94); box-shadow: 0 12px 34px -28px rgba(12,24,54,.55);
+}
+.module h2, .module caption, .inline-group h2 {
+  padding: 14px 18px; background: #0c1836; color: #fff;
+  font-size: 12px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase;
+}
+.module caption a { color: #fff; }
+.dashboard .module table th { width: 100%; }
+.dashboard .module table td { white-space: nowrap; }
+.dashboard #content { max-width: 1500px; }
+.dashboard #content-main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.dashboard #content-main > .module { margin: 0; }
+
+table { border-collapse: collapse; }
+thead th { padding: 13px 12px; background: #f5f7fb; color: #46536a; font-size: 11px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+tbody td, tbody th { padding: 13px 12px; border-top: 1px solid #edf0f5; }
+tbody tr { transition: background-color .15s ease; }
+tbody tr:hover { background: #f7f9ff; }
+
+#changelist { border-radius: 16px; }
+#changelist .changelist-form-container { min-width: 0; }
+#changelist-filter { border: 1px solid var(--border-color); border-radius: 16px; background: #fff; }
+#changelist-filter h2 { border-radius: 15px 15px 0 0; }
+#toolbar { padding: 14px !important; border: 1px solid var(--border-color) !important; border-radius: 14px !important; background: #fff !important; }
+#toolbar form input[type="text"] { min-height: 42px; border: 1px solid var(--border-color); border-radius: 10px; padding: 8px 12px; }
+
+input, textarea, select, .vTextField {
+  border: 1px solid var(--border-color) !important; border-radius: 10px !important;
+  background: #fff; padding: 10px 12px !important; color: var(--body-fg);
+}
+input:focus, textarea:focus, select:focus { border-color: var(--primary) !important; outline: 3px solid rgba(36,71,168,.12); }
+.form-row { padding: 18px 20px; border-bottom-color: #edf0f5; }
+.aligned label { color: #46536a; font-weight: 700; }
+.help, p.help, form p.help, div.help { color: #788499; font-size: 11px; }
+
+.button, input[type="submit"], input[type="button"], .submit-row input, a.button {
+  min-height: 40px; border: 0 !important; border-radius: 10px !important; padding: 10px 17px !important;
+  font-weight: 800; box-shadow: none; transition: transform .15s ease, background-color .15s ease;
+}
+.button:hover, input[type="submit"]:hover, a.button:hover { transform: translateY(-1px); }
+.object-tools a { border-radius: 10px; background: var(--primary); font-weight: 700; }
+.object-tools a:hover { background: var(--secondary); }
+.submit-row { padding: 15px; }
+
+/* Login */
+body.login { background: linear-gradient(rgba(4,14,38,.72), rgba(4,14,38,.82)), url("../img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg") center / cover fixed; }
+.login #container { width: min(440px, calc(100% - 32px)); margin-top: clamp(55px, 10vh, 110px); border: 1px solid rgba(255,255,255,.28); border-radius: 24px; background: rgba(255,255,255,.91); box-shadow: 0 30px 90px -30px rgba(0,0,0,.7); backdrop-filter: blur(20px); overflow: hidden; }
+.login #header { justify-content: center; min-height: 100px; border-bottom: 0; }
+.login #content { padding: 28px 32px 34px; }
+.login .form-row { padding: 10px 0; border: 0; }
+.login .submit-row { padding: 16px 0 0; border: 0; background: transparent; }
+.login .submit-row input { width: 100%; }
+
+@media (max-width: 900px) {
+  #header { align-items: flex-start; gap: 12px; }
+  .bluesky-admin-links { display: none; }
+  .dashboard #content-main { grid-template-columns: 1fr; }
+  #content { padding-inline: 16px; }
+  .change-list #content { overflow-x: auto; }
+}

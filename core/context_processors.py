@@ -22,7 +22,9 @@ DASHBOARD_NAV_ROUTES = [
 
 STAFF_NAV_ROUTES = [
     ("staffpanel:home", "Tableau de bord", "layout-dashboard"),
+    ("staffpanel:transfers", "Transferts", "send"),
     ("staffpanel:savings_accounts", "Comptes épargne", "piggy-bank"),
+    ("staffpanel:messages", "Messages", "mail"),
     ("staffpanel:posts", "Publications", "newspaper"),
 ]
 

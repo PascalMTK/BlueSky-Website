@@ -4,29 +4,67 @@
 {% block dashboard_content %}
 
 <h1 class="display-title text-2xl sm:text-3xl">Tableau de bord</h1>
-<p class="mt-1 text-sm text-text-muted">Vue d'ensemble des demandes en attente.</p>
+<p class="mt-1 text-sm text-text-muted">Vue d'ensemble des services Blue Sky et des demandes en attente.</p>
 
-<div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-  <a href="{% url 'staffpanel:savings_accounts' %}?status=PENDING" class="content-card group p-6">
-    <span class="icon-chip icon-chip-gold">{% icon "piggy-bank" size=20 %}</span>
-    <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_accounts }}</p>
-    <p class="mt-1 text-sm font-semibold text-text-muted">Demandes d'épargne en attente</p>
-  </a>
-  <a href="{% url 'staffpanel:savings_accounts' %}" class="content-card group p-6">
-    <span class="icon-chip">{% icon "clock" size=20 %}</span>
-    <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_operations }}</p>
-    <p class="mt-1 text-sm font-semibold text-text-muted">Opérations à confirmer</p>
-  </a>
-  <a href="{% url 'staffpanel:posts' %}" class="content-card group p-6">
-    <span class="icon-chip">{% icon "newspaper" size=20 %}</span>
-    <p class="mt-4 text-3xl font-extrabold text-text">{{ published_posts }}</p>
-    <p class="mt-1 text-sm font-semibold text-text-muted">Publications en ligne</p>
-  </a>
-  <a href="{% url 'staffpanel:posts' %}" class="content-card group p-6">
-    <span class="icon-chip">{% icon "pencil" size=20 %}</span>
-    <p class="mt-4 text-3xl font-extrabold text-text">{{ draft_posts }}</p>
-    <p class="mt-1 text-sm font-semibold text-text-muted">Brouillons</p>
-  </a>
+<div class="mt-9 space-y-9">
+  <section>
+    <p class="editorial-label mb-3 text-text-muted">Transferts</p>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <a href="{% url 'staffpanel:transfers' %}?status=PENDING" class="content-card group p-6">
+        <span class="icon-chip icon-chip-gold">{% icon "clock" size=20 %}</span>
+        <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_transfers }}</p>
+        <p class="mt-1 text-sm font-semibold text-text-muted">Transferts en attente</p>
+      </a>
+      <a href="{% url 'staffpanel:transfers' %}?status=PROCESSING" class="content-card group p-6">
+        <span class="icon-chip">{% icon "send" size=20 %}</span>
+        <p class="mt-4 text-3xl font-extrabold text-text">{{ processing_transfers }}</p>
+        <p class="mt-1 text-sm font-semibold text-text-muted">Transferts en cours</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <p class="editorial-label mb-3 text-text-muted">Épargne</p>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <a href="{% url 'staffpanel:savings_accounts' %}?status=PENDING" class="content-card group p-6">
+        <span class="icon-chip icon-chip-gold">{% icon "piggy-bank" size=20 %}</span>
+        <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_accounts }}</p>
+        <p class="mt-1 text-sm font-semibold text-text-muted">Demandes d'épargne en attente</p>
+      </a>
+      <a href="{% url 'staffpanel:savings_accounts' %}" class="content-card group p-6">
+        <span class="icon-chip">{% icon "clock" size=20 %}</span>
+        <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_operations }}</p>
+        <p class="mt-1 text-sm font-semibold text-text-muted">Opérations à confirmer</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <p class="editorial-label mb-3 text-text-muted">Messages</p>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <a href="{% url 'staffpanel:messages' %}?handled=0" class="content-card group p-6">
+        <span class="icon-chip icon-chip-gold">{% icon "mail" size=20 %}</span>
+        <p class="mt-4 text-3xl font-extrabold text-text">{{ unhandled_messages }}</p>
+        <p class="mt-1 text-sm font-semibold text-text-muted">Messages non traités</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <p class="editorial-label mb-3 text-text-muted">Publications</p>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <a href="{% url 'staffpanel:posts' %}" class="content-card group p-6">
+        <span class="icon-chip">{% icon "newspaper" size=20 %}</span>
+        <p class="mt-4 text-3xl font-extrabold text-text">{{ published_posts }}</p>
+        <p class="mt-1 text-sm font-semibold text-text-muted">Publications en ligne</p>
+      </a>
+      <a href="{% url 'staffpanel:posts' %}" class="content-card group p-6">
+        <span class="icon-chip">{% icon "pencil" size=20 %}</span>
+        <p class="mt-4 text-3xl font-extrabold text-text">{{ draft_posts }}</p>
+        <p class="mt-1 text-sm font-semibold text-text-muted">Brouillons</p>
+      </a>
+    </div>
+  </section>
 </div>
 
 {% endblock %}

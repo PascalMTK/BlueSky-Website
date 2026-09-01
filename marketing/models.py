@@ -14,6 +14,7 @@ class ContactMessage(models.Model):
         max_length=20, choices=Service.choices, default=Service.TRANSFER
     )
     message = models.TextField()
+    is_handled = models.BooleanField("Traité", default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

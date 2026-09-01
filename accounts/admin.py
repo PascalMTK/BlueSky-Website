@@ -7,7 +7,8 @@ from .models import User
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
     ordering = ["-created_at"]
-    list_display = ["email", "full_name", "phone", "country", "is_staff", "created_at"]
+    list_display = ["email", "full_name", "phone", "country", "is_active", "is_staff", "created_at"]
+    list_filter = ["is_active", "is_staff", "is_superuser", "country"]
     search_fields = ["email", "full_name", "phone"]
     fieldsets = (
         (None, {"fields": ("email", "password")}),

@@ -1,11 +1,11 @@
-{% load static %}
+{% load static i18n_extra %}
 <!doctype html>
-<html lang="fr" class="h-full scroll-smooth antialiased">
+<html lang="{{ active_language|default:'fr' }}" class="h-full scroll-smooth antialiased">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>{% block title %}Blue Sky — Transfert d'argent international{% endblock %}</title>
-  <meta name="description" content="{% block description %}Blue Sky connecte la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, l'Ouganda, la Tanzanie et le Malawi pour des transferts d'argent rapides, fiables et sécurisés.{% endblock %}">
+  <title>{% block title %}{% t "Blue Sky — Transfert d'argent international" %}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% t "Blue Sky connecte la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, l'Ouganda, la Tanzanie et le Malawi pour des transferts d'argent rapides, fiables et sécurisés." %}{% endblock %}">
 
   <!-- Local favicon (Blue Sky logo mark): keep the first render independent from third-party hosts. -->
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16.png' %}">

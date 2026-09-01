@@ -80,55 +80,51 @@
   .home-hero-video { display: none; }
 }
 
-/* Subtle graffiti-inspired artwork for light homepage sections */
-.graffiti-surface {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
+/* Quiet Africa and currency watermark for light homepage sections */
+.africa-money-surface {
+  position: relative; isolation: isolate; overflow: hidden;
   background-color: var(--color-bg);
-  background-image:
-    radial-gradient(circle at 8% 20%, color-mix(in srgb, var(--color-brand-gold) 9%, transparent) 0 3px, transparent 4px),
-    radial-gradient(circle at 92% 76%, color-mix(in srgb, var(--color-brand-blue) 8%, transparent) 0 2px, transparent 3px);
-  background-size: 31px 31px, 24px 24px;
 }
-.graffiti-surface::before {
-  content: "BLUE\A SKY";
-  white-space: pre;
-  position: absolute;
-  z-index: -1;
-  right: -1.5rem;
-  top: 8%;
-  color: transparent;
-  -webkit-text-stroke: 2px color-mix(in srgb, var(--color-brand-blue) 8%, transparent);
-  font-family: var(--font-sans);
-  font-size: clamp(6rem, 14vw, 13rem);
-  font-weight: 900;
-  font-style: italic;
-  line-height: .72;
-  letter-spacing: -.09em;
-  transform: rotate(-8deg);
+.africa-money-surface::before {
+  content: ""; position: absolute; z-index: -1; right: 3%; top: 50%;
+  width: min(24rem, 34vw); aspect-ratio: .84; transform: translateY(-50%);
+  opacity: .055; pointer-events: none;
+  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 360'%3E%3Cpath fill='%232447a8' d='M117 12 82 29 55 67 24 96 16 139 40 179 73 195 87 236 112 268 126 332 151 350 170 310 188 276 211 249 223 211 252 184 282 137 266 98 230 72 203 37 164 23Z'/%3E%3C/svg%3E");
+}
+.africa-money-surface::after {
+  content: "FC   USD   N$   R   ZK"; position: absolute; z-index: -1;
+  right: 4%; bottom: 8%; color: color-mix(in srgb, var(--color-brand-gold) 18%, transparent);
+  font-size: clamp(.72rem, 1vw, .9rem); font-weight: 800; letter-spacing: .22em;
   pointer-events: none;
 }
-.graffiti-surface::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: -5rem;
-  bottom: 8%;
-  width: 24rem;
-  height: 8rem;
-  opacity: .45;
-  background: repeating-linear-gradient(-12deg, transparent 0 15px, color-mix(in srgb, var(--color-brand-gold) 13%, transparent) 16px 18px, transparent 19px 27px);
-  transform: rotate(-9deg);
-  pointer-events: none;
-}
-.graffiti-surface-alt::before { right: auto; left: -2rem; top: 14%; transform: rotate(7deg); }
-.graffiti-surface-alt::after { left: auto; right: -5rem; transform: rotate(8deg); }
-.graffiti-surface > * { position: relative; z-index: 1; }
-.dark .graffiti-surface::before { -webkit-text-stroke-color: color-mix(in srgb, var(--color-brand-gold) 9%, transparent); }
+.africa-money-surface-alt::before { right: auto; left: 3%; }
+.africa-money-surface-alt::after { right: auto; left: 4%; }
+.africa-money-surface > * { position: relative; z-index: 1; }
+.dark .africa-money-surface::before { opacity: .08; filter: brightness(2); }
 @media (max-width: 639px) {
-  .graffiti-surface::before { opacity: .65; font-size: 6.5rem; }
-  .graffiti-surface::after { opacity: .25; }
+  .africa-money-surface::before { width: 13rem; right: -3rem; opacity: .04; }
+  .africa-money-surface-alt::before { right: auto; left: -3rem; }
+  .africa-money-surface::after { display: none; }
+}
+
+/* Southern Africa watermark on public pages other than the homepage */
+.southern-africa-background { position: relative; isolation: isolate; }
+.southern-africa-background::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  right: -3rem;
+  bottom: -3rem;
+  width: min(38rem, 48vw);
+  aspect-ratio: 1;
+  opacity: .055;
+  pointer-events: none;
+  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 520'%3E%3Cg fill='none' stroke='%232447a8' stroke-width='5' stroke-linejoin='round'%3E%3Cpath d='M88 80 215 61 287 102 355 96 407 145 438 225 414 319 349 417 273 478 201 454 143 382 103 300 60 224Z'/%3E%3Cpath d='M88 80 103 205 221 208 215 61M103 205 60 224M103 205 143 382M103 300 264 301 273 478M221 208 287 102M221 208 264 301 349 417M287 102 305 225 407 145M305 225 438 225M305 225 264 301 414 319M143 382 273 478'/%3E%3C/g%3E%3Cg fill='%23f4b83f'%3E%3Ccircle cx='221' cy='208' r='7'/%3E%3Ccircle cx='264' cy='301' r='7'/%3E%3Ccircle cx='349' cy='417' r='7'/%3E%3C/g%3E%3C/svg%3E");
+}
+.southern-africa-background > section { position: relative; z-index: 1; }
+.dark .southern-africa-background::before { opacity: .08; filter: brightness(1.8); }
+@media (max-width: 639px) {
+  .southern-africa-background::before { right: -5rem; bottom: -1rem; width: 20rem; opacity: .04; }
 }
 
 /* ---------- Cinematic 3D hero ---------- */
@@ -257,6 +253,21 @@ input, textarea, select { font: inherit; }
   font-weight: 600;
   letter-spacing: -0.012em;
   line-height: 1.12;
+}
+.auth-page > img { object-position: center; }
+.auth-page-overlay { background: linear-gradient(90deg, rgba(5,16,42,.9), rgba(5,16,42,.57) 52%, rgba(5,16,42,.72)); }
+.auth-glass-card {
+  border: 1px solid rgba(255,255,255,.35); border-radius: 1.75rem;
+  background: rgba(255,255,255,.88); box-shadow: 0 32px 90px -30px rgba(2,8,24,.7);
+  backdrop-filter: blur(22px) saturate(135%); -webkit-backdrop-filter: blur(22px) saturate(135%);
+}
+.auth-logo img { height: 5.5rem !important; width: auto; }
+.auth-glass-card input, .auth-glass-card select { background: rgba(255,255,255,.72); }
+.dark .auth-glass-card { background: rgba(11,18,32,.88); border-color: rgba(255,255,255,.14); }
+@media (max-width: 639px) {
+  .auth-page-overlay { background: rgba(5,16,42,.7); }
+  .auth-logo img { height: 4.25rem !important; }
+  .auth-glass-card { border-radius: 1.35rem; }
 }
 main article, main form, main [class*="shadow"] { background-clip: padding-box; }
 
@@ -606,32 +617,59 @@ header {
               box-shadow var(--motion-normal) var(--motion-ease);
 }
 header.is-scrolled { box-shadow: 0 6px 20px rgba(11, 25, 48, .1); }
-.site-header-home {
-  position: absolute;
+.site-header-glass {
   inset: 0 1rem auto;
   width: calc(100% - 2rem);
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.2) !important;
   border-top: 0 !important;
   border-radius: 0 0 1.75rem 1.75rem;
-  background: rgba(248,250,252,.76) !important;
+  background: rgba(248,250,252,.5) !important;
   box-shadow: 0 18px 48px -30px rgba(3,10,28,.6);
   backdrop-filter: blur(18px) saturate(145%);
   -webkit-backdrop-filter: blur(18px) saturate(145%);
 }
-.site-header-home.is-scrolled {
-  background: rgba(248,250,252,.88) !important;
+.site-header-glass.is-scrolled {
+  background: rgba(248,250,252,.66) !important;
   box-shadow: 0 18px 42px -24px rgba(3,10,28,.55);
 }
-.dark .site-header-home {
+.dark .site-header-glass {
   border-color: rgba(255,255,255,.13) !important;
-  background: rgba(7,18,43,.66) !important;
+  background: rgba(7,18,43,.4) !important;
 }
-.dark .site-header-home.is-scrolled { background: rgba(7,18,43,.82) !important; }
-.site-header-home + main .home-hero > .relative { padding-top: 12rem; }
+.dark .site-header-glass.is-scrolled { background: rgba(7,18,43,.58) !important; }
+.site-header-glass > div:first-child { background-color: rgba(7,18,43,.38) !important; }
+.site-header-glass nav a,
+.site-header-glass .lang-switcher-select,
+.site-header-glass [data-mobile-nav-toggle] {
+  color: #0c1836 !important;
+  font-weight: 700;
+  text-shadow: 0 1px 1px rgba(255,255,255,.55);
+}
+.site-header-glass nav a:hover,
+.site-header-glass nav a:focus-visible { color: #173580 !important; }
+.site-header-glass > div:nth-child(2) > div:last-child > a:not(.btn) {
+  color: #1e293b !important;
+  font-weight: 700;
+}
+.site-header-glass > div:first-child,
+.site-header-glass > div:first-child a { color: rgba(255,255,255,.92) !important; text-shadow: 0 1px 2px rgba(0,0,0,.32); }
+.dark .site-header-glass nav a,
+.dark .site-header-glass .lang-switcher-select,
+.dark .site-header-glass [data-mobile-nav-toggle],
+.dark .site-header-glass > div:nth-child(2) > div:last-child > a:not(.btn) {
+  color: rgba(255,255,255,.94) !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,.65);
+}
+.dark .site-header-glass nav a:hover,
+.dark .site-header-glass nav a:focus-visible { color: var(--color-brand-gold-light) !important; }
+.site-header-overlay { position: absolute; }
+.site-header-overlay + main .home-hero > .relative { padding-top: 12rem; }
+.site-header-overlay + main > section:first-child:not(.home-hero) { padding-top: 12rem !important; }
 @media (max-width: 639px) {
-  .site-header-home { inset-inline: .5rem; width: calc(100% - 1rem); border-radius: 0 0 1.25rem 1.25rem; }
-  .site-header-home + main .home-hero > .relative { padding-top: 8rem; }
+  .site-header-glass { inset-inline: .5rem; width: calc(100% - 1rem); border-radius: 0 0 1.25rem 1.25rem; }
+  .site-header-overlay + main .home-hero > .relative { padding-top: 8rem; }
+  .site-header-overlay + main > section:first-child:not(.home-hero) { padding-top: 9rem !important; }
 }
 header nav a::after {
   content: "";

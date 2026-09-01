@@ -1,7 +1,7 @@
 {% extends "accounts/base_auth.html" %}
 {% load static i18n_extra %}
-{% block title %}Créer un compte | Blue Sky{% endblock %}
-{% block auth_photo %}<img src="{% static 'img/writing-blank-notebook.jpg' %}" alt="">{% endblock %}
+{% block title %}{% t "Créer mon compte" %} | Blue Sky{% endblock %}
+{% block auth_photo %}{% static 'img/writing-blank-notebook.jpg' %}{% endblock %}
 {% block auth_kicker %}{% t "Quelques minutes suffisent" %}{% endblock %}
 {% block auth_tagline %}{% blockt %}Notez vos infos.<br>On s'occupe du reste.{% endblockt %}{% endblock %}
 {% block auth_content %}
@@ -17,6 +17,7 @@
     {% include "core/_field.html" with field=form.phone %}
     {% include "core/_field.html" with field=form.country %}
     {% include "core/_field.html" with field=form.password %}
+    {% include "core/_field.html" with field=form.password_confirm %}
     <button type="submit" class="btn btn-primary btn-lg w-full">{% t "Créer mon compte" %}</button>
   </form>
 

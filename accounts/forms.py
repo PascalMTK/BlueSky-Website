@@ -58,6 +58,12 @@ class SignupForm(StyledFormMixin, forms.Form):
             "min_length": "Le mot de passe doit contenir au moins 8 caractères",
         },
     )
+    password_confirm = forms.CharField(
+        label="Confirmer le mot de passe",
+        widget=forms.PasswordInput,
+        min_length=8,
+        error_messages={"required": "Confirmez votre mot de passe"},
+    )
 
     def __init__(self, *args, request=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -73,6 +79,25 @@ class SignupForm(StyledFormMixin, forms.Form):
 
     def clean_full_name(self):
         return self.cleaned_data["full_name"].strip()
+
+    def clean(self):
+        cleaned = super().clean()
+        password = cleaned.get("password")
+        confirmation = cleaned.get("password_confirm")
+        if password and confirmation and password != confirmation:
+            self.add_error("password_confirm", "Les mots de passe ne correspondent pas.")
+        return cleaned
+
+
+class OTPVerificationForm(StyledFormMixin, forms.Form):
+    code = forms.RegexField(
+        label="Code de vérification",
+        regex=r"^\d{6}$",
+        max_length=6,
+        min_length=6,
+        widget=forms.TextInput(attrs={"inputmode": "numeric", "autocomplete": "one-time-code", "placeholder": "000000"}),
+        error_messages={"required": "Entrez le code à 6 chiffres", "invalid": "Entrez le code à 6 chiffres"},
+    )
 
 
 class LoginForm(StyledFormMixin, forms.Form):
