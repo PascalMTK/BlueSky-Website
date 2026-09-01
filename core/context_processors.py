@@ -8,6 +8,7 @@ NAV_ROUTES = [
     ("marketing:about", "À propos"),
     ("marketing:team", "Équipe"),
     ("marketing:impact", "Impact"),
+    ("marketing:tariffs", "Tarifs"),
     ("blog:post_list", "Actualités"),
     ("marketing:countries", "Nos pays"),
     ("marketing:contact", "Contact"),
@@ -17,6 +18,7 @@ DASHBOARD_NAV_ROUTES = [
     ("transfers:overview", "Vue d'ensemble", "layout-dashboard"),
     ("transfers:recipients", "Bénéficiaires", "users"),
     ("transfers:new_transfer", "Nouveau transfert", "send"),
+    ("marketing:payment_information", "Informations de paiement", "circle-dollar-sign"),
     ("savings:overview", "Épargne", "piggy-bank"),
 ]
 

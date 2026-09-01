@@ -23,7 +23,7 @@
       {% for post in posts %}
         <tr class="border-t border-border/60">
           <td class="px-4 py-3 font-semibold">{{ post.title }}</td>
-          <td class="px-4 py-3 text-text-muted">{{ post.author.full_name|default:"—" }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ post.author.full_name|default:"Non renseigné" }}</td>
           <td class="px-4 py-3">
             {% if post.is_published %}
               {% include "core/partials/status_badge.html" with status="CONFIRMED" status_label="Publié" %}
@@ -31,7 +31,7 @@
               {% include "core/partials/status_badge.html" with status="PENDING" status_label="Brouillon" %}
             {% endif %}
           </td>
-          <td class="px-4 py-3 text-text-muted">{{ post.published_at|date:"d/m/Y"|default:"—" }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ post.published_at|date:"d/m/Y"|default:"Non renseigné" }}</td>
           <td class="px-4 py-3">
             <div class="flex items-center justify-end gap-2">
               <a href="{% url 'staffpanel:post_edit' post.pk %}" class="btn btn-ghost btn-md">{% icon "pencil" size=15 %} Modifier</a>

@@ -48,9 +48,12 @@
         <ul class="space-y-2">
           {% for phone in country.phones %}
             <li>
-              <a href="tel:{{ phone }}" class="flex items-center justify-between gap-3 rounded-lg bg-surface-muted px-3.5 py-2.5 text-sm font-bold text-text transition hover:bg-brand-blue hover:text-white">
-                <span class="flex items-center gap-2.5">{% icon "phone" size=14 css_class="shrink-0" %} {{ phone }}</span>
-              </a>
+              <div class="flex items-center gap-2 rounded-xl border border-border bg-surface-muted p-2">
+                <a href="tel:{{ phone }}" class="flex min-w-0 flex-1 items-center gap-2.5 rounded-lg px-2 py-2 text-sm font-bold text-text transition hover:text-brand-blue">
+                  {% icon "phone" size=15 css_class="shrink-0 text-brand-blue" %}<span>{{ phone }}</span>
+                </a>
+                <a href="https://wa.me/{{ phone|cut:' '|cut:'+' }}" target="_blank" rel="noopener" class="inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-emerald-500 px-3 text-xs font-bold text-white transition hover:bg-emerald-600" aria-label="WhatsApp {{ phone }}">WhatsApp</a>
+              </div>
             </li>
           {% endfor %}
         </ul>

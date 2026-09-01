@@ -32,7 +32,7 @@
             <p class="text-xs text-text-muted">{{ contact_message.email }}</p>
           </td>
           <td class="px-4 py-3 text-text-muted">{{ contact_message.get_service_display }}</td>
-          <td class="px-4 py-3 text-text-muted">{{ contact_message.country|default:"—" }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ contact_message.country|default:"Non renseigné" }}</td>
           <td class="px-4 py-3 text-text-muted">{{ contact_message.created_at|date:"d/m/Y H:i" }}</td>
           <td class="px-4 py-3">
             {% if contact_message.is_handled %}

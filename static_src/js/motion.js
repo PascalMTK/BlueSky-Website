@@ -286,15 +286,11 @@
     var activeDialog = null;
 
     function closeDialog(dialog, restoreFocus) {
-      if (!dialog || !dialog.hasAttribute("open") || dialog.classList.contains("is-closing")) return;
-      dialog.classList.add("is-closing");
-      window.setTimeout(function () {
-        dialog.classList.remove("is-closing");
-        if (typeof dialog.close === "function") dialog.close();
-        else dialog.removeAttribute("open");
-        if (activeDialog === dialog) activeDialog = null;
-        if (restoreFocus) restoreFocus.focus();
-      }, reducedMotion ? 0 : 180);
+      if (!dialog || !dialog.hasAttribute("open")) return;
+      if (typeof dialog.close === "function") dialog.close();
+      else dialog.removeAttribute("open");
+      if (activeDialog === dialog) activeDialog = null;
+      if (restoreFocus) restoreFocus.focus();
     }
 
     cards.forEach(function (card) {
@@ -303,12 +299,10 @@
       function openDialog() {
         if (activeDialog === dialog && dialog.hasAttribute("open")) return;
         if (activeDialog && activeDialog.hasAttribute("open")) {
-          activeDialog.classList.remove("is-closing");
           if (typeof activeDialog.close === "function") activeDialog.close();
           else activeDialog.removeAttribute("open");
         }
         activeDialog = dialog;
-        dialog.classList.remove("is-closing");
         if (typeof dialog.showModal === "function") dialog.showModal();
         else dialog.setAttribute("open", "");
       }
@@ -322,7 +316,9 @@
       var close = dialog.querySelector("[data-country-dialog-close]");
       if (close) close.addEventListener("click", function () { closeDialog(dialog, card); });
       dialog.addEventListener("click", function (event) {
-        if (event.target === dialog) closeDialog(dialog, card);
+        var rect = dialog.getBoundingClientRect();
+        var inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+        if (!inside || event.target === dialog) closeDialog(dialog, card);
       });
       dialog.addEventListener("cancel", function (event) {
         event.preventDefault();

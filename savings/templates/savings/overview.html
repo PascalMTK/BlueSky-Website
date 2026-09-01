@@ -71,7 +71,7 @@
       </form>
     </div>
   {% elif account.status == "PENDING" %}
-    <p class="content-card mt-8 p-6 text-sm text-text-muted">{% t "Votre compte n'est pas encore actif — vous pourrez demander un dépôt ou un retrait une fois qu'il sera activé par notre équipe." %}</p>
+    <p class="content-card mt-8 p-6 text-sm text-text-muted">{% t "Votre compte n'est pas encore actif. Vous pourrez demander un dépôt ou un retrait une fois qu'il sera activé par notre équipe." %}</p>
   {% endif %}
 
   <div class="content-card mt-8 overflow-x-auto p-2">
@@ -91,7 +91,7 @@
             <td class="px-4 py-3 text-text-muted">{{ op.requested_at|date:"d/m/Y H:i" }}</td>
             <td class="px-4 py-3 font-semibold">{% t op.get_operation_type_display %}</td>
             <td class="px-4 py-3 font-semibold">{{ op.amount }}</td>
-            <td class="px-4 py-3 text-text-muted">{{ op.new_balance|default:"—" }}</td>
+            <td class="px-4 py-3 text-text-muted">{{ op.new_balance|default:"Non renseigné" }}</td>
             <td class="px-4 py-3">
               {% include "core/partials/status_badge.html" with status=op.status status_label=op.get_status_display %}
             </td>

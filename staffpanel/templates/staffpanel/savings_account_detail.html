@@ -15,7 +15,7 @@
   </div>
 
   <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-    <div><p class="text-xs font-bold uppercase text-text-muted">Téléphone</p><p class="mt-1 font-semibold">{{ account.user.phone|default:"—" }}</p></div>
+    <div><p class="text-xs font-bold uppercase text-text-muted">Téléphone</p><p class="mt-1 font-semibold">{{ account.user.phone|default:"Non renseigné" }}</p></div>
     <div><p class="text-xs font-bold uppercase text-text-muted">CNI / Passeport</p><p class="mt-1 font-semibold">{{ account.id_number }}</p></div>
     <div><p class="text-xs font-bold uppercase text-text-muted">Adresse</p><p class="mt-1 font-semibold">{{ account.address }}</p></div>
     <div><p class="text-xs font-bold uppercase text-text-muted">Solde disponible</p><p class="mt-1 text-lg font-extrabold text-brand-blue">{{ account.balance }}</p></div>
@@ -55,8 +55,8 @@
           <td class="px-4 py-3 text-text-muted">{{ op.requested_at|date:"d/m/Y H:i" }}</td>
           <td class="px-4 py-3 font-semibold">{{ op.get_operation_type_display }}</td>
           <td class="px-4 py-3 font-semibold">{{ op.amount }}</td>
-          <td class="px-4 py-3 text-text-muted">{{ op.previous_balance|default:"—" }}</td>
-          <td class="px-4 py-3 text-text-muted">{{ op.new_balance|default:"—" }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ op.previous_balance|default:"Non renseigné" }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ op.new_balance|default:"Non renseigné" }}</td>
           <td class="px-4 py-3">{% include "core/partials/status_badge.html" with status=op.status status_label=op.get_status_display %}</td>
           <td class="px-4 py-3">
             {% if op.status == "PENDING" %}

@@ -8,7 +8,7 @@ SITE = {
     "whatsapp_display": "+243 972 113 974",
     "head_office_address": (
         "Avenue Kapenda & Mobutu, Quartier Makutano, Commune de Lubumbashi, "
-        "Haut-Katanga (RDC) — en face de l'Hôtel Hypnose"
+        "Haut-Katanga (RDC), en face de l'Hôtel Hypnose"
     ),
     "social": {
         "tiktok": "https://www.tiktok.com/@africa_bluesky",
@@ -58,7 +58,7 @@ COUNTRIES = [
         "name": "Congo (RDC)",
         "flag": "🇨🇩",
         "address": (
-            "Avenue Kapenda, Coins Mobutu — en face de l'Hôtel Hypnose, Quartier "
+            "Avenue Kapenda, Coins Mobutu, en face de l'Hôtel Hypnose, Quartier "
             "Makutano, Commune de Lubumbashi, Haut-Katanga"
         ),
         "phones": ["+243 972 113 974", "+243 989 555 229"],
@@ -76,7 +76,7 @@ COUNTRIES = [
         "code": "NA",
         "name": "Namibie",
         "flag": "🇳🇦",
-        "address": "3 Weber Street, Windhoek — près de l'entrée principale de NUST",
+        "address": "3 Weber Street, Windhoek, près de l'entrée principale de NUST",
         "phones": ["+264 857 681 484"],
         "note": "",
     },

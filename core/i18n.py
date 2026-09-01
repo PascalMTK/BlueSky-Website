@@ -37,12 +37,54 @@ TRANSLATIONS = {
         "Équipe": "Team",
         "Actualités": "News",
         "Nos pays": "Our countries",
+        "Tarifs": "Rates",
+        "Informations de paiement": "Payment information",
         "Épargne": "Savings",
-        "Lun–Sam : 08h00–18h00": "Mon–Sat: 08:00–18:00",
+        "Lundi au samedi : 08h00 à 18h00": "Monday to Saturday: 08:00 to 18:00",
         "Basculer le mode sombre": "Toggle dark mode",
         "Nous contacter": "Contact us",
         "Tableau de bord": "Dashboard",
         "Mon compte": "My account",
+
+        # --- tariffs ---
+        "Consultez les tarifs d'envoi et de retrait Blue Sky.": "View Blue Sky transfer and withdrawal rates.",
+        "Des tarifs simples et transparents": "Simple, transparent rates",
+        "Consultez les frais applicables à vos envois et retraits avant chaque transaction.": "Check the fees for transfers and withdrawals before each transaction.",
+        "Dernière mise à jour": "Last updated",
+        "Envoi": "Transfer",
+        "Retrait": "Withdrawal",
+        "Envoi vers la Tanzanie": "Transfer to Tanzania",
+        "Depuis les autres pays Blue Sky vers la Tanzanie": "From other Blue Sky countries to Tanzania",
+        "Retrait hors Tanzanie": "Withdrawal outside Tanzania",
+        "Envoi hors Tanzanie": "Transfer outside Tanzania",
+        "Tous les pays Blue Sky sauf la Tanzanie": "All Blue Sky countries except Tanzania",
+        "Montant": "Amount",
+        "Frais": "Fee",
+        "À partir de": "From",
+        "Envoyez de l'argent en toute sécurité": "Send money securely",
+        "L'argent voyage en toute sécurité": "Money travels securely",
+        "Tarifs en cours de mise à jour": "Rates are being updated",
+        "Contactez notre équipe pour connaître les frais applicables à votre transaction.": "Contact our team to confirm the fees for your transaction.",
+        "Les frais affichés sont indicatifs et peuvent être actualisés. Le tarif applicable vous sera confirmé avant la validation de votre transaction.": "Displayed fees are indicative and may be updated. Your applicable rate will be confirmed before the transaction is approved.",
+        "Information importante": "Important information",
+        "Les tarifs peuvent évoluer. Avant toute opération, veuillez toujours contacter un conseiller Blue Sky afin de vérifier les frais actuellement en vigueur. Le montant définitif vous sera confirmé avant la validation de votre transaction.": "Rates may change. Before any transaction, always contact a Blue Sky adviser to confirm the fees currently in effect. The final amount will be confirmed before your transaction is approved.",
+        "Besoin d'aide ?": "Need help?",
+        "Préparez votre prochain transfert avec nous": "Plan your next transfer with us",
+        "Notre équipe vous confirme le tarif, le délai et le point de retrait le plus proche.": "Our team will confirm the rate, timing and nearest pickup point.",
+        "Tarif spécial Tanzanie": "Special Tanzania rate",
+        "Transferts envoyés vers ou depuis la Tanzanie": "Transfers sent to or from Tanzania",
+        "Tarif retrait quotidien": "Daily withdrawal rate",
+        "Tarif envoi quotidien": "Daily transfer rate",
+        "Tarif standard du réseau Blue Sky": "Standard Blue Sky network rate",
+        "Particularité Tanzanie : les transferts envoyés vers ou depuis la Tanzanie bénéficient d'une grille tarifaire différente des tarifs quotidiens.": "Tanzania special rate: transfers sent to or from Tanzania use a different rate schedule from the daily rates.",
+        "Espace client sécurisé": "Secure customer area",
+        "Utilisez exclusivement les coordonnées confirmées dans votre espace Blue Sky. Ces informations sont réservées aux clients connectés.": "Only use details confirmed in your Blue Sky account. This information is reserved for signed-in customers.",
+        "Vérification obligatoire": "Mandatory verification",
+        "Avant tout dépôt ou retrait, contactez toujours un conseiller Blue Sky afin de confirmer le numéro, le titulaire et les instructions en vigueur. N'effectuez aucune opération vers des coordonnées reçues en dehors des canaux officiels Blue Sky.": "Before any deposit or withdrawal, always contact a Blue Sky adviser to confirm the number, account holder and current instructions. Never transact using details received outside official Blue Sky channels.",
+        "Mis à jour le": "Updated on",
+        "Aucun compte de paiement n'est actuellement disponible.": "No payment account is currently available.",
+        "Retrait cash à": "Cash pickup in",
+        "Aucune information de paiement n'est actuellement disponible.": "No payment information is currently available.",
 
         # --- footer ---
         "Blue Sky / Afrique australe": "Blue Sky / Southern Africa",
@@ -105,8 +147,8 @@ TRANSLATIONS = {
         "Vous envoyez": "You send",
         "Demander un devis": "Request a quote",
         "L'Afrique n'a jamais été aussi proche": "Africa has never felt this close",
-        'Votre argent voyage.<br><span class="text-brand-gold">Vos liens restent.</span>':
-            'Your money travels.<br><span class="text-brand-gold">Your connections remain.</span>',
+        'Votre argent voyage.<br><span class="text-brand-sky">Vos liens restent.</span>':
+            'Your money travels.<br><span class="text-brand-sky">Your connections remain.</span>',
         "Des transferts fiables, suivis et accompagnés par de vraies personnes dans":
             "Reliable, tracked transfers supported by real people across",
         "pays africains.": "African countries.",
@@ -121,13 +163,13 @@ TRANSLATIONS = {
         "Blue Sky en chiffres": "Blue Sky in numbers",
         "Moyens de paiement et partenaires mobiles": "Payment methods and mobile partners",
         "Page introuvable": "Page not found",
-        "Blue Sky — Transfert d'argent international": "Blue Sky — International money transfer",
+        "Blue Sky, transfert d'argent international": "Blue Sky, international money transfer",
         "Blue Sky connecte la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, l'Ouganda, la Tanzanie et le Malawi pour des transferts d'argent rapides, fiables et sécurisés.":
             "Blue Sky connects DR Congo, Zambia, Namibia, South Africa, Zimbabwe, Kenya, Uganda, Tanzania, and Malawi for fast, reliable, and secure money transfers.",
 
         # --- homepage: construction CTA ---
-        'Construisez votre avenir en toute <span class="text-brand-gold">sécurité</span> et en toute <span class="text-brand-gold">confiance</span> avec Blue Sky':
-            'Build your future in complete <span class="text-brand-gold">safety</span> and <span class="text-brand-gold">confidence</span> with Blue Sky',
+        'Construisez votre avenir en toute <span class="text-brand-sky">sécurité</span> et en toute <span class="text-brand-sky">confiance</span> avec Blue Sky':
+            'Build your future in complete <span class="text-brand-sky">safety</span> and <span class="text-brand-sky">confidence</span> with Blue Sky',
         "Qu'il s'agisse de financer un projet de construction, de soutenir votre famille ou de faire grandir votre activité, Blue Sky vous accompagne dans":
             "Whether you're financing a construction project, supporting your family, or growing your business, Blue Sky supports you across",
         "pays d'Afrique avec la même rigueur à chaque transfert.": "African countries with the same rigor on every transfer.",
@@ -212,11 +254,11 @@ TRANSLATIONS = {
         "Une expertise locale, portée par des relations humaines": "Local expertise, powered by human relationships",
         (
             "L'équipe Blue Sky se rend régulièrement auprès d'enfants d'un orphelinat en "
-            "Namibie pour offrir du temps, des ressources et du soutien — parce que "
+            "Namibie pour offrir du temps, des ressources et du soutien, parce que "
             "connecter les familles va au-delà des transactions."
         ): (
             "The Blue Sky team regularly visits children at an orphanage in Namibia to "
-            "offer time, resources, and support — because connecting families goes beyond "
+            "offer time, resources, and support, because connecting families goes beyond "
             "transactions."
         ),
         "Présence locale": "Local presence",
@@ -323,8 +365,8 @@ TRANSLATIONS = {
         "Une présence locale forte dans chaque agence.": "A strong local presence in every branch.",
         "Notre équipe combine des profils opérationnels, un service client réactif et des agents locaux répartis dans nos":
             "Our team combines operations staff, responsive customer service, and local agents spread across our",
-        "de couverture — de Lubumbashi à Windhoek, en passant par Lusaka et Lilongwe.":
-            "countries of coverage — from Lubumbashi to Windhoek, via Lusaka and Lilongwe.",
+        "de couverture, de Lubumbashi à Windhoek, en passant par Lusaka et Lilongwe.":
+            "countries of coverage, from Lubumbashi to Windhoek, via Lusaka and Lilongwe.",
         "Pays couverts": "Countries covered",
         "Ancrage local": "Local roots",
         "Les valeurs qui guident notre équipe": "The values that guide our team",
@@ -341,8 +383,8 @@ TRANSLATIONS = {
         "Une équipe impliquée dans les communautés qu'elle sert, au-delà des transactions.":
             "A team invested in the communities it serves, beyond the transactions.",
         "Une équipe portée par sa communauté": "A team carried by its community",
-        "Au-delà des bureaux et des agences, Blue Sky c'est aussi les personnes qui portent fièrement nos couleurs au quotidien — collègues, proches et membres de la communauté qui nous font confiance.":
-            "Beyond the offices and branches, Blue Sky is also the people who proudly wear our colors every day — colleagues, loved ones, and community members who trust us.",
+        "Au-delà des bureaux et des agences, Blue Sky c'est aussi les personnes qui portent fièrement nos couleurs au quotidien : collègues, proches et membres de la communauté qui nous font confiance.":
+            "Beyond the offices and branches, Blue Sky is also the people who proudly wear our colors every day: colleagues, loved ones, and community members who trust us.",
 
         # --- impact ---
         "Connecter les familles, soutenir les communautés": "Connecting families, supporting communities",
@@ -358,8 +400,8 @@ TRANSLATIONS = {
         "Proximité & Entraide": "Closeness & mutual support",
         "Créer un impact tangible au-delà des frontières.": "Creating a tangible impact beyond borders.",
         "Grandir aux côtés de la jeunesse africaine": "Growing alongside African youth",
-        "Soutenir l'éducation et la réussite des jeunes fait partie de notre engagement — parce qu'investir dans une génération, c'est investir dans l'avenir des familles que nous connectons chaque jour.":
-            "Supporting young people's education and success is part of our commitment — because investing in a generation means investing in the future of the families we connect every day.",
+        "Soutenir l'éducation et la réussite des jeunes fait partie de notre engagement, parce qu'investir dans une génération, c'est investir dans l'avenir des familles que nous connectons chaque jour.":
+            "Supporting young people's education and success is part of our commitment, because investing in a generation means investing in the future of the families we connect every day.",
         "Votre argent fait avancer ce qui compte vraiment": "Your money moves what truly matters",
         "Un transfert ne se résume pas à un montant. C'est un repas partagé, un diplôme qui se rapproche ou une idée qui devient une vraie activité.":
             "A transfer isn't just an amount. It's a shared meal, a diploma within reach, or an idea becoming a real business.",
@@ -385,8 +427,8 @@ TRANSLATIONS = {
         "Sur le terrain": "On the ground",
         "Un engagement soutenu aux côtés des acteurs locaux": "A sustained commitment alongside local partners",
         "Vous connaissez une initiative locale à soutenir ?": "Know a local initiative worth supporting?",
-        "Parlez-nous de votre communauté — nous sommes toujours à l'écoute de nouvelles façons de nous rendre utiles là où nous opérons.":
-            "Tell us about your community — we're always open to new ways to be useful wherever we operate.",
+        "Parlez-nous de votre communauté. Nous sommes toujours à l'écoute de nouvelles façons de nous rendre utiles là où nous opérons.":
+            "Tell us about your community. We are always open to new ways to be useful wherever we operate.",
 
         # --- contact ---
         "Parlons de votre prochain transfert": "Let's talk about your next transfer",
@@ -400,7 +442,7 @@ TRANSLATIONS = {
         "E-mail": "Email",
         "Réponse rapide": "Fast reply",
         "Écrivez-nous sur WhatsApp": "Write to us on WhatsApp",
-        "Disponible du lundi au samedi, de 08h00 à 18h00": "Available Monday to Saturday, 08:00–18:00",
+        "Disponible du lundi au samedi, de 08h00 à 18h00": "Available Monday to Saturday, from 08:00 to 18:00",
         "Message envoyé": "Message sent",
         "Merci de nous avoir contactés. Notre équipe vous répondra très prochainement.":
             "Thank you for contacting us. Our team will get back to you very soon.",
@@ -415,8 +457,8 @@ TRANSLATIONS = {
         "En face de l'Hôtel Hypnose": "Across from Hôtel Hypnose",
         "Obtenir l'itinéraire": "Get directions",
         "Une équipe joignable, une communauté fidèle": "A team you can reach, a loyal community",
-        "Que ce soit par téléphone, WhatsApp ou en agence, notre équipe reste à l'écoute — merci à toutes les personnes qui portent fièrement les couleurs Blue Sky partout où elles se trouvent.":
-            "Whether by phone, WhatsApp, or in branch, our team stays attentive — thank you to everyone who proudly wears Blue Sky's colors wherever they are.",
+        "Que ce soit par téléphone, WhatsApp ou en agence, notre équipe reste à l'écoute. Merci à toutes les personnes qui portent fièrement les couleurs Blue Sky partout où elles se trouvent.":
+            "Whether by phone, WhatsApp, or in branch, our team stays attentive. Thank you to everyone who proudly wears Blue Sky's colors wherever they are.",
 
         # --- countries page ---
         "Plus proches de vous, dans": "Closer to you, in",
@@ -443,7 +485,7 @@ TRANSLATIONS = {
         "Suivant": "Next",
         "Aucune actualité publiée pour le moment.": "No news published yet.",
         "Toutes les actualités": "All news",
-        "Brouillon — visible uniquement par le personnel": "Draft — visible to staff only",
+        "Brouillon, visible uniquement par le personnel": "Draft, visible to staff only",
         "Non publié": "Not published",
 
         # --- misc gaps closed on a translation audit pass ---
@@ -507,8 +549,8 @@ TRANSLATIONS = {
         "Chaque dépôt ou retrait doit être confirmé par notre équipe avant de mettre à jour votre solde.":
             "Every deposit or withdrawal is confirmed by our team before your balance is updated.",
         "Envoyer la demande": "Send request",
-        "Votre compte n'est pas encore actif — vous pourrez demander un dépôt ou un retrait une fois qu'il sera activé par notre équipe.":
-            "Your account isn't active yet — you'll be able to request a deposit or withdrawal once our team activates it.",
+        "Votre compte n'est pas encore actif. Vous pourrez demander un dépôt ou un retrait une fois qu'il sera activé par notre équipe.":
+            "Your account is not active yet. You will be able to request a deposit or withdrawal once our team activates it.",
         "Type": "Type",
         "Nouveau solde": "New balance",
         "Aucune opération pour le moment.": "No operations yet.",
@@ -583,12 +625,54 @@ TRANSLATIONS = {
         "Équipe": "Timu",
         "Actualités": "Habari",
         "Nos pays": "Nchi zetu",
+        "Tarifs": "Viwango",
+        "Informations de paiement": "Taarifa za malipo",
         "Épargne": "Akiba",
-        "Lun–Sam : 08h00–18h00": "Jumatatu–Jumamosi: Saa 08:00–18:00",
+        "Lundi au samedi : 08h00 à 18h00": "Jumatatu hadi Jumamosi: Saa 08:00 hadi 18:00",
         "Basculer le mode sombre": "Badilisha hali ya giza",
         "Nous contacter": "Wasiliana nasi",
         "Tableau de bord": "Dashibodi",
         "Mon compte": "Akaunti yangu",
+
+        # --- tariffs ---
+        "Consultez les tarifs d'envoi et de retrait Blue Sky.": "Angalia viwango vya kutuma na kutoa pesa vya Blue Sky.",
+        "Des tarifs simples et transparents": "Viwango rahisi na vya uwazi",
+        "Consultez les frais applicables à vos envois et retraits avant chaque transaction.": "Angalia ada za kutuma na kutoa pesa kabla ya kila muamala.",
+        "Dernière mise à jour": "Ilisasishwa mwisho",
+        "Envoi": "Kutuma",
+        "Retrait": "Kutoa",
+        "Envoi vers la Tanzanie": "Kutuma pesa kwenda Tanzania",
+        "Depuis les autres pays Blue Sky vers la Tanzanie": "Kutoka nchi nyingine za Blue Sky kwenda Tanzania",
+        "Retrait hors Tanzanie": "Kutoa pesa nje ya Tanzania",
+        "Envoi hors Tanzanie": "Kutuma pesa nje ya Tanzania",
+        "Tous les pays Blue Sky sauf la Tanzanie": "Nchi zote za Blue Sky isipokuwa Tanzania",
+        "Montant": "Kiasi",
+        "Frais": "Ada",
+        "À partir de": "Kuanzia",
+        "Envoyez de l'argent en toute sécurité": "Tuma pesa kwa usalama",
+        "L'argent voyage en toute sécurité": "Pesa husafiri kwa usalama",
+        "Tarifs en cours de mise à jour": "Viwango vinasasishwa",
+        "Contactez notre équipe pour connaître les frais applicables à votre transaction.": "Wasiliana na timu yetu kuthibitisha ada za muamala wako.",
+        "Les frais affichés sont indicatifs et peuvent être actualisés. Le tarif applicable vous sera confirmé avant la validation de votre transaction.": "Ada zilizoonyeshwa ni za mwongozo na zinaweza kusasishwa. Kiwango chako kitathibitishwa kabla ya muamala kuidhinishwa.",
+        "Information importante": "Taarifa muhimu",
+        "Les tarifs peuvent évoluer. Avant toute opération, veuillez toujours contacter un conseiller Blue Sky afin de vérifier les frais actuellement en vigueur. Le montant définitif vous sera confirmé avant la validation de votre transaction.": "Viwango vinaweza kubadilika. Kabla ya muamala wowote, wasiliana kila wakati na mshauri wa Blue Sky ili kuthibitisha ada zinazotumika kwa sasa. Kiasi cha mwisho kitathibitishwa kabla ya muamala wako kuidhinishwa.",
+        "Besoin d'aide ?": "Unahitaji msaada?",
+        "Préparez votre prochain transfert avec nous": "Panga uhamisho wako ujao nasi",
+        "Notre équipe vous confirme le tarif, le délai et le point de retrait le plus proche.": "Timu yetu itathibitisha kiwango, muda na sehemu ya karibu ya kuchukua pesa.",
+        "Tarif spécial Tanzanie": "Kiwango maalum cha Tanzania",
+        "Transferts envoyés vers ou depuis la Tanzanie": "Uhamisho unaotumwa kwenda au kutoka Tanzania",
+        "Tarif retrait quotidien": "Kiwango cha kila siku cha kutoa pesa",
+        "Tarif envoi quotidien": "Kiwango cha kila siku cha kutuma pesa",
+        "Tarif standard du réseau Blue Sky": "Kiwango cha kawaida cha mtandao wa Blue Sky",
+        "Particularité Tanzanie : les transferts envoyés vers ou depuis la Tanzanie bénéficient d'une grille tarifaire différente des tarifs quotidiens.": "Kiwango maalum cha Tanzania: uhamisho unaotumwa kwenda au kutoka Tanzania hutumia viwango tofauti na viwango vya kila siku.",
+        "Espace client sécurisé": "Eneo salama la mteja",
+        "Utilisez exclusivement les coordonnées confirmées dans votre espace Blue Sky. Ces informations sont réservées aux clients connectés.": "Tumia taarifa zilizothibitishwa katika akaunti yako ya Blue Sky pekee. Taarifa hizi ni za wateja walioingia kwenye akaunti.",
+        "Vérification obligatoire": "Uthibitishaji wa lazima",
+        "Avant tout dépôt ou retrait, contactez toujours un conseiller Blue Sky afin de confirmer le numéro, le titulaire et les instructions en vigueur. N'effectuez aucune opération vers des coordonnées reçues en dehors des canaux officiels Blue Sky.": "Kabla ya kuweka au kutoa pesa, wasiliana kila wakati na mshauri wa Blue Sky kuthibitisha namba, jina la mwenye akaunti na maelekezo ya sasa. Usifanye muamala kwa taarifa zilizopokelewa nje ya njia rasmi za Blue Sky.",
+        "Mis à jour le": "Ilisasishwa tarehe",
+        "Aucun compte de paiement n'est actuellement disponible.": "Hakuna akaunti ya malipo inayopatikana kwa sasa.",
+        "Retrait cash à": "Kuchukua pesa taslimu mjini",
+        "Aucune information de paiement n'est actuellement disponible.": "Hakuna taarifa za malipo zinazopatikana kwa sasa.",
 
         # --- footer ---
         "Blue Sky / Afrique australe": "Blue Sky / Kusini mwa Afrika",
@@ -651,8 +735,8 @@ TRANSLATIONS = {
         "Vous envoyez": "Unatuma",
         "Demander un devis": "Omba bei",
         "L'Afrique n'a jamais été aussi proche": "Afrika haijawahi kuwa karibu hivi",
-        'Votre argent voyage.<br><span class="text-brand-gold">Vos liens restent.</span>':
-            'Pesa yako inasafiri.<br><span class="text-brand-gold">Mahusiano yako yanadumu.</span>',
+        'Votre argent voyage.<br><span class="text-brand-sky">Vos liens restent.</span>':
+            'Pesa yako inasafiri.<br><span class="text-brand-sky">Mahusiano yako yanadumu.</span>',
         "Des transferts fiables, suivis et accompagnés par de vraies personnes dans":
             "Uhamishaji wa kuaminika, unaofuatiliwa na kusaidiwa na watu halisi katika",
         "pays africains.": "nchi za Afrika.",
@@ -667,13 +751,13 @@ TRANSLATIONS = {
         "Blue Sky en chiffres": "Blue Sky kwa takwimu",
         "Moyens de paiement et partenaires mobiles": "Njia za malipo na washirika wa simu",
         "Page introuvable": "Ukurasa haujapatikana",
-        "Blue Sky — Transfert d'argent international": "Blue Sky — Uhamishaji wa pesa kimataifa",
+        "Blue Sky, transfert d'argent international": "Blue Sky, uhamishaji wa pesa kimataifa",
         "Blue Sky connecte la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, l'Ouganda, la Tanzanie et le Malawi pour des transferts d'argent rapides, fiables et sécurisés.":
             "Blue Sky inaunganisha DR Congo, Zambia, Namibia, Afrika Kusini, Zimbabwe, Kenya, Uganda, Tanzania na Malawi kwa uhamishaji wa pesa wa haraka, wa kuaminika na salama.",
 
         # --- homepage: construction CTA ---
-        'Construisez votre avenir en toute <span class="text-brand-gold">sécurité</span> et en toute <span class="text-brand-gold">confiance</span> avec Blue Sky':
-            'Jenga maisha yako ya baadaye kwa <span class="text-brand-gold">usalama</span> kamili na <span class="text-brand-gold">imani</span> kamili na Blue Sky',
+        'Construisez votre avenir en toute <span class="text-brand-sky">sécurité</span> et en toute <span class="text-brand-sky">confiance</span> avec Blue Sky':
+            'Jenga maisha yako ya baadaye kwa <span class="text-brand-sky">usalama</span> kamili na <span class="text-brand-sky">imani</span> kamili na Blue Sky',
         "Qu'il s'agisse de financer un projet de construction, de soutenir votre famille ou de faire grandir votre activité, Blue Sky vous accompagne dans":
             "Iwe unafadhili mradi wa ujenzi, kusaidia familia yako au kukuza biashara yako, Blue Sky inakusaidia katika",
         "pays d'Afrique avec la même rigueur à chaque transfert.": "nchi za Afrika kwa umakini uleule katika kila uhamishaji.",
@@ -758,11 +842,11 @@ TRANSLATIONS = {
         "Une expertise locale, portée par des relations humaines": "Utaalamu wa karibu, unaoendeshwa na mahusiano ya kibinadamu",
         (
             "L'équipe Blue Sky se rend régulièrement auprès d'enfants d'un orphelinat en "
-            "Namibie pour offrir du temps, des ressources et du soutien — parce que "
+            "Namibie pour offrir du temps, des ressources et du soutien, parce que "
             "connecter les familles va au-delà des transactions."
         ): (
             "Timu ya Blue Sky hutembelea mara kwa mara watoto wa kituo cha malezi nchini "
-            "Namibia ili kutoa muda, rasilimali na msaada — kwa sababu kuunganisha familia "
+            "Namibia ili kutoa muda, rasilimali na msaada, kwa sababu kuunganisha familia "
             "huenda zaidi ya miamala."
         ),
         "Présence locale": "Uwepo wa karibu",
@@ -868,8 +952,8 @@ TRANSLATIONS = {
         "Une présence locale forte dans chaque agence.": "Uwepo dhabiti wa karibu katika kila tawi.",
         "Notre équipe combine des profils opérationnels, un service client réactif et des agents locaux répartis dans nos":
             "Timu yetu inajumuisha wataalamu wa uendeshaji, huduma kwa wateja inayowajibika kwa haraka na mawakala wa karibu waliosambaa katika",
-        "de couverture — de Lubumbashi à Windhoek, en passant par Lusaka et Lilongwe.":
-            "nchi zetu za ufikiaji — kutoka Lubumbashi hadi Windhoek, kupitia Lusaka na Lilongwe.",
+        "de couverture, de Lubumbashi à Windhoek, en passant par Lusaka et Lilongwe.":
+            "nchi zetu za ufikiaji, kutoka Lubumbashi hadi Windhoek, kupitia Lusaka na Lilongwe.",
         "Pays couverts": "Nchi zinazofikiwa",
         "Ancrage local": "Mizizi ya karibu",
         "Les valeurs qui guident notre équipe": "Maadili yanayoongoza timu yetu",
@@ -886,8 +970,8 @@ TRANSLATIONS = {
         "Une équipe impliquée dans les communautés qu'elle sert, au-delà des transactions.":
             "Timu inayojishughulisha na jamii inazohudumia, zaidi ya miamala.",
         "Une équipe portée par sa communauté": "Timu inayoungwa mkono na jamii yake",
-        "Au-delà des bureaux et des agences, Blue Sky c'est aussi les personnes qui portent fièrement nos couleurs au quotidien — collègues, proches et membres de la communauté qui nous font confiance.":
-            "Zaidi ya ofisi na matawi, Blue Sky pia ni watu wanaovaa rangi zetu kwa fahari kila siku — wenzetu, wapendwa na wanajamii wanaotuamini.",
+        "Au-delà des bureaux et des agences, Blue Sky c'est aussi les personnes qui portent fièrement nos couleurs au quotidien : collègues, proches et membres de la communauté qui nous font confiance.":
+            "Zaidi ya ofisi na matawi, Blue Sky pia ni watu wanaovaa rangi zetu kwa fahari kila siku: wenzetu, wapendwa na wanajamii wanaotuamini.",
 
         # --- impact ---
         "Connecter les familles, soutenir les communautés": "Kuunganisha familia, kusaidia jamii",
@@ -903,8 +987,8 @@ TRANSLATIONS = {
         "Proximité & Entraide": "Ukaribu na Msaada",
         "Créer un impact tangible au-delà des frontières.": "Kuleta athari halisi zaidi ya mipaka.",
         "Grandir aux côtés de la jeunesse africaine": "Kukua bega kwa bega na vijana wa Afrika",
-        "Soutenir l'éducation et la réussite des jeunes fait partie de notre engagement — parce qu'investir dans une génération, c'est investir dans l'avenir des familles que nous connectons chaque jour.":
-            "Kusaidia elimu na mafanikio ya vijana ni sehemu ya ahadi yetu — kwa sababu kuwekeza kwa kizazi ni kuwekeza katika maisha ya baadaye ya familia tunazounganisha kila siku.",
+        "Soutenir l'éducation et la réussite des jeunes fait partie de notre engagement, parce qu'investir dans une génération, c'est investir dans l'avenir des familles que nous connectons chaque jour.":
+            "Kusaidia elimu na mafanikio ya vijana ni sehemu ya ahadi yetu, kwa sababu kuwekeza kwa kizazi ni kuwekeza katika maisha ya baadaye ya familia tunazounganisha kila siku.",
         "Votre argent fait avancer ce qui compte vraiment": "Pesa yako inasukuma mbele kile kinachostahili",
         "Un transfert ne se résume pas à un montant. C'est un repas partagé, un diplôme qui se rapproche ou une idée qui devient une vraie activité.":
             "Uhamishaji si kiasi tu. Ni mlo unaoshirikiwa, shahada inayokaribia au wazo linalogeuka kuwa biashara halisi.",
@@ -930,8 +1014,8 @@ TRANSLATIONS = {
         "Sur le terrain": "Uwandani",
         "Un engagement soutenu aux côtés des acteurs locaux": "Ahadi endelevu bega kwa bega na wadau wa karibu",
         "Vous connaissez une initiative locale à soutenir ?": "Unajua mpango wa karibu unaostahili kuungwa mkono?",
-        "Parlez-nous de votre communauté — nous sommes toujours à l'écoute de nouvelles façons de nous rendre utiles là où nous opérons.":
-            "Tuambie kuhusu jamii yako — daima tuko tayari kusikia njia mpya za kuwa na manufaa popote tunapofanya kazi.",
+        "Parlez-nous de votre communauté. Nous sommes toujours à l'écoute de nouvelles façons de nous rendre utiles là où nous opérons.":
+            "Tuambie kuhusu jamii yako. Daima tuko tayari kusikia njia mpya za kuwa na manufaa popote tunapofanya kazi.",
 
         # --- contact ---
         "Parlons de votre prochain transfert": "Tuzungumze kuhusu uhamishaji wako ujao",
@@ -945,7 +1029,7 @@ TRANSLATIONS = {
         "E-mail": "Barua pepe",
         "Réponse rapide": "Jibu la haraka",
         "Écrivez-nous sur WhatsApp": "Tuandikie kupitia WhatsApp",
-        "Disponible du lundi au samedi, de 08h00 à 18h00": "Tunapatikana Jumatatu hadi Jumamosi, saa 08:00–18:00",
+        "Disponible du lundi au samedi, de 08h00 à 18h00": "Tunapatikana Jumatatu hadi Jumamosi, kuanzia saa 08:00 hadi 18:00",
         "Message envoyé": "Ujumbe umetumwa",
         "Merci de nous avoir contactés. Notre équipe vous répondra très prochainement.":
             "Asante kwa kuwasiliana nasi. Timu yetu itakujibu hivi karibuni.",
@@ -960,8 +1044,8 @@ TRANSLATIONS = {
         "En face de l'Hôtel Hypnose": "Mkabala na Hôtel Hypnose",
         "Obtenir l'itinéraire": "Pata mwelekeo",
         "Une équipe joignable, une communauté fidèle": "Timu inayofikika, jamii thabiti",
-        "Que ce soit par téléphone, WhatsApp ou en agence, notre équipe reste à l'écoute — merci à toutes les personnes qui portent fièrement les couleurs Blue Sky partout où elles se trouvent.":
-            "Iwe kwa simu, WhatsApp au tawi, timu yetu inabaki makini — asante kwa kila mtu anayevaa rangi za Blue Sky kwa fahari popote alipo.",
+        "Que ce soit par téléphone, WhatsApp ou en agence, notre équipe reste à l'écoute. Merci à toutes les personnes qui portent fièrement les couleurs Blue Sky partout où elles se trouvent.":
+            "Iwe kwa simu, WhatsApp au tawi, timu yetu inabaki makini. Asante kwa kila mtu anayevaa rangi za Blue Sky kwa fahari popote alipo.",
 
         # --- countries page ---
         "Plus proches de vous, dans": "Karibu zaidi na wewe, katika",
@@ -988,7 +1072,7 @@ TRANSLATIONS = {
         "Suivant": "Ifuatayo",
         "Aucune actualité publiée pour le moment.": "Hakuna habari iliyochapishwa kwa sasa.",
         "Toutes les actualités": "Habari zote",
-        "Brouillon — visible uniquement par le personnel": "Rasimu — inaonekana kwa wafanyakazi tu",
+        "Brouillon, visible uniquement par le personnel": "Rasimu, inaonekana kwa wafanyakazi tu",
         "Non publié": "Haijachapishwa",
 
         # --- misc gaps closed on a translation audit pass ---
@@ -1052,8 +1136,8 @@ TRANSLATIONS = {
         "Chaque dépôt ou retrait doit être confirmé par notre équipe avant de mettre à jour votre solde.":
             "Kila uwekaji au utoaji lazima uthibitishwe na timu yetu kabla ya salio lako kusasishwa.",
         "Envoyer la demande": "Tuma ombi",
-        "Votre compte n'est pas encore actif — vous pourrez demander un dépôt ou un retrait une fois qu'il sera activé par notre équipe.":
-            "Akaunti yako bado haijawashwa — utaweza kuomba uwekaji au utoaji mara timu yetu itakapoiwasha.",
+        "Votre compte n'est pas encore actif. Vous pourrez demander un dépôt ou un retrait une fois qu'il sera activé par notre équipe.":
+            "Akaunti yako bado haijawashwa. Utaweza kuomba uwekaji au utoaji mara timu yetu itakapoiwasha.",
         "Type": "Aina",
         "Nouveau solde": "Salio jipya",
         "Aucune opération pour le moment.": "Hakuna shughuli kwa sasa.",

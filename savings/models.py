@@ -33,7 +33,7 @@ class SavingsAccount(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"Fiche {self.fiche_number or '(non activée)'} — {self.user.full_name}"
+        return f"Fiche {self.fiche_number or '(non activée)'}, {self.user.full_name}"
 
 
 class SavingsOperation(models.Model):
@@ -74,4 +74,4 @@ class SavingsOperation(models.Model):
         indexes = [models.Index(fields=["account"])]
 
     def __str__(self):
-        return f"{self.get_operation_type_display()} de {self.amount} — {self.account}"
+        return f"{self.get_operation_type_display()} de {self.amount}, {self.account}"

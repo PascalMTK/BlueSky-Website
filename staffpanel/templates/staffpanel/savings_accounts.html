@@ -32,7 +32,7 @@
             <p class="font-semibold text-text">{{ account.user.full_name }}</p>
             <p class="text-xs text-text-muted">{{ account.user.email }}</p>
           </td>
-          <td class="px-4 py-3 text-text-muted">{{ account.fiche_number|default:"—" }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ account.fiche_number|default:"Non renseigné" }}</td>
           <td class="px-4 py-3 font-semibold">{{ account.balance }}</td>
           <td class="px-4 py-3">{% include "core/partials/status_badge.html" with status=account.status status_label=account.get_status_display %}</td>
           <td class="px-4 py-3 text-text-muted">{{ account.created_at|date:"d/m/Y" }}</td>

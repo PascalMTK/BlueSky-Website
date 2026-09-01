@@ -99,5 +99,5 @@ class TransferForm(StyledFormMixin, forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["recipient"].queryset = Recipient.objects.filter(user=user)
         self.fields["recipient"].label_from_instance = (
-            lambda r: f"{r.full_name} — {r.country}"
+            lambda r: f"{r.full_name}, {r.country}"
         )

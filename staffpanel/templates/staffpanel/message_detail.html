@@ -20,7 +20,7 @@
 
   <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     <div><p class="text-xs font-bold uppercase text-text-muted">E-mail</p><p class="mt-1 font-semibold"><a href="mailto:{{ contact_message.email }}" class="text-brand-blue hover:underline">{{ contact_message.email }}</a></p></div>
-    <div><p class="text-xs font-bold uppercase text-text-muted">Pays</p><p class="mt-1 font-semibold">{{ contact_message.country|default:"—" }}</p></div>
+    <div><p class="text-xs font-bold uppercase text-text-muted">Pays</p><p class="mt-1 font-semibold">{{ contact_message.country|default:"Non renseigné" }}</p></div>
     <div><p class="text-xs font-bold uppercase text-text-muted">Service demandé</p><p class="mt-1 font-semibold">{{ contact_message.get_service_display }}</p></div>
   </div>
 

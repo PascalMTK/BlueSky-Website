@@ -1,94 +1,63 @@
 {% load icons i18n_extra %}
-<footer class="bg-brand-blue-deep text-white">
-  <!-- Hero Catchphrase Banner -->
-  <div class="mx-auto w-full max-w-[1440px] px-6 pt-16 sm:px-8 lg:px-12">
-    <div class="mb-14 flex flex-col gap-6 border-b border-white/10 pb-14 lg:flex-row lg:items-end lg:justify-between">
-      <div class="space-y-3">
-        <span class="editorial-label text-brand-gold">{% t "Blue Sky / Afrique australe" %}</span>
-        <h2 class="display-title max-w-3xl text-4xl leading-[1.08] text-white sm:text-5xl">
-          {% t "L'argent voyage." %}<br>
-          <span class="text-white/70">{% t "La confiance reste." %}</span>
-        </h2>
+<footer class="site-footer brand-dot-texture overflow-hidden bg-brand-blue-deep text-white">
+  <div class="mx-auto w-full max-w-[1440px] px-5 pt-16 sm:px-8 lg:px-10 lg:pt-20">
+    <div class="footer-cta grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:p-10">
+      <div>
+        <p class="editorial-label text-brand-sky">{% t "Blue Sky / Afrique australe" %}</p>
+        <h2 class="display-title mt-4 max-w-3xl text-3xl leading-tight sm:text-4xl lg:text-5xl">{% t "L'argent voyage." %} <span class="text-brand-sky">{% t "La confiance reste." %}</span></h2>
+        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-white/65">{{ SITE.mission }}</p>
       </div>
-    </div>
-  </div>
-
-  <!-- Navigation & Main Columns -->
-  <div class="mx-auto grid w-full max-w-[1440px] gap-12 px-6 pb-16 sm:px-8 md:grid-cols-12 lg:px-12">
-    <!-- Brand Info -->
-    <div class="space-y-6 md:col-span-5 lg:col-span-5">
-      {% include "core/partials/logo.html" with light_logo=True %}
-      <p class="max-w-md text-sm leading-relaxed text-white/65">
-        {{ SITE.mission }}
-      </p>
-      <!-- Social Media Buttons -->
-      <div class="flex items-center gap-3 pt-2">
-        <a href="{{ SITE.social.facebook }}" target="_blank" rel="noreferrer noopener" aria-label="Facebook" class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition hover:border-brand-gold/60 hover:text-brand-gold">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94Z"/></svg>
-        </a>
-        <a href="{{ SITE.social.tiktok }}" target="_blank" rel="noreferrer noopener" aria-label="TikTok" class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition hover:border-brand-gold/60 hover:text-brand-gold">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 2h-3.2v13.4a2.8 2.8 0 1 1-2-2.68v-3.3a6.1 6.1 0 1 0 5.2 6.03V8.4a7.6 7.6 0 0 0 4.4 1.4V6.6a4.4 4.4 0 0 1-4.4-4.4Z"/></svg>
-        </a>
-        <a href="{{ SITE.social.instagram }}" target="_blank" rel="noreferrer noopener" aria-label="Instagram" class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition hover:border-brand-gold/60 hover:text-brand-gold">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.16.55.55.9 1.11 1.16 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.16 1.77c-.55.55-1.11.9-1.77 1.16-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.16 4.9 4.9 0 0 1-1.16-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.16-1.77a4.9 4.9 0 0 1 1.77-1.16c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.28 2 12 2Zm0 1.8c-2.67 0-2.99.01-4.04.06-.87.04-1.34.18-1.65.3-.42.16-.71.35-1.02.66-.31.31-.5.6-.66 1.02-.12.31-.26.78-.3 1.65C4.28 8.5 4.27 8.82 4.27 10.49v3.02c0 1.67.01 1.99.06 3.04.04.87.18 1.34.3 1.65.16.42.35.71.66 1.02.31.31.6.5 1.02.66.31.12.78.26 1.65.3 1.05.05 1.37.06 4.04.06s2.99-.01 4.04-.06c.87-.04 1.34-.18 1.65-.3.42-.16.71-.35 1.02-.66.31-.31.5-.6.66-1.02.12-.31.26-.78.3-1.65.05-1.05.06-1.37.06-3.04v-3.02c0-1.67-.01-1.99-.06-3.04-.04-.87-.18-1.34-.3-1.65a2.75 2.75 0 0 0-.66-1.02 2.75 2.75 0 0 0-1.02-.66c-.31-.12-.78-.26-1.65-.3C14.99 3.81 14.67 3.8 12 3.8Zm0 3.05a5.15 5.15 0 1 1 0 10.3 5.15 5.15 0 0 1 0-10.3Zm0 1.8a3.35 3.35 0 1 0 0 6.7 3.35 3.35 0 0 0 0-6.7Zm5.35-1.98a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg>
-        </a>
+      <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+        <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">{% t "Démarrer un transfert" %} {% icon "arrow-right" size=17 %}</a>
+        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="btn btn-secondary btn-lg text-white">WhatsApp</a>
       </div>
     </div>
 
-    <!-- Quick Navigation -->
-    <div class="md:col-span-3 lg:col-span-3">
-      <h3 class="editorial-label mb-6 text-brand-gold">{% t "Navigation" %}</h3>
-      <ul class="space-y-3 text-sm text-white/65">
-        <li><a href="{% url 'marketing:about' %}" class="transition hover:text-white">{% t "À propos" %}</a></li>
-        <li><a href="{% url 'marketing:team' %}" class="transition hover:text-white">{% t "Notre équipe" %}</a></li>
-        <li><a href="{% url 'marketing:impact' %}" class="transition hover:text-white">{% t "Notre impact" %}</a></li>
-        <li><a href="{% url 'marketing:countries' %}" class="transition hover:text-white">{% t "Nos agences" %}</a></li>
-        <li><a href="{% url 'marketing:home' %}#epargne" class="transition hover:text-white">{% t "Épargne" %}</a></li>
-        <li><a href="{% url 'marketing:contact' %}" class="transition hover:text-white">{% t "Contact" %}</a></li>
-      </ul>
-    </div>
-
-    <!-- Contact Info -->
-    <div class="md:col-span-4 lg:col-span-4">
-      <h3 class="editorial-label mb-6 text-brand-gold">{% t "Contact direct" %}</h3>
-      <ul class="space-y-4 text-sm text-white/65">
-        <li class="flex items-start gap-3">
-          <div class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-gold">
-            {% icon "map-pin" size=15 %}
-          </div>
-          <span class="leading-relaxed">{{ SITE.head_office_address }}</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-gold">
-            {% icon "phone" size=15 %}
-          </div>
-          <span>{{ SITE.primary_phone }}</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-gold">
-            {% icon "mail" size=15 %}
-          </div>
-          <span>{{ SITE.primary_email }}</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Bottom Legal & Regional Scope -->
-  <div class="border-t border-white/10">
-    <div class="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-6 py-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
-      <p>&copy; {% now "Y" %} Blue Sky Money Transfer. {% t "Tous droits réservés." %}</p>
-
-      {% if COUNTRIES %}
-      <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <span>{% t "Présent dans" %} {{ COUNTRIES|length }} {% t "pays" %} :</span>
-        <div class="flex flex-wrap items-center gap-1.5">
-          {% for c in COUNTRIES %}
-            <span class="rounded-md border border-white/10 px-2.5 py-1 font-medium text-white/60">{% t c.name %}</span>
-          {% endfor %}
+    <div class="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.25fr_.7fr_.9fr_1.15fr] lg:gap-12">
+      <div>
+        <div class="footer-logo inline-flex rounded-2xl border border-white/10 bg-white/[.06] px-4 py-2">{% include "core/partials/logo.html" with light_logo=True %}</div>
+        <p class="mt-5 max-w-sm text-sm leading-7 text-white/58">{% t "Des transferts fiables, suivis et accompagnés par de vraies personnes dans" %} {{ COUNTRIES|length }} {% t "pays africains." %}</p>
+        <div class="mt-6 flex items-center gap-2">
+          <a href="{{ SITE.social.facebook }}" target="_blank" rel="noopener" aria-label="Facebook" class="footer-social">f</a>
+          <a href="{{ SITE.social.instagram }}" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social">ig</a>
+          <a href="{{ SITE.social.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok" class="footer-social">tk</a>
         </div>
       </div>
-      {% endif %}
+
+      <div>
+        <h3 class="footer-heading">{% t "Navigation" %}</h3>
+        <ul class="footer-links">
+          <li><a href="{% url 'marketing:about' %}">{% t "À propos" %}</a></li>
+          <li><a href="{% url 'marketing:team' %}">{% t "Notre équipe" %}</a></li>
+          <li><a href="{% url 'marketing:impact' %}">{% t "Notre impact" %}</a></li>
+          <li><a href="{% url 'marketing:tariffs' %}">{% t "Tarifs" %}</a></li>
+          <li><a href="{% url 'blog:post_list' %}">{% t "Actualités" %}</a></li>
+          <li><a href="{% url 'marketing:countries' %}">{% t "Nos agences" %}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-heading">{% t "Contact direct" %}</h3>
+        <ul class="space-y-4 text-sm text-white/65">
+          <li><a href="tel:{{ SITE.primary_phone }}" class="footer-contact"><span>{% icon "phone" size=16 %}</span><strong>{{ SITE.primary_phone }}</strong></a></li>
+          <li><a href="mailto:{{ SITE.primary_email }}" class="footer-contact"><span>{% icon "mail" size=16 %}</span><strong class="break-all">{{ SITE.primary_email }}</strong></a></li>
+          <li class="footer-contact items-start"><span>{% icon "map-pin" size=16 %}</span><p class="leading-relaxed">{{ SITE.head_office_address }}</p></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-heading">{% t "Notre couverture" %}</h3>
+        <div class="grid grid-cols-2 gap-2">
+          {% for country in COUNTRIES %}<a href="{% url 'marketing:countries' %}" class="footer-country"><span>{{ country.flag }}</span><span>{% t country.name %}</span></a>{% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex w-full max-w-[1440px] flex-col gap-3 px-5 pb-20 pt-5 text-xs text-white/42 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-5 sm:pr-20 lg:px-10 lg:pr-24">
+      <p>&copy; {% now "Y" %} Blue Sky Money Transfer. {% t "Tous droits réservés." %}</p>
+      <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span>{{ COUNTRIES|length }} {% t "pays connectés" %}</span></div>
     </div>
   </div>
 </footer>

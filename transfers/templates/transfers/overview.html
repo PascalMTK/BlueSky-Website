@@ -54,7 +54,7 @@
             {% for transfer in transfers %}
               <tr class="border-t border-border">
                 <td class="px-6 py-4 font-mono text-xs font-bold">{{ transfer.reference }}</td>
-                <td class="px-6 py-4">{{ transfer.recipient.full_name|default:"—" }}</td>
+                <td class="px-6 py-4">{{ transfer.recipient.full_name|default:"Non renseigné" }}</td>
                 <td class="px-6 py-4">{{ transfer.destination_country }}</td>
                 <td class="px-6 py-4 font-semibold">{{ transfer.amount_sent|format_amount:transfer.currency_sent }}</td>
                 <td class="px-6 py-4">{% include "core/partials/status_badge.html" with status=transfer.status status_label=transfer.get_status_display %}</td>
