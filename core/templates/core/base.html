@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html lang="fr" class="h-full scroll-smooth antialiased dark">
+<html lang="fr" class="h-full scroll-smooth antialiased">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,28 +13,14 @@
   <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/favicon-192.png' %}">
   <link rel="icon" type="image/png" sizes="512x512" href="{% static 'img/favicon-512.png' %}">
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon.png' %}">
-  <meta name="theme-color" content="#0F172A">
+  <meta name="theme-color" content="#0b1930">
 
-  <!-- The stylesheet uses a local system-font stack, so page rendering never
-       waits on Google Fonts or another third-party host. -->
+  <!-- Editorial type pairing: Fraunces for display headings, Inter for UI/body. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,560;9..144,650;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="{% static 'css/output.css' %}">
-
-  <!-- Theme Detection & Global CSS Variables Injection -->
-  <script>
-    (function () {
-      try {
-        const stored = localStorage.getItem("bluesky-theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (stored === "dark" || (!stored && prefersDark)) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      } catch (e) {
-        document.documentElement.classList.add("dark");
-      }
-    })();
-  </script>
 
   {% block extra_head %}{% endblock %}
 </head>
@@ -54,7 +40,6 @@
   </div>
 
   <!-- Global Deferred Scripts -->
-  <script src="{% static 'js/theme.js' %}" defer></script>
   <script src="{% static 'js/motion.js' %}" defer></script>
   {% block extra_scripts %}{% endblock %}
 </body>

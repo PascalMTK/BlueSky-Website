@@ -10,7 +10,7 @@
 
   {% if not has_recipients %}
     <div class="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-border p-10 text-center">
-      <div class="text-brand-blue dark:text-brand-gold-light">{% icon "user-plus" size=32 %}</div>
+      <div class="text-brand-blue">{% icon "user-plus" size=32 %}</div>
       <p class="text-sm text-text-muted">{% t "Ajoutez d'abord un bénéficiaire avant d'envoyer un transfert." %}</p>
       <a href="{% url 'transfers:recipients' %}" class="btn btn-primary btn-md">{% t "Ajouter un bénéficiaire" %}</a>
     </div>

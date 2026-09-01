@@ -9,7 +9,7 @@
     <a href="{% url 'blog:post_list' %}" class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:underline">{% icon "arrow-right" size=15 css_class="rotate-180" %} {% t "Toutes les actualités" %}</a>
 
     {% if not post.is_published %}
-      <p class="mt-6 inline-flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">{% t "Brouillon — visible uniquement par le personnel" %}</p>
+      <p class="mt-6 inline-flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-amber-600">{% t "Brouillon — visible uniquement par le personnel" %}</p>
     {% endif %}
 
     <h1 class="display-title mt-6 text-3xl sm:text-4xl">{{ post.title }}</h1>

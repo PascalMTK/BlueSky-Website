@@ -46,13 +46,6 @@
       <a href="/" class="lg:hidden">
         {% include "core/partials/logo.html" %}
       </a>
-
-      <div class="flex items-center gap-3">
-        <button type="button" data-theme-toggle aria-label="{% t 'Basculer le mode sombre' %}" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text-muted transition hover:border-brand-blue hover:text-brand-blue dark:hover:border-brand-gold dark:hover:text-brand-gold">
-          {% icon "moon" size=18 css_class="theme-icon-moon transition-transform duration-300 group-hover:rotate-12" %}
-          {% icon "sun" size=18 css_class="theme-icon-sun hidden transition-transform duration-300 group-hover:rotate-45" %}
-        </button>
-      </div>
     </header>
 
     <!-- Mobile Sticky Horizontal Navigation -->
@@ -78,7 +71,7 @@
       </div>
       <form method="post" action="{% url 'accounts:logout' %}">
         {% csrf_token %}
-        <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 px-4 py-2.5 text-sm font-semibold text-rose-600 transition hover:bg-rose-500 hover:text-white dark:text-rose-400">
+        <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 px-4 py-2.5 text-sm font-semibold text-rose-600 transition hover:bg-rose-500 hover:text-white">
           {% icon "log-out" size=18 %}
           <span>{% t "Se déconnecter" %}</span>
         </button>

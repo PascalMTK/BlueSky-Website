@@ -14,8 +14,8 @@
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
     {% for icon_name, label, value in stats %}
       <div class="content-card p-6">
-        <div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue dark:bg-white/10 dark:text-brand-gold-light">{% icon icon_name size=18 %}</div>
-        <p class="text-2xl font-bold text-brand-blue dark:text-brand-gold-light">{{ value }}</p>
+        <div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue">{% icon icon_name size=18 %}</div>
+        <p class="text-2xl font-bold text-brand-blue">{{ value }}</p>
         <p class="text-sm text-text-muted">{% t label %}</p>
       </div>
     {% endfor %}

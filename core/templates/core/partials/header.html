@@ -1,7 +1,11 @@
 {% load icons i18n_extra %}
-<header class="sticky top-0 z-50 border-b border-border bg-bg/95 backdrop-blur-md">
+<header class="site-header sticky top-0 z-50 border-b border-border bg-bg/95 backdrop-blur-md {% if request.resolver_match.url_name == 'home' %}site-header-home{% endif %}">
   <!-- Top Utility Bar -->
   <div class="hidden border-b border-border/70 bg-brand-blue-deep px-6 py-2 text-xs font-medium text-white/75 sm:flex sm:items-center sm:justify-between sm:px-8 lg:px-12">
+    <div class="flex items-center gap-2 text-white/60">
+      {% icon "clock" size=14 css_class="text-brand-gold" %}
+      <span>{% t "Lun–Sam : 08h00–18h00" %}</span>
+    </div>
     <div class="flex items-center gap-6">
       <a href="mailto:{{ SITE.primary_email }}" class="flex items-center gap-2 transition hover:text-white">
         {% icon "mail" size=14 css_class="text-brand-gold" %}
@@ -11,10 +15,6 @@
         {% icon "phone" size=14 css_class="text-brand-gold" %}
         <span>{{ SITE.primary_phone }}</span>
       </a>
-    </div>
-    <div class="flex items-center gap-2 text-white/60">
-      {% icon "clock" size=14 css_class="text-brand-gold" %}
-      <span>{% t "Lun–Sam : 08h00–18h00" %}</span>
     </div>
   </div>
 
@@ -28,10 +28,10 @@
     <!-- Desktop Navigation Links -->
     <nav class="hidden items-center gap-7 xl:flex">
       {% for href, label in nav_items %}
-        <a href="{{ href }}" class="relative py-6 text-sm font-semibold transition-colors {% if request.path == href %}text-brand-blue dark:text-brand-gold-light{% else %}text-text-muted hover:text-text{% endif %}">
+        <a href="{{ href }}" class="relative py-6 text-sm font-semibold transition-colors {% if request.path == href %}text-brand-blue{% else %}text-text-muted hover:text-text{% endif %}">
           {% t label %}
           {% if request.path == href %}
-            <span class="absolute inset-x-0 -bottom-px h-0.5 bg-brand-blue dark:bg-brand-gold-light"></span>
+            <span class="absolute inset-x-0 -bottom-px h-0.5 bg-brand-blue"></span>
           {% endif %}
         </a>
       {% endfor %}
@@ -40,12 +40,6 @@
     <!-- Right Action Controls (Desktop) -->
     <div class="hidden shrink-0 items-center gap-3 xl:flex">
       {% include "core/partials/language_switcher.html" %}
-
-      <!-- Dark Mode Toggle Button -->
-      <button type="button" data-theme-toggle aria-label="{% t 'Basculer le mode sombre' %}" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text-muted transition hover:border-brand-blue hover:text-brand-blue dark:hover:border-brand-gold dark:hover:text-brand-gold">
-        {% icon "moon" size=17 css_class="theme-icon-moon" %}
-        {% icon "sun" size=17 css_class="theme-icon-sun hidden" %}
-      </button>
 
       {% if request.user.is_authenticated %}
         <a href="{% url 'transfers:overview' %}" class="btn btn-primary btn-md">
@@ -62,11 +56,6 @@
 
     <!-- Mobile Navigation Controls -->
     <div class="flex items-center gap-2 xl:hidden">
-      <button type="button" data-theme-toggle aria-label="{% t 'Basculer le mode sombre' %}" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text-muted transition hover:border-brand-blue hover:text-brand-blue">
-        {% icon "moon" size=17 css_class="theme-icon-moon" %}
-        {% icon "sun" size=17 css_class="theme-icon-sun hidden" %}
-      </button>
-
       <button type="button" data-mobile-nav-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="{% t 'Menu' %}" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text transition hover:bg-surface-muted">
         {% icon "menu" size=19 %}
       </button>
@@ -77,7 +66,7 @@
   <div id="mobile-nav" data-mobile-nav class="hidden border-t border-border bg-surface xl:hidden">
     <div><div class="mx-auto flex w-full max-w-7xl flex-col gap-1 px-6 py-5 sm:px-8">
       {% for href, label in nav_items %}
-        <a href="{{ href }}" class="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold transition-colors {% if request.path == href %}bg-brand-blue/10 text-brand-blue dark:text-brand-gold-light{% else %}text-text hover:bg-surface-muted{% endif %}">
+        <a href="{{ href }}" class="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold transition-colors {% if request.path == href %}bg-brand-blue/10 text-brand-blue{% else %}text-text hover:bg-surface-muted{% endif %}">
           <span>{% t label %}</span>
         </a>
       {% endfor %}

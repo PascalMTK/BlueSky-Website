@@ -240,6 +240,97 @@
     });
   }
 
+  function initHeroVideos(main) {
+    var slider = main.querySelector("[data-hero-video-slider]");
+    if (!slider || reducedMotion) return;
+    var videos = Array.prototype.slice.call(slider.querySelectorAll("video"));
+    if (!videos.length) return;
+    var activeIndex = 0;
+
+    function play(index, previousIndex) {
+      var current = videos[index];
+      current.currentTime = 0;
+      var promise = current.play();
+      if (promise && promise.catch) promise.catch(function () {});
+      requestAnimationFrame(function () {
+        current.classList.add("is-active");
+        if (typeof previousIndex !== "number") return;
+        var previous = videos[previousIndex];
+        previous.classList.remove("is-active");
+        window.setTimeout(function () {
+          previous.pause();
+          previous.currentTime = 0;
+        }, 1150);
+      });
+    }
+
+    videos.forEach(function (video, index) {
+      video.addEventListener("ended", function () {
+        var previousIndex = index;
+        activeIndex = (index + 1) % videos.length;
+        play(activeIndex, previousIndex);
+      });
+      video.addEventListener("error", function () {
+        if (index !== activeIndex) return;
+        video.classList.remove("is-active");
+        activeIndex = (index + 1) % videos.length;
+        play(activeIndex);
+      });
+    });
+    var initialPlay = videos[activeIndex].play();
+    if (initialPlay && initialPlay.catch) initialPlay.catch(function () {});
+  }
+
+  function initCountryCards(main) {
+    var cards = main.querySelectorAll("[data-country-card]");
+    var activeDialog = null;
+
+    function closeDialog(dialog, restoreFocus) {
+      if (!dialog || !dialog.hasAttribute("open") || dialog.classList.contains("is-closing")) return;
+      dialog.classList.add("is-closing");
+      window.setTimeout(function () {
+        dialog.classList.remove("is-closing");
+        if (typeof dialog.close === "function") dialog.close();
+        else dialog.removeAttribute("open");
+        if (activeDialog === dialog) activeDialog = null;
+        if (restoreFocus) restoreFocus.focus();
+      }, reducedMotion ? 0 : 180);
+    }
+
+    cards.forEach(function (card) {
+      var dialog = document.getElementById(card.getAttribute("data-country-dialog"));
+      if (!dialog) return;
+      function openDialog() {
+        if (activeDialog === dialog && dialog.hasAttribute("open")) return;
+        if (activeDialog && activeDialog.hasAttribute("open")) {
+          activeDialog.classList.remove("is-closing");
+          if (typeof activeDialog.close === "function") activeDialog.close();
+          else activeDialog.removeAttribute("open");
+        }
+        activeDialog = dialog;
+        dialog.classList.remove("is-closing");
+        if (typeof dialog.showModal === "function") dialog.showModal();
+        else dialog.setAttribute("open", "");
+      }
+      card.addEventListener("click", openDialog);
+      card.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openDialog();
+        }
+      });
+      var close = dialog.querySelector("[data-country-dialog-close]");
+      if (close) close.addEventListener("click", function () { closeDialog(dialog, card); });
+      dialog.addEventListener("click", function (event) {
+        if (event.target === dialog) closeDialog(dialog, card);
+      });
+      dialog.addEventListener("cancel", function (event) {
+        event.preventDefault();
+        closeDialog(dialog, card);
+      });
+    });
+  }
+
   // Selects an element's most "card-like" direct (or one-level-nested)
   // children so a grid of cards can cascade in one after another instead
   // of the whole block fading in at once.
@@ -342,7 +433,10 @@
     var main = document.querySelector("main");
     initHeader();
     initScrollProgress();
-    if (!main || reducedMotion) return;
+    if (!main) return;
+    initCountryCards(main);
+    initHeroVideos(main);
+    if (reducedMotion) return;
     initHero(main);
     initSectionReveal(main);
     initCounters(main);

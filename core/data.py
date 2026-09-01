@@ -39,6 +39,8 @@ SITE = {
         "Equity BCDC",
         "Illicocash",
         "PMobile",
+        "Pays2Cell",
+        "eWallet",
     ],
     "savings_tagline": "Épargnez sereinement, à votre rythme",
     "savings_description": (

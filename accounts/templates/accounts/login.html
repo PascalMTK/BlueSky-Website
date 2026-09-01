@@ -16,6 +16,6 @@
 
   <p class="mt-6 text-center text-sm text-text-muted">
     {% t "Pas encore de compte ?" %}
-    <a href="{% url 'accounts:signup' %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="font-semibold text-brand-blue dark:text-brand-gold-light">{% t "Ouvrir un compte" %}</a>
+    <a href="{% url 'accounts:signup' %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="font-semibold text-brand-blue">{% t "Ouvrir un compte" %}</a>
   </p>
 {% endblock %}

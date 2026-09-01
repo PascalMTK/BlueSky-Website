@@ -19,12 +19,6 @@
   </div>
 
   <div class="relative flex flex-col justify-center px-6 py-16 sm:px-10 lg:px-20">
-    <div class="absolute right-6 top-6">
-      <button type="button" data-theme-toggle aria-label="{% t 'Basculer le mode sombre' %}" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text-muted transition hover:border-brand-blue hover:text-brand-blue dark:hover:border-brand-gold dark:hover:text-brand-gold">
-        {% icon "moon" size=17 css_class="theme-icon-moon" %}
-        {% icon "sun" size=17 css_class="theme-icon-sun hidden" %}
-      </button>
-    </div>
     <div class="mx-auto w-full max-w-md rounded-2xl border border-border bg-surface p-8 sm:p-10">
       {% block auth_content %}{% endblock %}
     </div>
