@@ -41,6 +41,8 @@ TRANSLATIONS = {
         "Lun–Sam : 08h00–18h00": "Mon–Sat: 08:00–18:00",
         "Basculer le mode sombre": "Toggle dark mode",
         "Nous contacter": "Contact us",
+        "Tableau de bord": "Dashboard",
+        "Mon compte": "My account",
 
         # --- footer ---
         "Blue Sky / Afrique australe": "Blue Sky / Southern Africa",
@@ -116,8 +118,8 @@ TRANSLATIONS = {
         "Vos bénéficiaires reçoivent leurs fonds en quelques minutes, pas en quelques jours.":
             "Your recipients get their funds in minutes, not days.",
         "Réseau régional": "Regional network",
-        "9 pays d'Afrique australe et de l'Est connectés à une seule plateforme.":
-            "9 African countries across Southern and East Africa connected on one platform.",
+        "pays d'Afrique australe et de l'Est connectés à une seule plateforme.":
+            "African countries across Southern and East Africa connected on one platform.",
         "Assistance humaine": "Human assistance",
         "Une équipe joignable sur WhatsApp et par téléphone, dans chaque pays où nous opérons.":
             "A team reachable on WhatsApp and by phone, in every country where we operate.",
@@ -397,6 +399,133 @@ TRANSLATIONS = {
         "Toutes les actualités": "All news",
         "Brouillon — visible uniquement par le personnel": "Draft — visible to staff only",
         "Non publié": "Not published",
+
+        # --- misc gaps closed on a translation audit pass ---
+        "Fierté locale": "Local pride",
+        "Contact": "Contact",
+        "Changer de langue": "Change language",
+        "Carte du siège social Blue Sky à Lubumbashi": "Map of Blue Sky's head office in Lubumbashi",
+
+        # --- 404 ---
+        "Erreur 404": "Error 404",
+        "Cette page n'existe pas": "This page doesn't exist",
+        "La page que vous cherchez a peut-être été déplacée ou n'existe plus.":
+            "The page you're looking for may have moved or no longer exists.",
+        "Retour à l'accueil": "Back to home",
+
+        # --- dashboard chrome (transfers/savings) ---
+        "Se déconnecter": "Log out",
+        "Vue d'ensemble": "Overview",
+        "Bénéficiaires": "Recipients",
+        "Nouveau transfert": "New transfer",
+
+        # --- transfers dashboard ---
+        "Bonjour": "Hello",
+        "Voici un aperçu de votre activité Blue Sky.": "Here's an overview of your Blue Sky activity.",
+        "Transferts récents": "Recent transfers",
+        "Ajouter un bénéficiaire": "Add a recipient",
+        "Vous n'avez encore effectué aucun transfert.": "You haven't made any transfers yet.",
+        "Envoyer mon premier transfert": "Send my first transfer",
+        "Référence": "Reference",
+        "Destination": "Destination",
+        "Montant": "Amount",
+        "Statut": "Status",
+        "Date": "Date",
+        "Annuler": "Cancel",
+        "Transferts envoyés": "Transfers sent",
+        "En attente": "Pending",
+        "Terminés": "Completed",
+        "Renseignez les détails de votre envoi. Notre équipe vous contactera pour la confirmation.":
+            "Enter your transfer details. Our team will contact you to confirm.",
+        "Ajoutez d'abord un bénéficiaire avant d'envoyer un transfert.": "Add a recipient first before sending a transfer.",
+        "Envoyer la demande de transfert": "Send transfer request",
+        "Votre demande sera confirmée par notre équipe avant traitement.": "Your request will be confirmed by our team before processing.",
+        "Gérez les personnes qui reçoivent vos transferts.": "Manage the people who receive your transfers.",
+        "Ajouter le bénéficiaire": "Add recipient",
+        "Aucun bénéficiaire enregistré pour le moment.": "No recipients registered yet.",
+        "Supprimer": "Delete",
+
+        # --- savings dashboard ---
+        "Notez vos infos, on s'occupe du reste.": "Jot down your details, we'll take it from there.",
+        "Ouvrir un compte épargne": "Open a savings account",
+        "Remplissez ces quelques informations pour soumettre votre demande. Notre équipe activera votre compte après vérification.":
+            "Fill in these few details to submit your request. Our team will activate your account after verification.",
+        "Soumettre ma demande": "Submit my request",
+        "Mon épargne": "My savings",
+        "Fiche": "Record",
+        "Votre demande est en cours de vérification": "Your request is under review",
+        "Solde disponible": "Available balance",
+        "Total déposé": "Total deposited",
+        "Total retiré": "Total withdrawn",
+        "Demander une opération": "Request an operation",
+        "Chaque dépôt ou retrait doit être confirmé par notre équipe avant de mettre à jour votre solde.":
+            "Every deposit or withdrawal is confirmed by our team before your balance is updated.",
+        "Envoyer la demande": "Send request",
+        "Votre compte n'est pas encore actif — vous pourrez demander un dépôt ou un retrait une fois qu'il sera activé par notre équipe.":
+            "Your account isn't active yet — you'll be able to request a deposit or withdrawal once our team activates it.",
+        "Type": "Type",
+        "Nouveau solde": "New balance",
+        "Aucune opération pour le moment.": "No operations yet.",
+
+        # --- model status/type labels (savings + transfers) ---
+        "En attente d'activation": "Awaiting activation",
+        "Actif": "Active",
+        "Refusé": "Rejected",
+        "Clôturé": "Closed",
+        "Dépôt": "Deposit",
+        "Retrait": "Withdrawal",
+        "Confirmé": "Confirmed",
+        "Rejeté": "Rejected",
+        "En cours": "Processing",
+        "Terminé": "Completed",
+        "Annulé": "Cancelled",
+
+        # --- contact form service choices ---
+        "Transfert d'argent": "Money transfer",
+        "Autre": "Other",
+
+        # --- dashboard form labels/errors ---
+        "Nom du bénéficiaire requis": "Recipient name required",
+        "Sélectionnez un pays": "Select a country",
+        "Autre pays": "Other country",
+        "Navigation": "Navigation",
+
+        # --- alt text closed on a translation audit pass ---
+        "Portrait de la direction de Blue Sky": "Portrait of Blue Sky's leadership",
+        "Un membre de la communauté Blue Sky portant un t-shirt à l'effigie de la marque":
+            "A member of the Blue Sky community wearing a branded t-shirt",
+        "L'équipe Blue Sky sur le terrain": "The Blue Sky team in the field",
+        "Pièces empilées symbolisant la croissance de l'épargne": "Stacked coins symbolizing savings growth",
+        "Blue Sky aux côtés des enfants d'un orphelinat en Namibie":
+            "Blue Sky alongside children at an orphanage in Namibia",
+        "Une membre de l'équipe Blue Sky avec une enfant de l'orphelinat":
+            "A Blue Sky team member with a child from the orphanage",
+        "Une étudiante soutenue par la communauté Blue Sky portant un t-shirt à l'effigie de la marque":
+            "A student supported by the Blue Sky community wearing a branded t-shirt",
+        "Une famille africaine épargnant ensemble à la maison": "An African family saving together at home",
+        "Une étudiante avec ses cahiers, soutenue par sa famille via Blue Sky":
+            "A student with her notebooks, supported by her family via Blue Sky",
+        "Une jeune entrepreneure africaine au téléphone devant son commerce":
+            "A young African entrepreneur on the phone outside her shop",
+        "L'équipe Blue Sky entourée des enfants de l'orphelinat lors d'une visite":
+            "The Blue Sky team surrounded by children from the orphanage during a visit",
+        "L'équipe Blue Sky réunie sur le terrain": "The Blue Sky team gathered in the field",
+        "Deux membres de la communauté Blue Sky portant des t-shirts à l'effigie de la marque":
+            "Two members of the Blue Sky community wearing branded t-shirts",
+        "Téléphone (optionnel)": "Phone (optional)",
+        "Relation (optionnel)": "Relationship (optional)",
+        "Bénéficiaire": "Recipient",
+        "Le montant doit être supérieur à 0": "Amount must be greater than 0",
+        "Devise": "Currency",
+        "Moyen de paiement": "Payment method",
+        "Sélectionnez un moyen de paiement": "Select a payment method",
+        "Note (optionnel)": "Note (optional)",
+        "Type d'opération": "Operation type",
+        "Observations (optionnel)": "Comments (optional)",
+        "N° CNI / Passeport": "ID / passport number",
+        "Entrez votre numéro de CNI ou passeport": "Enter your ID or passport number",
+        "Adresse": "Address",
+        "Entrez votre adresse": "Enter your address",
     },
     # Machine-checked but not proofread by a native Kiswahili speaker — good
     # enough to launch with, but worth a native-speaker pass before this is
@@ -412,6 +541,8 @@ TRANSLATIONS = {
         "Lun–Sam : 08h00–18h00": "Jumatatu–Jumamosi: Saa 08:00–18:00",
         "Basculer le mode sombre": "Badilisha hali ya giza",
         "Nous contacter": "Wasiliana nasi",
+        "Tableau de bord": "Dashibodi",
+        "Mon compte": "Akaunti yangu",
 
         # --- footer ---
         "Blue Sky / Afrique australe": "Blue Sky / Kusini mwa Afrika",
@@ -487,8 +618,8 @@ TRANSLATIONS = {
         "Vos bénéficiaires reçoivent leurs fonds en quelques minutes, pas en quelques jours.":
             "Wanufaika wako wanapokea fedha zao ndani ya dakika chache, si siku kadhaa.",
         "Réseau régional": "Mtandao wa kikanda",
-        "9 pays d'Afrique australe et de l'Est connectés à une seule plateforme.":
-            "Nchi 9 za Kusini na Mashariki mwa Afrika zilizounganishwa kwenye jukwaa moja.",
+        "pays d'Afrique australe et de l'Est connectés à une seule plateforme.":
+            "nchi za Kusini na Mashariki mwa Afrika zilizounganishwa kwenye jukwaa moja.",
         "Assistance humaine": "Msaada wa kibinadamu",
         "Une équipe joignable sur WhatsApp et par téléphone, dans chaque pays où nous opérons.":
             "Timu inayopatikana kupitia WhatsApp na simu, katika kila nchi tunayofanya kazi.",
@@ -767,5 +898,158 @@ TRANSLATIONS = {
         "Toutes les actualités": "Habari zote",
         "Brouillon — visible uniquement par le personnel": "Rasimu — inaonekana kwa wafanyakazi tu",
         "Non publié": "Haijachapishwa",
+
+        # --- misc gaps closed on a translation audit pass ---
+        "Fierté locale": "Fahari ya karibu",
+        "Contact": "Mawasiliano",
+        "Changer de langue": "Badilisha lugha",
+        "Carte du siège social Blue Sky à Lubumbashi": "Ramani ya makao makuu ya Blue Sky mjini Lubumbashi",
+
+        # --- 404 ---
+        "Erreur 404": "Hitilafu 404",
+        "Cette page n'existe pas": "Ukurasa huu haupo",
+        "La page que vous cherchez a peut-être été déplacée ou n'existe plus.":
+            "Ukurasa unaoutafuta huenda ulihamishwa au haupo tena.",
+        "Retour à l'accueil": "Rudi mwanzoni",
+
+        # --- dashboard chrome (transfers/savings) ---
+        "Se déconnecter": "Toka",
+        "Vue d'ensemble": "Muhtasari",
+        "Bénéficiaires": "Wanufaika",
+        "Nouveau transfert": "Uhamishaji mpya",
+
+        # --- transfers dashboard ---
+        "Bonjour": "Habari",
+        "Voici un aperçu de votre activité Blue Sky.": "Huu ni muhtasari wa shughuli zako za Blue Sky.",
+        "Transferts récents": "Uhamishaji wa hivi karibuni",
+        "Ajouter un bénéficiaire": "Ongeza mnufaika",
+        "Vous n'avez encore effectué aucun transfert.": "Bado hujafanya uhamishaji wowote.",
+        "Envoyer mon premier transfert": "Tuma uhamishaji wangu wa kwanza",
+        "Référence": "Kumbukumbu",
+        "Destination": "Mwelekeo",
+        "Montant": "Kiasi",
+        "Statut": "Hali",
+        "Date": "Tarehe",
+        "Annuler": "Ghairi",
+        "Transferts envoyés": "Uhamishaji uliotumwa",
+        "En attente": "Inasubiri",
+        "Terminés": "Zilizokamilika",
+        "Renseignez les détails de votre envoi. Notre équipe vous contactera pour la confirmation.":
+            "Jaza maelezo ya utumaji wako. Timu yetu itawasiliana nawe kuthibitisha.",
+        "Ajoutez d'abord un bénéficiaire avant d'envoyer un transfert.": "Ongeza mnufaika kwanza kabla ya kutuma uhamishaji.",
+        "Envoyer la demande de transfert": "Tuma ombi la uhamishaji",
+        "Votre demande sera confirmée par notre équipe avant traitement.": "Ombi lako litathibitishwa na timu yetu kabla ya kushughulikiwa.",
+        "Gérez les personnes qui reçoivent vos transferts.": "Simamia watu wanaopokea uhamishaji wako.",
+        "Ajouter le bénéficiaire": "Ongeza mnufaika",
+        "Aucun bénéficiaire enregistré pour le moment.": "Hakuna mnufaika aliyesajiliwa kwa sasa.",
+        "Supprimer": "Futa",
+
+        # --- savings dashboard ---
+        "Notez vos infos, on s'occupe du reste.": "Andika taarifa zako, sisi tunashughulikia mengine.",
+        "Ouvrir un compte épargne": "Fungua akaunti ya akiba",
+        "Remplissez ces quelques informations pour soumettre votre demande. Notre équipe activera votre compte après vérification.":
+            "Jaza taarifa hizi chache kuwasilisha ombi lako. Timu yetu itawasha akaunti yako baada ya uhakiki.",
+        "Soumettre ma demande": "Wasilisha ombi langu",
+        "Mon épargne": "Akiba yangu",
+        "Fiche": "Rekodi",
+        "Votre demande est en cours de vérification": "Ombi lako liko katika hatua ya uhakiki",
+        "Solde disponible": "Salio linalopatikana",
+        "Total déposé": "Jumla iliyowekwa",
+        "Total retiré": "Jumla iliyotolewa",
+        "Demander une opération": "Omba shughuli",
+        "Chaque dépôt ou retrait doit être confirmé par notre équipe avant de mettre à jour votre solde.":
+            "Kila uwekaji au utoaji lazima uthibitishwe na timu yetu kabla ya salio lako kusasishwa.",
+        "Envoyer la demande": "Tuma ombi",
+        "Votre compte n'est pas encore actif — vous pourrez demander un dépôt ou un retrait une fois qu'il sera activé par notre équipe.":
+            "Akaunti yako bado haijawashwa — utaweza kuomba uwekaji au utoaji mara timu yetu itakapoiwasha.",
+        "Type": "Aina",
+        "Nouveau solde": "Salio jipya",
+        "Aucune opération pour le moment.": "Hakuna shughuli kwa sasa.",
+
+        # --- model status/type labels (savings + transfers) ---
+        "En attente d'activation": "Inasubiri kuwashwa",
+        "Actif": "Hai",
+        "Refusé": "Imekataliwa",
+        "Clôturé": "Imefungwa",
+        "Dépôt": "Uwekaji",
+        "Retrait": "Utoaji",
+        "Confirmé": "Imethibitishwa",
+        "Rejeté": "Imekataliwa",
+        "En cours": "Inaendelea",
+        "Terminé": "Imekamilika",
+        "Annulé": "Imeghairiwa",
+
+        # --- contact form service choices ---
+        "Transfert d'argent": "Uhamishaji wa pesa",
+        "Autre": "Nyingine",
+
+        # --- dashboard form labels/errors ---
+        "Nom du bénéficiaire requis": "Jina la mnufaika linahitajika",
+        "Sélectionnez un pays": "Chagua nchi",
+        "Autre pays": "Nchi nyingine",
+        "Navigation": "Urambazaji",
+
+        # --- alt text closed on a translation audit pass ---
+        "Portrait de la direction de Blue Sky": "Picha ya uongozi wa Blue Sky",
+        "Un membre de la communauté Blue Sky portant un t-shirt à l'effigie de la marque":
+            "Mwanajamii wa Blue Sky akiwa amevaa t-shirt yenye nembo ya chapa",
+        "L'équipe Blue Sky sur le terrain": "Timu ya Blue Sky uwandani",
+        "Pièces empilées symbolisant la croissance de l'épargne": "Sarafu zilizopangwa zinazoashiria ukuaji wa akiba",
+        "Blue Sky aux côtés des enfants d'un orphelinat en Namibie":
+            "Blue Sky bega kwa bega na watoto wa kituo cha malezi nchini Namibia",
+        "Une membre de l'équipe Blue Sky avec une enfant de l'orphelinat":
+            "Mwanachama wa timu ya Blue Sky na mtoto wa kituo cha malezi",
+        "Une étudiante soutenue par la communauté Blue Sky portant un t-shirt à l'effigie de la marque":
+            "Mwanafunzi anayeungwa mkono na jamii ya Blue Sky akiwa amevaa t-shirt yenye nembo ya chapa",
+        "Une famille africaine épargnant ensemble à la maison": "Familia ya Kiafrika ikiweka akiba pamoja nyumbani",
+        "Une étudiante avec ses cahiers, soutenue par sa famille via Blue Sky":
+            "Mwanafunzi na daftari zake, akiungwa mkono na familia yake kupitia Blue Sky",
+        "Une jeune entrepreneure africaine au téléphone devant son commerce":
+            "Mjasiriamali kijana wa Kiafrika akiwa kwenye simu mbele ya duka lake",
+        "L'équipe Blue Sky entourée des enfants de l'orphelinat lors d'une visite":
+            "Timu ya Blue Sky ikizungukwa na watoto wa kituo cha malezi wakati wa ziara",
+        "L'équipe Blue Sky réunie sur le terrain": "Timu ya Blue Sky ikiwa pamoja uwandani",
+        "Deux membres de la communauté Blue Sky portant des t-shirts à l'effigie de la marque":
+            "Wanajamii wawili wa Blue Sky wakiwa wamevaa t-shirt zenye nembo ya chapa",
+        "Téléphone (optionnel)": "Simu (hiari)",
+        "Relation (optionnel)": "Uhusiano (hiari)",
+        "Bénéficiaire": "Mnufaika",
+        "Le montant doit être supérieur à 0": "Kiasi lazima kiwe zaidi ya 0",
+        "Devise": "Sarafu",
+        "Moyen de paiement": "Njia ya malipo",
+        "Sélectionnez un moyen de paiement": "Chagua njia ya malipo",
+        "Note (optionnel)": "Maelezo (hiari)",
+        "Type d'opération": "Aina ya shughuli",
+        "Observations (optionnel)": "Maoni (hiari)",
+        "N° CNI / Passeport": "Nambari ya kitambulisho / Pasipoti",
+        "Entrez votre numéro de CNI ou passeport": "Weka nambari yako ya kitambulisho au pasipoti",
+        "Adresse": "Anwani",
+        "Entrez votre adresse": "Weka anwani yako",
     },
 }
+
+
+def translate(text, lang):
+    """Translate a single string for the given language code — the same
+    lookup `{% t %}` performs in templates, exposed for Python code (form
+    `choices=` built outside a template) that needs it directly."""
+    if lang == SOURCE_LANGUAGE:
+        return text
+    return TRANSLATIONS.get(lang, {}).get(text, text)
+
+
+def translated_choices(choices, lang):
+    """Translate the labels of a Django choices iterable for the given
+    language code, leaving the stored values untouched.
+
+    `choices` is an iterable of (value, label) pairs — what a
+    forms.ChoiceField(choices=...) or a model TextChoices class accepts.
+    Falls back to the French label when no translation exists yet, exactly
+    like `{% t %}`. Use this for form field `choices=` where the option
+    text is real copy (e.g. country names, operation types) rather than a
+    brand name or currency code that shouldn't be translated.
+    """
+    if lang == SOURCE_LANGUAGE:
+        return list(choices)
+    table = TRANSLATIONS.get(lang, {})
+    return [(value, table.get(label, label)) for value, label in choices]

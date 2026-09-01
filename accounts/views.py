@@ -22,7 +22,7 @@ def signup_view(request):
     next_url = request.GET.get("next", "")
     if request.method == "POST":
         next_url = request.POST.get("next", next_url)
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST, request=request)
         if form.is_valid():
             user = User.objects.create_user(
                 email=form.cleaned_data["email"],
@@ -34,7 +34,7 @@ def signup_view(request):
             login(request, user)
             return redirect(_safe_next(request, next_url))
     else:
-        form = SignupForm()
+        form = SignupForm(request=request)
     return render(request, "accounts/signup.html", {"form": form, "next": next_url})
 
 

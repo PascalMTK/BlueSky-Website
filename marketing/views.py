@@ -19,7 +19,10 @@ FEATURES = [
     (
         "globe-2",
         "Réseau régional",
-        f"{len(COUNTRIES)} pays d'Afrique australe et de l'Est connectés à une seule plateforme.",
+        # The country count is interpolated in the template, outside this
+        # translated string, so adding/removing a country in core/data.py
+        # never desyncs a translation dictionary key (see core/i18n.py).
+        "pays d'Afrique australe et de l'Est connectés à une seule plateforme.",
     ),
     (
         "headset",
@@ -131,14 +134,14 @@ def contact(request):
         requested_service = None
 
     if request.method == "POST":
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST, request=request)
         if form.is_valid():
             form.save()
             sent = True
-            form = ContactForm()
+            form = ContactForm(request=request)
     else:
         initial = {"service": requested_service} if requested_service else None
-        form = ContactForm(initial=initial)
+        form = ContactForm(initial=initial, request=request)
     return render(
         request,
         "marketing/contact.html",

@@ -3,6 +3,7 @@ from decimal import Decimal
 from django import forms
 
 from core.forms import StyledFormMixin
+from core.i18n import SOURCE_LANGUAGE, translated_choices
 
 from .models import SavingsAccount, SavingsOperation
 
@@ -48,9 +49,11 @@ class SavingsOperationForm(StyledFormMixin, forms.Form):
     )
     note = forms.CharField(label="Observations (optionnel)", required=False, widget=forms.Textarea)
 
-    def __init__(self, *args, account, **kwargs):
+    def __init__(self, *args, account, request=None, **kwargs):
         self.account = account
         super().__init__(*args, **kwargs)
+        lang = getattr(request, "active_language", SOURCE_LANGUAGE) if request else SOURCE_LANGUAGE
+        self.fields["operation_type"].choices = translated_choices(SavingsOperation.Type.choices, lang)
 
     def clean(self):
         cleaned_data = super().clean()

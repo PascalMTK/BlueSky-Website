@@ -38,17 +38,23 @@
 
   {% block extra_head %}{% endblock %}
 </head>
-<body class="min-h-full flex flex-col font-sans bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-amber-400 selection:text-slate-950 transition-colors duration-200">
-  
+<body class="min-h-full font-sans bg-bg text-text transition-colors duration-200">
+
+  <!-- Ambient background: a single, very-low-opacity gradient wash fixed
+       behind the entire site, drifting slowly. Not per-section decoration,
+       doesn't track the cursor, and freezes under prefers-reduced-motion —
+       reads as ambiance, not a visual effect. -->
+  <div class="ambient-bg" aria-hidden="true"></div>
+
   <!-- Content Wrapper -->
-  <main class="flex-grow flex flex-col">
-    {% block body %}{% endblock %}
-  </main>
+  <div class="relative z-10 flex min-h-full flex-col">
+    <main class="flex-grow flex flex-col">
+      {% block body %}{% endblock %}
+    </main>
+  </div>
 
   <!-- Global Deferred Scripts -->
   <script src="{% static 'js/theme.js' %}" defer></script>
-  <script src="{% static 'js/tilt.js' %}" defer></script>
-  <script src="{% static 'js/reveal.js' %}" defer></script>
   <script src="{% static 'js/motion.js' %}" defer></script>
   {% block extra_scripts %}{% endblock %}
 </body>

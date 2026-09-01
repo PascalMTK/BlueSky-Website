@@ -1,32 +1,32 @@
 {% load icons static i18n_extra %}
-<article class="framed-card group flex h-full flex-col">
-  <div class="framed-card-photo relative h-40 bg-brand-blue-deep ring-1 ring-black/5">
+<article class="content-card group flex h-full flex-col overflow-hidden">
+  <div class="relative h-36 bg-brand-blue-deep">
     <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" srcset="{% static 'img/flags/'|add:country.code|lower|add:'@2x.png' %} 2x" width="160" height="107" alt="{% t 'Drapeau de' %} {% t country.name %}" class="h-full w-full object-cover" loading="lazy">
-    <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/65 via-transparent to-white/5"></div>
-    <div class="absolute inset-x-5 bottom-4 flex items-end justify-between gap-3">
-      <h3 class="text-2xl font-extrabold leading-tight tracking-tight text-white drop-shadow-md">{% t country.name %}</h3>
-      <span class="photo-tag {% if country.address %}border-white/25 bg-white/90 text-brand-blue-deep{% else %}border-brand-gold/40 bg-brand-gold text-brand-blue-deep{% endif %}">
+    <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/70 via-transparent to-transparent"></div>
+    <div class="absolute inset-x-4 bottom-3 flex items-end justify-between gap-3">
+      <h3 class="text-xl font-bold leading-tight text-white">{% t country.name %}</h3>
+      <span class="photo-tag {% if country.address %}bg-white/90 text-brand-blue-deep border-white/30{% else %}bg-brand-gold text-brand-blue-deep border-brand-gold{% endif %}">
         {% if country.address %}{% t "Agence" %}{% else %}{% t "Transfert digital" %}{% endif %}
       </span>
     </div>
   </div>
 
   <details class="group/acc flex flex-1 flex-col">
-    <summary class="flex cursor-pointer list-none items-center justify-between gap-3 p-5 select-none sm:p-6 [&::-webkit-details-marker]:hidden">
+    <summary class="flex cursor-pointer list-none items-center justify-between gap-3 p-5 select-none [&::-webkit-details-marker]:hidden">
       <span class="flex items-center gap-3">
         <span class="icon-chip {% if not country.address %}icon-chip-gold-soft{% endif %}">
-          {% if country.address %}{% icon "map-pin" size=18 %}{% else %}{% icon "zap" size=18 %}{% endif %}
+          {% if country.address %}{% icon "map-pin" size=17 %}{% else %}{% icon "zap" size=17 %}{% endif %}
         </span>
         <span class="text-sm font-bold text-text">{% t "Adresse & contacts" %}</span>
       </span>
-      <span class="icon-chip shrink-0 transition-transform duration-300 group-open/acc:rotate-180">
+      <span class="text-text-muted transition-transform duration-200 group-open/acc:rotate-180">
         {% icon "chevron-down" size=16 %}
       </span>
     </summary>
 
-    <div class="mt-auto space-y-5 border-t border-border/70 px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
+    <div class="mt-auto space-y-5 border-t border-border px-5 pb-5 pt-4">
       <div>
-        <p class="text-[.66rem] font-bold uppercase tracking-[.14em] text-text-muted">
+        <p class="text-[.66rem] font-bold uppercase tracking-[.1em] text-text-muted">
           {% if country.address %}{% t "Adresse de l'agence" %}{% else %}{% t "Service de transfert électronique" %}{% endif %}
         </p>
         <p class="mt-1 text-sm font-semibold leading-relaxed text-text">
@@ -35,13 +35,12 @@
       </div>
 
       <div>
-        <p class="mb-2.5 text-[.66rem] font-bold uppercase tracking-[.14em] text-text-muted">{% t "Téléphone & WhatsApp" %}</p>
+        <p class="mb-2.5 text-[.66rem] font-bold uppercase tracking-[.1em] text-text-muted">{% t "Téléphone & WhatsApp" %}</p>
         <ul class="space-y-2">
           {% for phone in country.phones %}
             <li>
-              <a href="tel:{{ phone }}" class="flex items-center justify-between gap-3 rounded-2xl bg-surface-muted px-3.5 py-2.5 text-sm font-bold text-text transition hover:bg-brand-blue hover:text-white">
-                <span class="flex items-center gap-2.5">{% icon "phone" size=15 css_class="shrink-0" %} {{ phone }}</span>
-                {% icon "arrow-up-right" size=14 css_class="shrink-0 opacity-60" %}
+              <a href="tel:{{ phone }}" class="flex items-center justify-between gap-3 rounded-lg bg-surface-muted px-3.5 py-2.5 text-sm font-bold text-text transition hover:bg-brand-blue hover:text-white">
+                <span class="flex items-center gap-2.5">{% icon "phone" size=14 css_class="shrink-0" %} {{ phone }}</span>
               </a>
             </li>
           {% endfor %}
@@ -49,7 +48,7 @@
       </div>
 
       {% if country.note %}
-        <p class="rounded-2xl border border-brand-gold/20 bg-brand-gold/10 px-3.5 py-2.5 text-xs font-medium leading-relaxed text-text-muted">{% t country.note %}</p>
+        <p class="rounded-lg border border-brand-gold/25 bg-brand-gold/10 px-3.5 py-2.5 text-xs font-medium leading-relaxed text-text-muted">{% t country.note %}</p>
       {% endif %}
     </div>
   </details>

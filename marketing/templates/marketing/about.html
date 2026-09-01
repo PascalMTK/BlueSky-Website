@@ -4,25 +4,24 @@
 {% block description %}Découvrez la mission, la vision et l'histoire de Blue Sky, agence de transfert d'argent au service de l'Afrique australe et de l'Est.{% endblock %}
 {% block content %}
 
-<section class="hero-mesh relative overflow-hidden">
-  <div aria-hidden class="subtle-grid absolute inset-0 opacity-40"></div>
-  <div class="reveal-on-scroll relative mx-auto w-full max-w-[1440px] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10">
+<section class="border-b border-border bg-surface-muted py-16 sm:py-20">
+  <div class="mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
     {% kicker "Qui sommes-nous ?" tone="blue" %}
     <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">{% t "Une agence bâtie pour rapprocher les familles africaines" %}</h1>
   </div>
 </section>
 
-<section class="py-20 sm:py-28">
-  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-2">
-    <p class="reveal-on-scroll text-lg leading-relaxed text-text-muted">{% t SITE.definition %}</p>
-    <div class="grid gap-6 sm:grid-cols-2" data-reveal-group>
-      <div class="content-card reveal-on-scroll group p-7">
-        <div class="icon-chip icon-chip-gold mb-4">{% icon "target" size=22 %}</div>
+<section class="py-20 sm:py-24">
+  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
+    <p class="text-lg leading-relaxed text-text-muted">{% t SITE.definition %}</p>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <div class="content-card p-7">
+        <div class="icon-chip icon-chip-gold mb-4">{% icon "target" size=21 %}</div>
         <h3 class="mb-2 text-lg font-bold">{% t "Notre but" %}</h3>
         <p class="text-sm leading-relaxed text-text-muted">{% t SITE.purpose %}</p>
       </div>
-      <div class="content-card reveal-on-scroll group p-7">
-        <div class="icon-chip mb-4">{% icon "compass" size=22 %}</div>
+      <div class="content-card p-7">
+        <div class="icon-chip mb-4">{% icon "compass" size=21 %}</div>
         <h3 class="mb-2 text-lg font-bold">{% t "Notre mission" %}</h3>
         <p class="text-sm leading-relaxed text-text-muted">{% t SITE.mission %}</p>
       </div>
@@ -30,47 +29,32 @@
   </div>
 </section>
 
-<!-- Leadership / vision: the founder's portrait floats as a soft-edged card
-     over its own blurred echo, and the quote sits in a frosted glass panel —
-     no text ever overlaps her face. -->
-<section class="relative overflow-hidden bg-brand-blue-deep py-20 text-white sm:py-28">
-  <div aria-hidden="true" class="orb orb-slow" style="width:22rem;height:22rem;top:-6rem;right:-6rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-cyan) 45%, transparent), transparent 70%);"></div>
-  <div aria-hidden="true" class="orb orb-slow orb-delay" style="width:16rem;height:16rem;bottom:-4rem;left:-4rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-blue) 55%, transparent), transparent 70%);"></div>
-  <div class="relative mx-auto grid w-full max-w-[1440px] items-center gap-14 px-6 sm:px-10 lg:grid-cols-[.85fr_1.15fr] lg:gap-16 lg:px-12">
-    <div class="reveal-on-scroll relative mx-auto flex w-full max-w-sm items-center justify-center lg:max-w-none">
-      <img
-        src="{% static 'img/founder-portrait.jpg' %}"
-        alt=""
-        aria-hidden="true"
-        class="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-3xl"
-        style="object-position: center 12%"
-      >
-      <div class="relative z-10 aspect-[4/5] w-full overflow-hidden rounded-4xl shadow-[0_40px_90px_-30px_rgba(0,0,0,.75)]">
+<!-- Leadership / vision -->
+<section class="bg-brand-blue-deep py-20 text-white sm:py-24">
+  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-6 sm:px-10 lg:grid-cols-[.85fr_1.15fr] lg:gap-16 lg:px-10">
+    <div class="relative mx-auto w-full max-w-sm lg:max-w-none">
+      <div class="aspect-[4/5] w-full overflow-hidden rounded-2xl">
         <img
           src="{% static 'img/founder-portrait.jpg' %}"
-          alt="Portrait de la direction de Blue Sky"
-          class="h-full w-full object-cover opacity-90"
+          alt="{% t 'Portrait de la direction de Blue Sky' %}"
+          class="h-full w-full object-cover"
           style="object-position: center 12%"
         >
-        <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/70 via-transparent to-transparent"></div>
       </div>
     </div>
-    <div class="reveal-on-scroll glass-panel relative overflow-hidden rounded-4xl p-8 sm:p-12 lg:p-14">
-      <span aria-hidden="true" class="pointer-events-none absolute -top-6 left-6 font-sans text-[7rem] font-black leading-none text-brand-gold/15 sm:text-[9rem]">&rdquo;</span>
-      <div class="relative">
-        {% kicker "Notre vision" %}
-        <p class="mt-6 text-2xl font-semibold leading-snug sm:text-3xl">
-          {% blockt %}&laquo; Nous voulons qu'aucune distance, aucune frontière n'empêche une famille de prendre soin des siens. Blue Sky existe pour que chaque franc, chaque kwacha, chaque rand envoyé arrive à destination avec la même confiance qu'une remise en main propre. &raquo;{% endblockt %}
-        </p>
-        <div class="mt-6 flex items-center gap-3">
-          <span aria-hidden="true" class="h-px w-8 bg-brand-gold"></span>
-          <p class="text-xs font-bold uppercase tracking-[.14em] text-white/60">{% t "L'équipe de direction, Blue Sky" %}</p>
-        </div>
-        <p class="mt-5 max-w-lg leading-relaxed text-white/75">
-          {% t "Cette vision guide chacune de nos décisions : ouvrir de nouvelles agences là où les familles en ont besoin, simplifier chaque étape du transfert, et rester joignables humainement, pas seulement via une application." %}
-        </p>
-        <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-md mt-8 w-fit">{% t "Nous contacter" %}</a>
+    <div class="relative rounded-2xl border border-white/10 bg-white/[.04] p-8 sm:p-12 lg:p-14">
+      {% kicker "Notre vision" %}
+      <p class="mt-6 text-2xl font-semibold leading-snug sm:text-3xl">
+        {% blockt %}&laquo; Nous voulons qu'aucune distance, aucune frontière n'empêche une famille de prendre soin des siens. Blue Sky existe pour que chaque franc, chaque kwacha, chaque rand envoyé arrive à destination avec la même confiance qu'une remise en main propre. &raquo;{% endblockt %}
+      </p>
+      <div class="mt-6 flex items-center gap-3">
+        <span aria-hidden="true" class="h-px w-8 bg-brand-gold"></span>
+        <p class="text-xs font-bold uppercase tracking-[.1em] text-white/60">{% t "L'équipe de direction, Blue Sky" %}</p>
       </div>
+      <p class="mt-5 max-w-lg leading-relaxed text-white/75">
+        {% t "Cette vision guide chacune de nos décisions : ouvrir de nouvelles agences là où les familles en ont besoin, simplifier chaque étape du transfert, et rester joignables humainement, pas seulement via une application." %}
+      </p>
+      <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-md mt-8 w-fit">{% t "Nous contacter" %}</a>
     </div>
   </div>
 </section>

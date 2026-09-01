@@ -1,29 +1,29 @@
 {% extends "core/base_dashboard.html" %}
-{% load icons core_extras %}
+{% load icons core_extras i18n_extra %}
 {% block title %}Bénéficiaires | Blue Sky{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-8">
   <div>
-    <h1 class="display-title text-2xl sm:text-3xl">Bénéficiaires</h1>
-    <p class="mt-1 text-sm text-text-muted">Gérez les personnes qui reçoivent vos transferts.</p>
+    <h1 class="display-title text-2xl sm:text-3xl">{% t "Bénéficiaires" %}</h1>
+    <p class="mt-1 text-sm text-text-muted">{% t "Gérez les personnes qui reçoivent vos transferts." %}</p>
   </div>
 
   <div class="grid gap-6 lg:grid-cols-[1fr_1.3fr]">
     <form method="post" class="space-y-5 rounded-2xl border border-border bg-surface p-6">
       {% csrf_token %}
-      <h2 class="text-lg font-bold">Ajouter un bénéficiaire</h2>
+      <h2 class="text-lg font-bold">{% t "Ajouter un bénéficiaire" %}</h2>
       {% include "core/_form_errors.html" %}
       {% include "core/_field.html" with field=form.full_name %}
       {% include "core/_field.html" with field=form.country %}
       {% include "core/_field.html" with field=form.phone %}
       {% include "core/_field.html" with field=form.relationship %}
-      <button type="submit" class="btn btn-primary w-full">Ajouter le bénéficiaire</button>
+      <button type="submit" class="btn btn-primary w-full">{% t "Ajouter le bénéficiaire" %}</button>
     </form>
 
     <div class="space-y-4">
       {% if not recipients %}
         <div class="rounded-2xl border border-dashed border-border p-10 text-center text-sm text-text-muted">
-          Aucun bénéficiaire enregistré pour le moment.
+          {% t "Aucun bénéficiaire enregistré pour le moment." %}
         </div>
       {% else %}
         {% for recipient in recipients %}
@@ -40,7 +40,7 @@
             </div>
             <form method="post" action="{% url 'transfers:delete_recipient' recipient.pk %}">
               {% csrf_token %}
-              <button type="submit" aria-label="Supprimer" class="rounded-lg p-2 text-text-muted transition hover:bg-red-500/10 hover:text-red-500">{% icon "trash-2" size=16 %}</button>
+              <button type="submit" aria-label="{% t 'Supprimer' %}" class="rounded-lg p-2 text-text-muted transition hover:bg-red-500/10 hover:text-red-500">{% icon "trash-2" size=16 %}</button>
             </form>
           </div>
         {% endfor %}

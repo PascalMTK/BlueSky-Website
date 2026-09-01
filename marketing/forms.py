@@ -2,6 +2,7 @@ from django import forms
 
 from core.data import COUNTRIES
 from core.forms import StyledFormMixin
+from core.i18n import SOURCE_LANGUAGE, translate, translated_choices
 
 from .models import ContactMessage
 
@@ -10,6 +11,14 @@ COUNTRY_CHOICES = (
     + [(c["name"], f"{c['flag']} {c['name']}") for c in COUNTRIES]
     + [("Autre", "Autre pays")]
 )
+
+
+def _country_choices(lang):
+    return (
+        [("", translate("Sélectionnez votre pays", lang))]
+        + [(c["name"], f"{c['flag']} {translate(c['name'], lang)}") for c in COUNTRIES]
+        + [("Autre", translate("Autre pays", lang))]
+    )
 
 
 class ContactForm(StyledFormMixin, forms.ModelForm):
@@ -51,6 +60,12 @@ class ContactForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = ContactMessage
         fields = ["full_name", "email", "country", "service", "message"]
+
+    def __init__(self, *args, request=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        lang = getattr(request, "active_language", SOURCE_LANGUAGE) if request else SOURCE_LANGUAGE
+        self.fields["country"].choices = _country_choices(lang)
+        self.fields["service"].choices = translated_choices(ContactMessage.Service.choices, lang)
 
     def clean_email(self):
         return self.cleaned_data["email"].strip().lower()

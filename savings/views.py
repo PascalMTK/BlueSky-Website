@@ -23,7 +23,7 @@ def overview(request):
         return render(request, "savings/overview.html", {"account": None, "form": form})
 
     operations = account.operations.select_related("confirmed_by").all()
-    operation_form = SavingsOperationForm(account=account)
+    operation_form = SavingsOperationForm(account=account, request=request)
     totals = {
         "deposits": sum(
             o.amount for o in operations if o.status == SavingsOperation.Status.CONFIRMED
@@ -52,7 +52,7 @@ def request_operation(request):
     if account is None:
         return redirect("savings:overview")
 
-    form = SavingsOperationForm(request.POST, account=account)
+    form = SavingsOperationForm(request.POST, account=account, request=request)
     if form.is_valid():
         SavingsOperation.objects.create(
             account=account,

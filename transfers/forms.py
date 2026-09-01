@@ -6,6 +6,7 @@ from django.core.validators import MinValueValidator
 from core.data import CURRENCIES, SITE
 from core.data import COUNTRIES
 from core.forms import StyledFormMixin
+from core.i18n import SOURCE_LANGUAGE, translate
 
 from .models import Recipient, Transfer
 
@@ -16,6 +17,12 @@ CURRENCY_CHOICES = [(c, c) for c in CURRENCIES]
 PAYMENT_METHOD_CHOICES = [("", "Sélectionnez un moyen de paiement")] + [
     (p, p) for p in SITE["payment_partners"]
 ]
+
+
+def _country_choices(lang):
+    return [("", translate("Sélectionnez un pays", lang))] + [
+        (c["name"], f"{c['flag']} {translate(c['name'], lang)}") for c in COUNTRIES
+    ]
 
 
 class RecipientForm(StyledFormMixin, forms.ModelForm):
@@ -45,6 +52,11 @@ class RecipientForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = Recipient
         fields = ["full_name", "country", "phone", "relationship"]
+
+    def __init__(self, *args, request=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        lang = getattr(request, "active_language", SOURCE_LANGUAGE) if request else SOURCE_LANGUAGE
+        self.fields["country"].choices = _country_choices(lang)
 
 
 class TransferForm(StyledFormMixin, forms.ModelForm):
