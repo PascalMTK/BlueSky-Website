@@ -1,0 +1,83 @@
+{% extends "staffpanel/base_staff.html" %}
+{% load icons %}
+{% block title %}Fiche {{ account.fiche_number|default:account.user.full_name }} | Administration{% endblock %}
+{% block dashboard_content %}
+
+<a href="{% url 'staffpanel:savings_accounts' %}" class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:underline">{% icon "arrow-right" size=15 css_class="rotate-180" %} Tous les comptes</a>
+
+<div class="content-card mt-6 p-7">
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <h1 class="display-title text-2xl">{{ account.user.full_name }}</h1>
+      <p class="mt-1 text-sm text-text-muted">Fiche {{ account.fiche_number|default:"non attribuée" }}</p>
+    </div>
+    {% include "core/partials/status_badge.html" with status=account.status status_label=account.get_status_display %}
+  </div>
+
+  <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div><p class="text-xs font-bold uppercase text-text-muted">Téléphone</p><p class="mt-1 font-semibold">{{ account.user.phone|default:"Non renseigné" }}</p></div>
+    <div><p class="text-xs font-bold uppercase text-text-muted">CNI / Passeport</p><p class="mt-1 font-semibold">{{ account.id_number }}</p></div>
+    <div><p class="text-xs font-bold uppercase text-text-muted">Adresse</p><p class="mt-1 font-semibold">{{ account.address }}</p></div>
+    <div><p class="text-xs font-bold uppercase text-text-muted">Solde disponible</p><p class="mt-1 text-lg font-extrabold text-brand-blue">{{ account.balance }}</p></div>
+  </div>
+
+  {% if account.status == "PENDING" %}
+    <div class="mt-6 flex gap-3">
+      <form method="post" action="{% url 'staffpanel:activate_account' account.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-md">{% icon "check-circle-2" size=16 %} Activer ce compte</button>
+      </form>
+      <form method="post" action="{% url 'staffpanel:reject_account' account.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-ghost btn-md text-red-600 hover:border-red-400">Refuser</button>
+      </form>
+    </div>
+  {% endif %}
+</div>
+
+<h2 class="mt-10 text-lg font-bold">Tableau des opérations</h2>
+<div class="content-card mt-4 overflow-x-auto p-2">
+  <table class="w-full min-w-[760px] text-left text-sm">
+    <thead>
+      <tr class="text-xs font-bold uppercase tracking-wider text-text-muted">
+        <th class="px-4 py-3">Date</th>
+        <th class="px-4 py-3">Type</th>
+        <th class="px-4 py-3">Montant</th>
+        <th class="px-4 py-3">Solde préc.</th>
+        <th class="px-4 py-3">Nouveau solde</th>
+        <th class="px-4 py-3">Statut</th>
+        <th class="px-4 py-3 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for op in operations %}
+        <tr class="border-t border-border/60">
+          <td class="px-4 py-3 text-text-muted">{{ op.requested_at|date:"d/m/Y H:i" }}</td>
+          <td class="px-4 py-3 font-semibold">{{ op.get_operation_type_display }}</td>
+          <td class="px-4 py-3 font-semibold">{{ op.amount }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ op.previous_balance|default:"Non renseigné" }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ op.new_balance|default:"Non renseigné" }}</td>
+          <td class="px-4 py-3">{% include "core/partials/status_badge.html" with status=op.status status_label=op.get_status_display %}</td>
+          <td class="px-4 py-3">
+            {% if op.status == "PENDING" %}
+              <div class="flex items-center justify-end gap-2">
+                <form method="post" action="{% url 'staffpanel:confirm_operation' op.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary btn-md">Confirmer</button>
+                </form>
+                <form method="post" action="{% url 'staffpanel:reject_operation' op.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-ghost btn-md text-red-600 hover:border-red-400">Rejeter</button>
+                </form>
+              </div>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="7" class="px-4 py-8 text-center text-text-muted">Aucune opération.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

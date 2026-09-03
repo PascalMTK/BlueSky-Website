@@ -1,0 +1,32 @@
+{% extends "marketing/base_marketing.html" %}
+{% load icons static i18n_extra %}
+{% block title %}{{ post.title }} | Blue Sky{% endblock %}
+{% block description %}{{ post.excerpt|default:post.title }}{% endblock %}
+{% block content %}
+
+<section class="py-16 sm:py-24">
+  <div class="mx-auto w-full max-w-3xl px-5 sm:px-8">
+    <a href="{% url 'blog:post_list' %}" class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:underline">{% icon "arrow-right" size=15 css_class="rotate-180" %} {% t "Toutes les actualités" %}</a>
+
+    {% if not post.is_published %}
+      <p class="mt-6 inline-flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-amber-600">{% t "Brouillon, visible uniquement par le personnel" %}</p>
+    {% endif %}
+
+    <h1 class="display-title mt-6 text-3xl sm:text-4xl">{{ post.title }}</h1>
+    <p class="mt-3 text-sm font-semibold text-text-muted">
+      {% if post.published_at %}{{ post.published_at|date:"d F Y" }}{% else %}{% t "Non publié" %}{% endif %}{% if post.author %} · {{ post.author.full_name }}{% endif %}
+    </p>
+
+    {% if post.cover_image %}
+      <div class="relative mt-8 h-72 overflow-hidden rounded-2xl bg-brand-blue-deep sm:h-96">
+        <img src="{{ post.cover_image.url }}" alt="" class="h-full w-full object-cover">
+      </div>
+    {% endif %}
+
+    <div class="prose mt-8 max-w-none text-base leading-relaxed text-text">
+      {{ post.body|linebreaks }}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

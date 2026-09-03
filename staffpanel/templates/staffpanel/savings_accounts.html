@@ -1,0 +1,62 @@
+{% extends "staffpanel/base_staff.html" %}
+{% load icons %}
+{% block title %}Comptes épargne | Administration{% endblock %}
+{% block dashboard_content %}
+
+<div class="flex flex-wrap items-center justify-between gap-4">
+  <h1 class="display-title text-2xl sm:text-3xl">Comptes épargne</h1>
+  <div class="flex flex-wrap gap-2">
+    <a href="{% url 'staffpanel:savings_accounts' %}" class="btn btn-ghost btn-md {% if not status %}border-brand-blue text-brand-blue{% endif %}">Tous</a>
+    {% for value, label in status_choices %}
+      <a href="?status={{ value }}" class="btn btn-ghost btn-md {% if status == value %}border-brand-blue text-brand-blue{% endif %}">{{ label }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="content-card mt-8 overflow-x-auto p-2">
+  <table class="w-full min-w-[720px] text-left text-sm">
+    <thead>
+      <tr class="text-xs font-bold uppercase tracking-wider text-text-muted">
+        <th class="px-4 py-3">Client</th>
+        <th class="px-4 py-3">Fiche</th>
+        <th class="px-4 py-3">Solde</th>
+        <th class="px-4 py-3">Statut</th>
+        <th class="px-4 py-3">Demandé le</th>
+        <th class="px-4 py-3 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for account in accounts %}
+        <tr class="border-t border-border/60">
+          <td class="px-4 py-3">
+            <p class="font-semibold text-text">{{ account.user.full_name }}</p>
+            <p class="text-xs text-text-muted">{{ account.user.email }}</p>
+          </td>
+          <td class="px-4 py-3 text-text-muted">{{ account.fiche_number|default:"Non renseigné" }}</td>
+          <td class="px-4 py-3 font-semibold">{{ account.balance }}</td>
+          <td class="px-4 py-3">{% include "core/partials/status_badge.html" with status=account.status status_label=account.get_status_display %}</td>
+          <td class="px-4 py-3 text-text-muted">{{ account.created_at|date:"d/m/Y" }}</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center justify-end gap-2">
+              <a href="{% url 'staffpanel:savings_account_detail' account.pk %}" class="btn btn-ghost btn-md">Voir la fiche</a>
+              {% if account.status == "PENDING" %}
+                <form method="post" action="{% url 'staffpanel:activate_account' account.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary btn-md">Activer</button>
+                </form>
+                <form method="post" action="{% url 'staffpanel:reject_account' account.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-ghost btn-md text-red-600 hover:border-red-400">Refuser</button>
+                </form>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="6" class="px-4 py-8 text-center text-text-muted">Aucun compte pour ce filtre.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

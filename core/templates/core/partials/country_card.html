@@ -1,51 +1,67 @@
-{% load icons static %}
-<article class="framed-card group flex h-full min-h-[30rem] flex-col">
-  <div class="framed-card-photo relative h-40 bg-brand-blue-deep ring-1 ring-black/5">
-    <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" srcset="{% static 'img/flags/'|add:country.code|lower|add:'@2x.png' %} 2x" width="160" height="107" alt="Drapeau de {{ country.name }}" class="h-full w-full object-cover" loading="lazy">
-    <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/65 via-transparent to-white/5"></div>
-    <div class="absolute inset-x-5 bottom-4 flex items-end justify-between gap-3">
-      <h3 class="text-2xl font-extrabold leading-tight tracking-tight text-white drop-shadow-md">{{ country.name }}</h3>
-      <span class="photo-tag {% if country.address %}border-white/25 bg-white/90 text-brand-blue-deep{% else %}border-brand-gold/40 bg-brand-gold text-brand-blue-deep{% endif %}">
-        {% if country.address %}Agence{% else %}Transfert digital{% endif %}
+{% load icons static i18n_extra %}
+<article class="country-card content-card group flex h-full cursor-pointer flex-col overflow-hidden" data-country-card data-country-dialog="country-{{ country.code|lower }}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="{% t 'Voir les coordonnées pour' %} {% t country.name %}">
+  <div class="relative h-36 bg-brand-blue-deep">
+    <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" srcset="{% static 'img/flags/'|add:country.code|lower|add:'@2x.png' %} 2x" width="160" height="107" alt="{% t 'Drapeau de' %} {% t country.name %}" class="h-full w-full object-cover" loading="lazy">
+    <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/70 via-transparent to-transparent"></div>
+    <div class="absolute inset-x-4 bottom-3 flex items-end justify-between gap-3">
+      <h3 class="text-xl font-bold leading-tight text-white">{% t country.name %}</h3>
+      <span class="photo-tag {% if country.address %}bg-white/90 text-brand-blue-deep border-white/30{% else %}bg-brand-gold text-brand-blue-deep border-brand-gold{% endif %}">
+        {% if country.address %}{% t "Agence" %}{% else %}{% t "Transfert digital" %}{% endif %}
       </span>
     </div>
   </div>
 
-  <div class="flex flex-1 flex-col p-5 sm:p-6">
-    <div class="flex min-h-[7rem] items-start gap-3">
+  <div class="flex items-center justify-between gap-3 p-5">
+    <span class="flex items-center gap-3">
       <span class="icon-chip {% if not country.address %}icon-chip-gold-soft{% endif %}">
-        {% if country.address %}{% icon "map-pin" size=18 %}{% else %}{% icon "zap" size=18 %}{% endif %}
+        {% if country.address %}{% icon "map-pin" size=17 %}{% else %}{% icon "zap" size=17 %}{% endif %}
       </span>
-      <div>
-        <p class="text-[.66rem] font-bold uppercase tracking-[.14em] text-text-muted">
-          {% if country.address %}Adresse de l'agence{% else %}Service de transfert électronique{% endif %}
-        </p>
-        <p class="mt-1 text-sm font-semibold leading-relaxed text-text">
-          {% if country.address %}{{ country.address }}{% else %}Effectuez vos opérations à distance avec l'accompagnement direct de notre équipe. Un point d'accueil physique sera annoncé prochainement.{% endif %}
-        </p>
+      <span class="text-sm font-bold text-text">{% t "Voir l'adresse et les contacts" %}</span>
+    </span>
+    <span class="text-brand-blue transition-transform group-hover:translate-x-0.5 dark:text-brand-gold-light">{% icon "arrow-up-right" size=17 %}</span>
+  </div>
+</article>
+
+<dialog id="country-{{ country.code|lower }}" class="country-dialog m-auto w-[calc(100%-2rem)] max-w-lg p-0 text-text backdrop:bg-brand-blue-deep/75">
+  <div class="country-dialog-panel overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl">
+    <div class="relative h-32 bg-brand-blue-deep">
+      <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" alt="" class="h-full w-full object-cover opacity-55">
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep via-brand-blue-deep/35 to-transparent"></div>
+      <div class="absolute inset-x-5 bottom-4 flex items-end justify-between gap-4">
+        <div><p class="text-[.65rem] font-bold uppercase tracking-[.13em] text-brand-gold">{% t "Coordonnées" %}</p><h3 class="mt-1 text-2xl font-bold text-white">{% t country.name %}</h3></div>
+        <button type="button" data-country-dialog-close class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20" aria-label="{% t 'Fermer' %}">{% icon "x" size=18 %}</button>
       </div>
     </div>
 
-    <div class="mt-5 border-t border-border/70 pt-4">
-      <p class="mb-2.5 text-[.66rem] font-bold uppercase tracking-[.14em] text-text-muted">Téléphone &amp; WhatsApp</p>
-      <ul class="space-y-2">
-        {% for phone in country.phones %}
-          <li>
-            <a href="tel:{{ phone }}" class="flex items-center justify-between gap-3 rounded-2xl bg-surface-muted px-3.5 py-2.5 text-sm font-bold text-text transition hover:bg-brand-blue hover:text-white">
-              <span class="flex items-center gap-2.5">{% icon "phone" size=15 css_class="shrink-0" %} {{ phone }}</span>
-              {% icon "arrow-up-right" size=14 css_class="shrink-0 opacity-60" %}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+    <div class="space-y-5 p-5 sm:p-6">
+      <div>
+        <p class="text-[.66rem] font-bold uppercase tracking-[.1em] text-text-muted">
+          {% if country.address %}{% t "Adresse de l'agence" %}{% else %}{% t "Service de transfert électronique" %}{% endif %}
+        </p>
+        <p class="mt-1 text-sm font-semibold leading-relaxed text-text">
+          {% if country.address %}{{ country.address }}{% else %}{% t "Effectuez vos opérations à distance avec l'accompagnement direct de notre équipe. Un point d'accueil physique sera annoncé prochainement." %}{% endif %}
+        </p>
+      </div>
 
-    <div class="mt-auto pt-4">
+      <div>
+        <p class="mb-2.5 text-[.66rem] font-bold uppercase tracking-[.1em] text-text-muted">{% t "Téléphone & WhatsApp" %}</p>
+        <ul class="space-y-2">
+          {% for phone in country.phones %}
+            <li>
+              <div class="flex items-center gap-2 rounded-xl border border-border bg-surface-muted p-2">
+                <a href="tel:{{ phone }}" class="flex min-w-0 flex-1 items-center gap-2.5 rounded-lg px-2 py-2 text-sm font-bold text-text transition hover:text-brand-blue">
+                  {% icon "phone" size=15 css_class="shrink-0 text-brand-blue" %}<span>{{ phone }}</span>
+                </a>
+                <a href="https://wa.me/{{ phone|cut:' '|cut:'+' }}" target="_blank" rel="noopener" class="inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-emerald-500 px-3 text-xs font-bold text-white transition hover:bg-emerald-600" aria-label="WhatsApp {{ phone }}">WhatsApp</a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
       {% if country.note %}
-        <p class="rounded-2xl border border-brand-gold/20 bg-brand-gold/10 px-3.5 py-2.5 text-xs font-medium leading-relaxed text-text-muted">{{ country.note }}</p>
-      {% else %}
-        <span class="block h-[2.5rem]" aria-hidden="true"></span>
+        <p class="rounded-lg border border-brand-gold/25 bg-brand-gold/10 px-3.5 py-2.5 text-xs font-medium leading-relaxed text-text-muted">{% t country.note %}</p>
       {% endif %}
     </div>
   </div>
-</article>
+</dialog>

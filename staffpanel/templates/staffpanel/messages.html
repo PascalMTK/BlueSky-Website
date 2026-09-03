@@ -1,0 +1,61 @@
+{% extends "staffpanel/base_staff.html" %}
+{% load icons %}
+{% block title %}Messages | Administration{% endblock %}
+{% block dashboard_content %}
+
+<div class="flex flex-wrap items-center justify-between gap-4">
+  <h1 class="display-title text-2xl sm:text-3xl">Messages de contact</h1>
+  <div class="flex flex-wrap gap-2">
+    <a href="{% url 'staffpanel:messages' %}" class="btn btn-ghost btn-md {% if handled == "" %}border-brand-blue text-brand-blue{% endif %}">Tous</a>
+    <a href="?handled=0" class="btn btn-ghost btn-md {% if handled == "0" %}border-brand-blue text-brand-blue{% endif %}">Nouveaux</a>
+    <a href="?handled=1" class="btn btn-ghost btn-md {% if handled == "1" %}border-brand-blue text-brand-blue{% endif %}">Traités</a>
+  </div>
+</div>
+
+<div class="content-card mt-8 overflow-x-auto p-2">
+  <table class="w-full min-w-[760px] text-left text-sm">
+    <thead>
+      <tr class="text-xs font-bold uppercase tracking-wider text-text-muted">
+        <th class="px-4 py-3">Nom</th>
+        <th class="px-4 py-3">Service demandé</th>
+        <th class="px-4 py-3">Pays</th>
+        <th class="px-4 py-3">Reçu le</th>
+        <th class="px-4 py-3">Statut</th>
+        <th class="px-4 py-3 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for contact_message in message_list %}
+        <tr class="border-t border-border/60">
+          <td class="px-4 py-3">
+            <p class="font-semibold text-text">{{ contact_message.full_name }}</p>
+            <p class="text-xs text-text-muted">{{ contact_message.email }}</p>
+          </td>
+          <td class="px-4 py-3 text-text-muted">{{ contact_message.get_service_display }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ contact_message.country|default:"Non renseigné" }}</td>
+          <td class="px-4 py-3 text-text-muted">{{ contact_message.created_at|date:"d/m/Y H:i" }}</td>
+          <td class="px-4 py-3">
+            {% if contact_message.is_handled %}
+              {% include "core/partials/status_badge.html" with status="CONFIRMED" status_label="Traité" %}
+            {% else %}
+              {% include "core/partials/status_badge.html" with status="PENDING" status_label="Nouveau" %}
+            {% endif %}
+          </td>
+          <td class="px-4 py-3">
+            <div class="flex items-center justify-end gap-2">
+              <a href="{% url 'staffpanel:message_detail' contact_message.pk %}" class="btn btn-ghost btn-md">{% icon "mail" size=15 %} Voir</a>
+              <form method="post" action="{% url 'staffpanel:delete_message' contact_message.pk %}" onsubmit="return confirm('Supprimer ce message ?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-ghost btn-md text-red-600 hover:border-red-400">{% icon "trash-2" size=15 %}</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="6" class="px-4 py-8 text-center text-text-muted">Aucun message pour ce filtre.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

@@ -1,6 +1,11 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.contrib.auth.hashers import check_password, make_password
+from django.utils import timezone
+
+import secrets
+from datetime import timedelta
 
 
 class UserManager(BaseUserManager):
@@ -48,3 +53,37 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.full_name.split(" ")[0]
+
+
+class EmailVerification(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="email_verification")
+    code_hash = models.CharField(max_length=128)
+    expires_at = models.DateTimeField()
+    last_sent_at = models.DateTimeField(auto_now_add=True)
+    attempts = models.PositiveSmallIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    @classmethod
+    def issue_for(cls, user):
+        code = f"{secrets.randbelow(1_000_000):06d}"
+        verification, _ = cls.objects.update_or_create(
+            user=user,
+            defaults={
+                "code_hash": make_password(code),
+                "expires_at": timezone.now() + timedelta(minutes=10),
+                "last_sent_at": timezone.now(),
+                "attempts": 0,
+            },
+        )
+        return verification, code
+
+    def verify(self, code):
+        if self.attempts >= 5 or timezone.now() >= self.expires_at:
+            return False
+        self.attempts += 1
+        valid = check_password(code, self.code_hash)
+        self.save(update_fields=["attempts"])
+        return valid
+
+    def can_resend(self):
+        return timezone.now() >= self.last_sent_at + timedelta(seconds=60)

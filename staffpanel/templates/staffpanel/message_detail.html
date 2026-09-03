@@ -1,0 +1,47 @@
+{% extends "staffpanel/base_staff.html" %}
+{% load icons %}
+{% block title %}Message de {{ contact_message.full_name }} | Administration{% endblock %}
+{% block dashboard_content %}
+
+<a href="{% url 'staffpanel:messages' %}" class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:underline">{% icon "arrow-right" size=15 css_class="rotate-180" %} Tous les messages</a>
+
+<div class="content-card mt-6 p-7">
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <h1 class="display-title text-2xl">{{ contact_message.full_name }}</h1>
+      <p class="mt-1 text-sm text-text-muted">Reçu le {{ contact_message.created_at|date:"d/m/Y à H:i" }}</p>
+    </div>
+    {% if contact_message.is_handled %}
+      {% include "core/partials/status_badge.html" with status="CONFIRMED" status_label="Traité" %}
+    {% else %}
+      {% include "core/partials/status_badge.html" with status="PENDING" status_label="Nouveau" %}
+    {% endif %}
+  </div>
+
+  <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div><p class="text-xs font-bold uppercase text-text-muted">E-mail</p><p class="mt-1 font-semibold"><a href="mailto:{{ contact_message.email }}" class="text-brand-blue hover:underline">{{ contact_message.email }}</a></p></div>
+    <div><p class="text-xs font-bold uppercase text-text-muted">Pays</p><p class="mt-1 font-semibold">{{ contact_message.country|default:"Non renseigné" }}</p></div>
+    <div><p class="text-xs font-bold uppercase text-text-muted">Service demandé</p><p class="mt-1 font-semibold">{{ contact_message.get_service_display }}</p></div>
+  </div>
+
+  <div class="mt-6 border-t border-border pt-6">
+    <p class="text-xs font-bold uppercase text-text-muted">Message</p>
+    <p class="mt-2 whitespace-pre-line leading-relaxed text-text">{{ contact_message.message }}</p>
+  </div>
+
+  <div class="mt-6 flex flex-wrap gap-3">
+    <a href="mailto:{{ contact_message.email }}" class="btn btn-primary btn-md">{% icon "send" size=16 %} Répondre par e-mail</a>
+    <form method="post" action="{% url 'staffpanel:toggle_message_handled' contact_message.pk %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-ghost btn-md">
+        {% if contact_message.is_handled %}Rouvrir{% else %}{% icon "check-circle-2" size=16 %} Marquer traité{% endif %}
+      </button>
+    </form>
+    <form method="post" action="{% url 'staffpanel:delete_message' contact_message.pk %}" onsubmit="return confirm('Supprimer ce message ?');">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-ghost btn-md text-red-600 hover:border-red-400">{% icon "trash-2" size=15 %} Supprimer</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

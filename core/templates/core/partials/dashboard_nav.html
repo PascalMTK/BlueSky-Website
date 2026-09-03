@@ -1,9 +1,9 @@
-{% load icons %}
+{% load icons i18n_extra %}
 <nav class="{{ nav_class|default:'space-y-1' }}">
-  {% for href, label, icon_name, exact in dashboard_nav_items %}
-    <a href="{{ href }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition {% if request.path == href %}bg-brand-blue text-white{% else %}text-text-muted hover:bg-surface-muted hover:text-text lg:text-white/60 lg:hover:bg-white/10 lg:hover:text-white{% endif %}">
+  {% for href, label, icon_name, exact in items|default:dashboard_nav_items %}
+    <a href="{{ href }}" class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold transition {% if request.path == href %}bg-brand-blue text-white{% else %}text-text-muted hover:bg-surface-muted hover:text-text lg:text-white/60 lg:hover:bg-white/10 lg:hover:text-white{% endif %}">
       {% icon icon_name size=18 %}
-      {{ label }}
+      {% t label %}
     </a>
   {% endfor %}
 </nav>

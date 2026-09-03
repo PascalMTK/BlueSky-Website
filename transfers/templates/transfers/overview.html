@@ -1,39 +1,39 @@
-{% extends "transfers/base_dashboard.html" %}
-{% load icons core_extras %}
-{% block title %}Tableau de bord | Blue Sky{% endblock %}
+{% extends "core/base_dashboard.html" %}
+{% load icons core_extras i18n_extra %}
+{% block title %}{% t "Tableau de bord" %} | Blue Sky{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-8">
   <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
     <div>
-      <h1 class="display-title text-2xl sm:text-3xl">Bonjour, {{ first_name }} 👋</h1>
-      <p class="mt-1 text-sm text-text-muted">Voici un aperçu de votre activité Blue Sky.</p>
+      <h1 class="display-title text-2xl sm:text-3xl">{% t "Bonjour" %}, {{ first_name }} 👋</h1>
+      <p class="mt-1 text-sm text-text-muted">{% t "Voici un aperçu de votre activité Blue Sky." %}</p>
     </div>
-    <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">{% icon "send" size=16 %} Nouveau transfert</a>
+    <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">{% icon "send" size=16 %} {% t "Nouveau transfert" %}</a>
   </div>
 
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
     {% for icon_name, label, value in stats %}
-      <div class="rounded-2xl border border-border bg-surface p-6">
-        <div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue dark:bg-white/10 dark:text-brand-gold-light">{% icon icon_name size=18 %}</div>
+      <div class="content-card p-6">
+        <div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue">{% icon icon_name size=18 %}</div>
         <p class="text-2xl font-bold text-brand-blue">{{ value }}</p>
-        <p class="text-sm text-text-muted">{{ label }}</p>
+        <p class="text-sm text-text-muted">{% t label %}</p>
       </div>
     {% endfor %}
   </div>
 
-  <div class="rounded-2xl border border-border bg-surface">
+  <div class="content-card">
     <div class="flex items-center justify-between border-b border-border p-6">
-      <h2 class="text-lg font-bold">Transferts récents</h2>
+      <h2 class="text-lg font-bold">{% t "Transferts récents" %}</h2>
       {% if recipient_count == 0 %}
-        <a href="{% url 'transfers:recipients' %}" class="btn btn-ghost btn-md">Ajouter un bénéficiaire</a>
+        <a href="{% url 'transfers:recipients' %}" class="btn btn-secondary btn-md">{% t "Ajouter un bénéficiaire" %}</a>
       {% endif %}
     </div>
 
     {% if not transfers %}
       <div class="p-10 text-center text-sm text-text-muted">
-        Vous n'avez encore effectué aucun transfert.
+        {% t "Vous n'avez encore effectué aucun transfert." %}
         <div class="mt-4">
-          <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">Envoyer mon premier transfert {% icon "arrow-right" size=16 %}</a>
+          <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">{% t "Envoyer mon premier transfert" %} {% icon "arrow-right" size=16 %}</a>
         </div>
       </div>
     {% else %}
@@ -41,12 +41,12 @@
         <table class="w-full text-left text-sm">
           <thead>
             <tr class="text-xs uppercase tracking-wide text-text-muted">
-              <th class="px-6 py-3">Référence</th>
-              <th class="px-6 py-3">Bénéficiaire</th>
-              <th class="px-6 py-3">Destination</th>
-              <th class="px-6 py-3">Montant</th>
-              <th class="px-6 py-3">Statut</th>
-              <th class="px-6 py-3">Date</th>
+              <th class="px-6 py-3">{% t "Référence" %}</th>
+              <th class="px-6 py-3">{% t "Bénéficiaire" %}</th>
+              <th class="px-6 py-3">{% t "Destination" %}</th>
+              <th class="px-6 py-3">{% t "Montant" %}</th>
+              <th class="px-6 py-3">{% t "Statut" %}</th>
+              <th class="px-6 py-3">{% t "Date" %}</th>
               <th class="px-6 py-3"></th>
             </tr>
           </thead>
@@ -54,7 +54,7 @@
             {% for transfer in transfers %}
               <tr class="border-t border-border">
                 <td class="px-6 py-4 font-mono text-xs font-bold">{{ transfer.reference }}</td>
-                <td class="px-6 py-4">{{ transfer.recipient.full_name|default:"—" }}</td>
+                <td class="px-6 py-4">{{ transfer.recipient.full_name|default:"Non renseigné" }}</td>
                 <td class="px-6 py-4">{{ transfer.destination_country }}</td>
                 <td class="px-6 py-4 font-semibold">{{ transfer.amount_sent|format_amount:transfer.currency_sent }}</td>
                 <td class="px-6 py-4">{% include "core/partials/status_badge.html" with status=transfer.status status_label=transfer.get_status_display %}</td>
@@ -63,7 +63,7 @@
                   {% if transfer.status == "PENDING" %}
                     <form method="post" action="{% url 'transfers:cancel_transfer' transfer.pk %}">
                       {% csrf_token %}
-                      <button type="submit" class="text-xs font-bold text-red-500 hover:underline">Annuler</button>
+                      <button type="submit" class="text-xs font-bold text-red-500 hover:underline">{% t "Annuler" %}</button>
                     </form>
                   {% endif %}
                 </td>

@@ -1,33 +1,32 @@
 {% extends "core/base.html" %}
-{% load static icons %}
+{% load static icons i18n_extra %}
 {% block body %}
-<div class="grid min-h-screen bg-bg lg:grid-cols-[1.08fr_.92fr]">
-  <div class="hero-mesh relative hidden overflow-hidden text-white lg:flex lg:flex-col lg:justify-between lg:p-14">
-    <div aria-hidden class="hero-photo-merge">
-      <img src="{% static 'img/team-photo.jpg' %}" alt="">
-    </div>
-    <div class="relative">{% include "core/partials/logo.html" with light_logo=True %}</div>
-    <div class="relative space-y-8">
-      <p class="editorial-label text-brand-gold">Un réseau. Huit pays.</p>
-      <p class="display-title max-w-xl text-6xl leading-[.92]">L'argent arrive.<br>La confiance aussi.</p>
-      <ul class="flex flex-wrap gap-2 text-xs font-semibold text-white/70">
-        {% for country in COUNTRIES %}
-          <li class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5">{{ country.flag }} {{ country.name }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div></div>
-  </div>
+<div class="auth-page brand-dot-texture relative min-h-screen overflow-x-hidden bg-brand-blue-deep text-white">
+  <img aria-hidden="true" src="{% block auth_photo %}{% static 'img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg' %}{% endblock %}" alt="" class="absolute inset-0 h-full w-full object-cover">
+  <div class="auth-page-overlay absolute inset-0"></div>
 
-  <div class="relative flex flex-col justify-center px-6 py-16 sm:px-10 lg:px-20">
-    <div class="absolute right-6 top-6">
-      <button type="button" data-theme-toggle aria-label="Basculer le mode sombre" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-text transition hover:border-brand-gold hover:text-brand-gold">
-        {% icon "moon" size=18 css_class="theme-icon-moon" %}
-        {% icon "sun" size=18 css_class="theme-icon-sun hidden" %}
-      </button>
+  <div class="relative z-10 mx-auto flex min-h-[100dvh] w-full max-w-[1440px] flex-col px-4 py-3 sm:px-7 sm:py-4 lg:px-10">
+    <div class="flex items-start justify-between gap-5">
+      <div class="auth-logo rounded-2xl border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-xl">
+        {% include "core/partials/logo.html" with light_logo=True %}
+      </div>
+      <div class="rounded-xl border border-white/15 bg-brand-blue-deep/35 text-white backdrop-blur-xl">
+        {% include "core/partials/language_switcher.html" with light=True %}
+      </div>
     </div>
-    <div class="mx-auto w-full max-w-md rounded-[2rem] border border-border bg-surface p-8 shadow-[0_30px_80px_-55px_rgba(15,13,98,.7)] sm:p-10">
-      {% block auth_content %}{% endblock %}
+
+    <div class="grid min-h-0 flex-1 items-center gap-6 py-6 lg:grid-cols-[minmax(15rem,.72fr)_minmax(0,1.28fr)] lg:gap-8 lg:py-4 xl:grid-cols-[minmax(0,.8fr)_minmax(40rem,1.2fr)] xl:gap-12 {% block auth_layout_class %}{% endblock %}">
+      <div class="auth-intro hidden max-w-xl lg:block">
+        <p class="editorial-label text-brand-gold">{% block auth_kicker %}{% t "Un réseau. Huit pays." %}{% endblock %}</p>
+        <p class="display-title mt-5 text-4xl leading-[1.04] xl:text-6xl xl:leading-[1.02]">{% block auth_tagline %}{% blockt %}L'argent arrive.<br>La confiance aussi.{% endblockt %}{% endblock %}</p>
+        <div class="mt-8 flex flex-wrap gap-2 text-xs font-semibold text-white/75">
+          {% for country in COUNTRIES %}<span class="rounded-lg border border-white/15 bg-white/[.06] px-3 py-1.5">{{ country.flag }} {% t country.name %}</span>{% endfor %}
+        </div>
+      </div>
+
+      <div class="auth-glass-card mx-auto w-full max-w-3xl p-5 text-text sm:p-7 lg:mr-0 lg:p-8 {% block auth_card_class %}{% endblock %}">
+        {% block auth_content %}{% endblock %}
+      </div>
     </div>
   </div>
 </div>

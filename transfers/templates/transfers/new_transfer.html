@@ -1,18 +1,18 @@
-{% extends "transfers/base_dashboard.html" %}
-{% load icons %}
-{% block title %}Nouveau transfert | Blue Sky{% endblock %}
+{% extends "core/base_dashboard.html" %}
+{% load icons i18n_extra %}
+{% block title %}{% t "Nouveau transfert" %} | Blue Sky{% endblock %}
 {% block dashboard_content %}
 <div class="mx-auto max-w-xl space-y-8">
   <div>
-    <h1 class="display-title text-2xl sm:text-3xl">Nouveau transfert</h1>
-    <p class="mt-1 text-sm text-text-muted">Renseignez les détails de votre envoi. Notre équipe vous contactera pour la confirmation.</p>
+    <h1 class="display-title text-2xl sm:text-3xl">{% t "Nouveau transfert" %}</h1>
+    <p class="mt-1 text-sm text-text-muted">{% t "Renseignez les détails de votre envoi. Notre équipe vous contactera pour la confirmation." %}</p>
   </div>
 
   {% if not has_recipients %}
     <div class="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-border p-10 text-center">
-      <div class="text-brand-blue dark:text-brand-gold-light">{% icon "user-plus" size=32 %}</div>
-      <p class="text-sm text-text-muted">Ajoutez d'abord un bénéficiaire avant d'envoyer un transfert.</p>
-      <a href="{% url 'transfers:recipients' %}" class="btn btn-primary btn-md">Ajouter un bénéficiaire</a>
+      <div class="text-brand-blue">{% icon "user-plus" size=32 %}</div>
+      <p class="text-sm text-text-muted">{% t "Ajoutez d'abord un bénéficiaire avant d'envoyer un transfert." %}</p>
+      <a href="{% url 'transfers:recipients' %}" class="btn btn-primary btn-md">{% t "Ajouter un bénéficiaire" %}</a>
     </div>
   {% else %}
     <form method="post" class="space-y-5 rounded-2xl border border-border bg-surface p-8">
@@ -25,8 +25,8 @@
       </div>
       {% include "core/_field.html" with field=form.payment_method %}
       {% include "core/_field.html" with field=form.note %}
-      <button type="submit" class="btn btn-primary w-full">Envoyer la demande de transfert</button>
-      <p class="text-center text-xs text-text-muted">Votre demande sera confirmée par notre équipe avant traitement.</p>
+      <button type="submit" class="btn btn-primary w-full">{% t "Envoyer la demande de transfert" %}</button>
+      <p class="text-center text-xs text-text-muted">{% t "Votre demande sera confirmée par notre équipe avant traitement." %}</p>
     </form>
   {% endif %}
 </div>

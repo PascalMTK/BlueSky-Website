@@ -1,119 +1,112 @@
 {% extends "marketing/base_marketing.html" %}
-{% load icons ui static %}
+{% load icons ui static i18n_extra %}
 {% block content %}
 
-<section class="reference-hero relative overflow-hidden">
-  <div aria-hidden="true" class="orb orb-slow" style="width:24rem;height:24rem;top:-8rem;right:-6rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-blue) 50%, transparent), transparent 70%);"></div>
-  <div aria-hidden="true" class="orb orb-slow orb-delay" style="width:15rem;height:15rem;bottom:-2rem;left:-4rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-cyan) 55%, transparent), transparent 70%);"></div>
-  <div class="relative mx-auto grid min-h-[680px] w-full max-w-[1440px] gap-20 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:px-12 lg:py-24">
-    <div class="reveal text-center lg:text-left">
-      <div class="mb-7 inline-flex items-center gap-3 text-xs font-extrabold uppercase tracking-[.18em] text-brand-blue">
-        <span class="h-px w-8 bg-brand-blue"></span>
-        Le transfert qui nous rapproche
-      </div>
-      <h1 class="display-title max-w-2xl text-5xl sm:text-6xl lg:text-[4.8rem]">
-        Envoyez plus loin.<br><span class="text-brand-blue">Restez plus proche.</span>
-      </h1>
-      <p class="mx-auto mt-6 max-w-[38rem] text-base leading-relaxed text-text-muted sm:text-lg lg:mx-0">
-        Envoyez de l'argent dans {{ COUNTRIES|length }} pays africains avec un suivi transparent, un accompagnement humain et la sérénité à chaque étape.
-      </p>
-      <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
-        <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">Nous contacter {% icon "arrow-right" size=18 %}</a>
-        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" class="btn btn-ghost btn-lg">Parler à un conseiller</a>
-      </div>
-      <div class="mt-7 flex flex-col items-center gap-3 text-sm text-text-muted sm:flex-row lg:items-start">
-        <div class="flex -space-x-2" aria-hidden="true">
-          <span class="client-avatar bg-brand-blue">BS</span>
-          <span class="client-avatar bg-brand-gold text-brand-blue-deep">✓</span>
-          <span class="client-avatar bg-brand-blue-dark">24/7</span>
-        </div>
-        <p><strong class="text-text">Un accompagnement humain</strong><br><span class="text-xs">avant, pendant et après chaque transfert</span></p>
-      </div>
-      <div class="mt-9 flex flex-wrap justify-center gap-x-7 gap-y-3 border-t border-border pt-6 text-xs font-semibold text-text-muted lg:justify-start">
-        <span class="flex items-center gap-2">{% icon "lock-keyhole" size=15 css_class="text-brand-blue" %} Données protégées</span>
-        <span class="flex items-center gap-2">{% icon "badge-check" size=15 css_class="text-brand-blue" %} Transfert suivi</span>
-        <span class="flex items-center gap-2">{% icon "headset" size=15 css_class="text-brand-blue" %} Support humain</span>
-      </div>
-    </div>
+<section class="home-hero brand-dot-texture relative isolate overflow-hidden bg-brand-blue-deep text-white">
+  <div class="home-hero-media absolute inset-0" aria-hidden="true">
+    <img src="{% static 'img/african-descent-family-house-home-resting-living.jpg' %}" alt="" class="home-hero-poster absolute inset-0 h-full w-full object-cover">
+    <video class="home-hero-video is-active" muted playsinline autoplay loop preload="auto">
+      <source src="{% static 'videos/0901.mp4' %}" type="video/mp4">
+    </video>
+  </div>
+  <div class="home-hero-wash absolute inset-0" aria-hidden="true"></div>
+  <div class="home-hero-lines absolute inset-0" aria-hidden="true"></div>
 
-    <div class="geo-hero-visual reveal-delay relative mx-auto w-full max-w-[610px] pb-14 sm:pb-20 sm:pl-12" data-parallax="0.09">
-      <div class="geo-hero-photo relative aspect-[1.18/1] w-full overflow-hidden bg-brand-blue-deep shadow-[0_35px_90px_-45px_rgba(12,24,54,.65)]">
-        <img src="{% static 'img/team-photo.jpg' %}" alt="" aria-hidden="true" class="h-full w-full object-cover opacity-30" style="object-position:center 24%" fetchpriority="high">
-        <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/85 via-brand-blue-deep/35 to-brand-blue-deep/70"></div>
+  <div class="relative mx-auto flex min-h-[720px] w-full max-w-[1440px] flex-col justify-between px-5 pb-8 pt-16 sm:px-8 sm:pt-20 lg:min-h-[760px] lg:px-10 lg:pt-24">
+    <div class="grid gap-12 lg:grid-cols-[1.1fr_.55fr] lg:items-start">
+      <div class="hero-copy-glass max-w-3xl p-5 sm:p-7 lg:-ml-7">
+        <p class="editorial-label mb-6 flex items-center gap-3 text-brand-gold">
+          <span class="h-px w-10 bg-current"></span>{% t "L'Afrique n'a jamais été aussi proche" %}
+        </p>
+        <h1 class="display-title text-[3.4rem] leading-[.96] sm:text-7xl lg:text-[5.4rem]">
+          {% blockt %}Votre argent voyage.<br><span class="text-brand-sky">Vos liens restent.</span>{% endblockt %}
+        </h1>
+        <p class="mt-7 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
+          {% t "Des transferts fiables, suivis et accompagnés par de vraies personnes dans" %} {{ COUNTRIES|length }} {% t "pays africains." %}
+        </p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          {% if request.user.is_authenticated %}
+            <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-lg">{% t "Démarrer un transfert" %} {% icon "arrow-right" size=18 %}</a>
+          {% else %}
+            <a href="{% url 'accounts:signup' %}?next={% url 'transfers:new_transfer' %}" class="btn btn-primary btn-lg">{% t "Envoyer de l'argent" %} {% icon "arrow-right" size=18 %}</a>
+          {% endif %}
+          <a href="{% url 'marketing:countries' %}" class="btn btn-secondary btn-lg text-white">{% t "Voir notre réseau" %}</a>
+        </div>
       </div>
-      <div class="absolute -bottom-2 right-0 w-[285px] max-w-[82%] rounded-[1.25rem] sm:w-[310px]">
-        <div class="tilt-3d-inner">
-          <div class="bank-card p-5">
-            <div class="mb-4 flex items-center justify-between">
-              <div>
-                <p class="text-xs font-semibold uppercase tracking-[.14em] text-white/60">Simulation</p>
-                <h2 class="mt-0.5 font-sans text-base font-bold tracking-tight">Envoyer de l'argent</h2>
-              </div>
-              <span class="coin-3d flex h-9 w-9 items-center justify-center rounded-full bg-brand-gold text-brand-blue-deep">
-                <span class="coin-3d-spin flex">{% icon "circle-dollar-sign" size=18 %}</span>
-              </span>
-            </div>
-            <div class="rounded-xl border border-white/10 bg-white/[.08] p-3">
-              <p class="text-xs text-white/60">Vous envoyez</p>
-              <div class="mt-1 flex items-end justify-between gap-4">
-                <span class="text-xl font-bold tracking-tight">500.00</span>
-                <span class="rounded-lg bg-white/10 px-2 py-1 text-xs font-bold">USD</span>
-              </div>
-            </div>
-            <a href="{% url 'marketing:contact' %}" class="btn btn-primary mt-4 w-full py-2.5 text-sm">Demander un devis {% icon "arrow-right" size=15 %}</a>
+
+      <aside class="transfer-glass-card w-full max-w-sm justify-self-end p-5 sm:p-6">
+        <div class="flex items-center justify-between border-b border-white/15 pb-4">
+          <div><p class="text-[.65rem] font-bold uppercase tracking-[.16em] text-brand-gold">{% t "Estimation rapide" %}</p><p class="mt-1 text-sm text-white/65">{% t "Simple. Clair. Accompagné." %}</p></div>
+          <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-brand-gold">{% icon "send" size=18 %}</span>
+        </div>
+        <div class="mt-5 space-y-3">
+          <div class="rounded-xl bg-white/[.08] p-4"><p class="text-xs text-white/55">{% t "Vous envoyez" %}</p><div class="mt-1 flex items-center justify-between"><strong class="text-2xl">500.00</strong><span class="text-sm font-bold">USD</span></div></div>
+          <div class="flex items-center gap-3 text-xs font-semibold text-white/60"><span class="h-px flex-1 bg-white/15"></span>{% t "vers l'Afrique" %}<span class="h-px flex-1 bg-white/15"></span></div>
+          <div class="grid grid-cols-3 gap-2 text-center text-[.68rem] font-semibold text-white/70">
+            <span class="rounded-lg border border-white/10 py-2">RDC</span><span class="rounded-lg border border-white/10 py-2">Namibie</span><span class="rounded-lg border border-white/10 py-2">+7</span>
           </div>
         </div>
-      </div>
+        <a href="{% url 'marketing:contact' %}" class="mt-5 flex items-center justify-between border-t border-white/15 pt-4 text-sm font-bold text-white"><span>{% t "Demander un devis" %}</span>{% icon "arrow-up-right" size=17 css_class="text-brand-gold" %}</a>
+      </aside>
     </div>
-  </div>
-  <div class="relative border-t border-border bg-surface">
-    <div class="mx-auto grid w-full max-w-[1440px] grid-cols-2 divide-x divide-border px-5 py-5 sm:grid-cols-4 sm:px-8 lg:px-10">
-      {% for value, label in hero_stats %}
-        <div class="px-3 py-4 text-center sm:px-7 sm:text-left"><p class="text-3xl font-extrabold tracking-tight text-brand-blue" data-count>{{ value }}</p><p class="mt-1.5 text-xs font-bold uppercase tracking-[.12em] text-text-muted">{{ label }}</p></div>
-      {% endfor %}
+
+    <div class="hero-trust-glass mt-16 grid gap-6 border border-white/15 px-5 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
+      <div class="flex flex-wrap gap-x-7 gap-y-3 text-xs font-semibold text-white/70">
+        <span class="flex items-center gap-2">{% icon "shield-check" size=16 css_class="text-brand-sky" %} {% t "Transferts suivis" %}</span>
+        <span class="flex items-center gap-2">{% icon "headset" size=16 css_class="text-brand-sky" %} {% t "Support humain" %}</span>
+        <span class="flex items-center gap-2">{% icon "map-pin" size=16 css_class="text-brand-sky" %} {{ COUNTRIES|length }} {% t "pays desservis" %}</span>
+      </div>
+      <p class="hidden text-right text-[.62rem] font-bold uppercase tracking-[.16em] text-white/45 sm:block">Windhoek · Kinshasa · Johannesburg · Kampala</p>
     </div>
   </div>
 </section>
 
-<section class="relative overflow-hidden bg-brand-blue-deep py-20 text-white sm:py-28">
+<section class="border-b border-border bg-surface" aria-label="{% t 'Blue Sky en chiffres' %}">
+  <div class="mx-auto grid w-full max-w-[1440px] grid-cols-2 divide-x divide-border px-5 py-3 sm:grid-cols-4 sm:px-8 lg:px-10">
+    {% for value, label in hero_stats %}
+      <div class="px-3 py-5 text-center sm:px-7 sm:text-left"><p class="text-3xl font-extrabold tracking-tight text-brand-blue">{{ value }}</p><p class="mt-1 text-[.66rem] font-bold uppercase tracking-[.12em] text-text-muted">{% t label %}</p></div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="brand-dot-texture relative overflow-hidden bg-brand-blue-deep py-20 text-white sm:py-24">
   <div class="section-photo-bg section-photo-bg-dark">
     <img src="{% static 'img/flags/construction-site-showcasing-modern-house-development-amidst-overcast-skies.jpg' %}" alt="" loading="lazy">
   </div>
-  <div aria-hidden="true" class="orb orb-slow" style="width:20rem;height:20rem;top:-6rem;left:-4rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-gold) 45%, transparent), transparent 70%);"></div>
-  <div class="reveal-on-scroll relative z-10 mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
+  <div class="relative z-10 mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
     {% kicker "Bâtissons ensemble" %}
-    <h2 class="display-title mx-auto mt-5 max-w-3xl text-4xl sm:text-5xl">Construisez votre avenir en toute <span class="text-brand-gold">sécurité</span> et en toute <span class="text-brand-gold">confiance</span> avec Blue Sky</h2>
-    <p class="mx-auto mt-5 max-w-2xl text-white/75">Qu'il s'agisse de financer un projet de construction, de soutenir votre famille ou de faire grandir votre activité, Blue Sky vous accompagne dans {{ COUNTRIES|length }} pays d'Afrique avec la même rigueur à chaque transfert.</p>
+    <h2 class="display-title mx-auto mt-5 max-w-3xl text-4xl sm:text-5xl">{% blockt %}Construisez votre avenir en toute <span class="text-brand-sky">sécurité</span> et en toute <span class="text-brand-sky">confiance</span> avec Blue Sky{% endblockt %}</h2>
+    <p class="mx-auto mt-5 max-w-2xl text-white/75">{% t "Qu'il s'agisse de financer un projet de construction, de soutenir votre famille ou de faire grandir votre activité, Blue Sky vous accompagne dans" %} {{ COUNTRIES|length }} {% t "pays d'Afrique avec la même rigueur à chaque transfert." %}</p>
     <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-      <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">Nous contacter pour ce service {% icon "arrow-right" size=18 %}</a>
-      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" class="btn btn-outline-light btn-lg">Parler à un conseiller</a>
+      <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">{% t "Nous contacter pour ce service" %} {% icon "arrow-right" size=18 %}</a>
+      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" class="btn btn-secondary btn-lg">{% t "Parler à un conseiller" %}</a>
     </div>
   </div>
 </section>
 
-<section class="py-24 sm:py-28">
-  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="reveal-on-scroll mb-12 grid gap-7 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
-      <div class="max-w-xl">
+<section class="services-section africa-money-surface py-24 sm:py-28">
+  <div class="services-section-shell">
+    <div class="services-intro">
+      <div class="services-intro-heading">
         {% kicker "Pourquoi Blue Sky" tone="blue" %}
-        <h2 class="display-title mt-5 text-4xl sm:text-5xl">Des services construits autour de la confiance</h2>
+        <h2 class="services-intro-title display-title mt-5">{% t "Des services construits autour de la confiance" %}</h2>
       </div>
-      <div class="flex items-end justify-between gap-5 border-l-0 border-border lg:border-l lg:pl-8">
-        <p class="max-w-md text-sm leading-relaxed text-text-muted">Une présence locale, un suivi transparent et une équipe disponible pour que chaque transfert reste simple du départ à l'arrivée.</p>
-        <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-md shrink-0">Découvrir {% icon "arrow-right" size=15 %}</a>
+      <div class="services-intro-copy">
+        <p>{% t "Une présence locale, un suivi transparent et une équipe disponible pour que chaque transfert reste simple du départ à l'arrivée." %}</p>
+        <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-md shrink-0">{% t "Découvrir" %} {% icon "arrow-right" size=15 %}</a>
       </div>
     </div>
-    <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-reveal-group>
+    <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {% for icon_name, title, text in features %}
         {% cycle 'img/community-outreach-portrait.jpg' 'img/community-brand-duo.png' 'img/community-brand-student-1.png' 'img/community-brand-student-2.png' as feature_image silent %}
-        <article class="service-image-card reveal-on-scroll group rounded-[3rem] bg-brand-blue-deep">
+        <article class="service-image-card group bg-brand-blue-deep">
           <img src="{% static feature_image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
-          <div class="absolute inset-x-0 bottom-0 z-10 p-7 text-white">
-              <div class="icon-chip-photo mb-5">
-                {% icon icon_name size=20 %}
+          <div class="absolute inset-x-0 bottom-0 z-10 p-6 text-white">
+              <div class="icon-chip-photo mb-4">
+                {% icon icon_name size=19 %}
               </div>
-              <h3 class="mb-2 text-xl font-bold">{{ title }}</h3>
-              <p class="text-sm leading-relaxed text-white/72">{{ text }}</p>
+              <h3 class="mb-2 text-lg font-bold">{% t title %}</h3>
+              <p class="text-sm leading-relaxed text-white/72">{% if title == "Réseau régional" %}{{ COUNTRIES|length }} {% endif %}{% t text %}</p>
           </div>
         </article>
       {% endfor %}
@@ -121,166 +114,196 @@
   </div>
 </section>
 
-<section class="border-y border-border bg-surface-muted py-24 sm:py-32">
+<section class="border-y border-border bg-surface-muted py-24 sm:py-28">
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="reveal-on-scroll mx-auto mb-14 max-w-2xl text-center">
+    <div class="mx-auto mb-14 max-w-2xl text-center">
       {% kicker "Comment ça marche" %}
-      <h2 class="display-title mt-5 text-4xl sm:text-5xl">Trois étapes pour envoyer votre premier transfert</h2>
+      <h2 class="display-title mt-5 text-4xl sm:text-5xl">{% t "Trois étapes pour envoyer votre premier transfert" %}</h2>
     </div>
-    <div class="grid gap-6 md:grid-cols-3 lg:gap-8" data-reveal-group>
+    <div class="grid gap-6 md:grid-cols-3 lg:gap-8">
       {% for icon_name, title, text in steps %}
-        <article class="premium-card reveal-on-scroll group relative flex min-h-[17rem] flex-col overflow-hidden rounded-[1.5rem] p-7 sm:p-8">
-          <span aria-hidden="true" class="absolute right-6 top-5 font-sans text-5xl font-black leading-none tracking-[-.08em] text-brand-blue/10 transition-colors group-hover:text-brand-blue/15 dark:text-white/5 dark:group-hover:text-white/10">0{{ forloop.counter }}</span>
-          <div class="relative mb-8 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-blue text-white shadow-[0_10px_24px_-14px_rgba(36,71,168,.75)] transition-transform duration-300 ease-out group-hover:scale-110 group-hover:-rotate-6">
-            {% icon icon_name size=22 %}
+        <article class="premium-card group relative flex min-h-[15rem] flex-col p-7 sm:p-8">
+          <span aria-hidden="true" class="absolute right-6 top-5 font-serif text-4xl font-bold leading-none text-brand-blue/10">0{{ forloop.counter }}</span>
+          <div class="relative mb-7 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-blue text-white">
+            {% icon icon_name size=20 %}
           </div>
           <div class="relative mt-auto">
-            <p class="mb-2 text-xs font-extrabold uppercase tracking-[.16em] text-brand-blue/70">Étape {{ forloop.counter }}</p>
-            <h3 class="mb-3 text-xl font-bold tracking-tight">{{ title }}</h3>
-            <p class="text-sm leading-6 text-text-muted">{{ text }}</p>
+            <p class="mb-2 text-xs font-extrabold uppercase tracking-[.12em] text-brand-blue/70">{% t "Étape" %} {{ forloop.counter }}</p>
+            <h3 class="mb-3 text-xl font-bold tracking-tight">{% t title %}</h3>
+            <p class="text-sm leading-6 text-text-muted">{% t text %}</p>
           </div>
         </article>
       {% endfor %}
     </div>
     <div class="mt-12 text-center">
-      <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">Nous contacter {% icon "arrow-right" size=18 %}</a>
+      <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">{% t "Nous contacter" %} {% icon "arrow-right" size=18 %}</a>
     </div>
   </div>
 </section>
 
-<section class="py-24 sm:py-32">
+<section class="africa-money-surface africa-money-surface-alt py-24 sm:py-28">
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="reveal-on-scroll mx-auto mb-14 max-w-2xl text-center">
+    <div class="mx-auto mb-14 max-w-2xl text-center">
       {% kicker "Notre couverture" tone="blue" %}
-      <h2 class="display-title mt-5 text-4xl sm:text-5xl">Nos agences à travers l'Afrique</h2>
+      <h2 class="display-title mt-5 text-4xl sm:text-5xl">{% t "Nos agences à travers l'Afrique" %}</h2>
     </div>
-    <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-reveal-group>
+    <div class="grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {% for country in COUNTRIES %}
-        <div class="tilt-3d reveal-on-scroll h-full rounded-[1.75rem]" data-tilt data-tilt-intensity="7">
-          <div class="tilt-3d-inner h-full">
-            {% include "core/partials/country_card.html" %}
-            <span aria-hidden class="tilt-glare"></span>
-          </div>
+        {% include "core/partials/country_card.html" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="brand-dot-texture border-y border-border bg-brand-blue-deep py-14 text-white">
+  <div class="mx-auto w-full max-w-[1440px]">
+    <p class="mb-8 text-center text-xs font-bold uppercase tracking-[.16em] text-white/50">{% t "Moyens de paiement &amp; partenaires mobiles" %}</p>
+    <div class="partner-marquee" role="region" aria-label="{% t 'Moyens de paiement et partenaires mobiles' %}">
+      <div class="partner-marquee-track">
+        <div class="partner-marquee-group">
+          {% for partner in SITE.payment_partners %}<span class="partner-marquee-item">{{ partner }}</span>{% endfor %}
         </div>
-      {% endfor %}
+        <div class="partner-marquee-group" aria-hidden="true">
+          {% for partner in SITE.payment_partners %}<span class="partner-marquee-item">{{ partner }}</span>{% endfor %}
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="border-y border-border bg-brand-blue-deep py-16 text-white">
-  <div class="reveal-on-scroll mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <p class="mb-8 text-center text-xs font-bold uppercase tracking-[.2em] text-white/50">Moyens de paiement &amp; partenaires mobiles</p>
-    <div class="flex flex-wrap items-center justify-center gap-4">
-      {% for partner in SITE.payment_partners %}
-        <span class="rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/80">{{ partner }}</span>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<section id="epargne" class="py-24 sm:py-32">
+<section id="epargne" class="africa-money-surface py-24 sm:py-28">
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="reveal-on-scroll mb-14 grid items-center gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-16">
-      <div class="relative mx-auto w-full max-w-sm px-4 py-6 lg:mx-0">
-        <div aria-hidden class="absolute inset-0 -z-10 -translate-x-4 rounded-full bg-brand-gold/10"></div>
-        <div class="geo-about-photo relative aspect-square overflow-hidden bg-brand-blue-deep">
-          <img src="{% static 'img/flags/womans-hand-stacks-silver-coins-symbolizing-financial-growth-investment-increase-side-view-w.jpg' %}" alt="Pièces empilées symbolisant la croissance de l'épargne" class="h-full w-full object-cover opacity-80">
-          <div class="absolute inset-0 bg-gradient-to-br from-brand-blue-deep/50 via-transparent to-brand-blue/30"></div>
+    <div class="mb-14 grid items-center gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-16">
+      <div class="relative mx-auto w-full max-w-sm lg:mx-0">
+        <div class="relative aspect-square overflow-hidden rounded-2xl bg-brand-blue-deep">
+          <img src="{% static 'img/flags/womans-hand-stacks-silver-coins-symbolizing-financial-growth-investment-increase-side-view-w.jpg' %}" alt="{% blockt %}Pièces empilées symbolisant la croissance de l'épargne{% endblockt %}" class="h-full w-full object-cover opacity-85">
         </div>
-        <div class="absolute bottom-3 right-0 flex items-center gap-3 rounded-2xl bg-brand-gold px-5 py-3.5 text-brand-blue-deep shadow-xl">
-          {% icon "piggy-bank" size=22 %}
-          <p class="max-w-[9rem] text-xs font-bold uppercase leading-snug tracking-[.1em]">Épargner un peu, chaque mois</p>
+        <div class="absolute bottom-3 left-3 right-3 flex items-center gap-3 rounded-lg bg-brand-gold px-4 py-3 text-brand-blue-deep shadow-lg sm:left-auto sm:right-3 sm:w-fit">
+          {% icon "piggy-bank" size=20 %}
+          <p class="max-w-[9rem] text-xs font-bold uppercase leading-snug tracking-[.06em]">{% t "Épargner un peu, chaque mois" %}</p>
         </div>
       </div>
       <div class="text-center lg:text-left">
         {% kicker "Notre branche Épargne" tone="blue" %}
-        <h2 class="display-title mt-5 text-4xl sm:text-5xl">{{ SITE.savings_tagline }}</h2>
-        <p class="mx-auto mt-4 max-w-xl text-text-muted lg:mx-0">{{ SITE.savings_description }}</p>
+        <h2 class="display-title mt-5 text-4xl sm:text-5xl">{% t SITE.savings_tagline %}</h2>
+        <p class="mx-auto mt-4 max-w-xl text-text-muted lg:mx-0">{% t SITE.savings_description %}</p>
       </div>
     </div>
-    <div class="grid auto-rows-fr gap-6 md:grid-cols-3" data-reveal-group>
+    <div class="grid auto-rows-fr gap-6 md:grid-cols-3">
       {% for icon_name, title, text, image in savings_segments %}
-        <article class="service-image-card reveal-on-scroll group rounded-[3rem] bg-brand-blue-deep">
+        <article class="service-image-card group bg-brand-blue-deep">
           <img src="{% static image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
-          <div class="absolute inset-x-0 bottom-0 z-10 p-7 text-white">
-            <div class="icon-chip-photo mb-5">
-              {% icon icon_name size=20 %}
+          <div class="absolute inset-x-0 bottom-0 z-10 p-6 text-white">
+            <div class="icon-chip-photo mb-4">
+              {% icon icon_name size=19 %}
             </div>
-            <h3 class="mb-2 text-xl font-bold">{{ title }}</h3>
-            <p class="text-sm leading-relaxed text-white/72">{{ text }}</p>
+            <h3 class="mb-2 text-lg font-bold">{% t title %}</h3>
+            <p class="text-sm leading-relaxed text-white/72">{% t text %}</p>
           </div>
         </article>
       {% endfor %}
     </div>
+    <div class="mt-10 rounded-2xl border border-brand-blue/15 bg-white/85 p-6 shadow-sm backdrop-blur-sm sm:p-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="editorial-label text-brand-blue">{% t "Avant de vous enrôler" %}</p>
+        <h3 class="mt-3 text-2xl font-extrabold text-brand-blue-deep sm:text-3xl">{% t "Comprendre le fonctionnement de l'épargne Blue Sky" %}</h3>
+        <p class="mt-3 text-sm leading-7 text-text-muted">{% t "Vous effectuez des dépôts selon votre capacité. Blue Sky conserve votre épargne avec un suivi rigoureux et vous permet de demander un retrait lorsque vous en avez besoin, conformément aux conditions du service." %}</p>
+      </div>
+      <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-xl bg-surface-muted p-5">
+          <div class="icon-chip mb-4">{% icon "circle-dollar-sign" size=19 %}</div>
+          <h4 class="font-bold text-brand-blue-deep">{% t "Des dépôts à votre rythme" %}</h4>
+          <p class="mt-2 text-sm leading-6 text-text-muted">{% t "Alimentez progressivement votre épargne avec les montants adaptés à votre situation." %}</p>
+        </div>
+        <div class="rounded-xl bg-surface-muted p-5">
+          <div class="icon-chip mb-4">{% icon "shield-check" size=19 %}</div>
+          <h4 class="font-bold text-brand-blue-deep">{% t "Une conservation encadrée" %}</h4>
+          <p class="mt-2 text-sm leading-6 text-text-muted">{% t "Vos opérations sont enregistrées et suivies avec sérieux par notre équipe." %}</p>
+        </div>
+        <div class="rounded-xl bg-surface-muted p-5">
+          <div class="icon-chip mb-4">{% icon "target" size=19 %}</div>
+          <h4 class="font-bold text-brand-blue-deep">{% t "Un soutien pour vos projets" %}</h4>
+          <p class="mt-2 text-sm leading-6 text-text-muted">{% t "Nous vous aidons à organiser votre effort d'épargne pour préparer des projets importants." %}</p>
+        </div>
+        <div class="rounded-xl bg-surface-muted p-5">
+          <div class="icon-chip mb-4">{% icon "badge-check" size=19 %}</div>
+          <h4 class="font-bold text-brand-blue-deep">{% t "Une traçabilité fiable" %}</h4>
+          <p class="mt-2 text-sm leading-6 text-text-muted">{% t "Chaque dépôt et chaque retrait apparaissent dans votre historique pour un suivi clair." %}</p>
+        </div>
+      </div>
+      <p class="mx-auto mt-6 max-w-3xl text-center text-xs leading-6 text-text-muted">{% t "Avant votre inscription, un conseiller vous présente les conditions, les modalités de dépôt et la procédure de retrait afin que vous puissiez vous engager en toute connaissance de cause." %}</p>
+    </div>
     <div class="mt-12 flex flex-col items-center gap-3">
-      <a href="{% url 'marketing:contact' %}?service=epargne" class="btn btn-primary btn-lg">
-        {% icon "piggy-bank" size=18 %} S'enrôler au service épargne
-      </a>
-      <p class="text-xs text-text-muted">Ou écrivez-nous directement sur <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" class="font-semibold text-brand-blue hover:underline dark:text-brand-gold-light">WhatsApp</a></p>
+      {% if user.is_authenticated %}
+        <a href="{% url 'savings:overview' %}" class="btn btn-primary btn-lg">
+          {% icon "piggy-bank" size=18 %} {% t "S'enrôler au service épargne" %}
+        </a>
+      {% else %}
+        <a href="{% url 'accounts:signup' %}?next={% url 'savings:overview' %}" class="btn btn-primary btn-lg">
+          {% icon "piggy-bank" size=18 %} {% t "S'enrôler au service épargne" %}
+        </a>
+      {% endif %}
+      <p class="text-xs text-text-muted">{% t "Ou écrivez-nous directement sur" %} <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" class="font-semibold text-brand-blue hover:underline">WhatsApp</a></p>
     </div>
   </div>
 </section>
 
-<section class="py-24 sm:py-32">
-  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-20 px-5 sm:px-8 lg:grid-cols-[.95fr_1.05fr] lg:px-12">
-    <div class="reveal-on-scroll relative mx-auto w-full max-w-lg px-6 py-8">
-      <div aria-hidden class="absolute inset-0 -z-10 translate-x-4 rounded-full bg-brand-blue/8"></div>
-      <div class="geo-about-photo relative aspect-square overflow-hidden bg-brand-blue-deep">
-        <img src="{% static 'img/community-outreach-group.jpg' %}" alt="Blue Sky aux côtés des enfants d'un orphelinat en Namibie" class="h-full w-full object-cover opacity-35">
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-blue-deep/60 via-transparent to-brand-blue/50"></div>
+<section class="africa-money-surface africa-money-surface-alt py-24 sm:py-28">
+  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-16 px-5 sm:px-8 lg:grid-cols-[.95fr_1.05fr] lg:px-10">
+    <div class="relative mx-auto w-full max-w-lg">
+      <div class="relative aspect-square overflow-hidden rounded-2xl bg-brand-blue-deep">
+        <img src="{% static 'img/community-outreach-group.jpg' %}" alt="{% blockt %}Blue Sky aux côtés des enfants d'un orphelinat en Namibie{% endblockt %}" class="h-full w-full object-cover opacity-70">
       </div>
-      <div class="absolute bottom-3 left-0 flex items-center gap-4 rounded-2xl bg-brand-blue px-6 py-4 text-white shadow-xl">
-        <p class="text-3xl font-extrabold leading-none">{{ COUNTRIES|length }}</p>
-        <p class="max-w-[10rem] text-xs font-bold uppercase leading-snug tracking-[.12em] text-white/85">pays reliés par une même équipe</p>
+      <div class="absolute bottom-3 left-3 flex items-center gap-4 rounded-lg bg-brand-blue px-5 py-3.5 text-white shadow-lg">
+        <p class="text-2xl font-extrabold leading-none">{{ COUNTRIES|length }}</p>
+        <p class="max-w-[9.5rem] text-xs font-bold uppercase leading-snug tracking-[.08em] text-white/85">{% t "pays reliés par une même équipe" %}</p>
       </div>
     </div>
-    <div class="reveal-on-scroll space-y-5">
+    <div class="space-y-5">
       {% kicker "Au-delà du transfert d'argent" %}
-      <h2 class="display-title text-4xl sm:text-5xl">Une expertise locale, portée par des relations humaines</h2>
+      <h2 class="display-title text-4xl sm:text-5xl">{% t "Une expertise locale, portée par des relations humaines" %}</h2>
       <p class="leading-relaxed text-text-muted">
-        L'équipe Blue Sky se rend régulièrement auprès d'enfants d'un orphelinat en Namibie pour offrir du temps, des ressources et du soutien — parce que connecter les familles va au-delà des transactions.
+        {% t "L'équipe Blue Sky se rend régulièrement auprès d'enfants d'un orphelinat en Namibie pour offrir du temps, des ressources et du soutien, parce que connecter les familles va au-delà des transactions." %}
       </p>
       <div class="grid gap-4 sm:grid-cols-2">
         <div class="content-card flex items-start gap-4 p-5">
           <span class="icon-chip">{% icon "heart-handshake" size=18 %}</span>
           <div>
-            <p class="text-sm font-bold">Présence locale</p>
-            <p class="mt-1 text-sm leading-relaxed text-text-muted">Des équipes sur le terrain, pas seulement en ligne.</p>
+            <p class="text-sm font-bold">{% t "Présence locale" %}</p>
+            <p class="mt-1 text-sm leading-relaxed text-text-muted">{% t "Des équipes sur le terrain, pas seulement en ligne." %}</p>
           </div>
         </div>
         <div class="content-card flex items-start gap-4 p-5">
           <span class="icon-chip">{% icon "hand-heart" size=18 %}</span>
           <div>
-            <p class="text-sm font-bold">Impact direct</p>
-            <p class="mt-1 text-sm leading-relaxed text-text-muted">Du temps et des ressources pour les communautés locales.</p>
+            <p class="text-sm font-bold">{% t "Impact direct" %}</p>
+            <p class="mt-1 text-sm leading-relaxed text-text-muted">{% t "Du temps et des ressources pour les communautés locales." %}</p>
           </div>
         </div>
       </div>
-      <a href="{% url 'marketing:impact' %}" class="group inline-flex w-full items-center justify-between gap-5 rounded-2xl border border-brand-blue/15 bg-brand-blue-deep px-5 py-3.5 text-white shadow-[0_16px_34px_-18px_rgba(12,24,54,.7)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-gold/40 hover:shadow-[0_20px_40px_-16px_rgba(12,24,54,.72)] sm:w-auto sm:min-w-[15rem]">
+      <a href="{% url 'marketing:impact' %}" class="group inline-flex w-full items-center justify-between gap-5 rounded-lg border border-brand-blue/15 bg-brand-blue-deep px-5 py-3.5 text-white transition hover:border-brand-gold/40 sm:w-auto sm:min-w-[15rem]">
         <span class="text-left">
-          <span class="block text-[.62rem] font-bold uppercase tracking-[.16em] text-brand-gold">Engagement communautaire</span>
-          <span class="mt-0.5 block text-sm font-extrabold">Découvrir notre impact</span>
+          <span class="block text-[.62rem] font-bold uppercase tracking-[.12em] text-brand-sky">{% t "Engagement communautaire" %}</span>
+          <span class="mt-0.5 block text-sm font-extrabold">{% t "Découvrir notre impact" %}</span>
         </span>
-        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-gold text-brand-blue-deep transition-transform duration-200 group-hover:translate-x-1">{% icon "arrow-right" size=16 %}</span>
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-gold text-brand-blue-deep transition-transform duration-150 group-hover:translate-x-0.5">{% icon "arrow-right" size=16 %}</span>
       </a>
     </div>
   </div>
 </section>
 
-<section class="subtle-grid relative overflow-hidden bg-brand-blue-deep py-20 text-white sm:py-24">
-  <div class="sunburst-rays" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-  <div aria-hidden="true" class="orb orb-slow" style="width:22rem;height:22rem;bottom:-8rem;right:-5rem;background:radial-gradient(circle, color-mix(in srgb, var(--color-brand-blue) 55%, transparent), transparent 70%);"></div>
-  <div class="reveal-on-scroll relative z-10 mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
+<section class="brand-dot-texture subtle-grid relative bg-brand-blue-deep py-20 text-white sm:py-24">
+  <div class="relative z-10 mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
     {% kicker "Commencez aujourd'hui" %}
-    <h2 class="display-title mx-auto mt-5 max-w-3xl text-4xl sm:text-5xl">Prêt à envoyer votre argent en toute confiance ?</h2>
-    <p class="mx-auto mt-4 max-w-xl text-white/70">Contactez l'équipe Blue Sky ou rendez-vous dans l'agence la plus proche pour démarrer votre transfert.</p>
+    <h2 class="display-title mx-auto mt-5 max-w-3xl text-4xl sm:text-5xl">{% t "Prêt à envoyer votre argent en toute confiance ?" %}</h2>
+    <p class="mx-auto mt-4 max-w-xl text-white/70">{% t "Contactez l'équipe Blue Sky ou rendez-vous dans l'agence la plus proche pour démarrer votre transfert." %}</p>
     <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
       <a href="tel:{{ SITE.primary_phone }}" class="contact-pill">
         <span class="contact-pill-icon">{% icon "phone" size=18 %}</span>
-        <span class="contact-pill-text"><small>Appelez-nous</small>{{ SITE.primary_phone }}</span>
+        <span class="contact-pill-text"><small>{% t "Appelez-nous" %}</small>{{ SITE.primary_phone }}</span>
       </a>
-      <a href="{% url 'marketing:contact' %}" class="btn btn-outline-light btn-lg">Nous écrire {% icon "arrow-right" size=16 %}</a>
-      <a href="{% url 'marketing:countries' %}" class="btn btn-outline-light btn-lg">Trouver une agence</a>
+      <a href="{% url 'marketing:contact' %}" class="btn btn-secondary btn-lg">{% t "Nous écrire" %} {% icon "arrow-right" size=16 %}</a>
+      <a href="{% url 'marketing:countries' %}" class="btn btn-secondary btn-lg">{% t "Trouver une agence" %}</a>
     </div>
   </div>
 </section>

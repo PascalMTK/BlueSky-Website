@@ -1,90 +1,100 @@
-{% load icons %}
-<header class="site-header sticky top-0 z-50 border-b border-border/80 bg-bg/80 backdrop-blur-2xl transition-all duration-300">
+{% load icons i18n_extra %}
+<header class="site-header {% if request.resolver_match.url_name == 'tariffs' %}site-header-solid{% else %}site-header-glass site-header-overlay{% endif %} sticky top-0 z-50 border-b border-border bg-bg/95 backdrop-blur-md">
   <!-- Top Utility Bar -->
-  <div class="hidden bg-brand-blue-deep/95 px-6 py-2 text-xs font-medium text-white/80 backdrop-blur-md sm:flex sm:items-center sm:justify-between sm:px-8 lg:px-12">
+  <div class="hidden border-b border-border/70 bg-brand-blue-deep px-6 py-2 text-xs font-medium text-white/75 sm:flex sm:items-center sm:justify-between sm:px-8 lg:px-12">
+    <div class="flex items-center gap-2 text-white/60">
+      {% icon "clock" size=14 css_class="text-brand-gold" %}
+      <span>{% t "Lundi au samedi : 08h00 à 18h00" %}</span>
+    </div>
     <div class="flex items-center gap-6">
-      <a href="mailto:{{ SITE.primary_email }}" class="flex items-center gap-2 transition hover:text-brand-gold">
+      <a href="mailto:{{ SITE.primary_email }}" class="flex items-center gap-2 transition hover:text-white">
         {% icon "mail" size=14 css_class="text-brand-gold" %}
         <span>{{ SITE.primary_email }}</span>
       </a>
-      <a href="tel:{{ SITE.primary_phone }}" class="flex items-center gap-2 transition hover:text-brand-gold">
+      <a href="tel:{{ SITE.primary_phone }}" class="flex items-center gap-2 transition hover:text-white">
         {% icon "phone" size=14 css_class="text-brand-gold" %}
         <span>{{ SITE.primary_phone }}</span>
       </a>
     </div>
-    <div class="flex items-center gap-2 text-white/70">
-      {% icon "clock" size=14 css_class="text-brand-gold" %}
-      <span>Lun–Sam : 08h00–18h00</span>
-    </div>
   </div>
 
   <!-- Main Navigation Bar -->
-  <div class="mx-auto flex h-20 w-full max-w-[1440px] items-center justify-between px-6 sm:px-8 lg:px-12">
+  <div class="mx-auto flex h-18 w-full max-w-[1440px] items-center justify-between gap-4 px-6 sm:px-8 lg:px-10">
     <!-- Brand Logo -->
-    <div class="transition-transform duration-300 hover:scale-[1.02]">
+    <div class="shrink-0">
       {% include "core/partials/logo.html" %}
     </div>
 
     <!-- Desktop Navigation Links -->
-    <nav class="hidden items-center gap-1 rounded-full border border-border/60 bg-surface/70 p-1.5 shadow-sm backdrop-blur-lg lg:flex">
+    <nav class="hidden items-center gap-7 xl:flex">
       {% for href, label in nav_items %}
-        <a href="{{ href }}" class="relative rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue {% if request.path == href %}bg-brand-blue text-white shadow-md shadow-brand-blue/25{% else %}text-text-muted hover:bg-surface-muted hover:text-text{% endif %}">
-          {{ label }}
+        <a href="{{ href }}" class="relative py-6 text-sm font-semibold transition-colors {% if request.path == href %}text-brand-blue{% else %}text-text-muted hover:text-text{% endif %}">
+          {% t label %}
+          {% if request.path == href %}
+            <span class="absolute inset-x-0 -bottom-px h-0.5 bg-brand-blue"></span>
+          {% endif %}
         </a>
       {% endfor %}
     </nav>
 
     <!-- Right Action Controls (Desktop) -->
-    <div class="hidden lg:flex items-center gap-3">
-      <!-- Dark Mode Toggle Button -->
-      <button type="button" data-theme-toggle aria-label="Basculer le mode sombre" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-surface/80 text-text transition-all duration-200 hover:border-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue">
-        {% icon "moon" size=18 css_class="theme-icon-moon transition-transform duration-300 group-hover:rotate-12" %}
-        {% icon "sun" size=18 css_class="theme-icon-sun hidden transition-transform duration-300 group-hover:rotate-45" %}
-      </button>
+    <div class="hidden shrink-0 items-center gap-3 xl:flex">
+      {% include "core/partials/language_switcher.html" %}
 
-      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center gap-2 rounded-full border border-border/80 bg-surface/50 px-5 py-2.5 text-sm font-semibold text-text hover:border-brand-blue hover:text-brand-blue transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0">
-        WhatsApp
-      </a>
-      <a href="{% url 'marketing:contact' %}" class="group inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-brand-gold px-5 py-2.5 text-sm font-bold text-brand-blue-deep shadow-md shadow-brand-gold/20 ring-1 ring-brand-gold-dark/20 hover:bg-brand-gold-light transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0">
-        <span>Nous contacter</span>
-        {% icon "arrow-up-right" size=16 css_class="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" %}
-      </a>
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'transfers:overview' %}" class="btn btn-primary btn-md">
+          <span>{% t "Mon compte" %}</span>
+          {% icon "layout-dashboard" size=16 css_class="shrink-0" %}
+        </a>
+      {% else %}
+        <a href="{% url 'accounts:login' %}" class="whitespace-nowrap text-sm font-semibold text-text-muted hover:text-text">{% t "Se connecter" %}</a>
+        <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-md">
+          <span>{% t "Ouvrir un compte" %}</span>
+        </a>
+      {% endif %}
     </div>
 
     <!-- Mobile Navigation Controls -->
-    <div class="flex items-center gap-2.5 lg:hidden">
-      <button type="button" data-theme-toggle aria-label="Basculer le mode sombre" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-surface/80 text-text transition hover:border-brand-gold hover:text-brand-gold">
-        {% icon "moon" size=18 css_class="theme-icon-moon" %}
-        {% icon "sun" size=18 css_class="theme-icon-sun hidden" %}
-      </button>
-
-      <button type="button" aria-label="Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-surface/80 text-text transition hover:bg-surface-muted">
-        {% icon "menu" size=20 %}
+    <div class="flex items-center gap-2 xl:hidden">
+      <button type="button" data-mobile-nav-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="{% t 'Menu' %}" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text transition hover:bg-surface-muted">
+        {% icon "menu" size=19 %}
       </button>
     </div>
   </div>
 
   <!-- Mobile Dropdown Navigation -->
-  <div id="mobile-nav" class="hidden border-t border-border/80 bg-surface/95 backdrop-blur-xl shadow-2xl transition-all lg:hidden">
-    <div class="mx-auto flex w-full max-w-7xl flex-col gap-1.5 px-6 py-5 sm:px-8">
+  <div id="mobile-nav" data-mobile-nav class="hidden border-t border-border bg-surface xl:hidden">
+    <div><div class="mx-auto flex w-full max-w-7xl flex-col gap-1 px-6 py-5 sm:px-8">
       {% for href, label in nav_items %}
-        <a href="{{ href }}" class="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold transition-colors {% if request.path == href %}bg-brand-blue/10 text-brand-blue{% else %}text-text hover:bg-surface-muted{% endif %}">
-          <span>{{ label }}</span>
-          {% if request.path == href %}
-            <span class="h-2 w-2 rounded-full bg-brand-blue"></span>
-          {% endif %}
+        <a href="{{ href }}" class="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold transition-colors {% if request.path == href %}bg-brand-blue/10 text-brand-blue{% else %}text-text hover:bg-surface-muted{% endif %}">
+          <span>{% t label %}</span>
         </a>
       {% endfor %}
 
-      <div class="mt-4 flex flex-col gap-2.5 border-t border-border/60 pt-4">
-        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface py-3 text-sm font-semibold text-text hover:border-brand-blue">
+      <div class="mt-4 flex flex-col gap-2.5 border-t border-border pt-4">
+        <div class="flex justify-center">
+          {% include "core/partials/language_switcher.html" %}
+        </div>
+        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-semibold text-text hover:border-brand-blue">
           WhatsApp
         </a>
-        <a href="{% url 'marketing:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-gold py-3 text-sm font-bold text-brand-blue-deep shadow-md shadow-brand-gold/20">
-          Nous contacter
-          {% icon "arrow-up-right" size=16 %}
+        <a href="{% url 'marketing:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-semibold text-text hover:border-brand-blue">
+          {% t "Nous contacter" %}
         </a>
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'transfers:overview' %}" class="btn btn-primary btn-md">
+            {% t "Mon compte" %}
+            {% icon "layout-dashboard" size=16 %}
+          </a>
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="inline-flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-semibold text-text hover:border-brand-blue">
+            {% t "Se connecter" %}
+          </a>
+          <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-md">
+            {% t "Ouvrir un compte" %}
+          </a>
+        {% endif %}
       </div>
-    </div>
+    </div></div>
   </div>
 </header>

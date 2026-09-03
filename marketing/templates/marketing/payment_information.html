@@ -1,0 +1,63 @@
+{% extends "core/base_dashboard.html" %}
+{% load icons i18n_extra %}
+{% block title %}{% t "Informations de paiement" %} | Blue Sky{% endblock %}
+{% block dashboard_content %}
+<div class="space-y-7">
+  <header>
+    <p class="editorial-label text-brand-blue">{% t "Espace client sécurisé" %}</p>
+    <h1 class="display-title mt-2 text-2xl sm:text-3xl">{% t "Informations de paiement" %}</h1>
+    <p class="mt-2 max-w-3xl text-sm leading-6 text-text-muted">{% t "Utilisez exclusivement les coordonnées confirmées dans votre espace Blue Sky. Ces informations sont réservées aux clients connectés." %}</p>
+  </header>
+
+  <div class="rounded-xl border border-amber-300/50 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
+    <div class="flex items-start gap-3">
+      <span class="mt-0.5 shrink-0 text-amber-700">{% icon "shield-check" size=20 %}</span>
+      <p><strong>{% t "Vérification obligatoire" %} :</strong> {% t "Avant tout dépôt ou retrait, contactez toujours un conseiller Blue Sky afin de confirmer le numéro, le titulaire et les instructions en vigueur. N'effectuez aucune opération vers des coordonnées reçues en dehors des canaux officiels Blue Sky." %}</p>
+    </div>
+  </div>
+
+  {% for location in locations %}
+    <section class="content-card overflow-hidden">
+      <header class="bg-brand-blue-deep p-6 text-white sm:p-7">
+        <div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+          <div>
+            <p class="text-xs font-extrabold uppercase tracking-[.14em] text-brand-sky">Blue Sky {{ location.country }}</p>
+            <h2 class="mt-2 text-2xl font-bold">{{ location.city }}</h2>
+          </div>
+          {% if location.updated_at %}<span class="text-xs text-white/60">{% t "Mis à jour le" %} {{ location.updated_at|date:"d/m/Y" }}</span>{% endif %}
+        </div>
+      </header>
+
+      <div class="grid gap-4 p-5 sm:p-7 lg:grid-cols-2">
+        {% for account in location.visible_accounts %}
+          <article class="rounded-xl border border-border bg-surface-muted p-5">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-xs font-extrabold uppercase tracking-[.1em] text-brand-blue">{{ account.payment_method }}</p>
+                <a href="tel:{{ account.phone_number }}" class="mt-2 block text-xl font-black tracking-tight text-brand-blue-deep">{{ account.phone_number }}</a>
+                <p class="mt-1 text-sm font-semibold text-text-muted">{{ account.account_holder }}</p>
+              </div>
+              <span class="icon-chip shrink-0">{% icon "phone" size=18 %}</span>
+            </div>
+            {% if account.instruction %}<p class="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-bold leading-5 text-red-700">{{ account.instruction }}</p>{% endif %}
+          </article>
+        {% empty %}
+          <p class="text-sm text-text-muted">{% t "Aucun compte de paiement n'est actuellement disponible." %}</p>
+        {% endfor %}
+      </div>
+
+      {% if location.cash_address %}
+        <div class="border-t border-border bg-white p-5 sm:p-7">
+          <div class="flex items-start gap-3">
+            <span class="icon-chip shrink-0">{% icon "map-pin" size=18 %}</span>
+            <div><h3 class="font-bold text-brand-blue-deep">{% t "Retrait cash à" %} {{ location.city }}</h3><p class="mt-1 text-sm leading-6 text-text-muted">{{ location.cash_address }}</p></div>
+          </div>
+        </div>
+      {% endif %}
+      {% if location.slogan %}<footer class="border-t border-border px-5 py-4 text-center text-xs font-extrabold uppercase tracking-[.12em] text-brand-blue sm:px-7">{{ location.slogan }}</footer>{% endif %}
+    </section>
+  {% empty %}
+    <div class="content-card p-8 text-center text-text-muted">{% t "Aucune information de paiement n'est actuellement disponible." %}</div>
+  {% endfor %}
+</div>
+{% endblock %}

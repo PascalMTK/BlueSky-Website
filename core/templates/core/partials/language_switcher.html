@@ -1,0 +1,14 @@
+{% comment %}
+Usage: {% include "core/partials/language_switcher.html" %}
+Optional: pass light=True on dark backgrounds (e.g. dashboard sidebar) for
+a switcher that matches white/translucent surrounding controls.
+{% endcomment %}
+{% load i18n_extra %}
+<form method="get" class="inline-flex h-9 shrink-0 items-center gap-1 rounded-lg border px-2.5 text-sm font-semibold transition-colors {% if light %}border-white/15 text-white hover:border-brand-gold{% else %}border-border text-text hover:border-brand-blue{% endif %}">
+  {% for key, value in request.GET.items %}{% if key != 'lang' %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endif %}{% endfor %}
+  <select name="lang" onchange="this.form.submit()" aria-label="{% t 'Changer de langue' %}" class="lang-switcher-select">
+    {% for lang in AVAILABLE_LANGUAGES %}
+      <option value="{{ lang.code }}" {% if lang.code == active_language %}selected{% endif %}>{{ lang.code|upper }}</option>
+    {% endfor %}
+  </select>
+</form>

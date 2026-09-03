@@ -1,7 +1,6 @@
 FIELD_CLASSES = (
     "w-full rounded-2xl border border-border bg-surface px-4 py-3.5 text-sm text-text "
-    "placeholder:text-text-muted/60 outline-none transition focus:border-brand-blue "
-    "dark:focus:border-brand-gold"
+    "placeholder:text-text-muted/60 outline-none transition focus:border-brand-blue"
 )
 
 

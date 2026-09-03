@@ -1,0 +1,27 @@
+{% extends "accounts/base_auth.html" %}
+{% load static icons i18n_extra %}
+{% block title %}{% t "Vérifier votre e-mail" %} | Blue Sky{% endblock %}
+{% block auth_photo %}{% static 'img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg' %}{% endblock %}
+{% block auth_kicker %}{% t "Sécurité du compte" %}{% endblock %}
+{% block auth_tagline %}{% blockt %}Un dernier geste.<br>Votre compte est prêt.{% endblockt %}{% endblock %}
+{% block auth_layout_class %}auth-layout-stacked{% endblock %}
+{% block auth_content %}
+  <div class="mb-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-blue text-white">
+    {% icon "shield-check" size=26 %}
+  </div>
+  <h1 class="display-title text-3xl">{% t "Vérifiez votre e-mail" %}</h1>
+  <p class="mt-3 text-sm leading-relaxed text-text-muted">{% t "Nous avons envoyé un code à 6 chiffres à" %} <strong class="text-text">{{ masked_email }}</strong>. {% t "Le code expire dans 10 minutes." %}</p>
+
+  <form method="post" class="mt-8 space-y-5">
+    {% csrf_token %}
+    {% include "core/_form_errors.html" %}
+    {% include "core/_field.html" with field=form.code %}
+    <button type="submit" class="btn btn-primary btn-lg w-full">{% t "Vérifier et continuer" %} {% icon "arrow-right" size=17 %}</button>
+  </form>
+
+  <form method="post" action="{% url 'accounts:resend_otp' %}" class="mt-4 text-center">
+    {% csrf_token %}
+    <button type="submit" class="text-sm font-bold text-brand-blue hover:underline">{% t "Renvoyer le code" %}</button>
+  </form>
+  <p class="mt-3 text-center text-xs text-text-muted">{% t "Vous pourrez demander un nouveau code après 60 secondes." %}</p>
+{% endblock %}

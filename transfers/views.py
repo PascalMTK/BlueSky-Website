@@ -40,14 +40,14 @@ def overview(request):
 @login_required
 def recipients(request):
     if request.method == "POST":
-        form = RecipientForm(request.POST)
+        form = RecipientForm(request.POST, request=request)
         if form.is_valid():
             recipient = form.save(commit=False)
             recipient.user = request.user
             recipient.save()
             return redirect("transfers:recipients")
     else:
-        form = RecipientForm()
+        form = RecipientForm(request=request)
 
     recipient_list = Recipient.objects.filter(user=request.user).order_by("-created_at")
     context = {

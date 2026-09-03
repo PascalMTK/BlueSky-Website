@@ -1,20 +1,32 @@
 {% extends "accounts/base_auth.html" %}
-{% block title %}Connexion | Blue Sky{% endblock %}
+{% load icons i18n_extra %}
+{% block title %}{% t "Connexion" %} | Blue Sky{% endblock %}
+{% block auth_layout_class %}auth-layout-stacked{% endblock %}
 {% block auth_content %}
-  <h1 class="display-title text-2xl">Connexion</h1>
-  <p class="mt-2 text-sm text-text-muted">Accédez à votre tableau de bord Blue Sky.</p>
+  <div class="mb-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold text-text-muted">
+    <span class="flex items-center gap-1.5">{% icon "shield-check" size=15 css_class="text-brand-blue" %} {% t "Connexion sécurisée" %}</span>
+    <span class="flex items-center gap-1.5">{% icon "headset" size=15 css_class="text-brand-gold" %} {% t "Support humain" %}</span>
+    <span class="flex items-center gap-1.5">{% icon "globe-2" size=15 css_class="text-brand-blue" %} {{ COUNTRIES|length }} {% t "pays desservis" %}</span>
+  </div>
 
-  <form method="post" class="mt-8 space-y-5">
+  <h1 class="display-title text-2xl sm:text-3xl">{% t "Connexion" %}</h1>
+  <p class="mt-2 text-sm text-text-muted">{% t "Accédez à votre tableau de bord Blue Sky." %}</p>
+
+  <form method="post" class="auth-login-form mt-5">
     {% csrf_token %}
     {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
     {% include "core/_form_errors.html" %}
     {% include "core/_field.html" with field=form.email %}
     {% include "core/_field.html" with field=form.password %}
-    <button type="submit" class="btn btn-primary btn-lg w-full">Se connecter</button>
+    <button type="submit" class="btn btn-primary btn-lg w-full">
+      {% t "Se connecter" %} {% icon "arrow-right" size=17 %}
+    </button>
   </form>
 
-  <p class="mt-6 text-center text-sm text-text-muted">
-    Pas encore de compte ?
-    <a href="{% url 'accounts:signup' %}" class="font-semibold text-brand-blue dark:text-brand-gold-light">Ouvrir un compte</a>
-  </p>
+  <div class="mt-4 flex items-center justify-between gap-3 rounded-lg border border-border bg-surface-muted px-4 py-3">
+    <p class="text-sm text-text-muted">{% t "Pas encore de compte ?" %}</p>
+    <a href="{% url 'accounts:signup' %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="inline-flex items-center gap-1.5 text-sm font-bold text-brand-blue hover:underline">
+      {% t "Ouvrir un compte" %} {% icon "arrow-right" size=14 %}
+    </a>
+  </div>
 {% endblock %}

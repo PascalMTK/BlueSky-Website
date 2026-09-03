@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Blue Sky Admin{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+  <a class="bluesky-admin-brand" href="{% url 'admin:index' %}">
+    <span class="bluesky-admin-logo"><img src="{% static 'img/WhatsApp_Image_2026-01-27_at_11.11.59_PM-removebg-preview.png' %}" alt="Blue Sky"></span>
+    <span class="bluesky-admin-name"><strong>Blue Sky</strong><small>Centre d’administration</small></span>
+  </a>
+{% endblock %}
+
+{% block nav-global %}
+  <div class="bluesky-admin-links">
+    <a href="{% url 'marketing:home' %}">Voir le site</a>
+    <a href="{% url 'staffpanel:home' %}">Espace gestion</a>
+  </div>
+{% endblock %}
