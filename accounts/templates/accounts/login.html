@@ -1,6 +1,7 @@
 {% extends "accounts/base_auth.html" %}
 {% load icons i18n_extra %}
 {% block title %}{% t "Connexion" %} | Blue Sky{% endblock %}
+{% block auth_layout_class %}auth-layout-stacked{% endblock %}
 {% block auth_content %}
   <div class="mb-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold text-text-muted">
     <span class="flex items-center gap-1.5">{% icon "shield-check" size=15 css_class="text-brand-blue" %} {% t "Connexion sécurisée" %}</span>

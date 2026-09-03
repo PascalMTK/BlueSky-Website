@@ -2,6 +2,38 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 
+class Agency(models.Model):
+    code = models.CharField("Code pays", max_length=2, unique=True)
+    country_name = models.CharField("Pays", max_length=100)
+    flag = models.CharField("Drapeau", max_length=10, blank=True)
+    address = models.TextField("Adresse de l'agence", blank=True)
+    phone_numbers = models.TextField(
+        "Numéros de téléphone",
+        blank=True,
+        help_text="Saisissez un numéro par ligne.",
+    )
+    note = models.TextField("Note", blank=True)
+    is_active = models.BooleanField("Visible sur le site", default=True)
+    display_order = models.PositiveSmallIntegerField("Ordre d'affichage", default=0)
+    updated_at = models.DateTimeField("Dernière modification", auto_now=True)
+
+    class Meta:
+        ordering = ["display_order", "country_name"]
+        verbose_name = "agence"
+        verbose_name_plural = "agences"
+
+    @property
+    def name(self):
+        return self.country_name
+
+    @property
+    def phones(self):
+        return [number.strip() for number in self.phone_numbers.splitlines() if number.strip()]
+
+    def __str__(self):
+        return self.country_name
+
+
 class ContactMessage(models.Model):
     class Service(models.TextChoices):
         TRANSFER = "transfert", "Transfert d'argent"

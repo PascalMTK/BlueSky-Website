@@ -4,6 +4,7 @@
 {% block auth_photo %}{% static 'img/writing-blank-notebook.jpg' %}{% endblock %}
 {% block auth_kicker %}{% t "Quelques minutes suffisent" %}{% endblock %}
 {% block auth_tagline %}{% blockt %}Notez vos infos.<br>On s'occupe du reste.{% endblockt %}{% endblock %}
+{% block auth_layout_class %}auth-layout-stacked{% endblock %}
 {% block auth_card_class %}auth-card-signup{% endblock %}
 {% block auth_content %}
   <div class="mb-3 hidden flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold text-text-muted sm:flex">
@@ -12,29 +13,32 @@
     <span class="flex items-center gap-1.5">{% icon "globe-2" size=15 css_class="text-brand-blue" %} {{ COUNTRIES|length }} {% t "pays desservis" %}</span>
   </div>
 
-  <h1 class="display-title text-2xl sm:text-3xl">{% t "Ouvrir un compte" %}</h1>
-  <p class="mt-1 text-sm text-text-muted">{% t "Créez votre compte Blue Sky en quelques minutes." %}</p>
+  <h1 class="display-title text-3xl sm:text-4xl">{% t "Ouvrir un compte" %}</h1>
+  <p class="mt-2 text-sm sm:text-base text-text-muted">{% t "Créez votre compte Blue Sky en quelques minutes." %}</p>
 
-  <form method="post" class="mt-4 space-y-3">
+  <form method="post" class="mt-6 space-y-5">
     {% csrf_token %}
     {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
     {% include "core/_form_errors.html" %}
 
-    <div class="space-y-2.5">
+    <div class="space-y-3">
       <p class="editorial-label text-text-muted">{% t "Vos informations" %}</p>
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid gap-4 sm:grid-cols-2">
         {% include "core/_field.html" with field=form.full_name %}
         {% include "core/_field.html" with field=form.email %}
       </div>
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid gap-4 sm:grid-cols-2">
         {% include "core/_field.html" with field=form.phone %}
         {% include "core/_field.html" with field=form.country %}
       </div>
+      <div data-other-country-field {% if form.country.value != "Autre" %}class="hidden"{% endif %}>
+        {% include "core/_field.html" with field=form.other_country %}
+      </div>
     </div>
 
-    <div class="space-y-2.5 border-t border-border pt-3">
+    <div class="space-y-3 border-t border-border pt-5">
       <p class="editorial-label text-text-muted">{% t "Sécurité" %}</p>
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid gap-4 sm:grid-cols-2">
         {% include "core/_field.html" with field=form.password %}
         {% include "core/_field.html" with field=form.password_confirm %}
       </div>

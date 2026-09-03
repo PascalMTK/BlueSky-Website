@@ -5,7 +5,7 @@ from django.db.utils import OperationalError, ProgrammingError
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from core.data import COUNTRIES
+from core.context_processors import active_countries
 
 from .forms import ContactForm
 from .models import ContactMessage, PaymentLocation, TariffPlan
@@ -76,8 +76,9 @@ STEPS = [
 ]
 
 def home(request):
+    countries = active_countries()
     hero_stats = [
-        (str(len(COUNTRIES)), "pays connectés"),
+        (str(len(countries)), "pays connectés"),
         ("7", "moyens de paiement"),
         ("100%", "suivi personnalisé"),
         ("1", "équipe à votre écoute"),
@@ -120,7 +121,7 @@ VALUES = [
 
 
 def team(request):
-    context = {"countries_count": len(COUNTRIES), "values": VALUES}
+    context = {"countries_count": len(active_countries()), "values": VALUES}
     return render(request, "marketing/team.html", context)
 
 

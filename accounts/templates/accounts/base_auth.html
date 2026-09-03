@@ -5,7 +5,7 @@
   <img aria-hidden="true" src="{% block auth_photo %}{% static 'img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg' %}{% endblock %}" alt="" class="absolute inset-0 h-full w-full object-cover">
   <div class="auth-page-overlay absolute inset-0"></div>
 
-  <div class="relative z-10 mx-auto flex h-[100dvh] w-full max-w-[1440px] flex-col px-4 py-3 sm:px-7 sm:py-4 lg:px-10">
+  <div class="relative z-10 mx-auto flex min-h-[100dvh] w-full max-w-[1440px] flex-col px-4 py-3 sm:px-7 sm:py-4 lg:px-10">
     <div class="flex items-start justify-between gap-5">
       <div class="auth-logo rounded-2xl border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-xl">
         {% include "core/partials/logo.html" with light_logo=True %}
@@ -15,16 +15,16 @@
       </div>
     </div>
 
-    <div class="grid min-h-0 flex-1 items-center gap-6 py-3 lg:grid-cols-[1fr_.82fr] lg:gap-12 lg:py-4">
-      <div class="hidden max-w-xl lg:block">
+    <div class="grid min-h-0 flex-1 items-center gap-6 py-6 lg:grid-cols-[minmax(15rem,.72fr)_minmax(0,1.28fr)] lg:gap-8 lg:py-4 xl:grid-cols-[minmax(0,.8fr)_minmax(40rem,1.2fr)] xl:gap-12 {% block auth_layout_class %}{% endblock %}">
+      <div class="auth-intro hidden max-w-xl lg:block">
         <p class="editorial-label text-brand-gold">{% block auth_kicker %}{% t "Un réseau. Huit pays." %}{% endblock %}</p>
-        <p class="display-title mt-5 text-6xl leading-[1.02]">{% block auth_tagline %}{% blockt %}L'argent arrive.<br>La confiance aussi.{% endblockt %}{% endblock %}</p>
+        <p class="display-title mt-5 text-4xl leading-[1.04] xl:text-6xl xl:leading-[1.02]">{% block auth_tagline %}{% blockt %}L'argent arrive.<br>La confiance aussi.{% endblockt %}{% endblock %}</p>
         <div class="mt-8 flex flex-wrap gap-2 text-xs font-semibold text-white/75">
           {% for country in COUNTRIES %}<span class="rounded-lg border border-white/15 bg-white/[.06] px-3 py-1.5">{{ country.flag }} {% t country.name %}</span>{% endfor %}
         </div>
       </div>
 
-      <div class="auth-glass-card mx-auto w-full max-w-xl p-4 text-text sm:p-6 lg:mr-0 {% block auth_card_class %}{% endblock %}">
+      <div class="auth-glass-card mx-auto w-full max-w-3xl p-5 text-text sm:p-7 lg:mr-0 lg:p-8 {% block auth_card_class %}{% endblock %}">
         {% block auth_content %}{% endblock %}
       </div>
     </div>

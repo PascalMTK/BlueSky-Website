@@ -2,6 +2,17 @@ from django.urls import reverse
 
 from core.data import COUNTRIES, SITE
 from core.i18n import AVAILABLE_LANGUAGES
+from django.db.utils import OperationalError, ProgrammingError
+
+
+def active_countries():
+    """Return Admin-managed agencies, with static data as a pre-migration fallback."""
+    try:
+        from marketing.models import Agency
+
+        return list(Agency.objects.filter(is_active=True))
+    except (OperationalError, ProgrammingError):
+        return COUNTRIES
 
 NAV_ROUTES = [
     ("marketing:home", "Accueil"),
@@ -32,6 +43,7 @@ STAFF_NAV_ROUTES = [
 
 
 def site_data(request):
+    countries = active_countries()
     nav_items = [(reverse(name), label) for name, label in NAV_ROUTES]
     nav_items.insert(1, (f"{reverse('marketing:home')}#epargne", "Épargne"))
     dashboard_nav_items = [
@@ -44,7 +56,7 @@ def site_data(request):
     ]
     return {
         "SITE": SITE,
-        "COUNTRIES": COUNTRIES,
+        "COUNTRIES": countries,
         "nav_items": nav_items,
         "dashboard_nav_items": dashboard_nav_items,
         "staff_nav_items": staff_nav_items,

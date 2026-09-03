@@ -4,6 +4,24 @@
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var finePointer = window.matchMedia("(pointer: fine)").matches;
 
+  function initOtherCountryField() {
+    var countrySelect = document.getElementById("id_country");
+    var fieldWrap = document.querySelector("[data-other-country-field]");
+    var countryInput = document.getElementById("id_other_country");
+    if (!countrySelect || !fieldWrap || !countryInput) return;
+
+    function update() {
+      var show = countrySelect.value === "Autre";
+      fieldWrap.classList.toggle("hidden", !show);
+      countryInput.required = show;
+      countryInput.disabled = !show;
+      if (show) countryInput.focus();
+    }
+
+    countrySelect.addEventListener("change", update);
+    update();
+  }
+
   function initHeader() {
     var header = document.querySelector("header");
     if (!header) return;
@@ -429,6 +447,7 @@
     var main = document.querySelector("main");
     initHeader();
     initScrollProgress();
+    initOtherCountryField();
     if (!main) return;
     initCountryCards(main);
     initHeroVideos(main);

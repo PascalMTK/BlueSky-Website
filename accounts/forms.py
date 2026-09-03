@@ -8,13 +8,13 @@ from .models import User
 
 COUNTRY_CHOICES = [("", "Sélectionnez votre pays")] + [
     (c["name"], f"{c['flag']} {c['name']}") for c in COUNTRIES
-]
+] + [("Autre", "🌍 Autre")]
 
 
 def _country_choices(lang):
     return [("", translate("Sélectionnez votre pays", lang))] + [
         (c["name"], f"{c['flag']} {translate(c['name'], lang)}") for c in COUNTRIES
-    ]
+    ] + [("Autre", f"🌍 {translate('Autre', lang)}")]
 
 
 class SignupForm(StyledFormMixin, forms.Form):
@@ -49,6 +49,12 @@ class SignupForm(StyledFormMixin, forms.Form):
             "invalid_choice": "Sélectionnez votre pays",
         },
     )
+    other_country = forms.CharField(
+        label="Nom de votre pays",
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(attrs={"placeholder": "Ex. Angola", "autocomplete": "country-name"}),
+    )
     password = forms.CharField(
         label="Mot de passe",
         widget=forms.PasswordInput,
@@ -69,6 +75,7 @@ class SignupForm(StyledFormMixin, forms.Form):
         super().__init__(*args, **kwargs)
         lang = getattr(request, "active_language", SOURCE_LANGUAGE) if request else SOURCE_LANGUAGE
         self.fields["country"].choices = _country_choices(lang)
+        self.fields["other_country"].widget.attrs["placeholder"] = translate("Ex. Angola", lang)
 
     def clean_email(self):
         email = self.cleaned_data["email"].strip().lower()
@@ -76,6 +83,16 @@ class SignupForm(StyledFormMixin, forms.Form):
             self.add_error(None, "Un compte existe déjà avec cette adresse e-mail.")
             raise forms.ValidationError("Adresse e-mail déjà utilisée")
         return email
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data.get("country") == "Autre":
+            other_country = cleaned_data.get("other_country", "").strip()
+            if not other_country:
+                self.add_error("other_country", "Entrez le nom de votre pays")
+            else:
+                cleaned_data["country"] = other_country
+        return cleaned_data
 
     def clean_full_name(self):
         return self.cleaned_data["full_name"].strip()

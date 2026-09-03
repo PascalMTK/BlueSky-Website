@@ -4,6 +4,7 @@
 {% block auth_photo %}{% static 'img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg' %}{% endblock %}
 {% block auth_kicker %}{% t "Sécurité du compte" %}{% endblock %}
 {% block auth_tagline %}{% blockt %}Un dernier geste.<br>Votre compte est prêt.{% endblockt %}{% endblock %}
+{% block auth_layout_class %}auth-layout-stacked{% endblock %}
 {% block auth_content %}
   <div class="mb-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-blue text-white">
     {% icon "shield-check" size=26 %}
