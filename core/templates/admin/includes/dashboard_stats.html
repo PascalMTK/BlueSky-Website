@@ -1,0 +1,12 @@
+{% load icons %}
+<div class="bs-stats-row">
+  {% for stat in stats %}
+    <a href="{% url stat.url_name %}" class="bs-stat-card{% if stat.warn %} bs-stat-card-warn{% endif %}">
+      <span class="bs-stat-icon">{% icon stat.icon size=19 %}</span>
+      <span class="bs-stat-body">
+        <span class="bs-stat-value">{{ stat.value }}</span>
+        <span class="bs-stat-label">{{ stat.label }}</span>
+      </span>
+    </a>
+  {% endfor %}
+</div>

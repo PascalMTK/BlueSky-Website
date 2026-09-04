@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+{% load static icons %}
+
+{% block title %}{% if form.errors %}Erreur : {% endif %}{{ block.super }}{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+{% block nav-global %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div class="bs-login">
+  <div class="bs-login-brand">
+    <a href="{% url 'marketing:home' %}" class="bs-login-logo">
+      <img src="{% static 'img/WhatsApp_Image_2026-01-27_at_11.11.59_PM-removebg-preview.png' %}" alt="Blue Sky">
+      <span><strong>Blue Sky</strong><small>Centre d’administration</small></span>
+    </a>
+    <h1>Gérez Blue Sky en toute confiance.</h1>
+    <p>Transferts, épargne, agences et contenus du site — tout au même endroit, réservé à l’équipe Blue Sky.</p>
+    <ul class="bs-login-points">
+      <li>{% icon "shield-check" size=16 %} Accès réservé au personnel autorisé</li>
+      <li>{% icon "layout-dashboard" size=16 %} Vue d’ensemble en temps réel</li>
+      <li>{% icon "headset" size=16 %} Support interne disponible</li>
+    </ul>
+  </div>
+
+  <div class="bs-login-panel">
+    <div class="bs-login-form-wrap">
+      <p class="bs-login-kicker">Connexion</p>
+      <h2>Accéder au centre d’administration</h2>
+
+      {% if form.errors and not form.non_field_errors %}
+        <p class="bs-login-error">Merci de corriger l’erreur ci-dessous.</p>
+      {% endif %}
+      {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}<p class="bs-login-error">{{ error }}</p>{% endfor %}
+      {% endif %}
+      {% if user.is_authenticated %}
+        <p class="bs-login-error">Vous êtes connecté(e) en tant que {{ username }}, mais ce compte n’a pas accès à cette page.</p>
+      {% endif %}
+
+      <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+        <div class="form-row bs-login-field">
+          {{ form.username.errors }}
+          {{ form.username.label_tag }}
+          {{ form.username }}
+        </div>
+        <div class="form-row bs-login-field">
+          {{ form.password.errors }}
+          {{ form.password.label_tag }}
+          {{ form.password }}
+          <input type="hidden" name="next" value="{{ next }}">
+        </div>
+        {% url 'admin_password_reset' as password_reset_url %}
+        {% if password_reset_url %}
+          <div class="password-reset-link">
+            <a href="{{ password_reset_url }}">Identifiants oubliés ?</a>
+          </div>
+        {% endif %}
+        <div class="submit-row bs-login-submit">
+          <input type="submit" value="Connexion">
+        </div>
+      </form>
+
+      <p class="bs-login-footer">Besoin d’aide ? <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener">Contactez l’équipe technique</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

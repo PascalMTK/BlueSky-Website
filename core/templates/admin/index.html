@@ -1,0 +1,124 @@
+{% extends "admin/base_site.html" %}
+{% load log icons admin_extras %}
+
+{% block coltype %}colMS{% endblock %}
+{% block bodyclass %}{{ block.super }} bs-dashboard{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content_title %}{% endblock %}
+
+{% block content %}
+<div class="bs-dash">
+  <div class="bs-dash-hero">
+    <div>
+      <p class="bs-dash-eyebrow">{% now "l j F Y" %}</p>
+      <h1 class="bs-dash-title">Bonjour, {{ user.get_short_name|default:"Admin" }}</h1>
+      <p class="bs-dash-sub">Pilotez les opérations et le contenu Blue Sky depuis un seul espace.</p>
+    </div>
+    <a href="{% url 'staffpanel:home' %}" class="bs-hero-action">Ouvrir l’espace gestion {% icon "arrow-right" size=15 %}</a>
+  </div>
+
+  {% dashboard_stats %}
+
+  <section class="bs-quick-section" aria-labelledby="quick-actions-title">
+    <div class="bs-section-heading">
+      <div><p>Accès direct</p><h2 id="quick-actions-title">Actions rapides</h2></div>
+      <span>Les opérations les plus utilisées</span>
+    </div>
+    <div class="bs-quick-actions">
+      <a href="{% url 'admin:accounts_user_add' %}" class="bs-quick-action">
+        <span class="bs-quick-icon bs-quick-blue">{% icon "user-plus" size=20 %}</span>
+        <span><strong>Nouvel utilisateur</strong><small>Créer un compte client</small></span>
+        {% icon "arrow-up-right" size=16 %}
+      </a>
+      <a href="{% url 'admin:marketing_agency_add' %}" class="bs-quick-action">
+        <span class="bs-quick-icon bs-quick-gold">{% icon "building-2" size=20 %}</span>
+        <span><strong>Nouvelle agence</strong><small>Ajouter un pays ou une adresse</small></span>
+        {% icon "arrow-up-right" size=16 %}
+      </a>
+      <a href="{% url 'admin:marketing_tariffplan_add' %}" class="bs-quick-action">
+        <span class="bs-quick-icon bs-quick-green">{% icon "circle-dollar-sign" size=20 %}</span>
+        <span><strong>Nouveau tarif</strong><small>Publier une grille tarifaire</small></span>
+        {% icon "arrow-up-right" size=16 %}
+      </a>
+      <a href="{% url 'admin:blog_post_add' %}" class="bs-quick-action">
+        <span class="bs-quick-icon bs-quick-purple">{% icon "newspaper" size=20 %}</span>
+        <span><strong>Nouvelle actualité</strong><small>Rédiger une publication</small></span>
+        {% icon "arrow-up-right" size=16 %}
+      </a>
+    </div>
+  </section>
+
+  <div class="bs-section-heading bs-modules-heading">
+    <div><p>Configuration</p><h2>Tous les modules</h2></div>
+    <span>Gestion complète de la plateforme</span>
+  </div>
+
+  <div class="bs-dash-grid">
+    <div class="bs-dash-apps">
+      {% if app_list %}
+        {% for app in app_list %}
+          <section class="bs-app-card">
+            <header class="bs-app-card-head">
+              <span class="bs-app-card-icon">{% app_icon app.app_label as app_ic %}{% icon app_ic size=17 %}</span>
+              <h2>{{ app.name }}</h2>
+            </header>
+            <ul class="bs-app-models">
+              {% for model in app.models %}
+                <li>
+                  {% if model.admin_url %}
+                    <a href="{{ model.admin_url }}" class="bs-app-model-name">{{ model.name }}</a>
+                  {% else %}
+                    <span class="bs-app-model-name bs-app-model-name-disabled">{{ model.name }}</span>
+                  {% endif %}
+                  <span class="bs-app-model-actions">
+                    {% if model.add_url %}<a href="{{ model.add_url }}" class="bs-pill bs-pill-add">{% icon "plus" size=12 %} Ajouter</a>{% endif %}
+                    {% if model.admin_url %}<a href="{{ model.admin_url }}" class="bs-pill">Voir</a>{% endif %}
+                  </span>
+                </li>
+              {% endfor %}
+            </ul>
+          </section>
+        {% endfor %}
+      {% else %}
+        <p class="bs-dash-empty">Vous n’avez accès à aucun module pour le moment.</p>
+      {% endif %}
+    </div>
+
+    <aside class="bs-dash-side">
+      <div class="bs-side-card">
+        <h3>Actions récentes</h3>
+        {% get_admin_log 8 as admin_log for_user user %}
+        {% if not admin_log %}
+          <p class="bs-side-empty">Aucune action récente.</p>
+        {% else %}
+          <ul class="bs-action-list">
+            {% for entry in admin_log %}
+              <li>
+                <span class="bs-action-dot{% if entry.is_addition %} bs-action-dot-add{% elif entry.is_change %} bs-action-dot-change{% elif entry.is_deletion %} bs-action-dot-delete{% endif %}"></span>
+                <span class="bs-action-body">
+                  {% if entry.is_deletion or not entry.get_admin_url %}
+                    <span class="bs-action-obj">{{ entry.object_repr }}</span>
+                  {% else %}
+                    <a class="bs-action-obj" href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                  {% endif %}
+                  <span class="bs-action-meta">{% if entry.content_type %}{{ entry.content_type.name|capfirst }}{% else %}Contenu inconnu{% endif %}</span>
+                </span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="bs-side-card bs-side-links">
+        <h3>Accès rapides</h3>
+        <a href="{% url 'marketing:home' %}">{% icon "compass" size=15 %} Voir le site public</a>
+        <a href="{% url 'staffpanel:home' %}">{% icon "briefcase" size=15 %} Espace gestion</a>
+        <a href="{% url 'admin:password_change' %}">{% icon "lock-keyhole" size=15 %} Changer mon mot de passe</a>
+      </div>
+    </aside>
+  </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

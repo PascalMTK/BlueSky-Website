@@ -5,7 +5,7 @@
 
 {% block extrastyle %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}?v=20260903-8">
 {% endblock %}
 
 {% block branding %}
@@ -15,9 +15,26 @@
   </a>
 {% endblock %}
 
-{% block nav-global %}
-  <div class="bluesky-admin-links">
-    <a href="{% url 'marketing:home' %}">Voir le site</a>
-    <a href="{% url 'staffpanel:home' %}">Espace gestion</a>
+{% block usertools %}
+  {% if has_permission %}
+  <div class="bs-admin-userbar">
+    <span class="bs-admin-avatar">{{ user.get_short_name|default:"A"|slice:":1"|upper }}</span>
+    <span class="bs-admin-usercopy">
+      <strong>{{ user.get_short_name|default:"Admin" }}</strong>
+      <small>Administrateur</small>
+    </span>
+    <span class="bs-admin-useractions">
+      <a href="{% url 'marketing:home' %}">Site public</a>
+      <a href="{% url 'staffpanel:home' %}">Espace gestion</a>
+      <a href="{% url 'admin:password_change' %}">Mot de passe</a>
+      <form method="post" action="{% url 'admin:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Déconnexion</button>
+      </form>
+      {% include "admin/color_theme_toggle.html" %}
+    </span>
   </div>
+  {% endif %}
 {% endblock %}
+
+{% block nav-global %}{% endblock %}
