@@ -117,6 +117,31 @@
   opacity: .11;
   background-image: linear-gradient(90deg, transparent calc(25% - 1px), #fff 25%, transparent calc(25% + 1px), transparent calc(50% - 1px), #fff 50%, transparent calc(50% + 1px), transparent calc(75% - 1px), #fff 75%, transparent calc(75% + 1px));
 }
+
+/* Hero signature motif: a single travelling route arcing over the hero,
+   echoing "Votre argent voyage" — a mark specific to Blue Sky rather than
+   a generic hero gradient. */
+.home-hero-route { opacity: .55; }
+.home-hero-route-line {
+  fill: none;
+  stroke: var(--color-brand-gold);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  vector-effect: non-scaling-stroke;
+  animation: home-hero-route-draw 2.2s .5s cubic-bezier(.22,.7,.2,1) forwards;
+}
+.home-hero-route-node { fill: var(--color-brand-gold); opacity: 0; animation: home-hero-route-node-in .6s .4s forwards; }
+.home-hero-route-node.is-end { animation-delay: 2.1s; }
+.home-hero-route-pulse { fill: #fff; filter: drop-shadow(0 0 4px var(--color-brand-gold)); }
+@keyframes home-hero-route-draw { to { stroke-dashoffset: 0; } }
+@keyframes home-hero-route-node-in { to { opacity: .9; } }
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-route-line { animation: none; stroke-dashoffset: 0; }
+  .home-hero-route-node { animation: none; opacity: .9; }
+  .home-hero-route-pulse { display: none; }
+}
 .transfer-glass-card {
   border: 1px solid rgba(255,255,255,.22);
   border-radius: 1.25rem;
@@ -443,7 +468,8 @@ a.footer-contact:hover strong { color: #fff; }
 .home-hero.brand-dot-texture::before { opacity: .1; z-index: 1; }
 .home-hero.brand-dot-texture > .home-hero-media { z-index: 0; }
 .home-hero.brand-dot-texture > .home-hero-wash,
-.home-hero.brand-dot-texture > .home-hero-lines { z-index: 2; }
+.home-hero.brand-dot-texture > .home-hero-lines,
+.home-hero.brand-dot-texture > .home-hero-route { z-index: 2; }
 .home-hero.brand-dot-texture > div:last-child { z-index: 3; }
 .auth-page.brand-dot-texture::before { z-index: 2; opacity: .075; }
 @media (max-width: 639px) {

@@ -26,9 +26,7 @@ NAV_ROUTES = [
 ]
 
 DASHBOARD_NAV_ROUTES = [
-    ("transfers:overview", "Vue d'ensemble", "layout-dashboard"),
-    ("transfers:recipients", "Bénéficiaires", "users"),
-    ("transfers:new_transfer", "Nouveau transfert", "send"),
+    ("transfers:overview", "Mes transferts", "layout-dashboard"),
     ("marketing:payment_information", "Informations de paiement", "circle-dollar-sign"),
     ("savings:overview", "Épargne", "piggy-bank"),
 ]

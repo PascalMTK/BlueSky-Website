@@ -5,13 +5,13 @@
 <div class="space-y-8">
   <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
     <div>
-      <h1 class="display-title text-2xl sm:text-3xl">{% t "Bonjour" %}, {{ first_name }} 👋</h1>
-      <p class="mt-1 text-sm text-text-muted">{% t "Voici un aperçu de votre activité Blue Sky." %}</p>
+      <h1 class="display-title text-2xl sm:text-3xl">{% t "Bonjour" %}, {{ first_name }}</h1>
+      <p class="mt-1 text-sm text-text-muted">{% t "Voici l'historique de vos transferts effectués en agence." %}</p>
     </div>
-    <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">{% icon "send" size=16 %} {% t "Nouveau transfert" %}</a>
+    <a href="{% url 'marketing:countries' %}" class="btn btn-primary btn-md">{% icon "map-pin" size=16 %} {% t "Trouver une agence" %}</a>
   </div>
 
-  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  <div class="grid gap-4 sm:grid-cols-3">
     {% for icon_name, label, value in stats %}
       <div class="content-card p-6">
         <div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue">{% icon icon_name size=18 %}</div>
@@ -24,16 +24,13 @@
   <div class="content-card">
     <div class="flex items-center justify-between border-b border-border p-6">
       <h2 class="text-lg font-bold">{% t "Transferts récents" %}</h2>
-      {% if recipient_count == 0 %}
-        <a href="{% url 'transfers:recipients' %}" class="btn btn-secondary btn-md">{% t "Ajouter un bénéficiaire" %}</a>
-      {% endif %}
     </div>
 
     {% if not transfers %}
       <div class="p-10 text-center text-sm text-text-muted">
-        {% t "Vous n'avez encore effectué aucun transfert." %}
+        {% t "Vous n'avez encore effectué aucun transfert. Rendez-vous dans l'une de nos agences pour envoyer votre premier transfert." %}
         <div class="mt-4">
-          <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">{% t "Envoyer mon premier transfert" %} {% icon "arrow-right" size=16 %}</a>
+          <a href="{% url 'marketing:countries' %}" class="btn btn-primary btn-md">{% t "Trouver une agence" %} {% icon "arrow-right" size=16 %}</a>
         </div>
       </div>
     {% else %}

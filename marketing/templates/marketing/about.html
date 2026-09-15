@@ -14,16 +14,14 @@
 <section class="py-20 sm:py-24">
   <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
     <p class="text-lg leading-relaxed text-text-muted">{% t SITE.definition %}</p>
-    <div class="grid gap-6 sm:grid-cols-2">
-      <div class="content-card p-7">
-        <div class="icon-chip icon-chip-gold mb-4">{% icon "target" size=21 %}</div>
-        <h3 class="mb-2 text-lg font-bold">{% t "Notre but" %}</h3>
-        <p class="text-sm leading-relaxed text-text-muted">{% t SITE.purpose %}</p>
+    <div class="grid gap-8 divide-y divide-border sm:grid-cols-2 sm:gap-10 sm:divide-y-0 sm:divide-x">
+      <div class="sm:pr-10">
+        {% kicker "Notre but" tone="gold" %}
+        <p class="mt-4 text-sm leading-relaxed text-text-muted">{% t SITE.purpose %}</p>
       </div>
-      <div class="content-card p-7">
-        <div class="icon-chip mb-4">{% icon "compass" size=21 %}</div>
-        <h3 class="mb-2 text-lg font-bold">{% t "Notre mission" %}</h3>
-        <p class="text-sm leading-relaxed text-text-muted">{% t SITE.mission %}</p>
+      <div class="pt-6 sm:pl-10 sm:pt-0">
+        {% kicker "Notre mission" tone="blue" %}
+        <p class="mt-4 text-sm leading-relaxed text-text-muted">{% t SITE.mission %}</p>
       </div>
     </div>
   </div>

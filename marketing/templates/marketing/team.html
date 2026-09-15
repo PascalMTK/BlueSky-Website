@@ -63,14 +63,15 @@
       </h2>
     </div>
 
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="divide-y divide-border border-y border-border">
       {% for icon_name, title, text in values %}
-        <div class="content-card p-7">
-          <div class="icon-chip mb-5">
-            {% icon icon_name size=22 %}
+        <div class="grid gap-3 py-8 sm:grid-cols-[3.5rem_1fr] sm:items-start sm:gap-6 lg:grid-cols-[4rem_13rem_1fr] lg:gap-10">
+          <span class="display-title text-3xl text-brand-gold/60 sm:text-4xl">{{ forloop.counter|stringformat:"02d" }}</span>
+          <div class="flex items-center gap-2.5 sm:pt-1.5">
+            {% icon icon_name size=17 css_class="text-brand-blue shrink-0" %}
+            <h3 class="text-base font-bold text-text sm:text-lg">{% t title %}</h3>
           </div>
-          <h3 class="mb-2 text-lg font-bold text-text">{% t title %}</h3>
-          <p class="text-sm leading-relaxed text-text-muted">{% t text %}</p>
+          <p class="text-sm leading-relaxed text-text-muted sm:text-base lg:pt-1.5">{% t text %}</p>
         </div>
       {% endfor %}
     </div>

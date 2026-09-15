@@ -11,6 +11,16 @@
   </div>
   <div class="home-hero-wash absolute inset-0" aria-hidden="true"></div>
   <div class="home-hero-lines absolute inset-0" aria-hidden="true"></div>
+  <svg class="home-hero-route absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1440 760" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path id="home-hero-route-path" class="home-hero-route-line" pathLength="100" d="M -40,210 C 380,60 940,300 1480,90" />
+    <circle class="home-hero-route-node" cx="-40" cy="210" r="4.5" />
+    <circle class="home-hero-route-node is-end" cx="1480" cy="90" r="4.5" />
+    <circle class="home-hero-route-pulse" r="3.5">
+      <animateMotion dur="6.5s" begin="2.4s" repeatCount="indefinite" rotate="auto">
+        <mpath href="#home-hero-route-path" />
+      </animateMotion>
+    </circle>
+  </svg>
 
   <div class="relative mx-auto flex min-h-[720px] w-full max-w-[1440px] flex-col justify-between px-5 pb-8 pt-16 sm:px-8 sm:pt-20 lg:min-h-[760px] lg:px-10 lg:pt-24">
     <div class="grid gap-12 lg:grid-cols-[1.1fr_.55fr] lg:items-start">
@@ -25,12 +35,8 @@
           {% t "Des transferts fiables, suivis et accompagnés par de vraies personnes dans" %} {{ COUNTRIES|length }} {% t "pays africains." %}
         </p>
         <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-          {% if request.user.is_authenticated %}
-            <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-lg">{% t "Démarrer un transfert" %} {% icon "arrow-right" size=18 %}</a>
-          {% else %}
-            <a href="{% url 'accounts:signup' %}?next={% url 'transfers:new_transfer' %}" class="btn btn-primary btn-lg">{% t "Envoyer de l'argent" %} {% icon "arrow-right" size=18 %}</a>
-          {% endif %}
-          <a href="{% url 'marketing:countries' %}" class="btn btn-secondary btn-lg text-white">{% t "Voir notre réseau" %}</a>
+          <a href="{% url 'marketing:countries' %}" class="btn btn-primary btn-lg">{% t "Trouver une agence" %} {% icon "arrow-right" size=18 %}</a>
+          <a href="{% url 'marketing:contact' %}" class="btn btn-secondary btn-lg text-white">{% t "Nous contacter" %}</a>
         </div>
       </div>
 
