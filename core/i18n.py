@@ -346,6 +346,8 @@ TRANSLATIONS = {
         "Une agence bâtie pour rapprocher les familles africaines": "An agency built to bring African families closer",
         "Notre but": "Our purpose",
         "Notre mission": "Our mission",
+        "Pourquoi nous existons": "Why we exist",
+        "Ce à quoi nous nous engageons": "What we commit to",
         "L'équipe de direction, Blue Sky": "The leadership team, Blue Sky",
         "Cette vision guide chacune de nos décisions : ouvrir de nouvelles agences là où les familles en ont besoin, simplifier chaque étape du transfert, et rester joignables humainement, pas seulement via une application.":
             "This vision guides every one of our decisions: opening new branches where families need them, simplifying every step of a transfer, and staying reachable by real people, not just an app.",
@@ -949,6 +951,8 @@ TRANSLATIONS = {
         "Une agence bâtie pour rapprocher les familles africaines": "Wakala uliojengwa kuunganisha familia za Afrika",
         "Notre but": "Lengo letu",
         "Notre mission": "Dhamira yetu",
+        "Pourquoi nous existons": "Kwa nini tupo",
+        "Ce à quoi nous nous engageons": "Tunachojitolea kufanya",
         "L'équipe de direction, Blue Sky": "Uongozi wa Blue Sky",
         "Cette vision guide chacune de nos décisions : ouvrir de nouvelles agences là où les familles en ont besoin, simplifier chaque étape du transfert, et rester joignables humainement, pas seulement via une application.":
             "Dira hii inaongoza kila uamuzi wetu: kufungua matawi mapya pale familia zinapohitaji, kurahisisha kila hatua ya uhamishaji, na kubaki tunapatikana kibinadamu, si kupitia programu tu.",

@@ -15,6 +15,5 @@ def kicker(context, text, tone="gold"):
     if lang != SOURCE_LANGUAGE:
         text = TRANSLATIONS.get(lang, {}).get(text, text)
     return mark_safe(
-        f'<span class="editorial-label inline-flex items-center gap-2.5 {tone_class}">'
-        f'<span class="h-px w-[22px] bg-current" aria-hidden="true"></span>{escape(text)}</span>'
+        f'<span class="editorial-label {tone_class}">{escape(text)}</span>'
     )

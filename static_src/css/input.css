@@ -426,11 +426,24 @@ main article, main form, main [class*="shadow"] { background-clip: padding-box; 
    ========================================================================== */
 .page-shell { max-width: 1440px; margin-inline: auto; }
 .editorial-label {
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
+  font-size: .875rem;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
 }
+.editorial-label::before,
+.title-dot::before {
+  content: "";
+  display: inline-block;
+  width: .42em;
+  height: .42em;
+  margin-right: .55em;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: .12em;
+}
+.title-dot::before { width: .28em; height: .28em; margin-right: .45em; background: var(--color-brand-gold, currentColor); }
 .text-brand-sky { color: #82adff; }
 .editorial-index { font-size: .7rem; font-weight: 700; letter-spacing: .06em; color: var(--color-text-muted); }
 .editorial-rule { border-top: 1px solid currentColor; }
