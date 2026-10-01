@@ -1,4 +1,8 @@
+import logging
+import smtplib
+
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.db import transaction
@@ -14,17 +18,31 @@ from .models import EmailVerification, User
 
 PENDING_USER_SESSION_KEY = "pending_verification_user_id"
 PENDING_NEXT_SESSION_KEY = "pending_verification_next"
+EMAIL_ERROR_MESSAGE = (
+    "Nous n'avons pas pu envoyer le code de vérification. "
+    "Réessayez dans quelques instants ou contactez-nous sur WhatsApp."
+)
+
+logger = logging.getLogger(__name__)
+
+
+class OTPDeliveryError(Exception):
+    pass
 
 
 def _send_otp(user):
     verification, code = EmailVerification.issue_for(user)
-    send_mail(
-        "Votre code de vérification Blue Sky",
-        f"Bonjour {user.get_short_name()},\n\nVotre code Blue Sky est : {code}\n\nIl expire dans 10 minutes. Ne le partagez avec personne.",
-        settings.DEFAULT_FROM_EMAIL,
-        [user.email],
-        fail_silently=False,
-    )
+    try:
+        send_mail(
+            "Votre code de vérification Blue Sky",
+            f"Bonjour {user.get_short_name()},\n\nVotre code Blue Sky est : {code}\n\nIl expire dans 10 minutes. Ne le partagez avec personne.",
+            settings.DEFAULT_FROM_EMAIL,
+            [user.email],
+            fail_silently=False,
+        )
+    except (smtplib.SMTPException, OSError) as exc:
+        logger.exception("Could not send verification code to user %s", user.pk)
+        raise OTPDeliveryError from exc
     return verification
 
 
@@ -43,19 +61,25 @@ def signup_view(request):
         next_url = request.POST.get("next", next_url)
         form = SignupForm(request.POST, request=request)
         if form.is_valid():
-            with transaction.atomic():
-                user = User.objects.create_user(
-                    email=form.cleaned_data["email"],
-                    full_name=form.cleaned_data["full_name"],
-                    password=form.cleaned_data["password"],
-                    phone=form.cleaned_data["phone"],
-                    country=form.cleaned_data["country"],
-                    is_active=False,
-                )
-                _send_otp(user)
-            request.session[PENDING_USER_SESSION_KEY] = user.pk
-            request.session[PENDING_NEXT_SESSION_KEY] = next_url
-            return redirect("accounts:verify_otp")
+            try:
+                # Rolled back if the code can't be e-mailed, so the visitor can
+                # simply submit the form again instead of hitting "e-mail taken".
+                with transaction.atomic():
+                    user = User.objects.create_user(
+                        email=form.cleaned_data["email"],
+                        full_name=form.cleaned_data["full_name"],
+                        password=form.cleaned_data["password"],
+                        phone=form.cleaned_data["phone"],
+                        country=form.cleaned_data["country"],
+                        is_active=False,
+                    )
+                    _send_otp(user)
+            except OTPDeliveryError:
+                form.add_error(None, EMAIL_ERROR_MESSAGE)
+            else:
+                request.session[PENDING_USER_SESSION_KEY] = user.pk
+                request.session[PENDING_NEXT_SESSION_KEY] = next_url
+                return redirect("accounts:verify_otp")
     else:
         form = SignupForm(request=request)
     return render(request, "accounts/signup.html", {"form": form, "next": next_url})
@@ -82,7 +106,10 @@ def login_view(request):
                 request.session[PENDING_NEXT_SESSION_KEY] = next_url
                 verification = EmailVerification.objects.filter(user=inactive_user).first()
                 if not verification or verification.can_resend():
-                    _send_otp(inactive_user)
+                    try:
+                        _send_otp(inactive_user)
+                    except OTPDeliveryError:
+                        messages.error(request, EMAIL_ERROR_MESSAGE)
                 return redirect("accounts:verify_otp")
             form.add_error(None, "Adresse e-mail ou mot de passe incorrect.")
     else:
@@ -113,6 +140,8 @@ def verify_otp_view(request):
             return redirect(_safe_next(request, next_url))
         if verification and timezone.now() >= verification.expires_at:
             form.add_error("code", "Ce code a expiré. Demandez un nouveau code.")
+        elif not verification or verification.attempts >= EmailVerification.MAX_ATTEMPTS:
+            form.add_error("code", "Trop de tentatives. Demandez un nouveau code.")
         else:
             form.add_error("code", "Code incorrect. Vérifiez puis réessayez.")
 
@@ -128,8 +157,14 @@ def resend_otp_view(request):
         return redirect("accounts:signup")
     verification = EmailVerification.objects.filter(user=user).first()
     if verification and not verification.can_resend():
+        messages.info(request, "Patientez une minute avant de demander un nouveau code.")
         return redirect("accounts:verify_otp")
-    _send_otp(user)
+    try:
+        _send_otp(user)
+    except OTPDeliveryError:
+        messages.error(request, EMAIL_ERROR_MESSAGE)
+    else:
+        messages.success(request, "Un nouveau code vient de vous être envoyé.")
     return redirect("accounts:verify_otp")
 
 

@@ -174,7 +174,7 @@
   .home-hero-video { display: none; }
 }
 
-/* Quiet Africa and currency watermark for light homepage sections */
+/* Quiet Africa watermark for light homepage sections */
 .africa-money-surface {
   position: relative; isolation: isolate; overflow: hidden;
   background-color: var(--color-bg);
@@ -185,20 +185,12 @@
   opacity: .055; pointer-events: none;
   background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 360'%3E%3Cpath fill='%232447a8' d='M117 12 82 29 55 67 24 96 16 139 40 179 73 195 87 236 112 268 126 332 151 350 170 310 188 276 211 249 223 211 252 184 282 137 266 98 230 72 203 37 164 23Z'/%3E%3C/svg%3E");
 }
-.africa-money-surface::after {
-  content: "FC   USD   N$   R   ZK"; position: absolute; z-index: -1;
-  right: 4%; bottom: 8%; color: color-mix(in srgb, var(--color-brand-gold) 18%, transparent);
-  font-size: clamp(.72rem, 1vw, .9rem); font-weight: 800; letter-spacing: .22em;
-  pointer-events: none;
-}
 .africa-money-surface-alt::before { right: auto; left: 3%; }
-.africa-money-surface-alt::after { right: auto; left: 4%; }
 .africa-money-surface > * { position: relative; z-index: 1; }
 .dark .africa-money-surface::before { opacity: .08; filter: brightness(2); }
 @media (max-width: 639px) {
   .africa-money-surface::before { width: 13rem; right: -3rem; opacity: .04; }
   .africa-money-surface-alt::before { right: auto; left: -3rem; }
-  .africa-money-surface::after { display: none; }
 }
 
 /* Southern Africa watermark on public pages other than the homepage */
@@ -859,7 +851,7 @@ header.is-scrolled { box-shadow: 0 6px 20px rgba(11, 25, 48, .1); }
 }
 .site-header-glass nav a:hover,
 .site-header-glass nav a:focus-visible { color: #173580 !important; }
-.site-header-glass > div:nth-child(2) > div:last-child > a:not(.btn) {
+.site-header-glass .header-login-link {
   color: #1e293b !important;
   font-weight: 700;
 }
@@ -868,7 +860,7 @@ header.is-scrolled { box-shadow: 0 6px 20px rgba(11, 25, 48, .1); }
 .dark .site-header-glass nav a,
 .dark .site-header-glass .lang-switcher-select,
 .dark .site-header-glass [data-mobile-nav-toggle],
-.dark .site-header-glass > div:nth-child(2) > div:last-child > a:not(.btn) {
+.dark .site-header-glass .header-login-link {
   color: rgba(255,255,255,.94) !important;
   text-shadow: 0 1px 3px rgba(0,0,0,.65);
 }

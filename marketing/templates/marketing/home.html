@@ -4,10 +4,9 @@
 
 <section class="home-hero brand-dot-texture relative isolate overflow-hidden bg-brand-blue-deep text-white">
   <div class="home-hero-media absolute inset-0" aria-hidden="true">
-    <img src="{% static 'img/african-descent-family-house-home-resting-living.jpg' %}" alt="" class="home-hero-poster absolute inset-0 h-full w-full object-cover">
-    <video class="home-hero-video is-active" muted playsinline autoplay loop preload="auto">
-      <source src="{% static 'videos/0901.mp4' %}" type="video/mp4">
-    </video>
+    <img src="{% static 'img/african-descent-family-house-home-resting-living.jpg' %}" alt="" class="home-hero-poster absolute inset-0 h-full w-full object-cover" fetchpriority="high">
+    {# The video is 24 MB: motion.js only attaches its src on larger screens with a decent connection. #}
+    <video class="home-hero-video" muted playsinline loop preload="none" data-hero-video data-src="{% static 'videos/0901.mp4' %}"></video>
   </div>
   <div class="home-hero-wash absolute inset-0" aria-hidden="true"></div>
   <div class="home-hero-lines absolute inset-0" aria-hidden="true"></div>
@@ -104,7 +103,7 @@
     </div>
     <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {% for icon_name, title, text in features %}
-        {% cycle 'img/community-outreach-portrait.jpg' 'img/community-brand-duo.png' 'img/community-brand-student-1.png' 'img/community-brand-student-2.png' as feature_image silent %}
+        {% cycle 'img/community-outreach-portrait.jpg' 'img/community-brand-duo.jpg' 'img/community-brand-student-1.jpg' 'img/community-brand-student-2.jpg' as feature_image silent %}
         <article class="service-image-card group bg-brand-blue-deep">
           <img src="{% static feature_image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
           <div class="absolute inset-x-0 bottom-0 z-10 p-6 text-white">
@@ -304,7 +303,7 @@
     <h2 class="display-title mx-auto mt-5 max-w-3xl text-4xl sm:text-5xl">{% t "Prêt à envoyer votre argent en toute confiance ?" %}</h2>
     <p class="mx-auto mt-4 max-w-xl text-white/70">{% t "Contactez l'équipe Blue Sky ou rendez-vous dans l'agence la plus proche pour démarrer votre transfert." %}</p>
     <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-      <a href="tel:{{ SITE.primary_phone }}" class="contact-pill">
+      <a href="tel:{{ SITE.primary_phone|cut:' ' }}" class="contact-pill">
         <span class="contact-pill-icon">{% icon "phone" size=18 %}</span>
         <span class="contact-pill-text"><small>{% t "Appelez-nous" %}</small>{{ SITE.primary_phone }}</span>
       </a>

@@ -259,44 +259,22 @@
   }
 
   function initHeroVideos(main) {
-    var slider = main.querySelector("[data-hero-video-slider]");
-    if (!slider || reducedMotion) return;
-    var videos = Array.prototype.slice.call(slider.querySelectorAll("video"));
-    if (!videos.length) return;
-    var activeIndex = 0;
+    var video = main.querySelector("[data-hero-video]");
+    if (!video || reducedMotion) return;
+    var connection = navigator.connection || {};
+    var slowNetwork = connection.saveData || /(^|-)2g$/.test(connection.effectiveType || "");
+    var largeScreen = window.matchMedia("(min-width: 768px)").matches;
+    if (slowNetwork || !largeScreen) return;
 
-    function play(index, previousIndex) {
-      var current = videos[index];
-      current.currentTime = 0;
-      var promise = current.play();
-      if (promise && promise.catch) promise.catch(function () {});
-      requestAnimationFrame(function () {
-        current.classList.add("is-active");
-        if (typeof previousIndex !== "number") return;
-        var previous = videos[previousIndex];
-        previous.classList.remove("is-active");
-        window.setTimeout(function () {
-          previous.pause();
-          previous.currentTime = 0;
-        }, 1150);
-      });
-    }
-
-    videos.forEach(function (video, index) {
-      video.addEventListener("ended", function () {
-        var previousIndex = index;
-        activeIndex = (index + 1) % videos.length;
-        play(activeIndex, previousIndex);
-      });
-      video.addEventListener("error", function () {
-        if (index !== activeIndex) return;
-        video.classList.remove("is-active");
-        activeIndex = (index + 1) % videos.length;
-        play(activeIndex);
-      });
+    video.addEventListener("playing", function () {
+      video.classList.add("is-active");
+    }, { once: true });
+    video.addEventListener("error", function () {
+      video.classList.remove("is-active");
     });
-    var initialPlay = videos[activeIndex].play();
-    if (initialPlay && initialPlay.catch) initialPlay.catch(function () {});
+    video.src = video.getAttribute("data-src");
+    var promise = video.play();
+    if (promise && promise.catch) promise.catch(function () {});
   }
 
   function initCountryCards(main) {

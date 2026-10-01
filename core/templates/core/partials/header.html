@@ -11,7 +11,7 @@
         {% icon "mail" size=14 css_class="text-brand-gold" %}
         <span>{{ SITE.primary_email }}</span>
       </a>
-      <a href="tel:{{ SITE.primary_phone }}" class="flex items-center gap-2 transition hover:text-white">
+      <a href="tel:{{ SITE.primary_phone|cut:' ' }}" class="flex items-center gap-2 transition hover:text-white">
         {% icon "phone" size=14 css_class="text-brand-gold" %}
         <span>{{ SITE.primary_phone }}</span>
       </a>
@@ -47,7 +47,7 @@
           {% icon "layout-dashboard" size=16 css_class="shrink-0" %}
         </a>
       {% else %}
-        <a href="{% url 'accounts:login' %}" class="whitespace-nowrap text-sm font-semibold text-text-muted hover:text-text">{% t "Se connecter" %}</a>
+        <a href="{% url 'accounts:login' %}" class="header-login-link whitespace-nowrap text-sm font-semibold text-text-muted hover:text-text">{% t "Se connecter" %}</a>
         <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-md">
           <span>{% t "Ouvrir un compte" %}</span>
         </a>

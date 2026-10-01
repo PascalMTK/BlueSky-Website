@@ -17,5 +17,11 @@ class AgencyDisplayTests(TestCase):
         self.assertContains(response, "Gaborone")
         self.assertContains(response, "+267 111 222")
         self.assertContains(response, "+267 333 444")
+        # No flag photo exists for BW: the card falls back to the emoji
+        # instead of rendering a broken image.
+        self.assertNotContains(response, "flags/bw.")
 
-# Create your tests here.
+    def test_known_countries_use_flag_photos(self):
+        # The nine agencies are seeded by migration 0006.
+        response = self.client.get(reverse("marketing:countries"))
+        self.assertContains(response, "img/flags/zm.jpg")

@@ -1,4 +1,5 @@
 import re
+import smtplib
 
 from django.core import mail
 from django.test import TestCase, override_settings
@@ -44,3 +45,46 @@ class AccountVerificationTests(TestCase):
         self.assertTrue(user.is_active)
         self.assertEqual(int(self.client.session["_auth_user_id"]), user.pk)
         self.assertFalse(EmailVerification.objects.filter(user=user).exists())
+
+    def test_other_country_saves_the_typed_country(self):
+        self.client.post(
+            reverse("accounts:signup"),
+            self.signup_data(country="Autre", other_country="Angola"),
+        )
+        self.assertEqual(User.objects.get(email="client@example.com").country, "Angola")
+
+    def test_other_country_requires_a_name(self):
+        response = self.client.post(reverse("accounts:signup"), self.signup_data(country="Autre"))
+        self.assertContains(response, "Entrez le nom de votre pays")
+        self.assertFalse(User.objects.exists())
+
+    def test_common_password_is_rejected(self):
+        response = self.client.post(
+            reverse("accounts:signup"),
+            self.signup_data(password="password123", password_confirm="password123"),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(User.objects.exists())
+
+    @override_settings(EMAIL_BACKEND="accounts.tests.FailingEmailBackend")
+    def test_email_failure_shows_message_instead_of_crashing(self):
+        response = self.client.post(reverse("accounts:signup"), self.signup_data())
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "pas pu envoyer le code")
+        # Rolled back, so the visitor can retry with the same address.
+        self.assertFalse(User.objects.exists())
+
+    def test_too_many_wrong_codes_asks_for_a_new_one(self):
+        self.client.post(reverse("accounts:signup"), self.signup_data())
+        for _ in range(EmailVerification.MAX_ATTEMPTS):
+            self.client.post(reverse("accounts:verify_otp"), {"code": "000000"})
+        response = self.client.post(reverse("accounts:verify_otp"), {"code": "000000"})
+        self.assertContains(response, "Trop de tentatives")
+
+
+class FailingEmailBackend:
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def send_messages(self, messages):
+        raise smtplib.SMTPException("SMTP is down")

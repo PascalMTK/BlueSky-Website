@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import password_validation
 
 from core.data import COUNTRIES
 from core.forms import StyledFormMixin
@@ -84,25 +85,31 @@ class SignupForm(StyledFormMixin, forms.Form):
             raise forms.ValidationError("Adresse e-mail déjà utilisée")
         return email
 
-    def clean(self):
-        cleaned_data = super().clean()
-        if cleaned_data.get("country") == "Autre":
-            other_country = cleaned_data.get("other_country", "").strip()
-            if not other_country:
-                self.add_error("other_country", "Entrez le nom de votre pays")
-            else:
-                cleaned_data["country"] = other_country
-        return cleaned_data
-
     def clean_full_name(self):
         return self.cleaned_data["full_name"].strip()
 
+    def clean_phone(self):
+        return self.cleaned_data["phone"].strip()
+
     def clean(self):
         cleaned = super().clean()
+        if cleaned.get("country") == "Autre":
+            other_country = (cleaned.get("other_country") or "").strip()
+            if not other_country:
+                self.add_error("other_country", "Entrez le nom de votre pays")
+            else:
+                cleaned["country"] = other_country
+
         password = cleaned.get("password")
         confirmation = cleaned.get("password_confirm")
         if password and confirmation and password != confirmation:
             self.add_error("password_confirm", "Les mots de passe ne correspondent pas.")
+        elif password:
+            candidate = User(email=cleaned.get("email", ""), full_name=cleaned.get("full_name", ""))
+            try:
+                password_validation.validate_password(password, candidate)
+            except forms.ValidationError as error:
+                self.add_error("password", error)
         return cleaned
 
 

@@ -31,7 +31,7 @@
             <span><strong class="block text-sm">{% t "Siège social" %}</strong><small class="mt-1 block leading-relaxed text-white/60">{{ SITE.head_office_address }}</small></span>
           </a>
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-            <a href="tel:{{ SITE.primary_phone }}" class="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[.05] p-4 transition hover:border-brand-gold/40">
+            <a href="tel:{{ SITE.primary_phone|cut:' ' }}" class="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[.05] p-4 transition hover:border-brand-gold/40">
               <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 text-brand-gold">{% icon "phone" size=17 %}</span>
               <span><small class="block text-[.62rem] font-bold uppercase tracking-wider text-white/45">{% t "Téléphone" %}</small><strong class="mt-0.5 block text-sm">{{ SITE.primary_phone }}</strong></span>
             </a>
@@ -121,7 +121,7 @@
       </p>
     </div>
     <figure class="overflow-hidden rounded-2xl">
-      <img src="{% static 'img/community-brand-student-2.png' %}" alt="{% blockt %}Un membre de la communauté Blue Sky portant un t-shirt à l'effigie de la marque{% endblockt %}" class="aspect-[4/3] h-full w-full object-cover" loading="lazy">
+      <img src="{% static 'img/community-brand-student-2.jpg' %}" alt="{% blockt %}Un membre de la communauté Blue Sky portant un t-shirt à l'effigie de la marque{% endblockt %}" class="aspect-[4/3] h-full w-full object-cover" loading="lazy">
     </figure>
   </div>
 </section>

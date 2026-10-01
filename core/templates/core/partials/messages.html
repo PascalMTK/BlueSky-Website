@@ -1,0 +1,8 @@
+{% load i18n_extra %}
+{% if messages %}
+  <div class="{{ wrapper_class|default:'mb-6' }} space-y-2" role="status" aria-live="polite">
+    {% for message in messages %}
+      <p class="rounded-xl px-4 py-3 text-sm font-semibold {% if message.level_tag == 'error' %}bg-red-500/10 text-red-600 dark:text-red-400{% elif message.level_tag == 'info' or message.level_tag == 'warning' %}bg-brand-blue/10 text-brand-blue dark:text-brand-blue-light{% else %}bg-emerald-500/10 text-emerald-700 dark:text-emerald-400{% endif %}">{% t message.message %}</p>
+    {% endfor %}
+  </div>
+{% endif %}

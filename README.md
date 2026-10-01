@@ -47,7 +47,7 @@ npm run build:css
    ```
 3. **Database** — create a MySQL database from the *Databases* tab. Note the host/user/password shown there.
 4. **Environment variables** — on the *Web* tab, add environment variables (or create `.env` in the project root):
-   `SECRET_KEY`, `DEBUG=False`, `ALLOWED_HOSTS=<yourusername>.pythonanywhere.com`, `DB_ENGINE=mysql`, `DB_NAME=<yourusername>$bluesky`, `DB_USER=<yourusername>`, `DB_PASSWORD=...`, `DB_HOST=<yourusername>.mysql.pythonanywhere-services.com`, `DB_PORT=3306`.
+   `SECRET_KEY` (required: the site refuses to start with `DEBUG=False` and no real key), `DEBUG=False`, `ALLOWED_HOSTS=<yourusername>.pythonanywhere.com`, `CSRF_TRUSTED_ORIGINS=https://<yourusername>.pythonanywhere.com`, `DB_ENGINE=mysql`, `DB_NAME=<yourusername>$bluesky`, `DB_USER=<yourusername>`, `DB_PASSWORD=...`, `DB_HOST=<yourusername>.mysql.pythonanywhere-services.com`, `DB_PORT=3306`.
 5. **Migrate**:
    ```bash
    python manage.py migrate

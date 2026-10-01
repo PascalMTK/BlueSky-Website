@@ -34,7 +34,7 @@
             <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="text-xs font-extrabold uppercase tracking-[.1em] text-brand-blue">{{ account.payment_method }}</p>
-                <a href="tel:{{ account.phone_number }}" class="mt-2 block text-xl font-black tracking-tight text-brand-blue-deep">{{ account.phone_number }}</a>
+                <a href="tel:{{ account.phone_number|cut:' ' }}" class="mt-2 block text-xl font-black tracking-tight text-brand-blue-deep">{{ account.phone_number }}</a>
                 <p class="mt-1 text-sm font-semibold text-text-muted">{{ account.account_holder }}</p>
               </div>
               <span class="icon-chip shrink-0">{% icon "phone" size=18 %}</span>

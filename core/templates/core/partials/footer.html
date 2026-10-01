@@ -39,7 +39,7 @@
       <div>
         <h3 class="footer-heading">{% t "Contact direct" %}</h3>
         <ul class="space-y-4 text-sm text-white/65">
-          <li><a href="tel:{{ SITE.primary_phone }}" class="footer-contact"><span>{% icon "phone" size=16 %}</span><strong>{{ SITE.primary_phone }}</strong></a></li>
+          <li><a href="tel:{{ SITE.primary_phone|cut:' ' }}" class="footer-contact"><span>{% icon "phone" size=16 %}</span><strong>{{ SITE.primary_phone }}</strong></a></li>
           <li><a href="mailto:{{ SITE.primary_email }}" class="footer-contact"><span>{% icon "mail" size=16 %}</span><strong class="break-all">{{ SITE.primary_email }}</strong></a></li>
           <li class="footer-contact items-start"><span>{% icon "map-pin" size=16 %}</span><p class="leading-relaxed">{{ SITE.head_office_address }}</p></li>
         </ul>

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_POST
@@ -22,17 +23,15 @@ def overview(request):
             form = SavingsEnrollmentForm()
         return render(request, "savings/overview.html", {"account": None, "form": form})
 
-    operations = account.operations.select_related("confirmed_by").all()
-    operation_form = SavingsOperationForm(account=account, request=request)
+    return _render_account(request, account, SavingsOperationForm(account=account, request=request))
+
+
+def _render_account(request, account, operation_form):
+    operations = list(account.operations.select_related("confirmed_by").all())
+    confirmed = [o for o in operations if o.status == SavingsOperation.Status.CONFIRMED]
     totals = {
-        "deposits": sum(
-            o.amount for o in operations if o.status == SavingsOperation.Status.CONFIRMED
-            and o.operation_type == SavingsOperation.Type.DEPOSIT
-        ),
-        "withdrawals": sum(
-            o.amount for o in operations if o.status == SavingsOperation.Status.CONFIRMED
-            and o.operation_type == SavingsOperation.Type.WITHDRAWAL
-        ),
+        "deposits": sum(o.amount for o in confirmed if o.operation_type == SavingsOperation.Type.DEPOSIT),
+        "withdrawals": sum(o.amount for o in confirmed if o.operation_type == SavingsOperation.Type.WITHDRAWAL),
     }
     context = {
         "account": account,
@@ -60,11 +59,7 @@ def request_operation(request):
             amount=form.cleaned_data["amount"],
             note=form.cleaned_data["note"],
         )
+        messages.success(request, "Votre demande a été envoyée. Un conseiller la confirmera rapidement.")
         return redirect("savings:overview")
 
-    operations = account.operations.select_related("confirmed_by").all()
-    return render(
-        request,
-        "savings/overview.html",
-        {"account": account, "operations": operations, "operation_form": form, "totals": {}},
-    )
+    return _render_account(request, account, form)

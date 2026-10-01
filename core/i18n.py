@@ -318,7 +318,7 @@ TRANSLATIONS = {
         "Votre message est un peu court": "Your message is a bit short",
 
         # --- auth: base_auth / login / signup ---
-        "Un réseau. Huit pays.": "One network. Eight countries.",
+        "Un réseau. Neuf pays.": "One network. Nine countries.",
         'L\'argent arrive.<br>La confiance aussi.': 'Money arrives.<br>So does trust.',
         "Connexion": "Log in",
         "Accédez à votre tableau de bord Blue Sky.": "Access your Blue Sky dashboard.",
@@ -631,6 +631,15 @@ TRANSLATIONS = {
         "Entrez votre numéro de CNI ou passeport": "Enter your ID or passport number",
         "Adresse": "Address",
         "Entrez votre adresse": "Enter your address",
+        # --- account verification feedback ---
+        "Nous n'avons pas pu envoyer le code de vérification. Réessayez dans quelques instants ou contactez-nous sur WhatsApp.": "We couldn't send your verification code. Please try again in a moment or contact us on WhatsApp.",
+        "Trop de tentatives. Demandez un nouveau code.": "Too many attempts. Request a new code.",
+        "Patientez une minute avant de demander un nouveau code.": "Please wait a minute before requesting a new code.",
+        "Un nouveau code vient de vous être envoyé.": "A new code has just been sent to you.",
+        "Vous n'avez pas accès à cette page": "You don't have access to this page",
+        "Cette section est réservée à l'équipe Blue Sky. Si vous pensez qu'il s'agit d'une erreur, contactez votre responsable.": "This section is reserved for the Blue Sky team. If you think this is a mistake, contact your manager.",
+        "Erreur 403": "Error 403",
+        "Votre demande a été envoyée. Un conseiller la confirmera rapidement.": "Your request has been sent. An advisor will confirm it shortly.",
     },
     # Machine-checked but not proofread by a native Kiswahili speaker — good
     # enough to launch with, but worth a native-speaker pass before this is
@@ -923,7 +932,7 @@ TRANSLATIONS = {
         "Votre message est un peu court": "Ujumbe wako ni mfupi kidogo",
 
         # --- auth ---
-        "Un réseau. Huit pays.": "Mtandao mmoja. Nchi nane.",
+        "Un réseau. Neuf pays.": "Mtandao mmoja. Nchi tisa.",
         'L\'argent arrive.<br>La confiance aussi.': 'Pesa inafika.<br>Uaminifu pia.',
         "Connexion": "Ingia",
         "Accédez à votre tableau de bord Blue Sky.": "Fikia dashibodi yako ya Blue Sky.",
@@ -1235,6 +1244,15 @@ TRANSLATIONS = {
         "Entrez votre numéro de CNI ou passeport": "Weka nambari yako ya kitambulisho au pasipoti",
         "Adresse": "Anwani",
         "Entrez votre adresse": "Weka anwani yako",
+        # --- account verification feedback ---
+        "Nous n'avons pas pu envoyer le code de vérification. Réessayez dans quelques instants ou contactez-nous sur WhatsApp.": "Hatukuweza kutuma msimbo wako wa uthibitisho. Jaribu tena baada ya muda mfupi au wasiliana nasi kwenye WhatsApp.",
+        "Trop de tentatives. Demandez un nouveau code.": "Majaribio mengi mno. Omba msimbo mpya.",
+        "Patientez une minute avant de demander un nouveau code.": "Subiri dakika moja kabla ya kuomba msimbo mpya.",
+        "Un nouveau code vient de vous être envoyé.": "Msimbo mpya umetumwa kwako.",
+        "Vous n'avez pas accès à cette page": "Huna ruhusa ya kufikia ukurasa huu",
+        "Cette section est réservée à l'équipe Blue Sky. Si vous pensez qu'il s'agit d'une erreur, contactez votre responsable.": "Sehemu hii ni ya timu ya Blue Sky pekee. Ikiwa unadhani hili ni kosa, wasiliana na msimamizi wako.",
+        "Erreur 403": "Hitilafu 403",
+        "Votre demande a été envoyée. Un conseiller la confirmera rapidement.": "Ombi lako limetumwa. Mshauri atalithibitisha hivi karibuni.",
     },
 }
 

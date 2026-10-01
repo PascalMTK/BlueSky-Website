@@ -56,6 +56,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class EmailVerification(models.Model):
+    MAX_ATTEMPTS = 5
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="email_verification")
     code_hash = models.CharField(max_length=128)
     expires_at = models.DateTimeField()
@@ -78,7 +80,7 @@ class EmailVerification(models.Model):
         return verification, code
 
     def verify(self, code):
-        if self.attempts >= 5 or timezone.now() >= self.expires_at:
+        if self.attempts >= self.MAX_ATTEMPTS or timezone.now() >= self.expires_at:
             return False
         self.attempts += 1
         valid = check_password(code, self.code_hash)

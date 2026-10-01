@@ -1,7 +1,12 @@
-{% load icons static i18n_extra %}
+{% load icons static i18n_extra core_extras %}
+{% flag_url country.code as flag_src %}
 <article class="country-card content-card group flex h-full cursor-pointer flex-col overflow-hidden" data-country-card data-country-dialog="country-{{ country.code|lower }}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="{% t 'Voir les coordonnées pour' %} {% t country.name %}">
   <div class="relative h-36 bg-brand-blue-deep">
-    <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" srcset="{% static 'img/flags/'|add:country.code|lower|add:'@2x.png' %} 2x" width="160" height="107" alt="{% t 'Drapeau de' %} {% t country.name %}" class="h-full w-full object-cover" loading="lazy">
+    {% if flag_src %}
+      <img src="{{ flag_src }}" width="960" height="360" alt="{% t 'Drapeau de' %} {% t country.name %}" class="h-full w-full object-cover" loading="lazy" decoding="async">
+    {% else %}
+      <div class="flex h-full w-full items-center justify-center text-6xl" aria-hidden="true">{{ country.flag }}</div>
+    {% endif %}
     <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/70 via-transparent to-transparent"></div>
     <div class="absolute inset-x-4 bottom-3 flex items-end justify-between gap-3">
       <h3 class="text-xl font-bold leading-tight text-white">{% t country.name %}</h3>
@@ -25,7 +30,7 @@
 <dialog id="country-{{ country.code|lower }}" class="country-dialog m-auto w-[calc(100%-2rem)] max-w-lg p-0 text-text backdrop:bg-brand-blue-deep/75">
   <div class="country-dialog-panel overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl">
     <div class="relative h-32 bg-brand-blue-deep">
-      <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" alt="" class="h-full w-full object-cover opacity-55">
+      {% if flag_src %}<img src="{{ flag_src }}" alt="" class="h-full w-full object-cover opacity-55" loading="lazy" decoding="async">{% endif %}
       <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep via-brand-blue-deep/35 to-transparent"></div>
       <div class="absolute inset-x-5 bottom-4 flex items-end justify-between gap-4">
         <div><p class="text-[.65rem] font-bold uppercase tracking-[.13em] text-brand-gold">{% t "Coordonnées" %}</p><h3 class="mt-1 text-2xl font-bold text-white">{% t country.name %}</h3></div>
@@ -49,7 +54,7 @@
           {% for phone in country.phones %}
             <li>
               <div class="flex items-center gap-2 rounded-xl border border-border bg-surface-muted p-2">
-                <a href="tel:{{ phone }}" class="flex min-w-0 flex-1 items-center gap-2.5 rounded-lg px-2 py-2 text-sm font-bold text-text transition hover:text-brand-blue">
+                <a href="tel:{{ phone|cut:' ' }}" class="flex min-w-0 flex-1 items-center gap-2.5 rounded-lg px-2 py-2 text-sm font-bold text-text transition hover:text-brand-blue">
                   {% icon "phone" size=15 css_class="shrink-0 text-brand-blue" %}<span>{{ phone }}</span>
                 </a>
                 <a href="https://wa.me/{{ phone|cut:' '|cut:'+' }}" target="_blank" rel="noopener" class="inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-emerald-500 px-3 text-xs font-bold text-white transition hover:bg-emerald-600" aria-label="WhatsApp {{ phone }}">WhatsApp</a>

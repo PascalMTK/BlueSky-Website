@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /gestion/
+Disallow: /tableau-de-bord/
+Disallow: /epargne/
+Disallow: /informations-paiement/
+Disallow: /verification/

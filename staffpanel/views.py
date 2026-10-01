@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
@@ -112,13 +113,17 @@ def savings_account_detail(request, pk):
 
 @staff_required
 @require_POST
+@transaction.atomic
 def confirm_operation(request, pk):
     operation = get_object_or_404(
-        SavingsOperation.objects.select_related("account"),
+        SavingsOperation.objects.select_for_update(),
         pk=pk,
         status=SavingsOperation.Status.PENDING,
     )
-    account = operation.account
+    account = SavingsAccount.objects.select_for_update().get(pk=operation.account_id)
+    if account.status != SavingsAccount.Status.ACTIVE:
+        messages.error(request, "Ce compte n'est pas actif.")
+        return redirect("staffpanel:savings_account_detail", pk=account.pk)
     if operation.operation_type == SavingsOperation.Type.WITHDRAWAL and operation.amount > account.balance:
         messages.error(request, "Solde insuffisant pour confirmer ce retrait.")
         return redirect("staffpanel:savings_account_detail", pk=account.pk)
@@ -132,7 +137,7 @@ def confirm_operation(request, pk):
     operation.status = SavingsOperation.Status.CONFIRMED
     operation.confirmed_by = request.user
     operation.confirmed_at = timezone.now()
-    account.save()
+    account.save(update_fields=["balance", "updated_at"])
     operation.save()
     messages.success(request, "Opération confirmée.")
     return redirect("staffpanel:savings_account_detail", pk=account.pk)

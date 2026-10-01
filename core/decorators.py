@@ -3,6 +3,7 @@ from functools import wraps
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils.http import urlencode
 
 
 def guest_only(view_func):
@@ -23,7 +24,7 @@ def staff_required(view_func):
     @wraps(view_func)
     def wrapped(request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect(f"{reverse('accounts:login')}?next={request.path}")
+            return redirect(f"{reverse('accounts:login')}?{urlencode({'next': request.get_full_path()})}")
         if not request.user.is_staff:
             raise PermissionDenied
         return view_func(request, *args, **kwargs)

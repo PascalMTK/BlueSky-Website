@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% load static i18n_extra %}
+{% block title %}{% t "Vous n'avez pas accès à cette page" %} | Blue Sky{% endblock %}
+{% block body %}
+<div class="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
+  <p class="editorial-label text-brand-gold">{% t "Erreur 403" %}</p>
+  <h1 class="display-title text-4xl sm:text-5xl">{% t "Vous n'avez pas accès à cette page" %}</h1>
+  <p class="max-w-md text-text-muted">{% t "Cette section est réservée à l'équipe Blue Sky. Si vous pensez qu'il s'agit d'une erreur, contactez votre responsable." %}</p>
+  <a href="/" class="btn btn-primary btn-lg mt-2">{% t "Retour à l'accueil" %}</a>
+</div>
+{% endblock %}
