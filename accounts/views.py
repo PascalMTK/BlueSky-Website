@@ -30,6 +30,7 @@ class OTPDeliveryError(Exception):
     pass
 
 
+@transaction.atomic
 def _send_otp(user):
     verification, code = EmailVerification.issue_for(user)
     try:
@@ -48,7 +49,7 @@ def _send_otp(user):
 
 def _safe_next(request, next_url):
     if next_url and url_has_allowed_host_and_scheme(
-        next_url, allowed_hosts={request.get_host()}
+        next_url, allowed_hosts={request.get_host()}, require_https=request.is_secure()
     ):
         return next_url
     return "/tableau-de-bord/"

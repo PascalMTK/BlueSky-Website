@@ -1,15 +1,37 @@
 import re
 import smtplib
+from unittest.mock import patch
 
 from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from .models import EmailVerification, User
+from .views import OTPDeliveryError, _send_otp
 
 
 @override_settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend")
 class AccountVerificationTests(TestCase):
+    def test_failed_resend_preserves_existing_code(self):
+        user = User.objects.create_user("retry@example.com", "Test Client", "SecurePass123!", is_active=False)
+        verification, code = EmailVerification.issue_for(user)
+        original_hash = verification.code_hash
+        with patch("accounts.views.send_mail", side_effect=smtplib.SMTPException("SMTP is down")):
+            with self.assertRaises(OTPDeliveryError):
+                _send_otp(user)
+        verification.refresh_from_db()
+        self.assertEqual(verification.code_hash, original_hash)
+        self.assertTrue(verification.verify(code))
+
+    def test_https_login_rejects_http_redirect(self):
+        User.objects.create_user("client@example.com", "Test Client", "SecurePass123!")
+        response = self.client.post(
+            reverse("accounts:login"),
+            {"email": "client@example.com", "password": "SecurePass123!", "next": "http://testserver/private/"},
+            secure=True,
+        )
+        self.assertRedirects(response, reverse("transfers:overview"), fetch_redirect_response=False)
+
     def signup_data(self, **overrides):
         data = {
             "full_name": "Test Client",

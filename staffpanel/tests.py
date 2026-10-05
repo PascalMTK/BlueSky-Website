@@ -54,3 +54,13 @@ class ConfirmOperationTests(TestCase):
         operation = self.confirm(SavingsOperation.Type.WITHDRAWAL, "500")
         self.assertEqual(operation.status, SavingsOperation.Status.PENDING)
         self.assertEqual(self.account.balance, Decimal("100"))
+
+    def test_confirmed_operation_cannot_be_rejected_or_confirmed_again(self):
+        operation = self.confirm(SavingsOperation.Type.DEPOSIT, "25")
+        for action in ("reject_operation", "confirm_operation"):
+            response = self.client.post(reverse(f"staffpanel:{action}", args=[operation.pk]))
+            self.assertEqual(response.status_code, 404)
+        operation.refresh_from_db()
+        self.account.refresh_from_db()
+        self.assertEqual(operation.status, SavingsOperation.Status.CONFIRMED)
+        self.assertEqual(self.account.balance, Decimal("125"))

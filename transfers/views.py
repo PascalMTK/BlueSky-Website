@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_POST
+from django.utils import timezone
 
 from .models import Transfer
 
@@ -35,5 +36,5 @@ def overview(request):
 def cancel_transfer(request, pk):
     Transfer.objects.filter(
         pk=pk, user=request.user, status=Transfer.Status.PENDING
-    ).update(status=Transfer.Status.CANCELLED)
+    ).update(status=Transfer.Status.CANCELLED, updated_at=timezone.now())
     return redirect("transfers:overview")

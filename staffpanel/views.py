@@ -54,8 +54,9 @@ def transfers_list(request):
 
 @staff_required
 @require_POST
+@transaction.atomic
 def update_transfer_status(request, pk, status):
-    transfer = get_object_or_404(Transfer, pk=pk)
+    transfer = get_object_or_404(Transfer.objects.select_for_update(), pk=pk)
     allowed = TRANSFER_TRANSITIONS.get(transfer.status, set())
     if status not in allowed:
         messages.error(request, "Ce changement de statut n'est pas autorisé.")
@@ -82,8 +83,9 @@ def savings_accounts(request):
 
 @staff_required
 @require_POST
+@transaction.atomic
 def activate_account(request, pk):
-    account = get_object_or_404(SavingsAccount, pk=pk, status=SavingsAccount.Status.PENDING)
+    account = get_object_or_404(SavingsAccount.objects.select_for_update(), pk=pk, status=SavingsAccount.Status.PENDING)
     account.status = SavingsAccount.Status.ACTIVE
     account.fiche_number = account.fiche_number or _generate_fiche_number()
     account.agent_name = request.user.full_name
@@ -95,8 +97,9 @@ def activate_account(request, pk):
 
 @staff_required
 @require_POST
+@transaction.atomic
 def reject_account(request, pk):
-    account = get_object_or_404(SavingsAccount, pk=pk, status=SavingsAccount.Status.PENDING)
+    account = get_object_or_404(SavingsAccount.objects.select_for_update(), pk=pk, status=SavingsAccount.Status.PENDING)
     account.status = SavingsAccount.Status.REJECTED
     account.save()
     messages.success(request, f"Demande de {account.user.full_name} refusée.")
@@ -145,9 +148,10 @@ def confirm_operation(request, pk):
 
 @staff_required
 @require_POST
+@transaction.atomic
 def reject_operation(request, pk):
     operation = get_object_or_404(
-        SavingsOperation.objects.select_related("account"),
+        SavingsOperation.objects.select_for_update(),
         pk=pk,
         status=SavingsOperation.Status.PENDING,
     )
@@ -156,7 +160,7 @@ def reject_operation(request, pk):
     operation.confirmed_at = timezone.now()
     operation.save()
     messages.success(request, "Opération rejetée.")
-    return redirect("staffpanel:savings_account_detail", pk=operation.account.pk)
+    return redirect("staffpanel:savings_account_detail", pk=operation.account_id)
 
 
 def _generate_fiche_number():
