@@ -1,0 +1,13 @@
+{% load static core_extras i18n_extra %}{% with cap=code|capital code_l=code|lower %}
+{# Capital-city photo with the national flag woven into it: the flag sweeps in #}
+{# from the left and fades diagonally into the skyline, and a soft-light wash  #}
+{# of the same flag tints the whole photo in its colours.                     #}
+<div class="capital-blend {{ blend_class }}" aria-hidden="true">
+  {% if cap.image %}
+    <img src="{% static cap.image %}" alt="" class="capital-blend-photo" style="object-position: {{ cap.position|default:'center' }}" loading="lazy" decoding="async">
+  {% endif %}
+  <img src="{% static 'img/flags/svg/'|add:code_l|add:'.svg' %}" alt="" class="capital-blend-tint" loading="lazy" decoding="async">
+  <img src="{% static 'img/flags/svg/'|add:code_l|add:'.svg' %}" alt="" class="capital-blend-flag" loading="lazy" decoding="async">
+  <span class="capital-blend-scrim"></span>
+</div>
+{% endwith %}

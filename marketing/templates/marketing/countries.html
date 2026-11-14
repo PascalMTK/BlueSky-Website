@@ -1,5 +1,5 @@
 {% extends "marketing/base_marketing.html" %}
-{% load static icons ui i18n_extra %}
+{% load static icons ui i18n_extra core_extras %}
 {% block title %}{% t "Nos agences" %} | Blue Sky{% endblock %}
 {% block description %}Retrouvez les coordonnées de toutes les agences Blue Sky en RDC, Zambie, Namibie, Afrique du Sud, Zimbabwe, Kenya, Ouganda, Tanzanie et Malawi.{% endblock %}
 {% block content %}
@@ -23,19 +23,13 @@
 
     <div class="hero-visual relative mx-auto w-full max-w-[440px]" data-hero-scene>
       <div class="hero-frame relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-brand-blue-deep p-2" data-depth="1">
-        <div class="grid h-full w-full grid-cols-2 gap-2">
-          <div class="overflow-hidden rounded-xl">
-            <img src="{% static 'img/closeup-shot-realistic-flag-democratic-republic-congo-with-interesting-textures.jpg' %}" alt="{% blockt %}Gros plan du drapeau de la RDC{% endblockt %}" class="h-full w-full object-cover" loading="lazy">
-          </div>
-          <div class="overflow-hidden rounded-xl">
-            <img src="{% static 'img/closeup-shot-realistic-flag-south-africa-with-interesting-textures.jpg' %}" alt="{% blockt %}Gros plan du drapeau de l'Afrique du Sud{% endblockt %}" class="h-full w-full object-cover" loading="lazy">
-          </div>
-          <div class="overflow-hidden rounded-xl">
-            <img src="{% static 'img/closeup-shot-realistic-flag-uganda-with-interesting-textures.jpg' %}" alt="{% blockt %}Gros plan du drapeau de l'Ouganda{% endblockt %}" class="h-full w-full object-cover" loading="lazy">
-          </div>
-          <div class="overflow-hidden rounded-xl">
-            <img src="{% static 'img/closeup-shot-waving-flag-namibia-with-interesting-textures.jpg' %}" alt="{% blockt %}Gros plan du drapeau de la Namibie{% endblockt %}" class="h-full w-full object-cover" loading="lazy">
-          </div>
+        <div class="grid h-full w-full grid-cols-2 grid-rows-2 gap-2">
+          {% for code, city in hero_capitals %}
+            <div class="relative overflow-hidden rounded-xl">
+              {% include "core/partials/capital_blend.html" with code=code blend_class="absolute inset-0" %}
+              <span class="absolute bottom-3 left-3 text-[.62rem] font-bold uppercase tracking-[.16em] text-white/90">{{ city }}</span>
+            </div>
+          {% endfor %}
         </div>
         <div class="hero-frame-shine" aria-hidden="true"></div>
       </div>
@@ -52,11 +46,27 @@
 
 <section class="py-16 sm:py-20">
   <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
-    <div class="grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+      <div>
+        {% kicker "Capitales & agences" tone="blue" %}
+        <h2 class="display-title mt-3 text-3xl sm:text-4xl">{% t "Un réseau, neuf capitales" %}</h2>
+      </div>
+      <p class="max-w-md text-sm leading-relaxed text-text-muted">{% t "Touchez une carte pour afficher l'adresse de l'agence, les numéros de téléphone et un accès direct à WhatsApp." %}</p>
+    </div>
+    <div class="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {% for country in COUNTRIES %}
         {% include "core/partials/country_card.html" %}
       {% endfor %}
     </div>
+
+    <details class="photo-credits mt-12">
+      <summary>{% icon "camera" size=14 %} {% t "Crédits photos des capitales" %}</summary>
+      <ul>
+        {% for country in COUNTRIES %}{% with cap=country.code|capital %}{% if cap.image %}
+          <li><strong>{{ cap.city }}</strong> · {{ cap.credit }}, <a href="{{ cap.source }}" target="_blank" rel="noopener">Wikimedia Commons</a> ({{ cap.license }})</li>
+        {% endif %}{% endwith %}{% endfor %}
+      </ul>
+    </details>
   </div>
 </section>
 

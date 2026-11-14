@@ -39,3 +39,11 @@ def format_date(value):
 @register.filter
 def dict_get(mapping, key):
     return mapping.get(key, "")
+
+
+@register.filter
+def capital(country_code):
+    """Capital-city photo metadata for an ISO country code (see core.data.CAPITALS)."""
+    from core.data import CAPITALS
+
+    return CAPITALS.get(str(country_code or "").upper(), {})

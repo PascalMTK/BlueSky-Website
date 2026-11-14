@@ -1,35 +1,52 @@
-{% load icons static i18n_extra %}
+{% load icons static core_extras i18n_extra %}{% with cap=country.code|capital %}
 <article class="country-card content-card group flex h-full cursor-pointer flex-col overflow-hidden" data-country-card data-country-dialog="country-{{ country.code|lower }}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="{% t 'Voir les coordonnées pour' %} {% t country.name %}">
-  <div class="relative h-36 bg-brand-blue-deep">
-    <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" srcset="{% static 'img/flags/'|add:country.code|lower|add:'@2x.png' %} 2x" width="160" height="107" alt="{% t 'Drapeau de' %} {% t country.name %}" class="h-full w-full object-cover" loading="lazy">
-    <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/70 via-transparent to-transparent"></div>
-    <div class="absolute inset-x-4 bottom-3 flex items-end justify-between gap-3">
-      <h3 class="text-xl font-bold leading-tight text-white">{% t country.name %}</h3>
+  <div class="relative h-60 overflow-hidden sm:h-64">
+    {% include "core/partials/capital_blend.html" with code=country.code blend_class="absolute inset-0" %}
+
+    <div class="absolute inset-x-4 top-4 flex items-start justify-between gap-3">
+      <span class="country-flag-pill">
+        <img src="{% static 'img/flags/svg/'|add:country.code|lower|add:'.svg' %}" alt="" width="22" height="15">
+        {{ country.code|upper }}
+      </span>
       <span class="photo-tag {% if country.address %}bg-white/90 text-brand-blue-deep border-white/30{% else %}bg-brand-gold text-brand-blue-deep border-brand-gold{% endif %}">
         {% if country.address %}{% t "Agence" %}{% else %}{% t "Transfert digital" %}{% endif %}
       </span>
     </div>
+
+    <div class="absolute inset-x-5 bottom-5">
+      {% if cap.city %}
+        <p class="flex items-center gap-1.5 text-[.66rem] font-bold uppercase tracking-[.16em] text-brand-gold-light">
+          {% icon "map-pin" size=12 %} {% t "Capitale" %} · {{ cap.city }}
+        </p>
+      {% endif %}
+      <h3 class="mt-1.5 font-serif text-[1.7rem] font-semibold leading-none text-white">{% t country.name %}</h3>
+    </div>
   </div>
 
-  <div class="flex items-center justify-between gap-3 p-5">
-    <span class="flex items-center gap-3">
+  <div class="flex flex-1 items-center justify-between gap-3 p-5">
+    <span class="flex min-w-0 items-center gap-3">
       <span class="icon-chip {% if not country.address %}icon-chip-gold-soft{% endif %}">
         {% if country.address %}{% icon "map-pin" size=17 %}{% else %}{% icon "zap" size=17 %}{% endif %}
       </span>
-      <span class="text-sm font-bold text-text">{% t "Voir l'adresse et les contacts" %}</span>
+      <span class="min-w-0">
+        <span class="block text-sm font-bold text-text">{% t "Voir l'adresse et les contacts" %}</span>
+        <span class="mt-0.5 block truncate text-xs text-text-muted">
+          {% if country.address %}{{ country.address|truncatechars:46 }}{% else %}{% t "Opérations à distance, accompagnées" %}{% endif %}
+        </span>
+      </span>
     </span>
-    <span class="text-brand-blue transition-transform group-hover:translate-x-0.5 dark:text-brand-gold-light">{% icon "arrow-up-right" size=17 %}</span>
+    <span class="country-card-arrow">{% icon "arrow-up-right" size=17 %}</span>
   </div>
 </article>
 
 <dialog id="country-{{ country.code|lower }}" class="country-dialog m-auto w-[calc(100%-2rem)] max-w-lg p-0 text-text backdrop:bg-brand-blue-deep/75">
   <div class="country-dialog-panel overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl">
-    <div class="relative h-32 bg-brand-blue-deep">
-      <img src="{% static 'img/flags/'|add:country.code|lower|add:'.png' %}" alt="" class="h-full w-full object-cover opacity-55">
-      <div class="absolute inset-0 bg-gradient-to-t from-brand-blue-deep via-brand-blue-deep/35 to-transparent"></div>
-      <div class="absolute inset-x-5 bottom-4 flex items-end justify-between gap-4">
-        <div><p class="text-[.65rem] font-bold uppercase tracking-[.13em] text-brand-gold">{% t "Coordonnées" %}</p><h3 class="mt-1 text-2xl font-bold text-white">{% t country.name %}</h3></div>
-        <button type="button" data-country-dialog-close class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20" aria-label="{% t 'Fermer' %}">{% icon "x" size=18 %}</button>
+    <div class="relative h-48 overflow-hidden">
+      {% include "core/partials/capital_blend.html" with code=country.code blend_class="absolute inset-0" %}
+      <button type="button" data-country-dialog-close class="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-brand-blue-deep/40 text-white backdrop-blur transition hover:bg-white/20" aria-label="{% t 'Fermer' %}">{% icon "x" size=18 %}</button>
+      <div class="absolute inset-x-5 bottom-5">
+        <p class="text-[.65rem] font-bold uppercase tracking-[.13em] text-brand-gold-light">{% t "Coordonnées" %}{% if cap.city %} · {% t "Capitale" %} {{ cap.city }}{% endif %}</p>
+        <h3 class="mt-1 font-serif text-3xl font-semibold text-white">{% t country.name %}</h3>
       </div>
     </div>
 
@@ -65,3 +82,4 @@
     </div>
   </div>
 </dialog>
+{% endwith %}

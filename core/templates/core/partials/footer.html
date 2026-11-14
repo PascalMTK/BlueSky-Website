@@ -1,4 +1,4 @@
-{% load icons i18n_extra %}
+{% load static icons i18n_extra %}
 <footer class="site-footer brand-dot-texture overflow-hidden bg-brand-blue-deep text-white">
   <div class="mx-auto w-full max-w-[1440px] px-5 pt-16 sm:px-8 lg:px-10 lg:pt-20">
     <div class="footer-cta grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:p-10">
@@ -48,7 +48,7 @@
       <div>
         <h3 class="footer-heading">{% t "Notre couverture" %}</h3>
         <div class="grid grid-cols-2 gap-2">
-          {% for country in COUNTRIES %}<a href="{% url 'marketing:countries' %}" class="footer-country"><span>{{ country.flag }}</span><span>{% t country.name %}</span></a>{% endfor %}
+          {% for country in COUNTRIES %}<a href="{% url 'marketing:countries' %}" class="footer-country"><img src="{% static 'img/flags/svg/'|add:country.code|lower|add:'.svg' %}" alt="" class="flag-chip" loading="lazy"><span>{% t country.name %}</span></a>{% endfor %}
         </div>
       </div>
     </div>

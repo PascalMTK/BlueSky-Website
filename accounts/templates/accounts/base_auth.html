@@ -20,7 +20,7 @@
         <p class="editorial-label text-brand-gold">{% block auth_kicker %}{% t "Un réseau. Huit pays." %}{% endblock %}</p>
         <p class="display-title mt-5 text-4xl leading-[1.04] xl:text-6xl xl:leading-[1.02]">{% block auth_tagline %}{% blockt %}L'argent arrive.<br>La confiance aussi.{% endblockt %}{% endblock %}</p>
         <div class="mt-8 flex flex-wrap gap-2 text-xs font-semibold text-white/75">
-          {% for country in COUNTRIES %}<span class="rounded-lg border border-white/15 bg-white/[.06] px-3 py-1.5">{{ country.flag }} {% t country.name %}</span>{% endfor %}
+          {% for country in COUNTRIES %}<span class="rounded-lg border border-white/15 bg-white/[.06] px-3 py-1.5 inline-flex items-center gap-2"><img src="{% static 'img/flags/svg/'|add:country.code|lower|add:'.svg' %}" alt="" class="flag-chip"> {% t country.name %}</span>{% endfor %}
         </div>
       </div>
 

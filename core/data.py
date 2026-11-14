@@ -131,3 +131,83 @@ COUNTRIES = [
 ]
 
 CURRENCIES = ["USD", "CDF", "ZMW", "NAD", "ZAR", "KES", "UGX", "TZS", "MWK"]
+
+
+# Capital-city photography for the country cards (static/img/capitals/<code>.jpg).
+# Keyed by ISO code so it works for both the Agency model and the static
+# COUNTRIES fallback. Photos come from Wikimedia Commons under free licences;
+# the credit fields are rendered on the countries page as attribution.
+CAPITALS = {
+    "CD": {
+        "city": "Kinshasa",
+        "image": "img/capitals/cd.jpg",
+        "position": "center 60%",
+        "credit": "Francis Shok Mweze",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:La_Gombe,_Kinshasa,_RDC_(cropped).jpg",
+    },
+    "ZM": {
+        "city": "Lusaka",
+        "image": "img/capitals/zm.jpg",
+        "position": "center 40%",
+        "credit": "Matthew Grollnek",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Downtown_Lusaka.JPG",
+    },
+    "NA": {
+        "city": "Windhoek",
+        "image": "img/capitals/na.jpg",
+        "position": "center 55%",
+        "credit": "Christoph Strässler",
+        "license": "CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Christ_Church_in_Windhoek,_Namibia.jpg",
+    },
+    "ZA": {
+        "city": "Pretoria",
+        "image": "img/capitals/za.jpg",
+        "position": "center 45%",
+        "credit": "Davinci77",
+        "license": "CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Uniegebou.jpg",
+    },
+    "TZ": {
+        "city": "Dodoma",
+        "image": "img/capitals/tz.jpg",
+        "position": "center 40%",
+        "credit": "Mangapwani",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Street_in_Viwandani_ward,_Dodoma_City.jpg",
+    },
+    "KE": {
+        "city": "Nairobi",
+        "image": "img/capitals/ke.jpg",
+        "position": "center 55%",
+        "credit": "Daniel Case",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Nairobi_skyline_from_Gem_Hotel.jpg",
+    },
+    "UG": {
+        "city": "Kampala",
+        "image": "img/capitals/ug.jpg",
+        "position": "center 70%",
+        "credit": "Chapelle musa",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Urban_Rising,_KAMPALA,_Uganda.jpg",
+    },
+    "ZW": {
+        "city": "Harare",
+        "image": "img/capitals/zw.jpg",
+        "position": "center 35%",
+        "credit": "Baynham Goredema",
+        "license": "CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Crowne_Plaza,_Harare.png",
+    },
+    "MW": {
+        "city": "Lilongwe",
+        "image": "img/capitals/mw.jpg",
+        "position": "center 40%",
+        "credit": "Felixfeld",
+        "license": "CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:K.a.r-.clocktower-in-lilongwe.jpg",
+    },
+}

@@ -130,7 +130,11 @@ def impact(request):
 
 
 def countries(request):
-    return render(request, "marketing/countries.html")
+    from core.data import CAPITALS
+
+    hero_codes = ["CD", "ZA", "KE", "NA"]
+    context = {"hero_capitals": [(code, CAPITALS[code]["city"]) for code in hero_codes]}
+    return render(request, "marketing/countries.html", context)
 
 
 def tariffs(request):
