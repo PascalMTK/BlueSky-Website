@@ -31,7 +31,7 @@
 
     <div class="space-y-2 border-t border-white/10 p-4">
       {% block sidebar_footer_links %}{% endblock %}
-      <div class="flex items-center gap-3 rounded-xl bg-white/[.06] p-3">
+      <div class="flex items-center gap-3 rounded-xl bg-white/6 p-3">
         <span class="dash-avatar">{{ request.user.full_name|initials }}</span>
         <div class="min-w-0 flex-1">
           <p class="truncate text-sm font-bold leading-tight text-white">{{ request.user.full_name }}</p>
@@ -49,7 +49,7 @@
 
   <!-- Main column -->
   <div class="flex min-h-screen min-w-0 flex-col">
-    <header class="dash-topbar sticky top-0 z-40 flex h-[72px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
+    <header class="dash-topbar sticky top-0 z-40 flex h-18 items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
       <div class="lg:hidden">{% include "core/partials/logo.html" with extra_class="dash-mobile-logo" %}</div>
       <div class="hidden min-w-0 lg:block">
         <p class="text-xs font-medium text-text-muted">{% block topbar_kicker %}{% t "Espace client" %}{% endblock %}</p>
@@ -66,14 +66,14 @@
 
     <!-- Mobile navigation -->
     {% block mobile_nav_bar %}
-    <nav class="dash-mobile-nav sticky top-[72px] z-30 lg:hidden" aria-label="{% t 'Navigation' %}">
+    <nav class="dash-mobile-nav sticky top-18 z-30 lg:hidden" aria-label="{% t 'Navigation' %}">
       {% block mobile_nav %}
         {% include "core/partials/dashboard_nav.html" with nav_class="flex flex-row gap-1.5" mobile=True %}
       {% endblock %}
     </nav>
     {% endblock %}
 
-    <main class="mx-auto w-full max-w-[1400px] flex-1 p-5 sm:p-8 lg:p-10">
+    <main class="mx-auto w-full max-w-350 flex-1 p-5 sm:p-8 lg:p-10">
       {% if messages %}
         <div class="mb-6 space-y-2">
           {% for message in messages %}

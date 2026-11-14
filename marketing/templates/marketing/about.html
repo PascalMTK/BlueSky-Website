@@ -5,14 +5,14 @@
 {% block content %}
 
 <section class="border-b border-border bg-surface-muted py-16 sm:py-20">
-  <div class="mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
+  <div class="mx-auto w-full max-w-360 px-5 text-center sm:px-8 lg:px-10">
     {% kicker "Qui sommes-nous ?" tone="blue" %}
     <h1 class="display-title mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">{% t "Une agence bâtie pour rapprocher les familles africaines" %}</h1>
   </div>
 </section>
 
 <section class="py-20 sm:py-24">
-  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
+  <div class="mx-auto grid w-full max-w-360 items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
     <p class="text-lg leading-relaxed text-text-muted">{% t SITE.definition %}</p>
     <div class="grid gap-6 sm:grid-cols-2">
       <div class="content-card p-7">
@@ -31,9 +31,9 @@
 
 <!-- Leadership / vision -->
 <section class="bg-brand-blue-deep py-20 text-white sm:py-24">
-  <div class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-6 sm:px-10 lg:grid-cols-[.85fr_1.15fr] lg:gap-16 lg:px-10">
+  <div class="mx-auto grid w-full max-w-360 items-center gap-14 px-6 sm:px-10 lg:grid-cols-[.85fr_1.15fr] lg:gap-16 lg:px-10">
     <div class="relative mx-auto w-full max-w-sm lg:max-w-none">
-      <div class="aspect-[4/5] w-full overflow-hidden rounded-2xl">
+      <div class="aspect-4/5 w-full overflow-hidden rounded-2xl">
         <img
           src="{% static 'img/founder-portrait.jpg' %}"
           alt="{% t 'Portrait de la direction de Blue Sky' %}"
@@ -42,7 +42,7 @@
         >
       </div>
     </div>
-    <div class="relative rounded-2xl border border-white/10 bg-white/[.04] p-8 sm:p-12 lg:p-14">
+    <div class="relative rounded-2xl border border-white/10 bg-white/4 p-8 sm:p-12 lg:p-14">
       {% kicker "Notre vision" %}
       <p class="mt-6 text-2xl font-semibold leading-snug sm:text-3xl">
         {% blockt %}&laquo; Nous voulons qu'aucune distance, aucune frontière n'empêche une famille de prendre soin des siens. Blue Sky existe pour que chaque franc, chaque kwacha, chaque rand envoyé arrive à destination avec la même confiance qu'une remise en main propre. &raquo;{% endblockt %}

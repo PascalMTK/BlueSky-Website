@@ -10,7 +10,7 @@
     <span class="hero-orb hero-orb-two"></span>
     <span class="hero-grid-plane"></span>
   </div>
-  <div class="mx-auto grid w-full max-w-[1440px] gap-14 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1fr_.9fr] lg:items-center lg:px-10 lg:py-24">
+  <div class="mx-auto grid w-full max-w-360 gap-14 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1fr_.9fr] lg:items-center lg:px-10 lg:py-24">
     <div class="text-center lg:text-left">
       {% kicker "Notre réseau africain" tone="blue" %}
       <h1 class="display-title mx-auto mt-4 max-w-2xl text-4xl sm:text-5xl lg:mx-0">{% t "Plus proches de vous, dans" %} {{ COUNTRIES|length }} {% t "pays" %}</h1>
@@ -21,8 +21,8 @@
       </div>
     </div>
 
-    <div class="hero-visual relative mx-auto w-full max-w-[440px]" data-hero-scene>
-      <div class="hero-frame relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-brand-blue-deep p-2" data-depth="1">
+    <div class="hero-visual relative mx-auto w-full max-w-110" data-hero-scene>
+      <div class="hero-frame relative aspect-4/5 w-full overflow-hidden rounded-2xl bg-brand-blue-deep p-2" data-depth="1">
         <div class="grid h-full w-full grid-cols-2 grid-rows-2 gap-2">
           {% for code, city in hero_capitals %}
             <div class="relative overflow-hidden rounded-xl">
@@ -45,7 +45,7 @@
 </section>
 
 <section class="py-16 sm:py-20">
-  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
+  <div class="mx-auto w-full max-w-360 px-5 sm:px-8 lg:px-10">
     <div class="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
       <div>
         {% kicker "Capitales & agences" tone="blue" %}

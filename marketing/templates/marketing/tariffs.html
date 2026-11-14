@@ -6,7 +6,7 @@
 
 <section class="tariffs-hero relative overflow-hidden bg-brand-blue-deep py-20 text-white sm:py-24">
   <div class="tariffs-orbit" aria-hidden="true"></div>
-  <div class="relative z-10 mx-auto w-full max-w-[1440px] px-5 text-center sm:px-8 lg:px-10">
+  <div class="relative z-10 mx-auto w-full max-w-360 px-5 text-center sm:px-8 lg:px-10">
     <p class="editorial-label text-brand-sky">Blue Sky Money Transfer</p>
     <h1 class="display-title mx-auto mt-4 max-w-4xl text-4xl sm:text-5xl lg:text-6xl">
       {% t "Des tarifs simples et transparents" %}
@@ -15,7 +15,7 @@
       {% t "Consultez les frais applicables à vos envois et retraits avant chaque transaction." %}
     </p>
     {% if latest_update %}
-      <p class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.07] px-4 py-2 text-xs font-semibold text-white/70">
+      <p class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/7 px-4 py-2 text-xs font-semibold text-white/70">
         {% icon "clock" size=14 %} {% t "Dernière mise à jour" %} : {{ latest_update|date:"d/m/Y" }}
       </p>
     {% endif %}
@@ -27,7 +27,7 @@
 </section>
 
 <section class="tariffs-section bg-surface-muted py-16 sm:py-20">
-  <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
+  <div class="mx-auto w-full max-w-360 px-5 sm:px-8 lg:px-10">
     {% if tariff_plans %}
       <div class="grid items-start gap-7 lg:grid-cols-3">
         {% for plan in tariff_plans %}

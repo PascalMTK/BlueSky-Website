@@ -1,0 +1,34 @@
+{
+  "version": "0.2",
+  "language": "en,fr",
+  "ignorePaths": [
+    "**/templates/**",
+    "core/i18n.py",
+    "core/data.py",
+    "**/migrations/**",
+    "static_src/css/output.css",
+    "node_modules/**",
+    ".venv/**",
+    "staticfiles/**"
+  ],
+  "words": [
+    "Blue Sky",
+    "bluesky",
+    "africabluesky",
+    "staffpanel",
+    "tableau",
+    "epargne",
+    "gestion",
+    "honeypot",
+    "Lubumbashi",
+    "Kinshasa",
+    "Mobutu",
+    "Kapenda",
+    "decouple",
+    "whitenoise",
+    "pythonanywhere",
+    "Fraunces",
+    "mkvirtualenv",
+    "collectstatic"
+  ]
+}
