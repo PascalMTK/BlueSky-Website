@@ -1,6 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.db.models import Sum
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
 from blog.models import Post
@@ -10,6 +13,8 @@ from savings.models import SavingsAccount, SavingsOperation
 from transfers.models import Transfer
 
 from .forms import PostForm
+
+User = get_user_model()
 
 # Legal next steps for a transfer, keyed by its current status — staff can
 # only move a transfer forward or cancel it, never skip or rewind a step.
@@ -33,6 +38,27 @@ def home(request):
         "unhandled_messages": ContactMessage.objects.filter(is_handled=False).count(),
         "published_posts": Post.objects.filter(is_published=True).count(),
         "draft_posts": Post.objects.filter(is_published=False).count(),
+        # Work queues shown on the dashboard so staff can act without digging.
+        "queue_transfers": Transfer.objects.select_related("user", "recipient")
+        .filter(status__in=[Transfer.Status.PENDING, Transfer.Status.PROCESSING])
+        .order_by("created_at")[:6],
+        "queue_messages": ContactMessage.objects.filter(is_handled=False)[:4],
+        "queue_operations": SavingsOperation.objects.select_related("account__user")
+        .filter(status=SavingsOperation.Status.PENDING)
+        .order_by("requested_at")[:4],
+        "queue_accounts": SavingsAccount.objects.select_related("user")
+        .filter(status=SavingsAccount.Status.PENDING)
+        .order_by("created_at")[:4],
+        "completed_volume": Transfer.objects.filter(status=Transfer.Status.COMPLETED)
+        .order_by()
+        .values("currency_sent")
+        .annotate(total=Sum("amount_sent"))
+        .order_by("-total")[:2],
+        "completed_this_month": Transfer.objects.filter(
+            status=Transfer.Status.COMPLETED,
+            updated_at__gte=timezone.localtime().replace(day=1, hour=0, minute=0, second=0, microsecond=0),
+        ).count(),
+        "client_count": User.objects.filter(is_staff=False, is_active=True).count(),
     }
     return render(request, "staffpanel/home.html", context)
 
@@ -58,11 +84,21 @@ def update_transfer_status(request, pk, status):
     allowed = TRANSFER_TRANSITIONS.get(transfer.status, set())
     if status not in allowed:
         messages.error(request, "Ce changement de statut n'est pas autorisé.")
-        return redirect("staffpanel:transfers")
+        return _redirect_back(request, "staffpanel:transfers")
     transfer.status = status
     transfer.save(update_fields=["status", "updated_at"])
     messages.success(request, f"Transfert {transfer.reference} mis à jour.")
-    return redirect("staffpanel:transfers")
+    return _redirect_back(request, "staffpanel:transfers")
+
+
+def _redirect_back(request, fallback):
+    """Return to the page the action was posted from (e.g. the dashboard queue)."""
+    next_url = request.POST.get("next", "")
+    if next_url and url_has_allowed_host_and_scheme(
+        next_url, allowed_hosts={request.get_host()}, require_https=request.is_secure()
+    ):
+        return redirect(next_url)
+    return redirect(fallback)
 
 
 @staff_required

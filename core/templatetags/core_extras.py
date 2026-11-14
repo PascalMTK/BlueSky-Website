@@ -47,3 +47,22 @@ def capital(country_code):
     from core.data import CAPITALS
 
     return CAPITALS.get(str(country_code or "").upper(), {})
+
+
+@register.filter
+def country_code(country_name):
+    """ISO code for a country stored by name (e.g. "Zambie" -> "zm"), or ""."""
+    from core.data import COUNTRIES
+
+    name = str(country_name or "").strip().lower()
+    for country in COUNTRIES:
+        if country["name"].lower() == name or country["code"].lower() == name:
+            return country["code"].lower()
+    return ""
+
+
+@register.filter
+def initials(full_name):
+    """Up to two initials for an avatar ("Grace Mbuyi" -> "GM")."""
+    parts = [p for p in str(full_name or "").split() if p]
+    return "".join(p[0] for p in parts[:2]).upper() or "?"

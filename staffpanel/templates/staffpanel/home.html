@@ -1,70 +1,202 @@
 {% extends "staffpanel/base_staff.html" %}
-{% load icons %}
+{% load static icons core_extras %}
 {% block title %}Administration | Blue Sky{% endblock %}
 {% block dashboard_content %}
+<div class="space-y-8">
 
-<h1 class="display-title text-2xl sm:text-3xl">Tableau de bord</h1>
-<p class="mt-1 text-sm text-text-muted">Vue d'ensemble des services Blue Sky et des demandes en attente.</p>
-
-<div class="mt-9 space-y-9">
-  <section>
-    <p class="editorial-label mb-3 text-text-muted">Transferts</p>
-    <div class="grid gap-6 sm:grid-cols-2">
-      <a href="{% url 'staffpanel:transfers' %}?status=PENDING" class="content-card group p-6">
-        <span class="icon-chip icon-chip-gold">{% icon "clock" size=20 %}</span>
-        <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_transfers }}</p>
-        <p class="mt-1 text-sm font-semibold text-text-muted">Transferts en attente</p>
-      </a>
-      <a href="{% url 'staffpanel:transfers' %}?status=PROCESSING" class="content-card group p-6">
-        <span class="icon-chip">{% icon "send" size=20 %}</span>
-        <p class="mt-4 text-3xl font-extrabold text-text">{{ processing_transfers }}</p>
-        <p class="mt-1 text-sm font-semibold text-text-muted">Transferts en cours</p>
-      </a>
+  <!-- Banner -->
+  <section class="dash-hero">
+    <div class="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-end">
+      <div>
+        <p class="text-[.68rem] font-bold uppercase tracking-[.16em] text-brand-gold-light">Tableau de bord · Administration</p>
+        <h1 class="mt-3 font-serif text-3xl font-semibold leading-tight text-white sm:text-4xl">Bonjour, {{ request.user.get_short_name }}</h1>
+        {% with todo=pending_transfers|add:pending_accounts|add:pending_operations|add:unhandled_messages %}
+          <p class="mt-3 max-w-lg text-sm leading-relaxed text-white/70">
+            {% if todo %}<strong class="text-white">{{ todo }} élément{{ todo|pluralize }}</strong> attend{{ todo|pluralize:"ent" }} une action de l'équipe aujourd'hui.{% else %}Tout est à jour, aucune demande n'attend de traitement.{% endif %}
+          </p>
+        {% endwith %}
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="{% url 'staffpanel:transfers' %}?status=PENDING" class="btn btn-primary btn-md">{% icon "send" size=16 %} Traiter les transferts</a>
+          <a href="{% url 'staffpanel:messages' %}?handled=0" class="btn btn-md dash-hero-ghost">{% icon "inbox" size=16 %} Boîte de réception</a>
+        </div>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2">
+        <div class="dash-hero-stat">
+          <p class="dash-hero-stat-label">{% icon "trending-up" size=14 %} Volume livré</p>
+          {% for row in completed_volume %}
+            <p class="{% if forloop.first %}dash-hero-stat-value{% else %}mt-1 text-sm font-semibold text-white/70{% endif %}">{{ row.total|format_amount:row.currency_sent }}</p>
+          {% empty %}
+            <p class="dash-hero-stat-value">0</p>
+          {% endfor %}
+          <p class="mt-1 text-xs text-white/55">{{ completed_this_month }} transfert{{ completed_this_month|pluralize }} terminé{{ completed_this_month|pluralize }} ce mois</p>
+        </div>
+        <div class="dash-hero-stat">
+          <p class="dash-hero-stat-label">{% icon "users" size=14 %} Clients actifs</p>
+          <p class="dash-hero-stat-value">{{ client_count }}</p>
+          <p class="mt-1 text-xs text-white/55">{{ published_posts }} publication{{ published_posts|pluralize }} en ligne</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section>
-    <p class="editorial-label mb-3 text-text-muted">Épargne</p>
-    <div class="grid gap-6 sm:grid-cols-2">
-      <a href="{% url 'staffpanel:savings_accounts' %}?status=PENDING" class="content-card group p-6">
-        <span class="icon-chip icon-chip-gold">{% icon "piggy-bank" size=20 %}</span>
-        <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_accounts }}</p>
-        <p class="mt-1 text-sm font-semibold text-text-muted">Demandes d'épargne en attente</p>
-      </a>
-      <a href="{% url 'staffpanel:savings_accounts' %}" class="content-card group p-6">
-        <span class="icon-chip">{% icon "clock" size=20 %}</span>
-        <p class="mt-4 text-3xl font-extrabold text-text">{{ pending_operations }}</p>
-        <p class="mt-1 text-sm font-semibold text-text-muted">Opérations à confirmer</p>
-      </a>
-    </div>
+  <!-- KPIs -->
+  <section class="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
+    <a href="{% url 'staffpanel:transfers' %}?status=PENDING" class="dash-stat">
+      <span class="dash-stat-icon dash-tone-amber">{% icon "clock" size=19 %}</span>
+      <div class="min-w-0"><p class="text-2xl font-extrabold leading-none text-text">{{ pending_transfers }}</p><p class="mt-1.5 truncate text-sm font-medium text-text-muted">Transferts en attente</p></div>
+    </a>
+    <a href="{% url 'staffpanel:transfers' %}?status=PROCESSING" class="dash-stat">
+      <span class="dash-stat-icon dash-tone-brand">{% icon "send" size=19 %}</span>
+      <div class="min-w-0"><p class="text-2xl font-extrabold leading-none text-text">{{ processing_transfers }}</p><p class="mt-1.5 truncate text-sm font-medium text-text-muted">Transferts en cours</p></div>
+    </a>
+    <a href="{% url 'staffpanel:savings_accounts' %}?status=PENDING" class="dash-stat">
+      <span class="dash-stat-icon dash-tone-gold">{% icon "piggy-bank" size=19 %}</span>
+      <div class="min-w-0"><p class="text-2xl font-extrabold leading-none text-text">{{ pending_accounts|add:pending_operations }}</p><p class="mt-1.5 truncate text-sm font-medium text-text-muted">Demandes épargne</p></div>
+    </a>
+    <a href="{% url 'staffpanel:messages' %}?handled=0" class="dash-stat">
+      <span class="dash-stat-icon dash-tone-rose">{% icon "mail" size=19 %}</span>
+      <div class="min-w-0"><p class="text-2xl font-extrabold leading-none text-text">{{ unhandled_messages }}</p><p class="mt-1.5 truncate text-sm font-medium text-text-muted">Messages non traités</p></div>
+    </a>
   </section>
 
-  <section>
-    <p class="editorial-label mb-3 text-text-muted">Messages</p>
-    <div class="grid gap-6 sm:grid-cols-2">
-      <a href="{% url 'staffpanel:messages' %}?handled=0" class="content-card group p-6">
-        <span class="icon-chip icon-chip-gold">{% icon "mail" size=20 %}</span>
-        <p class="mt-4 text-3xl font-extrabold text-text">{{ unhandled_messages }}</p>
-        <p class="mt-1 text-sm font-semibold text-text-muted">Messages non traités</p>
-      </a>
-    </div>
-  </section>
+  <div class="grid gap-6 xl:grid-cols-[1fr_380px]">
+    <!-- Transfer queue -->
+    <section class="dash-panel">
+      <div class="dash-panel-head">
+        <div>
+          <h2 class="dash-panel-title">File des transferts</h2>
+          <p class="text-xs text-text-muted">Les plus anciens en premier</p>
+        </div>
+        <a href="{% url 'staffpanel:transfers' %}" class="dash-link">Tout voir {% icon "chevron-right" size=14 %}</a>
+      </div>
+      {% if queue_transfers %}
+        <div class="overflow-x-auto">
+          <table class="dash-table">
+            <thead><tr><th>Client → Bénéficiaire</th><th class="text-right">Montant</th><th>Statut</th><th class="text-right">Action</th></tr></thead>
+            <tbody>
+              {% for transfer in queue_transfers %}
+                {% with code=transfer.destination_country|country_code %}
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <span class="dash-avatar dash-avatar-soft">{{ transfer.user.full_name|initials }}</span>
+                      <div>
+                        <p class="font-semibold text-text">{{ transfer.user.full_name }}</p>
+                        <p class="flex items-center gap-1.5 text-xs text-text-muted">
+                          {% icon "arrow-right" size=12 %}
+                          {% if code %}<img src="{% static 'img/flags/svg/'|add:code|add:'.svg' %}" alt="" class="flag-chip">{% endif %}
+                          {{ transfer.recipient.full_name|default:"Non renseigné" }} · {{ transfer.destination_country }}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right">
+                    <p class="font-bold tabular-nums text-text">{{ transfer.amount_sent|format_amount:transfer.currency_sent }}</p>
+                    <p class="text-xs text-text-muted">{{ transfer.created_at|format_date }}</p>
+                  </td>
+                  <td>{% include "core/partials/status_badge.html" with status=transfer.status status_label=transfer.get_status_display %}</td>
+                  <td class="text-right">
+                    <form method="post" action="{% if transfer.status == 'PENDING' %}{% url 'staffpanel:update_transfer_status' transfer.pk 'PROCESSING' %}{% else %}{% url 'staffpanel:update_transfer_status' transfer.pk 'COMPLETED' %}{% endif %}" class="inline">
+                      {% csrf_token %}
+                      <input type="hidden" name="next" value="{{ request.path }}">
+                      <button type="submit" class="dash-queue-btn">{% if transfer.status == 'PENDING' %}Prendre en charge{% else %}Marquer terminé{% endif %}</button>
+                    </form>
+                  </td>
+                </tr>
+                {% endwith %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="dash-empty">
+          <span class="dash-empty-icon">{% icon "check-circle-2" size=24 %}</span>
+          <p class="mt-4 font-bold text-text">Aucun transfert à traiter</p>
+          <p class="mt-1 text-sm text-text-muted">Les nouvelles demandes apparaîtront ici.</p>
+        </div>
+      {% endif %}
+    </section>
 
-  <section>
-    <p class="editorial-label mb-3 text-text-muted">Publications</p>
-    <div class="grid gap-6 sm:grid-cols-2">
-      <a href="{% url 'staffpanel:posts' %}" class="content-card group p-6">
-        <span class="icon-chip">{% icon "newspaper" size=20 %}</span>
-        <p class="mt-4 text-3xl font-extrabold text-text">{{ published_posts }}</p>
-        <p class="mt-1 text-sm font-semibold text-text-muted">Publications en ligne</p>
-      </a>
-      <a href="{% url 'staffpanel:posts' %}" class="content-card group p-6">
-        <span class="icon-chip">{% icon "pencil" size=20 %}</span>
-        <p class="mt-4 text-3xl font-extrabold text-text">{{ draft_posts }}</p>
-        <p class="mt-1 text-sm font-semibold text-text-muted">Brouillons</p>
-      </a>
+    <div class="space-y-6">
+      <!-- Messages -->
+      <section class="dash-panel">
+        <div class="dash-panel-head">
+          <h2 class="dash-panel-title">Messages récents</h2>
+          <a href="{% url 'staffpanel:messages' %}?handled=0" class="dash-link">Boîte {% icon "chevron-right" size=14 %}</a>
+        </div>
+        {% if queue_messages %}
+          <ul class="divide-y divide-border">
+            {% for msg in queue_messages %}
+              <li>
+                <a href="{% url 'staffpanel:message_detail' msg.pk %}" class="flex items-start gap-3 px-5 py-3.5 transition hover:bg-surface-muted/60">
+                  <span class="dash-avatar dash-avatar-soft">{{ msg.full_name|initials }}</span>
+                  <span class="min-w-0 flex-1">
+                    <span class="flex items-baseline justify-between gap-2">
+                      <span class="truncate text-sm font-semibold text-text">{{ msg.full_name }}</span>
+                      <span class="shrink-0 text-[.7rem] text-text-muted">{{ msg.created_at|format_date }}</span>
+                    </span>
+                    <span class="mt-0.5 block truncate text-xs text-text-muted">{{ msg.message }}</span>
+                  </span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="px-5 pb-6 text-sm text-text-muted">Aucun message en attente.</p>
+        {% endif %}
+      </section>
+
+      <!-- Savings queue -->
+      <section class="dash-panel">
+        <div class="dash-panel-head">
+          <h2 class="dash-panel-title">Épargne à valider</h2>
+          <a href="{% url 'staffpanel:savings_accounts' %}" class="dash-link">Comptes {% icon "chevron-right" size=14 %}</a>
+        </div>
+        {% if queue_accounts or queue_operations %}
+          <ul class="divide-y divide-border">
+            {% for account in queue_accounts %}
+              <li>
+                <a href="{% url 'staffpanel:savings_account_detail' account.pk %}" class="flex items-center gap-3 px-5 py-3.5 transition hover:bg-surface-muted/60">
+                  <span class="dash-stat-icon dash-tone-gold !h-9 !w-9">{% icon "user-plus" size=16 %}</span>
+                  <span class="min-w-0 flex-1">
+                    <span class="block truncate text-sm font-semibold text-text">{{ account.user.full_name }}</span>
+                    <span class="block text-xs text-text-muted">Nouvelle ouverture de compte</span>
+                  </span>
+                  {% icon "chevron-right" size=16 css_class="text-text-muted" %}
+                </a>
+              </li>
+            {% endfor %}
+            {% for op in queue_operations %}
+              <li>
+                <a href="{% url 'staffpanel:savings_account_detail' op.account.pk %}" class="flex items-center gap-3 px-5 py-3.5 transition hover:bg-surface-muted/60">
+                  <span class="dash-stat-icon {% if op.operation_type == 'DEPOSIT' %}dash-tone-emerald{% else %}dash-tone-amber{% endif %} !h-9 !w-9">{% icon "wallet" size=16 %}</span>
+                  <span class="min-w-0 flex-1">
+                    <span class="block truncate text-sm font-semibold text-text">{{ op.account.user.full_name }}</span>
+                    <span class="block text-xs text-text-muted">{{ op.get_operation_type_display }} · {{ op.requested_at|format_date }}</span>
+                  </span>
+                  <span class="text-sm font-bold tabular-nums text-text">{{ op.amount|format_amount:"USD" }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="px-5 pb-6 text-sm text-text-muted">Aucune demande d'épargne en attente.</p>
+        {% endif %}
+      </section>
+
+      <!-- Content -->
+      <section class="dash-panel p-5">
+        <div class="flex items-center justify-between">
+          <h2 class="dash-panel-title">Publications</h2>
+          <a href="{% url 'staffpanel:posts' %}" class="dash-link">Gérer {% icon "chevron-right" size=14 %}</a>
+        </div>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <div class="dash-quick"><span class="text-2xl font-extrabold leading-none">{{ published_posts }}</span><span class="text-text-muted">En ligne</span></div>
+          <div class="dash-quick"><span class="text-2xl font-extrabold leading-none">{{ draft_posts }}</span><span class="text-text-muted">Brouillons</span></div>
+        </div>
+        <a href="{% url 'staffpanel:post_create' %}" class="btn btn-secondary btn-md mt-4 w-full">{% icon "plus" size=15 %} Nouvelle publication</a>
+      </section>
     </div>
-  </section>
+  </div>
 </div>
-
 {% endblock %}

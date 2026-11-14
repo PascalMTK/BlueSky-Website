@@ -1,75 +1,89 @@
 {% extends "core/base.html" %}
-{% load icons i18n_extra %}
+{% load icons i18n_extra core_extras %}
 
 {% block body %}
-<div class="min-h-screen bg-bg lg:grid lg:grid-cols-[280px_1fr]">
-  <!-- Sidebar (Desktop) -->
-  <aside class="brand-dot-texture sticky top-0 hidden h-screen bg-brand-blue-deep text-white lg:flex lg:flex-col lg:justify-between lg:p-6 lg:border-r lg:border-white/10">
-    <div class="space-y-8">
-      <!-- Logo Container -->
-      <div class="px-2 transition-opacity hover:opacity-90">
-        {% include "core/partials/logo.html" with light_logo=True %}
-      </div>
-
-      <!-- Navigation -->
-      <nav class="space-y-1">
-        {% include "core/partials/dashboard_nav.html" %}
-      </nav>
+<div class="dash-shell min-h-screen bg-bg lg:grid lg:grid-cols-[272px_1fr]">
+  <!-- Sidebar (desktop) -->
+  <aside class="dash-sidebar brand-dot-texture sticky top-0 hidden h-screen flex-col text-white lg:flex">
+    <div class="px-6 pb-4 pt-6">
+      {% include "core/partials/logo.html" with light_logo=True %}
     </div>
 
-    <!-- User Profile Card & Actions -->
-    <div class="space-y-3 pt-6 border-t border-white/10">
-      <div class="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm transition-colors hover:bg-white/10">
-        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-gold font-bold text-brand-blue-deep shadow-sm">
-          {{ request.user.full_name|slice:":1"|default:"U" }}
-        </div>
+    <div class="flex-1 overflow-y-auto px-4 pb-6">
+      <p class="dash-sidebar-label">{% block sidebar_label %}{% t "Espace client" %}{% endblock %}</p>
+      {% block sidebar_nav %}
+        {% include "core/partials/dashboard_nav.html" %}
+      {% endblock %}
+
+      {% block sidebar_extra %}
+        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="dash-help-card">
+          <span class="dash-help-icon">{% icon "message-circle" size=18 %}</span>
+          <span>
+            <strong>{% t "Besoin d'aide ?" %}</strong>
+            <small>{% t "Notre équipe répond sur WhatsApp" %}</small>
+          </span>
+        </a>
+      {% endblock %}
+    </div>
+
+    <div class="space-y-2 border-t border-white/10 p-4">
+      {% block sidebar_footer_links %}{% endblock %}
+      <div class="flex items-center gap-3 rounded-xl bg-white/[.06] p-3">
+        <span class="dash-avatar">{{ request.user.full_name|initials }}</span>
         <div class="min-w-0 flex-1">
           <p class="truncate text-sm font-bold leading-tight text-white">{{ request.user.full_name }}</p>
-          <p class="truncate text-xs font-medium text-white/60">{{ request.user.email }}</p>
+          <p class="truncate text-xs text-white/55">{{ request.user.email }}</p>
         </div>
+        <form method="post" action="{% url 'accounts:logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="flex h-9 w-9 items-center justify-center rounded-lg text-white/60 transition hover:bg-rose-500/15 hover:text-rose-300" title="{% t 'Se déconnecter' %}" aria-label="{% t 'Se déconnecter' %}">
+            {% icon "log-out" size=17 %}
+          </button>
+        </form>
       </div>
-
-      <form method="post" action="{% url 'accounts:logout' %}">
-        {% csrf_token %}
-        <button type="submit" class="group flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-white/70 transition-all duration-200 hover:bg-rose-500/10 hover:text-rose-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500">
-          {% icon "log-out" size=18 css_class="transition-transform group-hover:-translate-x-0.5" %}
-          <span>{% t "Se déconnecter" %}</span>
-        </button>
-      </form>
     </div>
   </aside>
 
-  <!-- Main Content Area -->
-  <div class="flex min-h-screen flex-col">
-    <!-- Header -->
-    <header class="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-border/80 bg-bg/80 px-5 backdrop-blur-xl sm:px-8 lg:justify-end lg:px-10">
-      <a href="/" class="lg:hidden">
-        {% include "core/partials/logo.html" %}
-      </a>
-      {% include "core/partials/language_switcher.html" %}
+  <!-- Main column -->
+  <div class="flex min-h-screen min-w-0 flex-col">
+    <header class="dash-topbar sticky top-0 z-40 flex h-[72px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
+      <div class="lg:hidden">{% include "core/partials/logo.html" with extra_class="dash-mobile-logo" %}</div>
+      <div class="hidden min-w-0 lg:block">
+        <p class="text-[.68rem] font-bold uppercase tracking-[.14em] text-text-muted">{% block topbar_kicker %}{% t "Espace client" %}{% endblock %}</p>
+        <p class="truncate text-sm font-semibold text-text">{% now "l j F Y" as today %}{{ today|capfirst }}</p>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3">
+        {% block topbar_actions %}
+          <span class="hidden sm:block"><a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">{% icon "send" size=15 %} {% t "Nouveau transfert" %}</a></span>
+        {% endblock %}
+        {% include "core/partials/language_switcher.html" %}
+        <span class="dash-avatar dash-avatar-sm lg:hidden" title="{{ request.user.full_name }}">{{ request.user.full_name|initials }}</span>
+      </div>
     </header>
 
-    <!-- Mobile Sticky Horizontal Navigation -->
-    <nav class="sticky top-20 z-30 flex gap-1 overflow-x-auto border-b border-border/80 bg-surface/90 px-4 py-2.5 backdrop-blur-md lg:hidden">
-      {% include "core/partials/dashboard_nav.html" with nav_class="flex flex-row gap-1" %}
+    <!-- Mobile navigation -->
+    <nav class="dash-mobile-nav sticky top-[72px] z-30 lg:hidden" aria-label="{% t 'Navigation' %}">
+      {% block mobile_nav %}
+        {% include "core/partials/dashboard_nav.html" with nav_class="flex flex-row gap-1.5" mobile=True %}
+      {% endblock %}
     </nav>
 
-    <!-- Content Workspace -->
     <main class="mx-auto w-full max-w-[1400px] flex-1 p-5 sm:p-8 lg:p-10">
+      {% if messages %}
+        <div class="mb-6 space-y-2">
+          {% for message in messages %}
+            <p class="dash-flash {% if message.tags == 'error' %}dash-flash-error{% endif %}">
+              {% if message.tags == 'error' %}{% icon "alert-circle" size=17 %}{% else %}{% icon "check-circle-2" size=17 %}{% endif %}
+              {{ message }}
+            </p>
+          {% endfor %}
+        </div>
+      {% endif %}
       {% block dashboard_content %}{% endblock %}
     </main>
 
-    <!-- Mobile Footer Profile & Logout -->
+    <!-- Mobile logout -->
     <div class="border-t border-border bg-surface p-4 lg:hidden">
-      <div class="mb-3 flex items-center gap-3 rounded-xl border border-border/60 bg-bg p-3">
-        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-gold font-bold text-brand-blue-deep">
-          {{ request.user.full_name|slice:":1"|default:"U" }}
-        </div>
-        <div class="min-w-0 flex-1">
-          <p class="truncate text-sm font-bold text-text">{{ request.user.full_name }}</p>
-          <p class="truncate text-xs text-text-muted">{{ request.user.email }}</p>
-        </div>
-      </div>
       <form method="post" action="{% url 'accounts:logout' %}">
         {% csrf_token %}
         <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 px-4 py-2.5 text-sm font-semibold text-rose-600 transition hover:bg-rose-500 hover:text-white">

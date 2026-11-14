@@ -1,5 +1,5 @@
 {% extends "core/base_dashboard.html" %}
-{% load icons core_extras i18n_extra %}
+{% load static icons core_extras i18n_extra %}
 {% block title %}{% t "Bénéficiaires" %} | Blue Sky{% endblock %}
 {% block dashboard_content %}
 <div class="space-y-8">
@@ -29,7 +29,7 @@
         {% for recipient in recipients %}
           <div class="flex items-start justify-between gap-4 rounded-2xl border border-border bg-surface p-6">
             <div>
-              <p class="font-bold">{{ country_flags|dict_get:recipient.country }} {{ recipient.full_name }}</p>
+              {% with code=recipient.country|country_code %}<p class="flex items-center gap-2 font-bold">{% if code %}<img src="{% static 'img/flags/svg/'|add:code|add:'.svg' %}" alt="" class="flag-chip">{% endif %}{{ recipient.full_name }}</p>{% endwith %}
               <p class="text-sm text-text-muted">{{ recipient.country }}</p>
               {% if recipient.phone %}
                 <p class="mt-1 flex items-center gap-1.5 text-sm text-text-muted">{% icon "phone" size=13 %} {{ recipient.phone }}</p>
