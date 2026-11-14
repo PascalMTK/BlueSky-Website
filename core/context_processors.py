@@ -64,6 +64,7 @@ def site_data(request):
         "staff_nav_items": staff_nav_items,
         "AVAILABLE_LANGUAGES": AVAILABLE_LANGUAGES,
         "ANALYTICS_GA_ID": getattr(settings, "ANALYTICS_GA_ID", ""),
+        "GOOGLE_SITE_VERIFICATION": getattr(settings, "GOOGLE_SITE_VERIFICATION", ""),
         "active_language": getattr(request, "active_language", "fr"),
         # Where "Mon compte" leads: the management space for the team,
         # the client space for everyone else.

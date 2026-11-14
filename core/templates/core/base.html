@@ -1,4 +1,4 @@
-{% load static i18n_extra %}
+{% load static i18n_extra core_extras %}
 <!doctype html>
 <html lang="{{ active_language|default:'fr' }}" class="h-full scroll-smooth antialiased">
 <head>
@@ -18,7 +18,7 @@
   <!-- Canonical URL and social previews (Facebook, WhatsApp, LinkedIn, X). -->
   <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Blue Sky Money Transfer">
+  <meta property="og:site_name" content="Africa Blue Sky">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
   <meta property="og:title" content="{% block og_title %}{% block title_og %}Blue Sky, transfert d'argent international{% endblock %}{% endblock %}">
@@ -28,6 +28,16 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Blue Sky Money Transfer : votre argent voyage, vos liens restent.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="application-name" content="Africa Blue Sky">
+  <meta name="apple-mobile-web-app-title" content="Africa Blue Sky">
+
+  <!-- Same page in each language (the language is chosen with ?lang=). -->
+  <link rel="alternate" hreflang="fr" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}?lang=fr">
+  <link rel="alternate" hreflang="en" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}?lang=en">
+  <link rel="alternate" hreflang="sw" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}?lang=sw">
+  <link rel="alternate" hreflang="x-default" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+  {% if GOOGLE_SITE_VERIFICATION %}<meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">{% endif %}
+  {% if request.path == "/" %}{% seo_jsonld %}{% endif %}
 
   <!-- Editorial type pairing: Fraunces for display headings, Inter for UI/body. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

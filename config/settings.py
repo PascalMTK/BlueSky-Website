@@ -131,6 +131,9 @@ ANALYTICS_GA_ID = config("GA_MEASUREMENT_ID", default="")
 
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="Blue Sky <africabluesky1@gmail.com>")
 
+# Google Search Console "HTML tag" verification code (content="..." value).
+GOOGLE_SITE_VERIFICATION = config("GOOGLE_SITE_VERIFICATION", default="")
+
 # Public address of the site, used for links and images inside e-mails.
 SITE_URL = config("SITE_URL", default="https://www.africabluesky.online")
 

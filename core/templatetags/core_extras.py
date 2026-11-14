@@ -116,3 +116,66 @@ def day_greeting():
     if 12 <= hour < 18:
         return {"text": "Bon après-midi", "icon": "sun", "period": "afternoon"}
     return {"text": "Bonsoir", "icon": "moon", "period": "evening"}
+
+
+@register.simple_tag(takes_context=True)
+def seo_jsonld(context):
+    """Structured data for search engines (schema.org JSON-LD): who Blue Sky
+    is, under which names, where, and its official profiles. Helps Google
+    show the site first for brand searches like "Africa Blue Sky"."""
+    import json
+
+    from django.conf import settings
+    from django.templatetags.static import static
+    from django.utils.safestring import mark_safe
+
+    from core.data import SITE
+
+    base = settings.SITE_URL.rstrip("/")
+    countries = context.get("COUNTRIES") or []
+    names = ["Africa Blue Sky", "AfricaBlueSky", "Blue Sky", "Blue Sky Money Transfer", "Blue Sky Africa"]
+    same_as = [u for k, u in SITE.get("social", {}).items() if k in ("facebook", "tiktok")]
+    organization = {
+        "@type": ["Organization", "FinancialService"],
+        "@id": base + "/#organization",
+        "name": "Africa Blue Sky",
+        "alternateName": names[1:],
+        "legalName": "Blue Sky Money Transfer",
+        "url": base + "/",
+        "logo": base + static("img/favicon-512.png"),
+        "image": base + static("img/og-image.jpg"),
+        "description": SITE.get("definition", ""),
+        "email": SITE["primary_email"],
+        "telephone": SITE["primary_phone"],
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Avenue Kapenda & Mobutu, Quartier Makutano",
+            "addressLocality": "Lubumbashi",
+            "addressRegion": "Haut-Katanga",
+            "addressCountry": "CD",
+        },
+        "areaServed": [
+            {"@type": "Country", "name": getattr(c, "country_name", None) or (c.get("name") if isinstance(c, dict) else str(c))}
+            for c in countries
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": SITE["primary_phone"],
+            "email": SITE["primary_email"],
+            "contactType": "customer service",
+            "availableLanguage": ["French", "English", "Swahili"],
+        },
+        "sameAs": same_as,
+    }
+    website = {
+        "@type": "WebSite",
+        "@id": base + "/#website",
+        "name": "Africa Blue Sky",
+        "alternateName": names[1:],
+        "url": base + "/",
+        "inLanguage": ["fr", "en", "sw"],
+        "publisher": {"@id": base + "/#organization"},
+    }
+    data = {"@context": "https://schema.org", "@graph": [organization, website]}
+    payload = json.dumps(data, ensure_ascii=False).replace("<", "\u003c")
+    return mark_safe(f'<script type="application/ld+json">{payload}</script>')

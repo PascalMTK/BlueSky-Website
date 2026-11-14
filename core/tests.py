@@ -99,3 +99,16 @@ class LaunchChecklistTests(TestCase):
         for _ in range(7):
             self.client.post(reverse("marketing:contact"), data)
         self.assertEqual(ContactMessage.objects.count(), 5)
+
+
+class SearchEngineTests(TestCase):
+    def test_home_has_brand_title_and_structured_data(self):
+        import json
+        import re
+        html = self.client.get(reverse("marketing:home")).content.decode()
+        self.assertIn("<title>Africa Blue Sky", html)
+        data = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S).group(1))
+        org = data["@graph"][0]
+        self.assertEqual(org["name"], "Africa Blue Sky")
+        self.assertIn("Blue Sky Money Transfer", org["alternateName"])
+        self.assertIn('hreflang="en"', html)
