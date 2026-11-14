@@ -42,18 +42,18 @@
     {% include "core/partials/status_badge.html" with status=account.status status_label=account.get_status_display %}
   </div>
 
-  <div class="mt-8 grid gap-6 sm:grid-cols-3">
-    <div class="content-card p-6">
-      <p class="text-xs font-bold uppercase tracking-[.1em] text-text-muted">{% t "Solde disponible" %}</p>
+  <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-6">
+    <div class="content-card col-span-2 p-5 sm:col-span-1 sm:p-6">
+      <p class="text-sm font-medium text-text-muted">{% t "Solde disponible" %}</p>
       <p class="mt-2 text-3xl font-extrabold text-brand-blue">{{ account.balance }}</p>
     </div>
-    <div class="content-card p-6">
-      <p class="text-xs font-bold uppercase tracking-[.1em] text-text-muted">{% t "Total déposé" %}</p>
-      <p class="mt-2 text-3xl font-extrabold text-text">{{ totals.deposits|default:0 }}</p>
+    <div class="content-card p-5 sm:p-6">
+      <p class="text-sm font-medium text-text-muted">{% t "Total déposé" %}</p>
+      <p class="mt-2 text-2xl font-extrabold text-text sm:text-3xl">{{ totals.deposits|default:0 }}</p>
     </div>
-    <div class="content-card p-6">
-      <p class="text-xs font-bold uppercase tracking-[.1em] text-text-muted">{% t "Total retiré" %}</p>
-      <p class="mt-2 text-3xl font-extrabold text-text">{{ totals.withdrawals|default:0 }}</p>
+    <div class="content-card p-5 sm:p-6">
+      <p class="text-sm font-medium text-text-muted">{% t "Total retiré" %}</p>
+      <p class="mt-2 text-2xl font-extrabold text-text sm:text-3xl">{{ totals.withdrawals|default:0 }}</p>
     </div>
   </div>
 

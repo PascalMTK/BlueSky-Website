@@ -18,7 +18,7 @@
         <p class="eyebrow eyebrow-gold mb-5">
           {% t "L'Afrique n'a jamais été aussi proche" %}
         </p>
-        <h1 class="display-title text-[3.4rem] leading-[.96] sm:text-7xl lg:text-[5.4rem]">
+        <h1 class="display-title text-[2.7rem] leading-[1] sm:text-7xl sm:leading-[.96] lg:text-[5.4rem]">
           {% blockt %}Votre argent voyage.<br><span class="text-brand-sky">Vos liens restent.</span>{% endblockt %}
         </h1>
         <p class="mt-7 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
@@ -147,7 +147,7 @@
       {% kicker "Notre couverture" tone="blue" %}
       <h2 class="display-title mt-5 text-4xl sm:text-5xl">{% t "Nos agences à travers l'Afrique" %}</h2>
     </div>
-    <div class="grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="country-rail grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {% for country in COUNTRIES %}
         {% include "core/partials/country_card.html" %}
       {% endfor %}

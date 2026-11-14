@@ -1323,7 +1323,7 @@ header nav a:hover::after, header nav a:focus-visible::after { transform: scaleX
 .dash-hero-ghost:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.4); }
 .dash-hero-stat { display: block; border: 1px solid rgba(255,255,255,.12); border-radius: 1rem; background: rgba(255,255,255,.06); padding: 1.1rem 1.15rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: border-color .18s ease, background-color .18s ease; }
 a.dash-hero-stat:hover { border-color: rgba(255,203,148,.5); background: rgba(255,255,255,.1); }
-.dash-hero-stat-label { display: flex; align-items: center; gap: .4rem; color: rgba(255,255,255,.6); font-size: .66rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.dash-hero-stat-label { display: flex; align-items: center; gap: .4rem; color: rgba(255,255,255,.65); font-size: .8rem; font-weight: 600; }
 .dash-hero-stat-value { margin-top: .55rem; color: #fff; font-size: 1.6rem; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
 
 /* KPI tiles */
@@ -1407,3 +1407,35 @@ a.dash-stat:hover { transform: translateY(-2px); border-color: color-mix(in srgb
   [data-split-follow] { opacity: 0; filter: blur(6px); transform: translate3d(0, 14px, 0); transition: opacity 900ms ease, filter 900ms ease, transform 1000ms var(--ease-expo); transition-delay: var(--follow-delay, 380ms); }
   [data-split-follow].is-revealed { opacity: 1; filter: none; transform: none; }
 }
+
+/* ==========================================================================
+   Phone refinements
+   ========================================================================== */
+/* Grid children must be allowed to shrink, or a wide table inside a panel
+   stretches the whole dashboard past the screen instead of scrolling. */
+.dash-shell main .grid > * { min-width: 0; }
+
+@media (max-width: 639px) {
+  /* Home: the nine agency cards become a swipeable rail instead of a
+     ~3000px stack; the next card peeks in to invite the swipe. */
+  .country-rail {
+    display: flex; gap: .9rem; overflow-x: auto; overscroll-behavior-x: contain;
+    margin-inline: -1.25rem; padding: .25rem 1.25rem 1rem;
+    scroll-snap-type: x mandatory; scroll-padding-inline: 1.25rem; scrollbar-width: none;
+  }
+  .country-rail::-webkit-scrollbar { display: none; }
+  .country-rail > article { flex: 0 0 84%; scroll-snap-align: start; }
+
+  /* Dashboard pill nav: fade the right edge so it reads as scrollable. */
+  .dash-mobile-nav { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+  .dash-mobile-logo img { height: 2.4rem !important; }
+
+  .display-title { text-wrap: balance; }
+  .dash-hero { border-radius: 1.15rem; }
+  .dash-panel { border-radius: 1rem; }
+  .dash-panel-head { padding: 1rem; }
+  .dash-table thead th, .dash-table tbody td { padding-inline: 1rem; }
+}
+/* Positioned so absolutely-placed children (e.g. sr-only table headers) are
+   clipped with the panel instead of widening the page on phones. */
+.dash-panel, .dash-panel .overflow-x-auto { position: relative; }
