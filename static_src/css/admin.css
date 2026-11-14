@@ -265,8 +265,10 @@ body.dashboard #content-main { display: block; }
   padding: clamp(22px, 3vw, 34px); border-radius: 20px; color: #fff;
   background:
     radial-gradient(70% 120% at 100% 0%, rgba(255,164,86,.22), transparent 55%),
-    radial-gradient(60% 100% at 0% 100%, rgba(29,78,216,.55), transparent 60%),
-    linear-gradient(135deg, #0f2448, var(--bs-navy));
+    radial-gradient(60% 100% at 0% 100%, rgba(29,78,216,.45), transparent 60%),
+    linear-gradient(135deg, rgba(15,36,72,.9), rgba(11,25,48,.82)),
+    url("../img/bg/network-bokeh.webp") right center / cover no-repeat,
+    var(--bs-navy);
   box-shadow: 0 30px 60px -40px rgba(11,25,48,.8);
 }
 .bs-admin-eyebrow { margin: 0; color: #ffcb94; font-size: 13px; font-weight: 600; }
