@@ -31,3 +31,37 @@ class LanguageMiddleware:
             response.set_cookie(LANG_COOKIE_NAME, lang, max_age=LANG_COOKIE_MAX_AGE)
 
         return response
+
+
+class AdminCentreAccessMiddleware:
+    """The admin centre (/admin/) is for administrators (superusers) only.
+
+    Clients and team members who are signed in and open /admin/ are sent
+    back to their own space with a short explanation, instead of Django's
+    "not authorised" login loop. Visitors who are not signed in still see
+    the admin login page; admin.site.has_permission (core/admin.py) is the
+    actual gate.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        from django.urls import reverse
+
+        user = getattr(request, "user", None)
+        admin_root = reverse("admin:index")
+        if (
+            request.path.startswith(admin_root)
+            and user is not None
+            and user.is_authenticated
+            and not user.is_superuser
+        ):
+            from django.contrib import messages
+            from django.shortcuts import redirect
+
+            from core.decorators import home_url_for
+
+            messages.info(request, "Le centre d'administration est réservé aux administrateurs.")
+            return redirect(home_url_for(user))
+        return self.get_response(request)
