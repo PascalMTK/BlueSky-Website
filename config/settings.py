@@ -129,7 +129,10 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 # Loaded only after the visitor accepts cookies (core/partials/cookie_consent.html).
 ANALYTICS_GA_ID = config("GA_MEASUREMENT_ID", default="")
 
-DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="Blue Sky <noreply@blueskymoney.com>")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="Blue Sky <africabluesky1@gmail.com>")
+
+# Public address of the site, used for links and images inside e-mails.
+SITE_URL = config("SITE_URL", default="https://www.africabluesky.online")
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=True, cast=bool)

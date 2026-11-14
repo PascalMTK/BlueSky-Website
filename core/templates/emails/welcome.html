@@ -1,0 +1,14 @@
+{% extends "emails/base.html" %}
+{% block kicker %}Bienvenue{% endblock %}
+{% block preheader %}Votre compte Blue Sky est actif.{% endblock %}
+{% block title %}Bienvenue chez Blue Sky !{% endblock %}
+{% block body %}
+<p style="margin:0 0 14px;">Votre compte est actif. Dans votre espace client, vous pouvez :</p>
+<ul style="margin:0 0 14px;padding-left:20px;">
+  <li style="margin:4px 0;">enregistrer les transferts faits en agence pour garder votre historique ;</li>
+  <li style="margin:4px 0;">gérer vos bénéficiaires ;</li>
+  <li style="margin:4px 0;">ouvrir et suivre votre compte épargne.</li>
+</ul>
+<p style="margin:0;">Pour envoyer de l'argent, rendez-vous dans une agence Blue Sky ou contactez notre équipe sur WhatsApp.</p>
+{% endblock %}
+{% block action %}{% include "emails/_button.html" with url=dashboard_url label="Ouvrir mon espace" %}{% endblock %}

@@ -1,3 +1,4 @@
+from core.emails import send_operation_requested, send_savings_request_received
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_POST
@@ -17,6 +18,7 @@ def overview(request):
                 account = form.save(commit=False)
                 account.user = request.user
                 account.save()
+                send_savings_request_received(account)
                 return redirect("savings:overview")
         else:
             form = SavingsEnrollmentForm()
@@ -54,12 +56,13 @@ def request_operation(request):
 
     form = SavingsOperationForm(request.POST, account=account, request=request)
     if form.is_valid():
-        SavingsOperation.objects.create(
+        operation = SavingsOperation.objects.create(
             account=account,
             operation_type=form.cleaned_data["operation_type"],
             amount=form.cleaned_data["amount"],
             note=form.cleaned_data["note"],
         )
+        send_operation_requested(operation)
         return redirect("savings:overview")
 
     operations = account.operations.select_related("confirmed_by").all()

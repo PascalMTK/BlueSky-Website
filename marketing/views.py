@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from core.antispam import rate_limited
+from core.emails import send_contact_acknowledgement
 from core.context_processors import active_countries
 
 from .forms import ContactForm
@@ -257,7 +258,7 @@ def contact(request):
             if rate_limited(request, "contact", limit=5, window_seconds=3600):
                 form.add_error(None, "Vous avez envoyé plusieurs messages récemment. Merci de réessayer dans une heure ou de nous écrire sur WhatsApp.")
             else:
-                form.save()
+                send_contact_acknowledgement(form.save())
                 sent = True
                 form = ContactForm(request=request)
     else:

@@ -1,3 +1,4 @@
+from core.emails import send_operation_result, send_savings_activated, send_savings_rejected
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
@@ -124,7 +125,8 @@ def activate_account(request, pk):
     account.agent_name = request.user.full_name
     account.opened_at = timezone.now()
     account.save()
-    messages.success(request, f"Compte de {account.user.full_name} activé.")
+    send_savings_activated(account)
+    messages.success(request, f"Compte de {account.user.full_name} activé. Le client est prévenu par e-mail.")
     return redirect("staffpanel:savings_account_detail", pk=account.pk)
 
 
@@ -134,7 +136,8 @@ def reject_account(request, pk):
     account = get_object_or_404(SavingsAccount, pk=pk, status=SavingsAccount.Status.PENDING)
     account.status = SavingsAccount.Status.REJECTED
     account.save()
-    messages.success(request, f"Demande de {account.user.full_name} refusée.")
+    send_savings_rejected(account)
+    messages.success(request, f"Demande de {account.user.full_name} refusée. Le client est prévenu par e-mail.")
     return redirect("staffpanel:savings_accounts")
 
 
@@ -170,7 +173,8 @@ def confirm_operation(request, pk):
     operation.confirmed_at = timezone.now()
     account.save()
     operation.save()
-    messages.success(request, "Opération confirmée.")
+    send_operation_result(operation)
+    messages.success(request, "Opération confirmée. Le client est prévenu par e-mail.")
     return redirect("staffpanel:savings_account_detail", pk=account.pk)
 
 
@@ -186,7 +190,8 @@ def reject_operation(request, pk):
     operation.confirmed_by = request.user
     operation.confirmed_at = timezone.now()
     operation.save()
-    messages.success(request, "Opération rejetée.")
+    send_operation_result(operation)
+    messages.success(request, "Opération rejetée. Le client est prévenu par e-mail.")
     return redirect("staffpanel:savings_account_detail", pk=operation.account.pk)
 
 

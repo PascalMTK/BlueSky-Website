@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
-from django.core.mail import send_mail
 from django.db import transaction
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -8,6 +7,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
 from core.antispam import rate_limited
+from core.emails import send_verification_code, send_welcome
 from core.decorators import guest_only, home_url_for
 
 from .forms import LoginForm, OTPVerificationForm, SignupForm
@@ -19,13 +19,7 @@ PENDING_NEXT_SESSION_KEY = "pending_verification_next"
 
 def _send_otp(user):
     verification, code = EmailVerification.issue_for(user)
-    send_mail(
-        "Votre code de vérification Blue Sky",
-        f"Bonjour {user.get_short_name()},\n\nVotre code Blue Sky est : {code}\n\nIl expire dans 10 minutes. Ne le partagez avec personne.",
-        settings.DEFAULT_FROM_EMAIL,
-        [user.email],
-        fail_silently=False,
-    )
+    send_verification_code(user, code)
     return verification
 
 
@@ -46,19 +40,24 @@ def signup_view(request):
         if form.is_spam() or rate_limited(request, "signup", limit=10, window_seconds=3600):
             form.add_error(None, "Inscription impossible pour le moment. Réessayez plus tard ou contactez-nous sur WhatsApp.")
         elif form.is_valid():
-            with transaction.atomic():
-                user = User.objects.create_user(
-                    email=form.cleaned_data["email"],
-                    full_name=form.cleaned_data["full_name"],
-                    password=form.cleaned_data["password"],
-                    phone=form.cleaned_data["phone"],
-                    country=form.cleaned_data["country"],
-                    is_active=False,
-                )
-                _send_otp(user)
-            request.session[PENDING_USER_SESSION_KEY] = user.pk
-            request.session[PENDING_NEXT_SESSION_KEY] = next_url
-            return redirect("accounts:verify_otp")
+            try:
+                with transaction.atomic():
+                    user = User.objects.create_user(
+                        email=form.cleaned_data["email"],
+                        full_name=form.cleaned_data["full_name"],
+                        password=form.cleaned_data["password"],
+                        phone=form.cleaned_data["phone"],
+                        country=form.cleaned_data["country"],
+                        is_active=False,
+                    )
+                    _send_otp(user)
+            except Exception:
+                # The account is rolled back so the visitor can simply try again.
+                form.add_error(None, "Nous n'avons pas pu envoyer le code de vérification. Réessayez dans un instant ou contactez-nous sur WhatsApp.")
+            else:
+                request.session[PENDING_USER_SESSION_KEY] = user.pk
+                request.session[PENDING_NEXT_SESSION_KEY] = next_url
+                return redirect("accounts:verify_otp")
     else:
         form = SignupForm(request=request)
     return render(request, "accounts/signup.html", {"form": form, "next": next_url})
@@ -113,6 +112,7 @@ def verify_otp_view(request):
             next_url = request.session.pop(PENDING_NEXT_SESSION_KEY, "")
             request.session.pop(PENDING_USER_SESSION_KEY, None)
             login(request, user)
+            send_welcome(user)
             return redirect(_safe_next(request, next_url))
         if verification and timezone.now() >= verification.expires_at:
             form.add_error("code", "Ce code a expiré. Demandez un nouveau code.")
@@ -132,7 +132,10 @@ def resend_otp_view(request):
     verification = EmailVerification.objects.filter(user=user).first()
     if verification and not verification.can_resend():
         return redirect("accounts:verify_otp")
-    _send_otp(user)
+    try:
+        _send_otp(user)
+    except Exception:
+        pass  # logged by core.emails; the page still offers to resend later
     return redirect("accounts:verify_otp")
 
 

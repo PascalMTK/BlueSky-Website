@@ -1,0 +1,49 @@
+{% load static %}<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light only">
+  <title>{{ subject }}</title>
+</head>
+<body style="margin:0;padding:0;background:#eef3fa;font-family:Segoe UI,Helvetica,Arial,sans-serif;color:#1b2430;">
+  {# Preview line shown by mail apps next to the subject #}
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">{% block preheader %}{% endblock %}</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eef3fa;padding:24px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+
+        <!-- Header -->
+        <tr><td style="background:#0b1930;border-radius:18px 18px 0 0;padding:22px 28px;border-bottom:4px solid #ffa456;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td><img src="{{ site_url }}{% static 'img/WhatsApp_Image_2026-01-27_at_11.11.59_PM-removebg-preview.png' %}" alt="Blue Sky" height="44" style="display:block;height:44px;width:auto;border:0;"></td>
+            <td align="right" style="color:#ffcb94;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;">{% block kicker %}Blue Sky Money Transfer{% endblock %}</td>
+          </tr></table>
+        </td></tr>
+
+        <!-- Card -->
+        <tr><td style="background:#ffffff;padding:32px 28px 28px;">
+          {% if name %}<p style="margin:0 0 6px;color:#5b6675;font-size:15px;">Bonjour {{ name }},</p>{% endif %}
+          <h1 style="margin:0 0 16px;color:#0b1930;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.25;font-weight:700;">{% block title %}{% endblock %}</h1>
+          <div style="font-size:15px;line-height:1.65;color:#3b4656;">
+            {% block body %}{% endblock %}
+          </div>
+          {% block action %}{% endblock %}
+          <p style="margin:26px 0 0;font-size:14px;line-height:1.6;color:#5b6675;">Une question ? Répondez simplement à cet e-mail ou écrivez-nous sur <a href="https://wa.me/{{ SITE.whatsapp_number }}" style="color:#1d4ed8;font-weight:700;text-decoration:none;">WhatsApp</a>.</p>
+          <p style="margin:14px 0 0;font-size:14px;color:#3b4656;">L'équipe Blue Sky</p>
+        </td></tr>
+
+        <!-- Footer -->
+        <tr><td style="background:#f6f8fc;border-radius:0 0 18px 18px;padding:20px 28px;border-top:1px solid #e4eaf3;">
+          <p style="margin:0;font-size:12px;line-height:1.6;color:#7a8597;">
+            <strong style="color:#3b4656;">Blue Sky Money Transfer</strong> · {{ SITE.head_office_address }}<br>
+            <a href="mailto:{{ SITE.primary_email }}" style="color:#1d4ed8;text-decoration:none;">{{ SITE.primary_email }}</a> · {{ SITE.primary_phone }} · <a href="{{ site_url }}" style="color:#1d4ed8;text-decoration:none;">africabluesky.online</a>
+          </p>
+          <p style="margin:10px 0 0;font-size:11px;line-height:1.5;color:#9aa4b2;">{% block footnote %}Vous recevez cet e-mail car vous avez un compte ou une demande en cours chez Blue Sky.{% endblock %}</p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>

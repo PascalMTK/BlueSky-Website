@@ -75,3 +75,63 @@ class SpaceRoutingTests(TestCase):
     def test_signed_in_staff_visiting_login_goes_to_management_space(self):
         self.client.force_login(self.staff_user)
         self.assertRedirects(self.client.get(reverse("accounts:login")), reverse("staffpanel:home"), fetch_redirect_response=False)
+
+
+@override_settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend")
+class BrandedEmailTests(TestCase):
+    """Users receive designed e-mails at each important step."""
+
+    def setUp(self):
+        from django.core.cache import cache
+        cache.clear()
+
+    def signup(self):
+        return self.client.post(reverse("accounts:signup"), {
+            "full_name": "Marie Kalenga", "email": "marie@example.com", "phone": "+243900000000",
+            "country": "Congo (RDC)", "password": "SecurePass123!", "password_confirm": "SecurePass123!",
+        })
+
+    def test_otp_email_is_html_with_code_and_reply_to_contact(self):
+        from core.data import SITE
+        self.signup()
+        msg = mail.outbox[0]
+        code = re.search(r"\b\d{6}\b", msg.subject).group(0)
+        self.assertIn(code, msg.body)
+        html = msg.alternatives[0][0]
+        self.assertIn(code, html)
+        self.assertIn("Votre code de vérification", html)
+        self.assertEqual(msg.reply_to, [SITE["primary_email"]])
+
+    def test_welcome_email_after_verification(self):
+        self.signup()
+        code = re.search(r"\b\d{6}\b", mail.outbox[0].subject).group(0)
+        self.client.post(reverse("accounts:verify_otp"), {"code": code})
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIn("Bienvenue", mail.outbox[1].subject)
+
+    def test_signup_shows_error_when_code_cannot_be_sent(self):
+        from unittest import mock
+        with mock.patch("accounts.views.send_verification_code", side_effect=OSError("smtp down")):
+            response = self.signup()
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "pas pu envoyer le code")
+        self.assertFalse(User.objects.filter(email="marie@example.com").exists())
+
+    def test_contact_form_sends_acknowledgement(self):
+        self.client.post(reverse("marketing:contact"), {
+            "full_name": "Grace Mbuyi", "email": "grace@example.com", "country": "", "service": "transfert",
+            "message": "Bonjour, quels sont vos horaires ?"})
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ["grace@example.com"])
+        self.assertIn("bien reçu votre message", mail.outbox[0].subject)
+
+    def test_staff_activation_notifies_client(self):
+        from savings.models import SavingsAccount
+        client = User.objects.create_user(email="c@example.com", full_name="Client Test", password="x12345678")
+        staff = User.objects.create_user(email="s@example.com", full_name="Agent Test", password="x12345678", is_staff=True)
+        account = SavingsAccount.objects.create(user=client, id_number="AB123", address="Lubumbashi")
+        self.client.force_login(staff)
+        self.client.post(reverse("staffpanel:activate_account", args=[account.pk]))
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ["c@example.com"])
+        self.assertIn("actif", mail.outbox[0].subject)

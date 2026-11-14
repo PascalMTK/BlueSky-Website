@@ -1,7 +1,7 @@
 SITE = {
     "name": "Blue Sky",
     "tagline": "Transférez votre argent en toute confiance et sécurité",
-    "primary_email": "bluesky01@gmail.com",
+    "primary_email": "africabluesky1@gmail.com",
     "secondary_email": "blueskyafrica01@gmail.com",
     "primary_phone": "+243 972 113 974",
     "whatsapp_number": "243972113974",
