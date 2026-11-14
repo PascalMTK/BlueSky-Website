@@ -165,9 +165,9 @@ def tariffs(request):
             )
 
         plans = [
-            plan("Tarif spécial Tanzanie", "Transferts envoyés vers ou depuis la Tanzanie", "send", "Envoyez de l'argent en toute sécurité", [(2, 5, "fixed", 1), (6, 19, "fixed", 2), (20, 39, "fixed", 3), (40, 59, "fixed", 4), (60, 99, "fixed", 5), (100, 7500, "percentage", 4), (7501, None, "percentage", 3)]),
-            plan("Tarif retrait quotidien", "Tarif standard du réseau Blue Sky", "withdrawal", "L'argent voyage en toute sécurité", [(1, 9, "fixed", 1), (10, 19, "fixed", 2), (20, 39, "fixed", 3), (40, 69, "fixed", 4), (70, 99, "fixed", 5), (100, 3000, "percentage", 5), (3001, 6000, "percentage", 4), (6001, None, "percentage", 3)]),
-            plan("Tarif envoi quotidien", "Tarif standard du réseau Blue Sky", "send", "L'argent voyage en toute sécurité", [(1, 25, "fixed", 2), (26, 50, "fixed", 4), (51, 99, "fixed", 6), (100, 3000, "percentage", 5), (3001, None, "percentage", 3)]),
+            plan("Tarif spécial Tanzanie", "Envois d'autres pays vers la Tanzanie", "send", "Envoyez de l'argent en toute sécurité", [(2, 5, "fixed", 1), (6, 19, "fixed", 2), (20, 39, "fixed", 3), (40, 59, "fixed", 4), (60, 99, "fixed", 5), (100, 7500, "percentage", 4), (7501, None, "percentage", 3)]),
+            plan("Tarif retrait quotidien", "Tous les pays Blue Sky sauf la Tanzanie", "withdrawal", "L'argent voyage en toute sécurité", [(1, 9, "fixed", 1), (10, 19, "fixed", 2), (20, 39, "fixed", 3), (40, 69, "fixed", 4), (70, 99, "fixed", 5), (100, 3000, "percentage", 5), (3001, 6000, "percentage", 4), (6001, None, "percentage", 3)]),
+            plan("Tarif envoi quotidien", "Tous les pays Blue Sky sauf la Tanzanie", "send", "L'argent voyage en toute sécurité", [(1, 25, "fixed", 2), (26, 50, "fixed", 4), (51, 99, "fixed", 6), (100, 3000, "percentage", 5), (3001, None, "percentage", 3)]),
         ]
         latest_update = None
     return render(
