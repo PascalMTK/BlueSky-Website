@@ -1,0 +1,18 @@
+{% load icons i18n_extra %}
+{% comment %}
+Usage: {% include "accounts/_auth_field.html" with field=form.email icon="mail" %}
+Pass toggle=True on password fields for a show / hide button.
+{% endcomment %}
+<div class="auth-field{% if field.errors %} has-error{% endif %}">
+  <label for="{{ field.id_for_label }}">{% t field.label %}</label>
+  <div class="auth-input">
+    {% if icon %}<span class="auth-input-icon">{% icon icon size=17 %}</span>{% endif %}
+    {{ field }}
+    {% if toggle %}
+      <button type="button" class="auth-toggle" data-password-toggle="{{ field.id_for_label }}" data-show="{% t 'Afficher' %}" data-hide="{% t 'Masquer' %}" aria-pressed="false">
+        <span data-label>{% t "Afficher" %}</span>
+      </button>
+    {% endif %}
+  </div>
+  {% if field.errors %}<p class="auth-error">{% icon "alert-circle" size=13 %} {% t field.errors.0 %}</p>{% endif %}
+</div>

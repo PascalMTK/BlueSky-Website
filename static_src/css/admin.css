@@ -254,3 +254,71 @@ body.login {
 
 #result_list th, #result_list td { white-space: nowrap; }
 body.dashboard #content-related { background: transparent; }
+
+/* ==========================================================================
+   Admin home (core/templates/admin/index.html)
+   ========================================================================== */
+body.dashboard #content { grid-template-columns: minmax(0, 1fr) 300px; padding-top: 28px; }
+body.dashboard #content-main { display: block; }
+.bs-admin-hero {
+  position: relative; overflow: hidden; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px;
+  padding: clamp(22px, 3vw, 34px); border-radius: 20px; color: #fff;
+  background:
+    radial-gradient(70% 120% at 100% 0%, rgba(255,164,86,.22), transparent 55%),
+    radial-gradient(60% 100% at 0% 100%, rgba(29,78,216,.55), transparent 60%),
+    linear-gradient(135deg, #0f2448, var(--bs-navy));
+  box-shadow: 0 30px 60px -40px rgba(11,25,48,.8);
+}
+.bs-admin-eyebrow { margin: 0; color: #ffcb94; font-size: 13px; font-weight: 600; }
+#content .bs-admin-hero h1 { margin: 8px 0 0; color: #fff; font-size: clamp(28px, 3vw, 38px); }
+.bs-admin-lead { margin: 8px 0 0; max-width: 520px; color: rgba(255,255,255,.7); font-size: 14px; line-height: 1.6; }
+.bs-admin-hero-link { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 12px; background: var(--bs-orange); color: var(--bs-navy) !important; font-size: 13px; font-weight: 800; text-decoration: none; transition: background-color .15s ease, transform .15s ease; }
+.bs-admin-hero-link:hover { background: var(--bs-orange-dark); transform: translateY(-1px); }
+
+.bs-admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: 18px 0 24px; }
+.bs-admin-stat { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 1px solid var(--border-color); border-radius: 16px; background: #fff; color: var(--body-fg) !important; text-decoration: none; box-shadow: 0 14px 30px -28px rgba(11,25,48,.5); transition: transform .15s ease, border-color .15s ease; }
+.bs-admin-stat:hover { transform: translateY(-2px); border-color: rgba(29,78,216,.35); }
+.bs-admin-stat strong { display: block; color: var(--bs-navy); font-size: 24px; font-weight: 800; line-height: 1; }
+.bs-admin-stat small { display: block; margin-top: 5px; color: var(--body-quiet-color); font-size: 12.5px; font-weight: 500; }
+.bs-admin-stat-icon { display: inline-flex; flex: 0 0 auto; width: 42px; height: 42px; align-items: center; justify-content: center; border-radius: 12px; }
+.tone-amber { background: rgba(245,158,11,.12); color: #d97706; }
+.tone-gold { background: rgba(255,164,86,.16); color: #c2621a; }
+.tone-rose { background: rgba(244,63,94,.1); color: #e11d48; }
+.tone-blue { background: rgba(29,78,216,.1); color: var(--bs-blue); }
+
+.bs-admin-apps { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; align-items: start; }
+.bs-admin-app { overflow: hidden; border: 1px solid var(--border-color); border-radius: 16px; background: #fff; box-shadow: 0 16px 34px -30px rgba(11,25,48,.5); }
+.bs-admin-app header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--hairline-color); }
+.bs-admin-app header a { color: var(--bs-navy) !important; font-size: 15px; font-weight: 800; text-decoration: none; }
+.bs-admin-app header a:hover { color: var(--bs-blue) !important; }
+.bs-admin-app-icon { display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: 10px; background: var(--bs-navy); color: #ffcb94; }
+.bs-admin-app ul { margin: 0; padding: 6px; list-style: none; }
+.bs-admin-app li { display: flex; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.bs-admin-model { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 10px; border-radius: 10px; color: var(--body-fg) !important; font-size: 13.5px; font-weight: 600; text-decoration: none; transition: background-color .12s ease, color .12s ease; }
+.bs-admin-model svg { color: #a0abbb; transition: transform .12s ease, color .12s ease; }
+a.bs-admin-model:hover { background: var(--selected-row); color: var(--bs-blue) !important; }
+a.bs-admin-model:hover svg { color: var(--bs-blue); transform: translateX(2px); }
+.bs-admin-add { display: inline-flex; flex: 0 0 auto; width: 32px; height: 32px; align-items: center; justify-content: center; border-radius: 9px; color: var(--bs-blue) !important; transition: background-color .12s ease, color .12s ease; }
+.bs-admin-add:hover { background: var(--bs-orange); color: var(--bs-navy) !important; }
+
+#recent-actions-module { border-radius: 16px; }
+#recent-actions-module ul.actionlist li { padding: 8px 0 8px 22px; border-bottom: 1px solid var(--hairline-color); font-size: 13px; }
+#recent-actions-module ul.actionlist li:last-child { border-bottom: 0; }
+@media (max-width: 1024px) { body.dashboard #content { grid-template-columns: 1fr; } }
+
+/* Section titles: sentence case, like the rest of the site. */
+.module h2, .module caption, .inline-group h2, #changelist-filter h2, #content-related .module h2 { text-transform: none; letter-spacing: 0; font-size: 14px; font-weight: 700; }
+
+/* Phones: the header wraps instead of widening the page. */
+@media (max-width: 767px) {
+  html body #header { display: flex; flex-direction: column; flex-wrap: nowrap; flex-shrink: 0; height: auto; align-items: flex-start; gap: 6px; min-height: 0; padding: 12px 16px; }
+  html body #user-tools { align-self: stretch; float: none; margin: 0; padding: 0; white-space: normal; font-size: 12px; line-height: 1.7; text-align: left; }
+  #user-tools strong { display: inline; }
+  .bluesky-admin-logo { width: 54px; height: 42px; }
+  .bluesky-admin-name strong { font-size: 17px; }
+  #content { padding: 18px 14px 40px; }
+  .bs-admin-hero { border-radius: 16px; }
+  .bs-admin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .bs-admin-stat { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px; }
+  div.breadcrumbs { padding: 10px 14px; }
+}

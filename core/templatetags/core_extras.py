@@ -66,3 +66,39 @@ def initials(full_name):
     """Up to two initials for an avatar ("Grace Mbuyi" -> "GM")."""
     parts = [p for p in str(full_name or "").split() if p]
     return "".join(p[0] for p in parts[:2]).upper() or "?"
+
+
+@register.simple_tag
+def admin_overview():
+    """Headline numbers for the Django admin home page."""
+    from django.contrib.auth import get_user_model
+
+    from marketing.models import Agency, ContactMessage
+    from savings.models import SavingsAccount, SavingsOperation
+    from transfers.models import Transfer
+
+    return {
+        "clients": get_user_model().objects.filter(is_staff=False).count(),
+        "transfers_open": Transfer.objects.filter(
+            status__in=[Transfer.Status.PENDING, Transfer.Status.PROCESSING]
+        ).count(),
+        "savings_pending": SavingsAccount.objects.filter(status=SavingsAccount.Status.PENDING).count()
+        + SavingsOperation.objects.filter(status=SavingsOperation.Status.PENDING).count(),
+        "messages_new": ContactMessage.objects.filter(is_handled=False).count(),
+        "agencies": Agency.objects.filter(is_active=True).count(),
+    }
+
+
+_ADMIN_APP_ICONS = {
+    "accounts": "users",
+    "auth": "shield-check",
+    "blog": "newspaper",
+    "marketing": "globe-2",
+    "savings": "piggy-bank",
+    "transfers": "send",
+}
+
+
+@register.filter
+def admin_app_icon(app_label):
+    return _ADMIN_APP_ICONS.get(app_label, "layout-dashboard")

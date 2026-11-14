@@ -1,0 +1,65 @@
+{% extends "admin/index.html" %}
+{% load i18n icons core_extras %}
+{% comment %}
+Blue Sky admin home: a welcome banner with the numbers that need attention,
+then every app as a card (icon, models, add / open actions). Recent actions
+stay in the sidebar. Extends Django's own index so its blocks keep working.
+{% endcomment %}
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+{% admin_overview as stats %}
+<div id="content-main">
+  <section class="bs-admin-hero">
+    <div>
+      <p class="bs-admin-eyebrow">Centre d’administration</p>
+      <h1>Bonjour, {{ user.get_short_name|default:user.get_username }}</h1>
+      <p class="bs-admin-lead">Gérez les agences, les tarifs, les comptes et le contenu du site Blue Sky.</p>
+    </div>
+    <a class="bs-admin-hero-link" href="{% url 'staffpanel:home' %}">{% icon "layout-dashboard" size=16 %} Ouvrir l’espace gestion</a>
+  </section>
+
+  <section class="bs-admin-stats">
+    <a href="{% url 'admin:transfers_transfer_changelist' %}?status__exact=PENDING" class="bs-admin-stat">
+      <span class="bs-admin-stat-icon tone-amber">{% icon "send" size=18 %}</span>
+      <span><strong>{{ stats.transfers_open }}</strong><small>Transferts à traiter</small></span>
+    </a>
+    <a href="{% url 'admin:savings_savingsaccount_changelist' %}" class="bs-admin-stat">
+      <span class="bs-admin-stat-icon tone-gold">{% icon "piggy-bank" size=18 %}</span>
+      <span><strong>{{ stats.savings_pending }}</strong><small>Demandes d’épargne</small></span>
+    </a>
+    <a href="{% url 'admin:marketing_contactmessage_changelist' %}?is_handled__exact=0" class="bs-admin-stat">
+      <span class="bs-admin-stat-icon tone-rose">{% icon "mail" size=18 %}</span>
+      <span><strong>{{ stats.messages_new }}</strong><small>Messages non traités</small></span>
+    </a>
+    <a href="{% url 'admin:accounts_user_changelist' %}" class="bs-admin-stat">
+      <span class="bs-admin-stat-icon tone-blue">{% icon "users" size=18 %}</span>
+      <span><strong>{{ stats.clients }}</strong><small>Clients inscrits</small></span>
+    </a>
+  </section>
+
+  {% if app_list %}
+    <section class="bs-admin-apps">
+      {% for app in app_list %}
+        <article class="bs-admin-app app-{{ app.app_label }}">
+          <header>
+            <span class="bs-admin-app-icon">{% icon app.app_label|admin_app_icon size=19 %}</span>
+            <a href="{{ app.app_url }}">{{ app.name }}</a>
+          </header>
+          <ul>
+            {% for model in app.models %}
+              <li>
+                {% if model.admin_url %}<a class="bs-admin-model" href="{{ model.admin_url }}">{{ model.name }}{% icon "chevron-right" size=15 %}</a>{% else %}<span class="bs-admin-model">{{ model.name }}</span>{% endif %}
+                {% if model.add_url %}<a class="bs-admin-add" href="{{ model.add_url }}" title="{% translate 'Add' %} {{ model.name }}" aria-label="{% translate 'Add' %} {{ model.name }}">{% icon "plus" size=15 %}</a>{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p>{% translate "You don’t have permission to view or edit anything." %}</p>
+  {% endif %}
+</div>
+{% endblock %}
