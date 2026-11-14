@@ -391,3 +391,221 @@ a.bs-admin-model:hover svg { color: var(--bs-blue); transform: translateX(2px); 
 #content .bs-admin-hero h1 span { color: #ffcb94; }
 .bs-admin-hero-evening .bs-admin-eyebrow, #content .bs-admin-hero-evening h1 span { color: #c7d2fe; }
 .bs-admin-hero-evening { box-shadow: 0 30px 60px -40px rgba(49,46,129,.8); }
+
+/* ==========================================================================
+   Admin redesign v2 — calmer, clearer, easier to use
+   ========================================================================== */
+:root { --bs-card-shadow: 0 1px 2px rgba(11,25,48,.04), 0 12px 30px -24px rgba(11,25,48,.35); }
+
+/* ---------- Side menu (list and form pages) ---------- */
+#nav-sidebar { padding: 14px 12px 24px; background: #fff; border-right: 1px solid var(--border-color); }
+#nav-sidebar .module { margin: 0 0 6px; border: 0; border-radius: 0; background: transparent; box-shadow: none; overflow: visible; }
+#nav-sidebar .module caption, #nav-sidebar .module h2 { padding: 12px 10px 6px; background: transparent !important; color: #8a95a6 !important; font-size: 11px !important; font-weight: 800 !important; letter-spacing: .1em !important; text-transform: uppercase !important; }
+#nav-sidebar .module caption a { color: #8a95a6 !important; }
+#nav-sidebar .module th, #nav-sidebar .module td { padding: 0; border: 0; background: transparent; }
+#nav-sidebar .module tr { display: flex; align-items: center; }
+#nav-sidebar .module th { flex: 1; }
+#nav-sidebar .module th a { display: block; padding: 8px 10px; border-radius: 9px; color: #253042 !important; font-size: 13.5px; font-weight: 600; }
+#nav-sidebar .module th a:hover { background: var(--selected-row); color: var(--bs-blue) !important; }
+#nav-sidebar .module td a.addlink { display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; margin-right: 4px; padding: 0 !important; border-radius: 8px; background-position: center; font-size: 0; }
+#nav-sidebar .module td a.addlink:hover { background-color: var(--selected-bg); }
+#nav-sidebar .current-model { background: transparent !important; }
+#nav-sidebar .current-model th a { background: var(--selected-bg); color: var(--bs-blue) !important; font-weight: 800; }
+#nav-sidebar tbody tr:hover { background: transparent; }
+#nav-filter { width: 100%; min-height: 38px; margin: 0 0 8px; padding: 8px 12px !important; border: 1px solid var(--border-color) !important; background: #f6f8fc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' fill='none' stroke='%238a95a6' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") 12px center no-repeat; padding-left: 34px !important; font-size: 13px; }
+.toggle-nav-sidebar { width: 22px; border: 0; border-right: 1px solid var(--border-color); background: #fff; color: #8a95a6; }
+.toggle-nav-sidebar:hover { background: var(--selected-row); color: var(--bs-blue); }
+
+/* ---------- Page title area ---------- */
+#content h1 { margin-bottom: 6px; }
+#content > h2 { margin: 0 0 20px; color: var(--body-quiet-color); font-size: 15px; font-weight: 600; }
+#content-main > form > div > p.errornote, .errornote { padding: 12px 16px; font-weight: 600; }
+
+/* ---------- Form cards ---------- */
+.change-form #content-main, .add-form #content-main { max-width: 1040px; }
+fieldset.module { margin-bottom: 18px; border: 1px solid var(--border-color); border-radius: 16px; background: #fff; box-shadow: var(--bs-card-shadow); }
+fieldset.module > h2, fieldset.module > details > summary { display: flex; align-items: center; gap: 10px; margin: 0; padding: 16px 22px 4px !important; background: #fff !important; color: var(--bs-navy) !important; font-size: 16px !important; font-weight: 800 !important; letter-spacing: -.01em !important; text-transform: none !important; }
+fieldset.module > h2::before, fieldset.module > details > summary::before { content: ""; width: 4px; height: 18px; border-radius: 4px; background: var(--bs-orange); }
+fieldset.module > details > summary { cursor: pointer; padding-bottom: 16px !important; list-style: none; }
+fieldset.module > details > summary::-webkit-details-marker { display: none; }
+fieldset.module > details > summary h2 { margin: 0; padding: 0; background: none; color: inherit; font-size: inherit; font-weight: inherit; }
+fieldset.module > details > summary::after { content: "Afficher"; margin-left: auto; border: 1px solid var(--border-color); border-radius: 999px; padding: 3px 10px; color: var(--bs-blue); font-size: 11.5px; font-weight: 700; }
+fieldset.module > details[open] > summary::after { content: "Masquer"; }
+fieldset.module > details[open] > summary { padding-bottom: 4px !important; }
+fieldset.module .description { margin: 2px 22px 8px; padding: 10px 12px; border-radius: 10px; background: #f3f7fe; color: #4a5568; font-size: 12.5px; line-height: 1.55; }
+
+/* Rows: label left, field right on large screens. */
+fieldset.module .form-row { padding: 14px 22px; border-bottom: 1px solid #eef2f7; }
+fieldset.module .form-row:last-child { border-bottom: 0; padding-bottom: 20px; }
+.aligned .form-row .flex-container { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 18px; }
+.aligned label:not(.vCheckboxLabel):not([for$="-DELETE"]) { width: 190px; flex: 0 0 190px; padding: 10px 0 0; float: none; color: #2d3748; font-size: 13.5px; font-weight: 700; }
+.aligned .required:not(.vCheckboxLabel)::after, .aligned label.required::after { content: " *"; color: #e11d48; }
+.aligned .form-row input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=submit]):not([type=button]),
+.aligned .form-row select, .aligned .form-row textarea { flex: 1 1 320px; width: auto !important; max-width: 640px; }
+.aligned .form-row textarea { max-width: 100%; min-height: 120px; line-height: 1.6; }
+.aligned .form-row textarea#id_body, .aligned .form-row textarea#id_message { min-height: 320px; }
+.aligned div.help, .aligned p.help, form .aligned div.help, form .aligned p.help { flex-basis: 100%; margin: 4px 0 0 208px !important; padding: 0 !important; }
+.aligned .readonly { padding-top: 10px; color: #253042; font-size: 14px; line-height: 1.6; white-space: pre-line; }
+
+/* Inputs */
+input[type=text], input[type=password], input[type=email], input[type=url], input[type=number], input[type=tel], input[type=search],
+textarea, select, .vTextField, .vDateField, .vTimeField {
+  min-height: 42px; border: 1px solid #d5ddea !important; border-radius: 10px !important; background-color: #fbfcfe;
+  padding: 9px 12px !important; color: #1b2430; font-size: 14px; line-height: 1.4;
+}
+input:hover, textarea:hover, select:hover { border-color: #b9c6db !important; }
+input:focus, textarea:focus, select:focus { background-color: #fff; }
+select { height: auto !important; padding-right: 34px !important; appearance: none; -webkit-appearance: none; background: #fbfcfe url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%235b6675' stroke-width='2.2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 12px center no-repeat; }
+select[multiple] { padding-right: 12px !important; background-image: none; }
+
+/* Checkboxes look like switches; the label sits next to them. */
+.aligned .form-row .checkbox-row, .form-row .checkbox-row { display: flex; align-items: center; gap: 12px; }
+input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--bs-blue); cursor: pointer; }
+.aligned .checkbox-row input[type=checkbox] { appearance: none; -webkit-appearance: none; position: relative; width: 42px; height: 24px; margin: 0; border-radius: 999px; background: #cbd5e1; transition: background-color .15s ease; flex: 0 0 auto; }
+.aligned .checkbox-row input[type=checkbox]::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .15s ease; }
+.aligned .checkbox-row input[type=checkbox]:checked { background: #16a34a; }
+.aligned .checkbox-row input[type=checkbox]:checked::after { transform: translateX(18px); }
+.aligned .checkbox-row label.vCheckboxLabel { padding: 0 !important; color: #2d3748; font-size: 14px; font-weight: 700; }
+.aligned .checkbox-row + .help, .aligned .checkbox-row ~ div.help { margin-left: 54px !important; }
+
+/* File upload */
+input[type=file] { max-width: 100%; padding: 6px; border: 1px dashed #b9c6db; border-radius: 12px; background: #f6f8fc; font-size: 13px; }
+input[type=file]::file-selector-button { margin-right: 12px; border: 0; border-radius: 8px; background: var(--bs-navy); padding: 8px 14px; color: #fff; font-weight: 700; cursor: pointer; }
+.file-upload { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.file-upload a { font-weight: 700; }
+.bs-thumb { display: block; max-width: 100%; border: 1px solid var(--border-color); border-radius: 10px; object-fit: cover; }
+.bs-muted { color: #8a95a6; font-size: 13px; }
+
+/* Date / time widgets */
+.datetime { display: flex; flex-direction: column; gap: 8px; }
+.datetime input.vDateField, .datetime input.vTimeField { width: 160px !important; flex: 0 0 auto; }
+.datetimeshortcuts { margin-left: 8px; font-size: 12px; font-weight: 600; }
+.datetimeshortcuts a { color: var(--bs-blue); }
+
+/* Related-object icons (edit / add / view next to a select) */
+.related-widget-wrapper { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; flex: 1 1 320px; }
+.related-widget-wrapper select { flex: 1 1 260px; }
+.related-widget-wrapper-link { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; border: 1px solid var(--border-color); border-radius: 9px; background: #fff; opacity: .85; }
+.related-widget-wrapper-link:hover { border-color: var(--bs-blue); opacity: 1; }
+.related-widget-wrapper-link img { width: 14px; height: 14px; }
+.select2-container { min-width: 260px !important; }
+.select2-container--admin-autocomplete .select2-selection--single { min-height: 42px; border: 1px solid #d5ddea; border-radius: 10px; }
+.select2-container--admin-autocomplete .select2-selection--single .select2-selection__rendered { line-height: 40px; padding-left: 12px; }
+.select2-container--admin-autocomplete .select2-selection--single .select2-selection__arrow { height: 40px; }
+
+/* ---------- Save bar ---------- */
+.submit-row { position: sticky; bottom: 12px; z-index: 20; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 22px; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 16px; background: rgba(255,255,255,.92); box-shadow: 0 18px 40px -20px rgba(11,25,48,.45); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.submit-row input[type=submit], .submit-row a.button, .submit-row a.deletelink, .submit-row a.closelink { display: inline-flex; align-items: center; justify-content: center; height: 42px; min-height: 42px; margin: 0 !important; padding: 0 18px !important; border-radius: 10px !important; font-size: 13.5px; font-weight: 700 !important; line-height: 1; text-transform: none !important; letter-spacing: 0 !important; }
+.submit-row input.default { order: -1; background: var(--bs-blue) !important; color: #fff !important; box-shadow: 0 8px 18px -10px rgba(29,78,216,.8); }
+.submit-row input.default:hover { background: var(--bs-blue-dark) !important; }
+.submit-row input[type=submit]:not(.default) { border: 1px solid #d5ddea !important; background: #fff !important; color: var(--bs-navy) !important; }
+.submit-row input[type=submit]:not(.default):hover { border-color: var(--bs-blue) !important; color: var(--bs-blue) !important; }
+.submit-row a.deletelink { margin-left: auto !important; border: 1px solid rgba(225,29,72,.3); background: #fff !important; color: #e11d48 !important; }
+.submit-row a.deletelink:hover { background: #e11d48 !important; color: #fff !important; }
+.submit-row a.closelink { border: 1px solid #d5ddea; background: #fff; color: var(--bs-navy) !important; }
+.submit-row .deletelink-box { margin-left: auto; }
+
+/* ---------- Inline tables (tariff tiers, payment accounts) ---------- */
+.inline-group { border: 1px solid var(--border-color); border-radius: 16px; background: #fff; box-shadow: var(--bs-card-shadow); }
+.inline-group h2 { margin: 0; padding: 16px 22px 10px !important; background: #fff !important; color: var(--bs-navy) !important; font-size: 16px !important; font-weight: 800 !important; }
+.inline-group .tabular table { width: 100%; }
+.inline-group .tabular thead th { background: #f6f8fc; }
+.inline-group .tabular td { padding: 8px 10px; vertical-align: middle; }
+.inline-group .tabular td.original p { display: none; }
+.inline-group .tabular td.original { width: 0; padding: 0; }
+.inline-group .tabular td input:not([type=checkbox]), .inline-group .tabular td select { width: 100% !important; min-width: 90px; }
+.inline-group .tabular td.delete { text-align: center; }
+.inline-group .add-row td { padding: 12px 16px !important; background: #f9fbfe; }
+.inline-group .add-row a { font-weight: 700; }
+.inline-deletelink { width: 20px; height: 20px; }
+
+/* ---------- Lists ---------- */
+#changelist .changelist-form-container { gap: 18px; }
+#changelist #toolbar { margin-bottom: 12px; border-radius: 14px !important; box-shadow: var(--bs-card-shadow); }
+#changelist #toolbar form #searchbar { min-width: 280px; }
+#changelist #toolbar input[type=submit] { height: 42px; background: var(--bs-navy) !important; color: #fff !important; }
+#changelist .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; box-shadow: var(--bs-card-shadow); }
+#changelist .actions label { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
+#changelist .actions select { min-width: 260px; }
+#changelist .actions .button { height: 42px; background: var(--bs-blue) !important; color: #fff !important; }
+#changelist .results { box-shadow: var(--bs-card-shadow); }
+#result_list thead th { padding: 13px 14px; background: #f6f8fc; }
+#result_list thead th.sorted { background: #edf2fb; }
+#result_list tbody td, #result_list tbody th { padding: 12px 14px; font-size: 13.5px; vertical-align: middle; }
+#result_list tbody tr:nth-child(even) { background: #fbfcfe; }
+#result_list tbody tr:hover { background: #f1f6ff; }
+#result_list tbody th a { color: var(--bs-navy) !important; }
+#result_list tbody th a:hover { color: var(--bs-blue) !important; }
+#result_list td.field-cover_thumb, #result_list th.field-cover_thumb { width: 64px; }
+#result_list .bs-thumb { width: 60px; height: 40px !important; }
+.paginator { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 14px 6px; }
+.paginator a:link, .paginator a:visited, .paginator .this-page { display: inline-flex; min-width: 34px; height: 34px; align-items: center; justify-content: center; padding: 0 10px; border-radius: 9px; font-weight: 700; }
+.paginator .this-page { background: var(--bs-navy); color: #fff; }
+
+/* Date drill-down above lists */
+.xfull, ul.toplinks { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; padding: 0; border: 0; background: none; }
+ul.toplinks li { margin: 0; }
+ul.toplinks a { display: inline-flex; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 999px; background: #fff; font-size: 12.5px; font-weight: 700; }
+ul.toplinks a:hover { border-color: var(--bs-blue); }
+
+/* Filters panel */
+#changelist-filter { border-radius: 16px; box-shadow: var(--bs-card-shadow); }
+#changelist-filter h2 { padding: 14px 16px !important; background: #fff !important; color: var(--bs-navy) !important; font-size: 15px !important; font-weight: 800 !important; border-bottom: 1px solid var(--hairline-color); }
+#changelist-filter details { padding: 0 6px; border-bottom: 1px solid #eef2f7; }
+#changelist-filter details summary { padding: 12px 10px; color: #253042; font-size: 13px; font-weight: 800; }
+#changelist-filter h3 { margin: 12px 10px 6px; font-size: 13px; }
+#changelist-filter ul { margin: 0 0 10px; padding: 0 4px; border: 0; }
+#changelist-filter li { margin: 0; padding: 0; list-style: none; }
+#changelist-filter li a { display: block; padding: 7px 10px; border-radius: 8px; color: #4a5568 !important; font-size: 13px; font-weight: 600; }
+#changelist-filter li a:hover { background: var(--selected-row); color: var(--bs-blue) !important; }
+#changelist-filter li.selected { border-left: 0; padding-left: 0; margin-left: 0; }
+#changelist-filter li.selected a { background: var(--selected-bg); color: var(--bs-blue) !important; font-weight: 800; }
+#changelist-filter-extra-actions { padding: 10px 16px; }
+#changelist-filter-clear a { color: #e11d48 !important; font-weight: 700; }
+
+/* ---------- Badges ---------- */
+.bs-badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 800; line-height: 1.2; white-space: nowrap; }
+.bs-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.bs-badge-green { background: rgba(16,185,129,.12); color: #047857; }
+.bs-badge-amber { background: rgba(245,158,11,.14); color: #b45309; }
+.bs-badge-blue { background: rgba(29,78,216,.1); color: #1d4ed8; }
+.bs-badge-red { background: rgba(225,29,72,.1); color: #be123c; }
+.bs-badge-grey { background: #eef2f7; color: #4a5568; }
+
+/* ---------- Messages ---------- */
+ul.messagelist li { border: 1px solid transparent; box-shadow: var(--bs-card-shadow); }
+ul.messagelist li.success { border-color: rgba(16,185,129,.25); }
+ul.messagelist li.warning { border-color: rgba(245,158,11,.3); }
+ul.messagelist li.error { border-color: rgba(225,29,72,.25); }
+
+/* ---------- Phones ---------- */
+@media (max-width: 767px) {
+  fieldset.module .form-row { padding: 12px 16px; }
+  fieldset.module > h2, fieldset.module > details > summary { padding: 14px 16px 4px !important; }
+  fieldset.module .description { margin: 2px 16px 6px; }
+  .aligned .form-row .flex-container { display: block; }
+  .aligned label:not(.vCheckboxLabel) { width: auto; padding: 0 0 6px; }
+  .aligned div.help, .aligned p.help, form .aligned div.help, form .aligned p.help { margin: 6px 0 0 !important; }
+  .aligned .checkbox-row + .help, .aligned .checkbox-row ~ div.help { margin-left: 0 !important; }
+  .aligned .checkbox-row { display: flex !important; }
+  .aligned .form-row textarea#id_body { min-height: 240px; }
+  .related-widget-wrapper { display: flex !important; }
+  .submit-row { position: static; display: grid; grid-template-columns: 1fr; }
+  .submit-row a.deletelink { margin-left: 0 !important; }
+  .submit-row input, .submit-row a { width: 100%; }
+  #changelist #toolbar form #searchbar { min-width: 0; }
+  #changelist .actions select { min-width: 0; }
+  .inline-group .tabular { overflow-x: auto; }
+  .inline-group .tabular table { min-width: 620px; }
+}
+
+/* Date and time inputs keep their natural height inside the column layout. */
+.aligned .form-row .datetime input.vDateField, .aligned .form-row .datetime input.vTimeField { flex: 0 0 auto !important; width: 170px !important; height: 42px; }
+.datetime > label, .datetime { font-size: 12.5px; color: #4a5568; }
+.aligned .form-row .datetime { display: block; margin: 0; line-height: 3.4; }
+.aligned .form-row .datetime input { display: inline-block; vertical-align: middle; margin: 0 4px; }
+fieldset.module > h2, .inline-group h2 { border: 0 !important; }
+@media (max-width: 767px) {
+  .aligned .form-row input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=submit]):not([type=button]):not(.vDateField):not(.vTimeField), .aligned .form-row select, .aligned .form-row textarea { width: 100% !important; max-width: 100%; }
+  .aligned .required:not(.vCheckboxLabel)::after { position: static; }
+}

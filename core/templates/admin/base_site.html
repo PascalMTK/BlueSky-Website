@@ -12,8 +12,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/admin.css' %}?v=20261114-5">
   <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32.png' %}">
+{% endblock %}
+
+{# Loaded in extrahead so it comes after Django's own page CSS (forms.css, #}
+{# changelists.css, dashboard.css) and wins over it. Pages that extend #}
+{# extrahead keep it through {{ block.super }}. #}
+{% block extrahead %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}?v=20261114-7">
 {% endblock %}
 
 {% block branding %}
