@@ -1811,3 +1811,21 @@ main > section.bg-surface { background-color: color-mix(in srgb, var(--color-sur
 .transfer-notice-links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
 .transfer-notice-links a { display: inline-flex; align-items: center; gap: .4rem; border: 1px solid var(--color-border); border-radius: 999px; background: var(--color-surface); padding: .4rem .8rem; color: var(--color-brand-blue-deep); font-size: .8rem; font-weight: 700; }
 .transfer-notice-links a:hover { border-color: var(--color-brand-blue); color: var(--color-brand-blue); }
+
+/* Home: fee estimate card (live, from the tariff grids) */
+.fee-calc-field { display: grid; gap: .35rem; }
+.fee-calc-field > span { color: rgba(255,255,255,.6); font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.fee-calc select, .fee-calc input { width: 100%; min-height: 2.75rem; border: 1px solid rgba(255,255,255,.18) !important; border-radius: .75rem !important; background: rgba(255,255,255,.08) !important; padding: .55rem .8rem !important; color: #fff; font-size: .95rem; font-weight: 700; }
+.fee-calc select option { color: #0b1930; }
+.fee-calc select:focus, .fee-calc input:focus { outline: none; border-color: var(--color-brand-gold) !important; box-shadow: 0 0 0 3px rgba(255,164,86,.25); }
+.fee-calc-amount { position: relative; display: block; }
+.fee-calc-amount input { padding-right: 3.5rem !important; font-size: 1.35rem; }
+.fee-calc-amount b { position: absolute; right: .9rem; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,.7); font-size: .8rem; }
+.fee-calc-result { border-radius: .9rem; background: rgba(255,255,255,.08); padding: .85rem 1rem; }
+.fee-calc-result p { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; color: rgba(255,255,255,.7); font-size: .85rem; }
+.fee-calc-result p + p { margin-top: .35rem; padding-top: .35rem; border-top: 1px solid rgba(255,255,255,.1); }
+.fee-calc-result strong { color: #fff; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.fee-calc-result p:first-child strong { color: var(--color-brand-gold-light); }
+.fee-calc-result small { display: block; margin-top: .45rem; color: rgba(255,255,255,.5); font-size: .7rem; }
+.fee-calc-amount input::-webkit-outer-spin-button, .fee-calc-amount input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.fee-calc-amount input { -moz-appearance: textfield; appearance: textfield; }

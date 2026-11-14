@@ -27,7 +27,7 @@
           {% else %}
             <p class="dash-hero-stat-value">0</p>
           {% endif %}
-          <p class="mt-1 text-xs text-white/55">{% t "Transferts terminés" %}{% if success_rate is not None %} · {{ success_rate }}% {% t "réussis" %}{% endif %}</p>
+          <p class="mt-1 text-xs text-white/55">{% t "D'après vos transferts enregistrés" %}</p>
         </div>
         <a href="{% url 'savings:overview' %}" class="dash-hero-stat group">
           <p class="dash-hero-stat-label">{% icon "piggy-bank" size=14 %} {% t "Épargne" %}</p>
@@ -67,17 +67,17 @@
       <div class="dash-panel-head">
         <div>
           <h2 class="dash-panel-title">{% t "Transferts récents" %}</h2>
-          <p class="text-xs text-text-muted">{% t "Vos 8 dernières opérations" %}</p>
+          <p class="text-xs text-text-muted">{% t "Votre historique personnel" %}</p>
         </div>
-        <a href="{% url 'transfers:new_transfer' %}" class="dash-link">{% t "Nouveau" %} {% icon "plus" size=14 %}</a>
+        <a href="{% url 'transfers:new_transfer' %}" class="dash-link">{% t "Enregistrer" %} {% icon "plus" size=14 %}</a>
       </div>
 
       {% if not transfers %}
         <div class="dash-empty">
           <span class="dash-empty-icon">{% icon "send" size=24 %}</span>
-          <p class="mt-4 font-bold text-text">{% t "Vous n'avez encore effectué aucun transfert." %}</p>
-          <p class="mt-1 text-sm text-text-muted">{% t "Ajoutez un bénéficiaire puis envoyez votre premier transfert en quelques minutes." %}</p>
-          <a href="{% if recipient_count %}{% url 'transfers:new_transfer' %}{% else %}{% url 'transfers:recipients' %}{% endif %}" class="btn btn-primary btn-md mt-5">{% t "Envoyer mon premier transfert" %} {% icon "arrow-right" size=16 %}</a>
+          <p class="mt-4 font-bold text-text">{% t "Aucun transfert enregistré pour le moment." %}</p>
+          <p class="mt-1 text-sm text-text-muted">{% t "Après un envoi en agence, notez-le ici pour retrouver facilement vos transferts et vos bénéficiaires." %}</p>
+          <a href="{% if recipient_count %}{% url 'transfers:new_transfer' %}{% else %}{% url 'transfers:recipients' %}{% endif %}" class="btn btn-primary btn-md mt-5">{% t "Enregistrer mon premier transfert" %} {% icon "arrow-right" size=16 %}</a>
         </div>
       {% else %}
         <div class="overflow-x-auto">
@@ -117,6 +117,11 @@
                       <form method="post" action="{% url 'transfers:cancel_transfer' transfer.pk %}" onsubmit="return confirm('{% t "Annuler ce transfert ?" %}')">
                         {% csrf_token %}
                         <button type="submit" class="dash-row-action">{% t "Annuler" %}</button>
+                      </form>
+                    {% elif transfer.status == "COMPLETED" or transfer.status == "CANCELLED" %}
+                      <form method="post" action="{% url 'transfers:delete_transfer' transfer.pk %}" onsubmit="return confirm('{% t "Supprimer ce transfert de votre historique ?" %}')">
+                        {% csrf_token %}
+                        <button type="submit" class="dash-row-action" aria-label="{% t "Supprimer" %}">{% icon "trash-2" size=15 %}</button>
                       </form>
                     {% endif %}
                   </td>

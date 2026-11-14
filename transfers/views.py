@@ -1,9 +1,12 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum
+from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from core.data import COUNTRIES
+from core.i18n import translate
 from savings.models import SavingsAccount
 
 from .forms import RecipientForm, TransferForm
@@ -17,18 +20,17 @@ def overview(request):
     user_transfers = Transfer.objects.filter(user=request.user)
     transfers = user_transfers.select_related("recipient").order_by("-created_at")[:8]
 
-    # Counts come from the whole history, not just the 8 rows shown below.
-    by_status = dict(
-        user_transfers.order_by().values_list("status").annotate(n=Count("id"))
-    )
-    total_count = sum(by_status.values())
-    in_progress = by_status.get(Transfer.Status.PENDING, 0) + by_status.get(Transfer.Status.PROCESSING, 0)
-    completed_count = by_status.get(Transfer.Status.COMPLETED, 0)
+    # Transfers are made at an agency; the client space is a personal record
+    # of them. Cancelled ones are left out of every count and total.
+    kept = user_transfers.exclude(status=Transfer.Status.CANCELLED)
+    total_count = kept.count()
+    month_start = timezone.localtime().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    this_month = kept.filter(created_at__gte=month_start).count()
+    country_count = kept.order_by().values("destination_country").distinct().count()
 
-    # Money actually delivered, per currency (largest first).
+    # Amount recorded, per currency (largest first).
     sent_totals = list(
-        user_transfers.filter(status=Transfer.Status.COMPLETED)
-        .order_by()
+        kept.order_by()
         .values("currency_sent")
         .annotate(total=Sum("amount_sent"))
         .order_by("-total")
@@ -38,9 +40,9 @@ def overview(request):
     recipient_count = recipients_qs.count()
 
     stats = [
-        ("send", "Transferts envoyés", total_count, "brand"),
-        ("clock", "En cours de traitement", in_progress, "amber"),
-        ("check-circle-2", "Transferts terminés", completed_count, "emerald"),
+        ("send", "Transferts enregistrés", total_count, "brand"),
+        ("clock", "Ce mois-ci", this_month, "amber"),
+        ("globe-2", "Pays de destination", country_count, "emerald"),
         ("users", "Bénéficiaires", recipient_count, "sky"),
     ]
 
@@ -50,7 +52,6 @@ def overview(request):
         "recent_recipients": recipients_qs[:4],
         "stats": stats,
         "sent_totals": sent_totals[:2],
-        "success_rate": round(completed_count * 100 / total_count) if total_count else None,
         "savings_account": SavingsAccount.objects.filter(user=request.user).first(),
         "first_name": request.user.full_name.split(" ")[0],
     }
@@ -98,7 +99,12 @@ def new_transfer(request):
             transfer.user = request.user
             transfer.origin_country = request.user.country or "RDC"
             transfer.destination_country = transfer.recipient.country
+            # A personal record of a transfer already made at an agency: it is
+            # saved as done and never enters the staff work queue.
+            transfer.status = Transfer.Status.COMPLETED
             transfer.save()
+            lang = getattr(request, "active_language", "fr")
+            messages.success(request, translate("Transfert enregistré dans votre historique.", lang))
             return redirect("transfers:overview")
     else:
         form = TransferForm(user=request.user)
@@ -114,4 +120,18 @@ def cancel_transfer(request, pk):
     Transfer.objects.filter(
         pk=pk, user=request.user, status=Transfer.Status.PENDING
     ).update(status=Transfer.Status.CANCELLED)
+    return redirect("transfers:overview")
+
+
+@login_required
+@require_POST
+def delete_transfer(request, pk):
+    """Remove one of the client's own records. Transfers the team is still
+    handling (pending or in progress) cannot be deleted, only cancelled."""
+    deleted, _ = Transfer.objects.filter(
+        pk=pk, user=request.user, status__in=[Transfer.Status.COMPLETED, Transfer.Status.CANCELLED]
+    ).delete()
+    if deleted:
+        lang = getattr(request, "active_language", "fr")
+        messages.success(request, translate("Transfert supprimé de votre historique.", lang))
     return redirect("transfers:overview")

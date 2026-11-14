@@ -88,6 +88,7 @@ def home(request):
         "steps": STEPS,
         "hero_stats": hero_stats,
         "savings_segments": SAVINGS_SEGMENTS,
+        "fee_plans": fee_calculator_data(load_tariff_plans()[0]),
     }
     return render(request, "marketing/home.html", context)
 
@@ -137,7 +138,9 @@ def countries(request):
     return render(request, "marketing/countries.html", context)
 
 
-def tariffs(request):
+def load_tariff_plans():
+    """Active tariff grids with their bands, from the Admin (or the built-in
+    copy before the first migration). Returns (plans, latest_update)."""
     try:
         plans = list(TariffPlan.objects.filter(is_active=True).prefetch_related("bands"))
         for plan in plans:
@@ -157,6 +160,7 @@ def tariffs(request):
 
         def plan(title, scope, tariff_type, slogan, bands):
             return SimpleNamespace(
+                slug="",
                 title=title,
                 scope_label=scope,
                 tariff_type=tariff_type,
@@ -170,6 +174,33 @@ def tariffs(request):
             plan("Tarif envoi quotidien", "Tous les pays Blue Sky sauf la Tanzanie", "send", "L'argent voyage en toute sécurité", [(1, 25, "fixed", 2), (26, 50, "fixed", 4), (51, 99, "fixed", 6), (100, 3000, "percentage", 5), (3001, None, "percentage", 3)]),
         ]
         latest_update = None
+    return plans, latest_update
+
+
+def fee_calculator_data(plans):
+    """Plain data for the home page fee estimate (one entry per grid)."""
+    data = []
+    for plan in plans:
+        data.append({
+            "title": plan.title,
+            "type": plan.tariff_type,
+            "bands": [
+                {
+                    "min": float(band.min_amount),
+                    "max": float(band.max_amount) if band.max_amount is not None else None,
+                    "kind": band.fee_type,
+                    "value": float(band.fee_value),
+                }
+                for band in plan.display_bands
+            ],
+        })
+    # Daily send rate first: it is what most visitors want to estimate.
+    data.sort(key=lambda d: (d["type"] != "send", "tanzanie" in d["title"].lower()))
+    return data
+
+
+def tariffs(request):
+    plans, latest_update = load_tariff_plans()
     return render(
         request,
         "marketing/tariffs.html",

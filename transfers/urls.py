@@ -10,4 +10,5 @@ urlpatterns = [
     path("beneficiaires/<int:pk>/supprimer/", views.delete_recipient, name="delete_recipient"),
     path("nouveau-transfert/", views.new_transfer, name="new_transfer"),
     path("<int:pk>/annuler/", views.cancel_transfer, name="cancel_transfer"),
+    path("<int:pk>/supprimer/", views.delete_transfer, name="delete_transfer"),
 ]

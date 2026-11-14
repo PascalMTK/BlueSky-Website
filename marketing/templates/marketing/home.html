@@ -25,28 +25,70 @@
           {% t "Des transferts fiables, suivis et accompagnés par de vraies personnes dans" %} {{ COUNTRIES|length }} {% t "pays africains." %}
         </p>
         <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-          {% if request.user.is_authenticated %}
-            <a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-lg">{% t "Démarrer un transfert" %} {% icon "arrow-right" size=18 %}</a>
-          {% else %}
-            <a href="{% url 'accounts:signup' %}?next={% url 'transfers:new_transfer' %}" class="btn btn-primary btn-lg">{% t "Envoyer de l'argent" %} {% icon "arrow-right" size=18 %}</a>
-          {% endif %}
-          <a href="{% url 'marketing:countries' %}" class="btn btn-secondary btn-lg text-white">{% t "Voir notre réseau" %}</a>
+          {# Money is sent at an agency (no online sending yet): lead people there. #}
+          <a href="{% url 'marketing:countries' %}" class="btn btn-primary btn-lg">{% icon "map-pin" size=18 %} {% t "Trouver une agence" %}</a>
+          <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="btn btn-secondary btn-lg text-white">{% icon "message-circle" size=18 %} {% t "Écrire sur WhatsApp" %}</a>
         </div>
       </div>
 
-      <aside class="transfer-glass-card w-full max-w-sm justify-self-end p-5 sm:p-6">
+      <aside class="transfer-glass-card fee-calc w-full max-w-sm justify-self-end p-5 sm:p-6" data-fee-calc>
         <div class="flex items-center justify-between border-b border-white/15 pb-4">
-          <div><p class="eyebrow eyebrow-gold">{% t "Estimation rapide" %}</p><p class="mt-1 text-sm text-white/65">{% t "Simple. Clair. Accompagné." %}</p></div>
-          <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-brand-gold">{% icon "send" size=18 %}</span>
+          <div><p class="eyebrow eyebrow-gold">{% t "Estimation des frais" %}</p><p class="mt-1 text-sm text-white/65">{% t "Selon nos tarifs en vigueur" %}</p></div>
+          <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-brand-gold">{% icon "circle-dollar-sign" size=18 %}</span>
         </div>
         <div class="mt-5 space-y-3">
-          <div class="rounded-xl bg-white/[.08] p-4"><p class="text-xs text-white/55">{% t "Vous envoyez" %}</p><div class="mt-1 flex items-center justify-between"><strong class="text-2xl">500.00</strong><span class="text-sm font-bold">USD</span></div></div>
-          <div class="flex items-center gap-3 text-xs font-semibold text-white/60"><span class="h-px flex-1 bg-white/15"></span>{% t "vers l'Afrique" %}<span class="h-px flex-1 bg-white/15"></span></div>
-          <div class="grid grid-cols-3 gap-2 text-center text-[.68rem] font-semibold text-white/70">
-            <span class="rounded-lg border border-white/10 py-2">RDC</span><span class="rounded-lg border border-white/10 py-2">Namibie</span><span class="rounded-lg border border-white/10 py-2">+7</span>
+          <label class="fee-calc-field">
+            <span>{% t "Opération" %}</span>
+            <select data-fee-plan aria-label="{% t 'Opération' %}">
+              {% for plan in fee_plans %}<option value="{{ forloop.counter0 }}">{% t plan.title %}</option>{% endfor %}
+            </select>
+          </label>
+          <label class="fee-calc-field">
+            <span>{% t "Montant" %}</span>
+            <span class="fee-calc-amount"><input type="number" inputmode="decimal" min="1" step="1" value="500" data-fee-amount aria-label="{% t 'Montant' %}"><b>USD</b></span>
+          </label>
+          <div class="fee-calc-result" aria-live="polite">
+            <p><span>{% t "Frais" %}</span><strong data-fee-out>—</strong></p>
+            <p><span>{% t "Total à prévoir" %}</span><strong data-fee-total>—</strong></p>
+            <small data-fee-rule></small>
           </div>
         </div>
-        <a href="{% url 'marketing:contact' %}" class="mt-5 flex items-center justify-between border-t border-white/15 pt-4 text-sm font-bold text-white"><span>{% t "Demander un devis" %}</span>{% icon "arrow-up-right" size=17 css_class="text-brand-gold" %}</a>
+        <a href="{% url 'marketing:countries' %}" class="mt-5 flex items-center justify-between border-t border-white/15 pt-4 text-sm font-bold text-white"><span>{% t "Envoyer en agence" %}</span>{% icon "arrow-up-right" size=17 css_class="text-brand-gold" %}</a>
+        <p class="mt-2 text-[.7rem] leading-relaxed text-white/50">{% t "Estimation indicative. Le montant exact est confirmé en agence." %}</p>
+        {{ fee_plans|json_script:"fee-plans-data" }}
+        <script>
+          (function () {
+            var root = document.querySelector("[data-fee-calc]");
+            var data = JSON.parse(document.getElementById("fee-plans-data").textContent || "[]");
+            if (!root || !data.length) { if (root) root.hidden = true; return; }
+            var planEl = root.querySelector("[data-fee-plan]"), amountEl = root.querySelector("[data-fee-amount]");
+            var feeEl = root.querySelector("[data-fee-out]"), totalEl = root.querySelector("[data-fee-total]"), ruleEl = root.querySelector("[data-fee-rule]");
+            var fmt = function (n) { return n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " $"; };
+            function band(bands, amount) {
+              // The tier whose range holds the amount; between two tiers
+              // (e.g. 99.50), the last tier that starts below it.
+              var match = null;
+              bands.forEach(function (b) { if (amount >= b.min && (b.max === null || amount <= b.max)) match = match || b; });
+              if (match) return match;
+              bands.forEach(function (b) { if (amount >= b.min) match = b; });
+              return match;
+            }
+            function update() {
+              var plan = data[+planEl.value] || data[0];
+              var amount = parseFloat(String(amountEl.value).replace(",", "."));
+              if (!(amount > 0)) { feeEl.textContent = totalEl.textContent = "—"; ruleEl.textContent = ""; return; }
+              var b = band(plan.bands, amount);
+              if (!b) { feeEl.textContent = totalEl.textContent = "—"; ruleEl.textContent = "{% t 'Montant minimum' %} : " + fmt(plan.bands[0].min); return; }
+              var fee = b.kind === "percentage" ? amount * b.value / 100 : b.value;
+              feeEl.textContent = fmt(fee);
+              totalEl.textContent = fmt(amount + fee);
+              ruleEl.textContent = (b.kind === "percentage" ? b.value + " %" : fmt(b.value)) + " · " + (b.max === null ? "{% t 'à partir de' %} " + fmt(b.min) : fmt(b.min) + " – " + fmt(b.max));
+            }
+            planEl.addEventListener("change", update);
+            amountEl.addEventListener("input", update);
+            update();
+          })();
+        </script>
       </aside>
     </div>
 
