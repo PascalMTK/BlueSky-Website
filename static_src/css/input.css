@@ -1891,3 +1891,9 @@ main > section.bg-surface { background-color: color-mix(in srgb, var(--color-sur
 .dash-sidebar-label { color: rgba(255,255,255,.58); }
 .auth-legal { opacity: 1; }
 .auth-legal a { color: var(--color-brand-blue); font-weight: 600; }
+
+/* Countries page: 3D globe behind the content (static_src/js/globe3d.js) */
+.globe-3d-bg { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; opacity: .9; }
+main:has(.globe-3d-bg) > section.hero-premium { background-color: color-mix(in srgb, var(--color-surface-muted) 55%, transparent); }
+main:has(.globe-3d-bg) .hero-atmosphere { opacity: .55; }
+@media (max-width: 767px) { .globe-3d-bg { opacity: .6; } }
