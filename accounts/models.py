@@ -31,19 +31,23 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    full_name = models.CharField(max_length=150)
-    email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=32, blank=True)
-    country = models.CharField(max_length=100, blank=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    full_name = models.CharField(max_length=150, verbose_name="Nom complet")
+    email = models.EmailField(unique=True, verbose_name="Adresse e-mail")
+    phone = models.CharField(max_length=32, blank=True, verbose_name="Téléphone")
+    country = models.CharField(max_length=100, blank=True, verbose_name="Pays")
+    is_active = models.BooleanField(default=True, verbose_name="Actif")
+    is_staff = models.BooleanField(default=False, verbose_name="Membre de l'équipe")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Inscrit le")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Modifié le")
 
     objects = UserManager()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["full_name"]
+
+    class Meta:
+        verbose_name = "utilisateur"
+        verbose_name_plural = "utilisateurs"
 
     def __str__(self):
         return self.email
@@ -56,12 +60,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class EmailVerification(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="email_verification")
-    code_hash = models.CharField(max_length=128)
-    expires_at = models.DateTimeField()
-    last_sent_at = models.DateTimeField(auto_now_add=True)
-    attempts = models.PositiveSmallIntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="email_verification", verbose_name="Utilisateur")
+    code_hash = models.CharField(max_length=128, verbose_name="Code (haché)")
+    expires_at = models.DateTimeField(verbose_name="Expire le")
+    last_sent_at = models.DateTimeField(auto_now_add=True, verbose_name="Dernier envoi")
+    attempts = models.PositiveSmallIntegerField(default=0, verbose_name="Tentatives")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Créé le")
+
+    class Meta:
+        verbose_name = "vérification d'e-mail"
+        verbose_name_plural = "vérifications d'e-mail"
 
     @classmethod
     def issue_for(cls, user):

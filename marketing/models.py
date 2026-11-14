@@ -40,18 +40,21 @@ class ContactMessage(models.Model):
         SAVINGS = "epargne", "Épargne"
         OTHER = "autre", "Autre"
 
-    full_name = models.CharField(max_length=150)
-    email = models.EmailField()
-    country = models.CharField(max_length=100, blank=True)
+    full_name = models.CharField(max_length=150, verbose_name="Nom complet")
+    email = models.EmailField(verbose_name="Adresse e-mail")
+    country = models.CharField(max_length=100, blank=True, verbose_name="Pays")
     service = models.CharField(
-        max_length=20, choices=Service.choices, default=Service.TRANSFER
+        max_length=20, choices=Service.choices, default=Service.TRANSFER,
+        verbose_name="Service demandé",
     )
-    message = models.TextField()
+    message = models.TextField(verbose_name="Message")
     is_handled = models.BooleanField("Traité", default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Reçu le")
 
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = "message de contact"
+        verbose_name_plural = "messages de contact"
 
     def __str__(self):
         return f"{self.full_name} <{self.email}>"

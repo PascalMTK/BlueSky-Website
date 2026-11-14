@@ -5,25 +5,28 @@ from django.utils.text import slugify
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=220, unique=True, blank=True)
-    excerpt = models.CharField(max_length=300, blank=True)
-    body = models.TextField()
-    cover_image = models.ImageField(upload_to="blog/", blank=True, null=True)
+    title = models.CharField(max_length=200, verbose_name="Titre")
+    slug = models.SlugField(max_length=220, unique=True, blank=True, verbose_name="Adresse (slug)")
+    excerpt = models.CharField(max_length=300, blank=True, verbose_name="Résumé")
+    body = models.TextField(verbose_name="Contenu")
+    cover_image = models.ImageField(upload_to="blog/", blank=True, null=True, verbose_name="Image de couverture")
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="posts",
+        verbose_name="Auteur",
     )
-    is_published = models.BooleanField(default=False)
-    published_at = models.DateTimeField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    is_published = models.BooleanField(default=False, verbose_name="Publié")
+    published_at = models.DateTimeField(null=True, blank=True, verbose_name="Publié le")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Créé le")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Modifié le")
 
     class Meta:
         ordering = ["-published_at", "-created_at"]
+        verbose_name = "publication"
+        verbose_name_plural = "publications"
         indexes = [models.Index(fields=["is_published", "published_at"])]
 
     def __str__(self):

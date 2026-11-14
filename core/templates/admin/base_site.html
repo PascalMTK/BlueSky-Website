@@ -3,9 +3,17 @@
 
 {% block title %}{{ title }} | Blue Sky Admin{% endblock %}
 
+{# The admin is themed to the Blue Sky palette only; Django's dark-mode #}
+{# variables would fight it, so they are not loaded (toggle hidden in CSS). #}
+{% block dark-mode-vars %}{% endblock %}
+
 {% block extrastyle %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}?v=20261114-1">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32.png' %}">
 {% endblock %}
 
 {% block branding %}
@@ -17,7 +25,7 @@
 
 {% block nav-global %}
   <div class="bluesky-admin-links">
-    <a href="{% url 'marketing:home' %}">Voir le site</a>
     <a href="{% url 'staffpanel:home' %}">Espace gestion</a>
+    <a href="{% url 'marketing:home' %}">Voir le site</a>
   </div>
 {% endblock %}
