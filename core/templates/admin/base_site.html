@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load static %}
+{% load static icons core_extras %}
 
 {% block title %}{{ title }} | Blue Sky Admin{% endblock %}
 
@@ -20,19 +20,39 @@
 {# extrahead keep it through {{ block.super }}. #}
 {% block extrahead %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static 'css/admin.css' %}?v=20261114-7">
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}?v=20261114-9">
 {% endblock %}
 
 {% block branding %}
   <a class="bluesky-admin-brand" href="{% url 'admin:index' %}">
-    <span class="bluesky-admin-logo"><img src="{% static 'img/WhatsApp_Image_2026-01-27_at_11.11.59_PM-removebg-preview.png' %}" alt="Blue Sky"></span>
-    <span class="bluesky-admin-name"><strong>Blue Sky</strong><small>Centre d’administration</small></span>
+    <span class="bluesky-admin-logo"><img src="{% static 'img/WhatsApp_Image_2026-01-27_at_11.11.59_PM__1_-removebg-preview.png' %}" alt="Blue Sky"></span>
+    <span class="bluesky-admin-name"><strong>Centre d’administration</strong><small>Blue Sky Money Transfer</small></span>
   </a>
 {% endblock %}
 
-{% block nav-global %}
-  <div class="bluesky-admin-links">
-    <a href="{% url 'staffpanel:home' %}">Espace gestion</a>
-    <a href="{% url 'marketing:home' %}">Voir le site</a>
-  </div>
+{% block nav-global %}{% endblock %}
+
+{# Top bar right side: quick links and an account menu (initials). #}
+{% block usertools %}
+  {% if has_permission %}
+    <div id="user-tools" class="bs-usertools">
+      <a href="{% url 'staffpanel:home' %}" class="bs-top-link bs-top-primary">{% icon "layout-dashboard" size=15 %}<span>Espace gestion</span></a>
+      <a href="{% url 'marketing:home' %}" class="bs-top-link" target="_blank" rel="noopener">{% icon "external-link" size=15 %}<span>Voir le site</span></a>
+      <details class="bs-account">
+        <summary aria-label="Mon compte">
+          <span class="bs-avatar">{{ user.full_name|default:user.get_username|initials }}</span>
+          <span class="bs-account-name">{% firstof user.get_short_name user.get_username %}</span>
+          {% icon "chevron-down" size=14 %}
+        </summary>
+        <div class="bs-account-menu">
+          <p class="bs-account-head"><strong>{% firstof user.full_name user.get_username %}</strong><small>{{ user.email }}</small></p>
+          {% if user.has_usable_password %}<a href="{% url 'admin:password_change' %}">{% icon "lock-keyhole" size=15 %} Modifier le mot de passe</a>{% endif %}
+          <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+            {% csrf_token %}
+            <button type="submit">{% icon "log-out" size=15 %} Se déconnecter</button>
+          </form>
+        </div>
+      </details>
+    </div>
+  {% endif %}
 {% endblock %}

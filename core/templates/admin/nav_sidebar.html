@@ -1,0 +1,39 @@
+{% load i18n icons core_extras %}
+{% comment %}
+Blue Sky admin side menu: navy panel with an icon per section.
+Keeps Django's ids (#toggle-nav-sidebar, #nav-sidebar, #nav-filter) and the
+"th[scope=row] a" structure that admin/js/nav_sidebar.js uses for the
+open/close toggle and the quick filter.
+{% endcomment %}
+<button class="sticky toggle-nav-sidebar" id="toggle-nav-sidebar" aria-label="{% translate 'Toggle navigation' %}"></button>
+<nav class="sticky bs-nav" id="nav-sidebar" aria-label="{% translate 'Sidebar' %}">
+  <a href="{% url 'admin:index' %}" class="bs-nav-home">{% icon "layout-dashboard" size=17 %}<span>Tableau de bord</span></a>
+  <input type="search" id="nav-filter" placeholder="Rechercher une rubrique…" aria-label="{% translate 'Filter navigation items' %}">
+
+  {% for app in available_apps %}
+    <div class="bs-nav-app app-{{ app.app_label }}{% if app.app_url in request.path|urlencode %} current-app{% endif %}">
+      <p class="bs-nav-app-title"><span>{% icon app.app_label|admin_app_icon size=14 %}</span>{{ app.name }}</p>
+      <table>
+        <tbody>
+          {% for model in app.models %}
+            {% with model_name=model.object_name|lower %}
+            <tr class="model-{{ model_name }}{% if model.admin_url in request.path|urlencode %} current-model{% endif %}">
+              <th scope="row">
+                {% if model.admin_url %}<a href="{{ model.admin_url }}"{% if model.admin_url in request.path|urlencode %} aria-current="page"{% endif %}>{{ model.name }}</a>{% else %}<span>{{ model.name }}</span>{% endif %}
+              </th>
+              <td>
+                {% if model.add_url %}<a href="{{ model.add_url }}" class="bs-nav-add" title="{% translate 'Add' %} {{ model.name }}" aria-label="{% translate 'Add' %} {{ model.name }}">{% icon "plus" size=14 %}</a>{% endif %}
+              </td>
+            </tr>
+            {% endwith %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endfor %}
+
+  <div class="bs-nav-foot">
+    <a href="{% url 'staffpanel:home' %}">{% icon "layout-dashboard" size=16 %}<span>Espace gestion</span></a>
+    <a href="{% url 'marketing:home' %}" target="_blank" rel="noopener">{% icon "external-link" size=16 %}<span>Voir le site</span></a>
+  </div>
+</nav>
