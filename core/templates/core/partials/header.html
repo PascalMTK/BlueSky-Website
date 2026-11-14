@@ -27,7 +27,7 @@
 
     <!-- Desktop Navigation Links -->
     <nav class="hidden items-center gap-7 xl:flex">
-      {% for href, label in nav_items %}
+      {% for href, label, icon_name in nav_items %}
         <a href="{{ href }}" class="relative py-6 text-sm font-semibold transition-colors {% if request.path == href %}text-brand-blue{% else %}text-text-muted hover:text-text{% endif %}">
           {% t label %}
           {% if request.path == href %}
@@ -56,45 +56,51 @@
 
     <!-- Mobile Navigation Controls -->
     <div class="flex items-center gap-2 xl:hidden">
-      <button type="button" data-mobile-nav-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="{% t 'Menu' %}" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text transition hover:bg-surface-muted">
-        {% icon "menu" size=19 %}
+      <button type="button" data-mobile-nav-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="{% t 'Menu' %}" class="mnav-toggle">
+        <span class="mnav-toggle-open">{% icon "menu" size=20 %}</span>
+        <span class="mnav-toggle-close">{% icon "x" size=20 %}</span>
       </button>
     </div>
   </div>
 
-  <!-- Mobile Dropdown Navigation -->
-  <div id="mobile-nav" data-mobile-nav class="hidden border-t border-border bg-surface xl:hidden">
-    <div><div class="mx-auto flex w-full max-w-7xl flex-col gap-1 px-6 py-5 sm:px-8">
-      {% for href, label in nav_items %}
-        <a href="{{ href }}" class="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold transition-colors {% if request.path == href %}bg-brand-blue/10 text-brand-blue{% else %}text-text hover:bg-surface-muted{% endif %}">
-          <span>{% t label %}</span>
-        </a>
-      {% endfor %}
+  <!-- Mobile Navigation: icon tiles, quick contact, account -->
+  <div id="mobile-nav" data-mobile-nav class="mnav hidden xl:hidden">
+    <div><div class="mnav-inner">
+      <div class="mnav-head">
+        <p class="mnav-label">{% t "Menu" %}</p>
+        {% include "core/partials/language_switcher.html" %}
+      </div>
 
-      <div class="mt-4 flex flex-col gap-2.5 border-t border-border pt-4">
-        <div class="flex justify-center">
-          {% include "core/partials/language_switcher.html" %}
-        </div>
-        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-semibold text-text hover:border-brand-blue">
-          WhatsApp
+      <nav class="mnav-grid" aria-label="{% t 'Navigation' %}">
+        {% for href, label, icon_name in nav_items %}
+          <a href="{{ href }}" class="mnav-tile{% if request.path == href %} is-active{% endif %}"{% if request.path == href %} aria-current="page"{% endif %}>
+            <span class="mnav-tile-icon">{% icon icon_name size=18 %}</span>
+            <span class="mnav-tile-label">{% t label %}</span>
+          </a>
+        {% endfor %}
+      </nav>
+
+      <div class="mnav-quick">
+        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="mnav-quick-link mnav-quick-wa">
+          {% icon "message-circle" size=18 %}<span>WhatsApp</span>
         </a>
-        <a href="{% url 'marketing:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-semibold text-text hover:border-brand-blue">
-          {% t "Nous contacter" %}
+        <a href="tel:{{ SITE.primary_phone }}" class="mnav-quick-link">
+          {% icon "phone" size=18 %}<span>{% t "Appeler" %}</span>
         </a>
+      </div>
+
+      <div class="mnav-account">
         {% if request.user.is_authenticated %}
-          <a href="{{ account_home_url }}" class="btn btn-primary btn-md">
-            {% t "Mon compte" %}
-            {% icon "layout-dashboard" size=16 %}
+          <a href="{{ account_home_url }}" class="btn btn-primary btn-md w-full">
+            {% icon "layout-dashboard" size=16 %} {% t "Mon compte" %}
           </a>
         {% else %}
-          <a href="{% url 'accounts:login' %}" class="inline-flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-semibold text-text hover:border-brand-blue">
-            {% t "Se connecter" %}
-          </a>
-          <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-md">
-            {% t "Ouvrir un compte" %}
-          </a>
+          <a href="{% url 'accounts:login' %}" class="mnav-login">{% t "Se connecter" %}</a>
+          <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-md">{% t "Ouvrir un compte" %}</a>
         {% endif %}
       </div>
+
+      <p class="mnav-hours">{% icon "clock" size=13 %} {% t "Lundi au samedi : 08h00 à 18h00" %}</p>
     </div></div>
   </div>
 </header>

@@ -65,11 +65,13 @@
     </header>
 
     <!-- Mobile navigation -->
+    {% block mobile_nav_bar %}
     <nav class="dash-mobile-nav sticky top-[72px] z-30 lg:hidden" aria-label="{% t 'Navigation' %}">
       {% block mobile_nav %}
         {% include "core/partials/dashboard_nav.html" with nav_class="flex flex-row gap-1.5" mobile=True %}
       {% endblock %}
     </nav>
+    {% endblock %}
 
     <main class="mx-auto w-full max-w-[1400px] flex-1 p-5 sm:p-8 lg:p-10">
       {% if messages %}
@@ -96,5 +98,21 @@
       </form>
     </div>
   </div>
+  {% block mobile_tabbar %}{% endblock %}
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  // Phones show .dash-table-stack rows as cards: each cell gets its column
+  // name as a label, read from the table header.
+  document.querySelectorAll(".dash-table-stack").forEach(function (table) {
+    var heads = Array.prototype.map.call(table.querySelectorAll("thead th"), function (th) { return th.textContent.trim(); });
+    table.querySelectorAll("tbody tr").forEach(function (row) {
+      Array.prototype.forEach.call(row.children, function (cell, i) {
+        if (!cell.hasAttribute("colspan") && heads[i]) cell.setAttribute("data-label", heads[i]);
+      });
+    });
+  });
+</script>
 {% endblock %}

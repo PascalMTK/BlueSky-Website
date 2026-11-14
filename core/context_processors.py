@@ -16,14 +16,14 @@ def active_countries():
         return COUNTRIES
 
 NAV_ROUTES = [
-    ("marketing:home", "Accueil"),
-    ("marketing:about", "À propos"),
-    ("marketing:team", "Équipe"),
-    ("marketing:impact", "Impact"),
-    ("marketing:tariffs", "Tarifs"),
-    ("blog:post_list", "Actualités"),
-    ("marketing:countries", "Nos pays"),
-    ("marketing:contact", "Contact"),
+    ("marketing:home", "Accueil", "house"),
+    ("marketing:about", "À propos", "compass"),
+    ("marketing:team", "Équipe", "users"),
+    ("marketing:impact", "Impact", "heart-handshake"),
+    ("marketing:tariffs", "Tarifs", "circle-dollar-sign"),
+    ("blog:post_list", "Actualités", "newspaper"),
+    ("marketing:countries", "Nos pays", "globe-2"),
+    ("marketing:contact", "Contact", "mail"),
 ]
 
 DASHBOARD_NAV_ROUTES = [
@@ -45,8 +45,8 @@ STAFF_NAV_ROUTES = [
 
 def site_data(request):
     countries = active_countries()
-    nav_items = [(reverse(name), label) for name, label in NAV_ROUTES]
-    nav_items.insert(1, (f"{reverse('marketing:home')}#epargne", "Épargne"))
+    nav_items = [(reverse(name), label, icon_name) for name, label, icon_name in NAV_ROUTES]
+    nav_items.insert(1, (f"{reverse('marketing:home')}#epargne", "Épargne", "piggy-bank"))
     dashboard_nav_items = [
         (reverse(name), label, icon_name, True)
         for name, label, icon_name in DASHBOARD_NAV_ROUTES

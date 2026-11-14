@@ -1,26 +1,29 @@
 {% load static icons i18n_extra %}
 <footer class="site-footer brand-dot-texture overflow-hidden bg-brand-blue-deep text-white">
-  <div class="mx-auto w-full max-w-[1440px] px-5 pt-16 sm:px-8 lg:px-10 lg:pt-20">
-    <div class="footer-cta grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:p-10">
-      <div>
-        <p class="editorial-label text-brand-sky">{% t "Blue Sky / Afrique australe" %}</p>
-        <h2 class="display-title mt-4 max-w-3xl text-3xl leading-tight sm:text-4xl lg:text-5xl">{% t "L'argent voyage." %} <span class="text-brand-sky">{% t "La confiance reste." %}</span></h2>
-        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-white/65">{{ SITE.mission }}</p>
+  <div class="mx-auto w-full max-w-[1440px] px-4 pt-12 sm:px-8 sm:pt-16 lg:px-10 lg:pt-20">
+
+    <!-- Call to action -->
+    <div class="footer-cta">
+      <div class="min-w-0">
+        <p class="footer-cta-kicker">{% icon "send" size=14 %} {% t "Blue Sky / Afrique australe" %}</p>
+        <h2 class="display-title mt-3 text-[1.9rem] leading-[1.08] sm:text-4xl lg:text-5xl">{% t "L'argent voyage." %} <span class="text-brand-sky">{% t "La confiance reste." %}</span></h2>
+        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-white/65">{{ SITE.mission }}</p>
       </div>
-      <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+      <div class="footer-cta-actions">
         <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">{% t "Démarrer un transfert" %} {% icon "arrow-right" size=17 %}</a>
-        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="btn btn-secondary btn-lg text-white">WhatsApp</a>
+        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="footer-wa">{% icon "message-circle" size=18 %} WhatsApp</a>
       </div>
     </div>
 
-    <div class="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.25fr_.7fr_.9fr_1.15fr] lg:gap-12">
-      <div>
-        <div class="footer-logo inline-flex rounded-2xl border border-white/10 bg-white/[.06] px-4 py-2">{% include "core/partials/logo.html" with light_logo=True %}</div>
-        <p class="mt-5 max-w-sm text-sm leading-7 text-white/58">{% t "Des transferts fiables, suivis et accompagnés par de vraies personnes dans" %} {{ COUNTRIES|length }} {% t "pays africains." %}</p>
-        <div class="mt-6 flex items-center gap-2">
-          <a href="{{ SITE.social.facebook }}" target="_blank" rel="noopener" aria-label="Facebook" class="footer-social">f</a>
-          <a href="{{ SITE.social.instagram }}" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social">ig</a>
-          <a href="{{ SITE.social.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok" class="footer-social">tk</a>
+    <!-- Columns -->
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">{% include "core/partials/logo.html" with light_logo=True %}</div>
+        <p class="mt-4 max-w-sm text-sm leading-7 text-white/60">{% t "Des transferts fiables, suivis et accompagnés par de vraies personnes dans" %} {{ COUNTRIES|length }} {% t "pays africains." %}</p>
+        <div class="mt-5 flex items-center gap-2">
+          <a href="{{ SITE.social.facebook }}" target="_blank" rel="noopener" aria-label="Facebook" class="footer-social">{% icon "facebook" size=17 %}</a>
+          <a href="{{ SITE.social.instagram }}" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social">{% icon "instagram" size=17 %}</a>
+          <a href="{{ SITE.social.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok" class="footer-social">{% icon "tiktok" size=17 %}</a>
         </div>
       </div>
 
@@ -33,31 +36,36 @@
           <li><a href="{% url 'marketing:tariffs' %}">{% t "Tarifs" %}</a></li>
           <li><a href="{% url 'blog:post_list' %}">{% t "Actualités" %}</a></li>
           <li><a href="{% url 'marketing:countries' %}">{% t "Nos agences" %}</a></li>
+          <li><a href="{% url 'marketing:contact' %}">{% t "Contact" %}</a></li>
         </ul>
       </div>
 
       <div>
         <h3 class="footer-heading">{% t "Contact direct" %}</h3>
-        <ul class="space-y-4 text-sm text-white/65">
-          <li><a href="tel:{{ SITE.primary_phone }}" class="footer-contact"><span>{% icon "phone" size=16 %}</span><strong>{{ SITE.primary_phone }}</strong></a></li>
-          <li><a href="mailto:{{ SITE.primary_email }}" class="footer-contact"><span>{% icon "mail" size=16 %}</span><strong class="break-all">{{ SITE.primary_email }}</strong></a></li>
-          <li class="footer-contact items-start"><span>{% icon "map-pin" size=16 %}</span><p class="leading-relaxed">{{ SITE.head_office_address }}</p></li>
+        <ul class="footer-contacts">
+          <li><a href="tel:{{ SITE.primary_phone }}" class="footer-contact"><span>{% icon "phone" size=16 %}</span><span class="min-w-0"><small>{% t "Téléphone" %}</small><strong>{{ SITE.primary_phone }}</strong></span></a></li>
+          <li><a href="mailto:{{ SITE.primary_email }}" class="footer-contact"><span>{% icon "mail" size=16 %}</span><span class="min-w-0"><small>{% t "E-mail" %}</small><strong class="break-all">{{ SITE.primary_email }}</strong></span></a></li>
+          <li><div class="footer-contact"><span>{% icon "map-pin" size=16 %}</span><span class="min-w-0"><small>{% t "Siège social" %}</small><strong class="font-medium leading-relaxed">{{ SITE.head_office_address }}</strong></span></div></li>
         </ul>
       </div>
 
       <div>
         <h3 class="footer-heading">{% t "Notre couverture" %}</h3>
-        <div class="grid grid-cols-2 gap-2">
+        <div class="footer-countries">
           {% for country in COUNTRIES %}<a href="{% url 'marketing:countries' %}" class="footer-country"><img src="{% static 'img/flags/svg/'|add:country.code|lower|add:'.svg' %}" alt="" class="flag-chip" loading="lazy"><span>{% t country.name %}</span></a>{% endfor %}
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Bottom bar -->
   <div class="border-t border-white/10">
-    <div class="mx-auto flex w-full max-w-[1440px] flex-col gap-3 px-5 pb-20 pt-5 text-xs text-white/42 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-5 sm:pr-20 lg:px-10 lg:pr-24">
+    <div class="footer-bottom mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-10">
       <p>&copy; {% now "Y" %} Blue Sky Money Transfer. {% t "Tous droits réservés." %}</p>
-      <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span>{{ COUNTRIES|length }} {% t "pays connectés" %}</span></div>
+      <div class="flex items-center gap-4">
+        <span class="inline-flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>{{ COUNTRIES|length }} {% t "pays connectés" %}</span>
+        <a href="#top" class="footer-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="{% t 'Retour en haut' %}">{% icon "arrow-up" size=15 %}</a>
+      </div>
     </div>
   </div>
 </footer>

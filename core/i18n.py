@@ -31,6 +31,9 @@ SOURCE_LANGUAGE = "fr"
 
 TRANSLATIONS = {
     "en": {
+        "Appeler": "Call",
+        "Horaires": "Opening hours",
+        "Retour en haut": "Back to top",
         # --- header / nav ---
         "Accueil": "Home",
         "À propos": "About",
@@ -634,6 +637,9 @@ TRANSLATIONS = {
     # enough to launch with, but worth a native-speaker pass before this is
     # the language East African customers rely on day to day.
     "sw": {
+        "Appeler": "Piga simu",
+        "Horaires": "Saa za kazi",
+        "Retour en haut": "Rudi juu",
         # --- header / nav ---
         "Accueil": "Nyumbani",
         "À propos": "Kuhusu",

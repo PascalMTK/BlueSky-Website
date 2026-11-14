@@ -23,3 +23,26 @@
 {% block mobile_nav %}
   {% include "core/partials/dashboard_nav.html" with items=staff_nav_items nav_class="flex flex-row gap-1.5" mobile=True %}
 {% endblock %}
+
+{# Phones: the section links move to a bottom tab bar, within thumb reach. #}
+{% block mobile_nav_bar %}
+  <div class="dash-staff-strip lg:hidden">
+    <span class="dash-staff-badge">{% icon "settings" size=13 %} Espace gestion</span>
+    <div class="flex items-center gap-1.5">
+      <a href="{% url 'staffpanel:post_create' %}" class="dash-strip-btn" aria-label="Nouvelle publication">{% icon "pencil" size=15 %}</a>
+      {% if request.user.is_superuser %}<a href="{% url 'admin:index' %}" class="dash-strip-btn" aria-label="Administration avancée">{% icon "settings" size=15 %}</a>{% endif %}
+      <a href="{% url 'marketing:home' %}" class="dash-strip-btn" aria-label="Voir le site public">{% icon "external-link" size=15 %}</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block mobile_tabbar %}
+  <nav class="dash-tabbar lg:hidden" aria-label="Navigation de gestion">
+    {% for href, label, icon_name, exact in staff_nav_items %}
+      <a href="{{ href }}" class="dash-tab{% if request.path == href or not forloop.first and href in request.path %} is-active{% endif %}"{% if request.path == href %} aria-current="page"{% endif %}>
+        <span class="dash-tab-icon">{% icon icon_name size=20 %}</span>
+        <span class="dash-tab-label">{% if forloop.first %}Accueil{% elif label == "Comptes épargne" %}Épargne{% else %}{{ label }}{% endif %}</span>
+      </a>
+    {% endfor %}
+  </nav>
+{% endblock %}
