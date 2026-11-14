@@ -57,7 +57,7 @@
       </div>
       <div class="flex items-center gap-2 sm:gap-3">
         {% block topbar_actions %}
-          <span class="hidden sm:block"><a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">{% icon "send" size=15 %} {% t "Nouveau transfert" %}</a></span>
+          <span class="hidden sm:block"><a href="{% url 'transfers:new_transfer' %}" class="btn btn-primary btn-md">{% icon "pencil" size=15 %} {% t "Enregistrer un transfert" %}</a></span>
         {% endblock %}
         {% include "core/partials/language_switcher.html" %}
         <span class="dash-avatar dash-avatar-sm lg:hidden" title="{{ request.user.full_name }}">{{ request.user.full_name|initials }}</span>

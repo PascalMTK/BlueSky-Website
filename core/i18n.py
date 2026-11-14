@@ -31,6 +31,13 @@ SOURCE_LANGUAGE = "fr"
 
 TRANSLATIONS = {
     "en": {
+        "Enregistrer un transfert": "Record a transfer",
+        "Les transferts en ligne ne sont pas encore disponibles": "Online transfers are not available yet",
+        "Blue Sky ne propose pas encore d'envoi d'argent en ligne. Pour envoyer de l'argent, rendez-vous dans une agence Blue Sky ou contactez-nous sur WhatsApp. Ici, vous pouvez enregistrer vos propres transferts pour garder un historique personnel.": "Blue Sky does not offer online money transfers yet. To send money, visit a Blue Sky agency or contact us on WhatsApp. Here you can record your own transfers to keep a personal history.",
+        "Notez un transfert que vous avez effectué en agence pour le garder dans votre historique personnel.": "Note a transfer you made at an agency to keep it in your personal history.",
+        "Ajoutez d'abord un bénéficiaire avant d'enregistrer un transfert.": "Add a recipient first before recording a transfer.",
+        "Enregistrer le transfert": "Save the transfer",
+        "Cet enregistrement sert uniquement à votre suivi personnel : aucun argent n'est envoyé.": "This record is only for your personal tracking: no money is sent.",
         "Appeler": "Call",
         "Horaires": "Opening hours",
         "Retour en haut": "Back to top",
@@ -639,6 +646,13 @@ TRANSLATIONS = {
     # enough to launch with, but worth a native-speaker pass before this is
     # the language East African customers rely on day to day.
     "sw": {
+        "Enregistrer un transfert": "Rekodi uhamishaji",
+        "Les transferts en ligne ne sont pas encore disponibles": "Uhamishaji mtandaoni bado haupatikani",
+        "Blue Sky ne propose pas encore d'envoi d'argent en ligne. Pour envoyer de l'argent, rendez-vous dans une agence Blue Sky ou contactez-nous sur WhatsApp. Ici, vous pouvez enregistrer vos propres transferts pour garder un historique personnel.": "Blue Sky bado haitoi huduma ya kutuma pesa mtandaoni. Ili kutuma pesa, tembelea wakala wa Blue Sky au wasiliana nasi kwa WhatsApp. Hapa unaweza kurekodi uhamishaji wako mwenyewe ili kuhifadhi historia yako binafsi.",
+        "Notez un transfert que vous avez effectué en agence pour le garder dans votre historique personnel.": "Andika uhamishaji uliofanya kwa wakala ili uuhifadhi kwenye historia yako binafsi.",
+        "Ajoutez d'abord un bénéficiaire avant d'enregistrer un transfert.": "Ongeza mnufaika kwanza kabla ya kurekodi uhamishaji.",
+        "Enregistrer le transfert": "Hifadhi uhamishaji",
+        "Cet enregistrement sert uniquement à votre suivi personnel : aucun argent n'est envoyé.": "Rekodi hii ni kwa ufuatiliaji wako binafsi tu: hakuna pesa inayotumwa.",
         "Appeler": "Piga simu",
         "Horaires": "Saa za kazi",
         "Retour en haut": "Rudi juu",

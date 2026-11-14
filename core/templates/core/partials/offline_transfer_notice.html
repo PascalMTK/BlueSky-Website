@@ -1,0 +1,16 @@
+{% load icons i18n_extra %}
+{% comment %}
+Client space notice: online money transfers are not available yet; clients
+can record their own transfers to keep a personal history.
+{% endcomment %}
+<div class="transfer-notice" role="note">
+  <span class="transfer-notice-icon">{% icon "alert-circle" size=20 %}</span>
+  <div class="min-w-0">
+    <p class="transfer-notice-title">{% t "Les transferts en ligne ne sont pas encore disponibles" %}</p>
+    <p class="transfer-notice-text">{% t "Blue Sky ne propose pas encore d'envoi d'argent en ligne. Pour envoyer de l'argent, rendez-vous dans une agence Blue Sky ou contactez-nous sur WhatsApp. Ici, vous pouvez enregistrer vos propres transferts pour garder un historique personnel." %}</p>
+    <div class="transfer-notice-links">
+      <a href="{% url 'marketing:countries' %}">{% icon "map-pin" size=14 %} {% t "Nos agences" %}</a>
+      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener">{% icon "message-circle" size=14 %} WhatsApp</a>
+    </div>
+  </div>
+</div>
