@@ -9,12 +9,12 @@ stay in the sidebar. Extends Django's own index so its blocks keep working.
 {% block content_title %}{% endblock %}
 
 {% block content %}
-{% admin_overview as stats %}
+{% admin_overview as stats %}{% day_greeting as greet %}
 <div id="content-main">
-  <section class="bs-admin-hero">
+  <section class="bs-admin-hero bs-admin-hero-{{ greet.period }}">
     <div>
-      <p class="bs-admin-eyebrow">Centre d’administration</p>
-      <h1>Bonjour, {{ user.get_short_name|default:user.get_username }}</h1>
+      <p class="bs-admin-eyebrow">{% icon greet.icon size=14 %} {% now "l j F" as today %}{{ today|capfirst }} · Centre d’administration</p>
+      <h1>{{ greet.text }}, <span>{{ user.get_short_name|default:"Admin" }}</span></h1>
       <p class="bs-admin-lead">Gérez les agences, les tarifs, les comptes et le contenu du site Blue Sky.</p>
     </div>
     <a class="bs-admin-hero-link" href="{% url 'staffpanel:home' %}">{% icon "layout-dashboard" size=16 %} Ouvrir l’espace gestion</a>

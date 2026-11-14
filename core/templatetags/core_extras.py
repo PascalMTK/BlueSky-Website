@@ -102,3 +102,17 @@ _ADMIN_APP_ICONS = {
 @register.filter
 def admin_app_icon(app_label):
     return _ADMIN_APP_ICONS.get(app_label, "layout-dashboard")
+
+
+@register.simple_tag
+def day_greeting():
+    """Greeting for the current local time (settings.TIME_ZONE):
+    morning until noon, afternoon until 18:00, evening after that."""
+    from django.utils import timezone
+
+    hour = timezone.localtime().hour
+    if 5 <= hour < 12:
+        return {"text": "Bonjour", "icon": "sun", "period": "morning"}
+    if 12 <= hour < 18:
+        return {"text": "Bon après-midi", "icon": "sun", "period": "afternoon"}
+    return {"text": "Bonsoir", "icon": "moon", "period": "evening"}

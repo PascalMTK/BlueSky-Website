@@ -385,3 +385,9 @@ a.bs-admin-model:hover svg { color: var(--bs-blue); transform: translateX(2px); 
 }
 
 .submit-row input.default, input[type=submit].default { color: #fff !important; text-transform: none; letter-spacing: 0; }
+
+/* Time-of-day greeting on the admin home */
+.bs-admin-eyebrow { display: inline-flex; align-items: center; gap: 6px; }
+#content .bs-admin-hero h1 span { color: #ffcb94; }
+.bs-admin-hero-evening .bs-admin-eyebrow, #content .bs-admin-hero-evening h1 span { color: #c7d2fe; }
+.bs-admin-hero-evening { box-shadow: 0 30px 60px -40px rgba(49,46,129,.8); }

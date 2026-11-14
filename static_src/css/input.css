@@ -1734,3 +1734,70 @@ a.footer-contact:hover { border-color: rgba(130,173,255,.4); background: rgba(13
 /* Tinted page sections stay slightly see-through so the map shows behind them. */
 main > section.bg-surface-muted, main > section.bg-surface { background-color: color-mix(in srgb, var(--color-surface-muted) 72%, transparent); }
 main > section.bg-surface { background-color: color-mix(in srgb, var(--color-surface) 78%, transparent); }
+
+/* ==========================================================================
+   Staff dashboard home (staffpanel/home.html)
+   Greeting banner whose light follows the time of day, a to-do list with
+   counts, key figures and shortcuts.
+   ========================================================================== */
+.adm-hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid; gap: 1.5rem; border-radius: 1.5rem; padding: 1.4rem; color: #fff;
+  background:
+    radial-gradient(60% 90% at 100% 0%, var(--adm-glow, rgba(255,164,86,.28)), transparent 60%),
+    linear-gradient(135deg, rgba(15,36,72,.92), rgba(11,25,48,.86)),
+    url("../img/bg/network-mesh.webp") right center / cover no-repeat,
+    var(--color-brand-blue-deep);
+  box-shadow: 0 30px 60px -38px rgba(11,25,48,.7);
+}
+@media (min-width: 640px) { .adm-hero { padding: 2rem; } }
+@media (min-width: 1100px) { .adm-hero { grid-template-columns: minmax(0, 1fr) 22rem; align-items: center; gap: 2.5rem; padding: 2.4rem; } }
+.adm-hero-morning { --adm-glow: rgba(255,203,148,.34); }
+.adm-hero-afternoon { --adm-glow: rgba(255,164,86,.36); }
+.adm-hero-evening { --adm-glow: rgba(99,102,241,.32); }
+
+.adm-greet-chip { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; background: rgba(255,255,255,.07); padding: .35rem .8rem; color: #ffcb94; font-size: .78rem; font-weight: 700; }
+.adm-hero-evening .adm-greet-chip { color: #c7d2fe; }
+.adm-hero-title { margin-top: .9rem; font-family: var(--font-serif); font-size: clamp(2rem, 6vw, 3rem); font-weight: 600; line-height: 1.05; letter-spacing: -.015em; }
+.adm-hero-title span { color: #ffcb94; }
+.adm-hero-evening .adm-hero-title span { color: #c7d2fe; }
+.adm-hero-lead { margin-top: .85rem; max-width: 34rem; color: rgba(255,255,255,.72); font-size: .95rem; line-height: 1.6; }
+.adm-hero-lead strong { color: #fff; }
+.adm-hero-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.4rem; }
+@media (max-width: 639px) { .adm-hero-actions .btn { flex: 1 1 auto; justify-content: center; } }
+
+.adm-todo { border: 1px solid rgba(255,255,255,.12); border-radius: 1.15rem; background: rgba(255,255,255,.07); padding: .5rem; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.adm-todo-title { padding: .5rem .6rem .4rem; color: rgba(255,255,255,.55); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.adm-todo-row { display: flex; align-items: center; gap: .75rem; border-radius: .85rem; padding: .6rem; color: #fff; transition: background-color .15s ease; }
+.adm-todo-row:hover { background: rgba(255,255,255,.08); }
+.adm-todo-row + .adm-todo-row { border-top: 1px solid rgba(255,255,255,.07); }
+.adm-todo-icon { display: inline-flex; flex: 0 0 auto; width: 2.2rem; height: 2.2rem; align-items: center; justify-content: center; border-radius: .7rem; }
+.adm-todo-label { flex: 1; min-width: 0; font-size: .875rem; font-weight: 600; }
+.adm-todo-count { min-width: 2rem; border-radius: 999px; background: rgba(255,255,255,.1); padding: .2rem .6rem; text-align: center; font-size: .85rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.adm-todo-count.is-hot { background: var(--color-brand-gold); color: var(--color-brand-blue-deep); }
+
+.tone-amber { background: rgba(245,158,11,.16); color: #fbbf24; }
+.tone-blue { background: rgba(59,130,246,.16); color: #93c5fd; }
+.tone-gold { background: rgba(255,164,86,.18); color: #ffcb94; }
+.tone-rose { background: rgba(244,63,94,.15); color: #fda4af; }
+.tone-emerald { background: rgba(16,185,129,.14); color: #34d399; }
+.adm-figure .tone-blue { color: var(--color-brand-blue); background: color-mix(in srgb, var(--color-brand-blue) 10%, transparent); }
+.adm-figure .tone-gold { color: var(--color-brand-gold-dark); }
+.adm-figure .tone-rose { color: #e11d48; background: rgba(244,63,94,.1); }
+.adm-figure .tone-emerald { color: #059669; background: rgba(16,185,129,.12); }
+
+.adm-figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+@media (min-width: 1100px) { .adm-figures { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; } }
+.adm-figure { border: 1px solid var(--color-border); border-radius: 1.15rem; background: var(--color-surface); padding: 1rem; box-shadow: 0 14px 30px -28px rgba(11,25,48,.5); }
+@media (min-width: 640px) { .adm-figure { padding: 1.25rem; } }
+.adm-figure-icon { display: inline-flex; width: 2.4rem; height: 2.4rem; align-items: center; justify-content: center; border-radius: .75rem; }
+.adm-figure-label { margin-top: .8rem; color: var(--color-text-muted); font-size: .8rem; font-weight: 600; }
+.adm-figure-value { margin-top: .2rem; color: var(--color-text); font-size: 1.5rem; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.adm-figure-value small { display: block; margin-top: .25rem; color: var(--color-text-muted); font-size: .72rem; font-weight: 600; }
+.adm-figure-sub { color: var(--color-text-muted); font-size: .8rem; font-weight: 700; }
+
+.adm-shortcuts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+@media (min-width: 900px) { .adm-shortcuts { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; } }
+.adm-shortcut { display: flex; align-items: center; gap: .65rem; min-height: 3.25rem; border: 1px dashed color-mix(in srgb, var(--color-brand-blue) 30%, var(--color-border)); border-radius: 1rem; background: color-mix(in srgb, var(--color-surface) 70%, transparent); padding: .7rem .9rem; color: var(--color-brand-blue-deep); font-size: .85rem; font-weight: 700; transition: border-color .15s ease, background-color .15s ease, transform .15s ease; }
+.adm-shortcut svg { flex: 0 0 auto; color: var(--color-brand-blue); }
+.adm-shortcut:hover { transform: translateY(-2px); border-style: solid; border-color: var(--color-brand-blue); background: var(--color-surface); }

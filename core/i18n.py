@@ -526,7 +526,9 @@ TRANSLATIONS = {
         "Nouveau transfert": "New transfer",
 
         # --- transfers dashboard ---
-        "Bonjour": "Hello",
+        "Bonjour": "Good morning",
+        "Bon après-midi": "Good afternoon",
+        "Bonsoir": "Good evening",
         "Voici un aperçu de votre activité Blue Sky.": "Here's an overview of your Blue Sky activity.",
         "Transferts récents": "Recent transfers",
         "Ajouter un bénéficiaire": "Add a recipient",
@@ -1131,7 +1133,9 @@ TRANSLATIONS = {
         "Nouveau transfert": "Uhamishaji mpya",
 
         # --- transfers dashboard ---
-        "Bonjour": "Habari",
+        "Bonjour": "Habari za asubuhi",
+        "Bon après-midi": "Habari za mchana",
+        "Bonsoir": "Habari za jioni",
         "Voici un aperçu de votre activité Blue Sky.": "Huu ni muhtasari wa shughuli zako za Blue Sky.",
         "Transferts récents": "Uhamishaji wa hivi karibuni",
         "Ajouter un bénéficiaire": "Ongeza mnufaika",
