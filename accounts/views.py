@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
+from core.antispam import rate_limited
 from core.decorators import guest_only, home_url_for
 
 from .forms import LoginForm, OTPVerificationForm, SignupForm
@@ -42,7 +43,9 @@ def signup_view(request):
     if request.method == "POST":
         next_url = request.POST.get("next", next_url)
         form = SignupForm(request.POST, request=request)
-        if form.is_valid():
+        if form.is_spam() or rate_limited(request, "signup", limit=10, window_seconds=3600):
+            form.add_error(None, "Inscription impossible pour le moment. Réessayez plus tard ou contactez-nous sur WhatsApp.")
+        elif form.is_valid():
             with transaction.atomic():
                 user = User.objects.create_user(
                     email=form.cleaned_data["email"],

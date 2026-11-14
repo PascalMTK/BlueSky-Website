@@ -13,4 +13,6 @@ urlpatterns = [
     path("informations-paiement/", views.payment_information, name="payment_information"),
     path("pays/", views.countries, name="countries"),
     path("contact/", views.contact, name="contact"),
+    path("confidentialite/", views.privacy, name="privacy"),
+    path("conditions-utilisation/", views.terms, name="terms"),
 ]

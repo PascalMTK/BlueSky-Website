@@ -125,9 +125,18 @@ EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+# Google Analytics 4 measurement ID (e.g. G-XXXXXXX). Empty = no analytics.
+# Loaded only after the visitor accepts cookies (core/partials/cookie_consent.html).
+ANALYTICS_GA_ID = config("GA_MEASUREMENT_ID", default="")
+
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="Blue Sky <noreply@blueskymoney.com>")
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=True, cast=bool)
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    # Tell browsers to always use HTTPS for this domain (30 days; raise once
+    # the HTTPS setup is confirmed stable). Subdomains are not included.
+    SECURE_HSTS_SECONDS = config("SECURE_HSTS_SECONDS", default=60 * 60 * 24 * 30, cast=int)
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"

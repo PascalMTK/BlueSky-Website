@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.urls import reverse
 
 from core.data import COUNTRIES, SITE
@@ -62,6 +63,7 @@ def site_data(request):
         "dashboard_nav_items": dashboard_nav_items,
         "staff_nav_items": staff_nav_items,
         "AVAILABLE_LANGUAGES": AVAILABLE_LANGUAGES,
+        "ANALYTICS_GA_ID": getattr(settings, "ANALYTICS_GA_ID", ""),
         "active_language": getattr(request, "active_language", "fr"),
         # Where "Mon compte" leads: the management space for the team,
         # the client space for everyone else.

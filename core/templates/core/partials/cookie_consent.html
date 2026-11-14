@@ -1,0 +1,66 @@
+{% load i18n_extra %}
+{% comment %}
+Cookie consent. Necessary cookies (session, CSRF, language, this choice) are
+always on. Optional services — the Google Maps embed and, when configured,
+Google Analytics — load only after "Accepter". The choice is kept in
+localStorage ("bs_cookie_consent": "accepted" | "refused") and can be changed
+with any element that has [data-cookie-settings].
+Optional embeds are written as <iframe data-consent-src="…"> inside a
+[data-consent-embed] wrapper; their button [data-consent-load] loads just that
+one embed without changing the global choice.
+{% endcomment %}
+<div class="cookie-banner" data-cookie-banner hidden role="dialog" aria-live="polite" aria-label="{% t 'Cookies' %}">
+  <div class="cookie-banner-text">
+    <p class="cookie-banner-title">{% t "Vos choix de cookies" %}</p>
+    <p>{% t "Nous utilisons des cookies nécessaires au fonctionnement du site. Avec votre accord, nous chargeons aussi la carte Google Maps et une mesure d'audience anonyme." %} <a href="{% url 'marketing:privacy' %}">{% t "En savoir plus" %}</a></p>
+  </div>
+  <div class="cookie-banner-actions">
+    <button type="button" class="cookie-btn cookie-btn-ghost" data-cookie-choice="refused">{% t "Refuser" %}</button>
+    <button type="button" class="cookie-btn cookie-btn-primary" data-cookie-choice="accepted">{% t "Accepter" %}</button>
+  </div>
+</div>
+{{ ANALYTICS_GA_ID|json_script:"bs-ga-id" }}
+<script>
+  (function () {
+    var KEY = "bs_cookie_consent";
+    var banner = document.querySelector("[data-cookie-banner]");
+    function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function write(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function loadEmbed(wrap) {
+      var frame = wrap.querySelector("iframe[data-consent-src]");
+      if (frame && !frame.src) frame.src = frame.getAttribute("data-consent-src");
+      wrap.classList.add("is-loaded");
+    }
+    function loadAnalytics() {
+      var id = JSON.parse(document.getElementById("bs-ga-id").textContent || "\"\"");
+      if (!id || window.__bsGa) return;
+      window.__bsGa = true;
+      var s = document.createElement("script"); s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag("js", new Date()); gtag("config", id, { anonymize_ip: true });
+    }
+    function apply(choice) {
+      if (choice === "accepted") {
+        document.querySelectorAll("[data-consent-embed]").forEach(loadEmbed);
+        loadAnalytics();
+      }
+    }
+    document.querySelectorAll("[data-cookie-choice]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var choice = btn.getAttribute("data-cookie-choice");
+        write(choice); banner.hidden = true; apply(choice);
+      });
+    });
+    document.addEventListener("click", function (e) {
+      var settings = e.target.closest("[data-cookie-settings]");
+      if (settings) { e.preventDefault(); banner.hidden = false; }
+      var once = e.target.closest("[data-consent-load]");
+      if (once) { e.preventDefault(); loadEmbed(once.closest("[data-consent-embed]")); }
+    });
+    var current = read();
+    if (current) { apply(current); } else if (banner) { banner.hidden = false; }
+  })();
+</script>

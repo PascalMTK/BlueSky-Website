@@ -1,5 +1,7 @@
 {% extends "marketing/base_marketing.html" %}
 {% load icons ui static i18n_extra %}
+{% block title %}Blue Sky, transfert d'argent en Afrique : agences dans 9 pays | Blue Sky{% endblock %}
+{% block description %}Envoyez de l'argent en agence entre la RDC, la Zambie, la Namibie, l'Afrique du Sud, le Zimbabwe, le Kenya, l'Ouganda, la Tanzanie et le Malawi. Tarifs clairs et calculateur de frais.{% endblock %}
 {% block content %}
 
 <section class="home-hero brand-dot-texture relative isolate overflow-hidden bg-brand-blue-deep text-white">
@@ -140,7 +142,7 @@
     </div>
     <div class="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {% for icon_name, title, text in features %}
-        {% cycle 'img/community-outreach-portrait.jpg' 'img/community-brand-duo.png' 'img/community-brand-student-1.png' 'img/community-brand-student-2.png' as feature_image silent %}
+        {% cycle 'img/community-outreach-portrait.jpg' 'img/community-brand-duo.webp' 'img/community-brand-student-1.webp' 'img/community-brand-student-2.webp' as feature_image silent %}
         <article class="service-image-card group bg-brand-blue-deep">
           <img src="{% static feature_image %}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" loading="lazy">
           <div class="absolute inset-x-0 bottom-0 z-10 p-6 text-white">

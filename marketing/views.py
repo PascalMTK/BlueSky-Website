@@ -5,6 +5,7 @@ from django.db.utils import OperationalError, ProgrammingError
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from core.antispam import rate_limited
 from core.context_processors import active_countries
 
 from .forms import ContactForm
@@ -91,6 +92,14 @@ def home(request):
         "fee_plans": fee_calculator_data(load_tariff_plans()[0]),
     }
     return render(request, "marketing/home.html", context)
+
+
+def privacy(request):
+    return render(request, "marketing/privacy.html")
+
+
+def terms(request):
+    return render(request, "marketing/terms.html")
 
 
 def about(request):
@@ -240,10 +249,17 @@ def contact(request):
 
     if request.method == "POST":
         form = ContactForm(request.POST, request=request)
-        if form.is_valid():
-            form.save()
+        if form.is_spam():
+            # Bots fill the hidden field: show the normal thank-you, save nothing.
             sent = True
             form = ContactForm(request=request)
+        elif form.is_valid():
+            if rate_limited(request, "contact", limit=5, window_seconds=3600):
+                form.add_error(None, "Vous avez envoyé plusieurs messages récemment. Merci de réessayer dans une heure ou de nous écrire sur WhatsApp.")
+            else:
+                form.save()
+                sent = True
+                form = ContactForm(request=request)
     else:
         initial = {"service": requested_service} if requested_service else None
         form = ContactForm(initial=initial, request=request)

@@ -61,7 +61,14 @@
   <!-- Bottom bar -->
   <div class="border-t border-white/10">
     <div class="footer-bottom mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-10">
-      <p>&copy; {% now "Y" %} Blue Sky Money Transfer. {% t "Tous droits réservés." %}</p>
+      <div class="footer-legal">
+        <p>&copy; {% now "Y" %} Blue Sky Money Transfer. {% t "Tous droits réservés." %}</p>
+        <nav aria-label="{% t 'Informations légales' %}">
+          <a href="{% url 'marketing:privacy' %}">{% t "Confidentialité" %}</a>
+          <a href="{% url 'marketing:terms' %}">{% t "Conditions d'utilisation" %}</a>
+          <button type="button" data-cookie-settings>{% t "Gérer les cookies" %}</button>
+        </nav>
+      </div>
       <div class="flex items-center gap-4">
         <span class="inline-flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>{{ COUNTRIES|length }} {% t "pays connectés" %}</span>
         <a href="#top" class="footer-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="{% t 'Retour en haut' %}">{% icon "arrow-up" size=15 %}</a>

@@ -1,0 +1,44 @@
+{% extends "marketing/legal_base.html" %}
+{% load i18n_extra %}
+{% block title %}{% t "Conditions d'utilisation" %} | Blue Sky{% endblock %}
+{% block description %}Les conditions générales d'utilisation du site Blue Sky : services proposés, compte client, tarifs et responsabilités.{% endblock %}
+{% block legal_title %}{% t "Conditions d'utilisation" %}{% endblock %}
+{% block legal_updated %}14 novembre 2026{% endblock %}
+{% block legal_body %}
+<p class="legal-lead">En utilisant ce site, vous acceptez les conditions ci-dessous. Elles décrivent ce que le site propose et ce que nous attendons de chacun.</p>
+
+<h2>1. Le service</h2>
+<p>Blue Sky Money Transfer est une agence de transfert d'argent présente dans {{ COUNTRIES|length }} pays africains. <strong>Les envois d'argent se font en agence</strong> ou avec l'accompagnement de notre équipe (WhatsApp, téléphone). Le site permet de :</p>
+<ul>
+  <li>découvrir nos agences, nos tarifs et nos services ;</li>
+  <li>nous contacter ;</li>
+  <li>créer un compte pour garder un historique personnel de vos transferts et gérer votre épargne.</li>
+</ul>
+<p>Le site ne permet pas, pour l'instant, d'envoyer de l'argent en ligne.</p>
+
+<h2>2. Votre compte</h2>
+<ul>
+  <li>Les informations que vous donnez doivent être exactes.</li>
+  <li>Vous êtes responsable de la confidentialité de votre mot de passe.</li>
+  <li>Les transferts que vous enregistrez dans votre espace sont un historique personnel : ils ne déclenchent aucun envoi et n'engagent pas Blue Sky.</li>
+  <li>Nous pouvons suspendre un compte en cas d'usage frauduleux ou abusif.</li>
+</ul>
+
+<h2>3. Tarifs et estimations</h2>
+<p>Les tarifs publiés sur le site sont ceux en vigueur à la date indiquée. Le calculateur de frais donne une <strong>estimation indicative</strong> : le montant exact est confirmé en agence au moment de l'opération.</p>
+
+<h2>4. Épargne</h2>
+<p>L'ouverture d'un compte épargne et chaque dépôt ou retrait sont validés par notre équipe. Le solde affiché en ligne reflète les opérations confirmées.</p>
+
+<h2>5. Utilisation du site</h2>
+<p>Il est interdit d'utiliser le site pour des activités illégales, d'envoyer des messages abusifs ou automatisés, ou de tenter d'accéder à des espaces réservés.</p>
+
+<h2>6. Responsabilité</h2>
+<p>Nous faisons le nécessaire pour que le site soit disponible et exact, sans pouvoir garantir l'absence totale d'interruption ou d'erreur. Les liens vers d'autres sites (réseaux sociaux, WhatsApp, Google Maps) relèvent de leurs propres conditions.</p>
+
+<h2>7. Données personnelles</h2>
+<p>Voir notre <a href="{% url 'marketing:privacy' %}">politique de confidentialité</a>.</p>
+
+<h2>8. Contact</h2>
+<p>Blue Sky Money Transfer, {{ SITE.head_office_address }} · <a href="mailto:{{ SITE.primary_email }}">{{ SITE.primary_email }}</a> · <a href="tel:{{ SITE.primary_phone }}">{{ SITE.primary_phone }}</a>.</p>
+{% endblock %}

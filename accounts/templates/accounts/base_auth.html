@@ -41,7 +41,7 @@ collapses into a short photo banner above the form.
       {% block auth_content %}{% endblock %}
     </div>
 
-    <p class="auth-legal">{% t "Vos données restent confidentielles et ne servent qu'au traitement de vos opérations." %}</p>
+    <p class="auth-legal">{% t "Vos données restent confidentielles et ne servent qu'au traitement de vos opérations." %} <a href="{% url 'marketing:privacy' %}">{% t "Confidentialité" %}</a> · <a href="{% url 'marketing:terms' %}">{% t "Conditions d'utilisation" %}</a></p>
   </div>
 </div>
 {% endblock %}

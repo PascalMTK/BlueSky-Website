@@ -1,6 +1,7 @@
 from django import forms
 
 from core.data import COUNTRIES
+from core.antispam import HoneypotMixin
 from core.forms import StyledFormMixin
 from core.i18n import SOURCE_LANGUAGE, translate
 
@@ -17,7 +18,7 @@ def _country_choices(lang):
     ] + [("Autre", f"🌍 {translate('Autre', lang)}")]
 
 
-class SignupForm(StyledFormMixin, forms.Form):
+class SignupForm(HoneypotMixin, StyledFormMixin, forms.Form):
     full_name = forms.CharField(
         label="Nom complet",
         min_length=2,

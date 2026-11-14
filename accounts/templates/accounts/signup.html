@@ -1,5 +1,6 @@
 {% extends "accounts/base_auth.html" %}
 {% load icons static i18n_extra %}
+{% block description %}Créez gratuitement votre compte Blue Sky pour garder l'historique de vos transferts et gérer votre épargne.{% endblock %}
 {% block title %}{% t "Créer mon compte" %} | Blue Sky{% endblock %}
 {% block auth_photo %}{% static 'img/smiling-young-african-businesswoman-talking-mobile-phone-front-glass-door.jpg' %}{% endblock %}
 {% block auth_kicker %}{% t "Deux minutes suffisent" %}{% endblock %}
@@ -11,6 +12,7 @@
 
   <form method="post" class="auth-form" novalidate>
     {% csrf_token %}
+    {% include "core/partials/honeypot.html" %}
     {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
     {% if form.non_field_errors %}
       <p class="auth-alert">{% icon "alert-circle" size=17 %} {% t form.non_field_errors.0 %}</p>
@@ -43,6 +45,7 @@
     <button type="submit" class="btn btn-primary btn-lg auth-submit">
       {% t "Créer mon compte" %} {% icon "arrow-right" size=17 %}
     </button>
+    <p class="auth-hint justify-center text-center">{% t "En créant un compte, vous acceptez nos" %} <a class="font-semibold text-brand-blue" href="{% url 'marketing:terms' %}">{% t "conditions d'utilisation" %}</a> {% t "et notre" %} <a class="font-semibold text-brand-blue" href="{% url 'marketing:privacy' %}">{% t "politique de confidentialité" %}</a>.</p>
   </form>
 
   <div class="auth-switch">

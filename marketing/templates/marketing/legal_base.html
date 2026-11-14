@@ -1,0 +1,25 @@
+{% extends "marketing/base_marketing.html" %}
+{% load icons ui i18n_extra %}
+{% comment %}Shared layout for the legal pages (privacy policy, terms of use).{% endcomment %}
+{% block content %}
+<section class="border-b border-border bg-surface-muted py-14 sm:py-20">
+  <div class="mx-auto w-full max-w-3xl px-4 text-center sm:px-8">
+    {% kicker "Informations légales" tone="blue" %}
+    <h1 class="display-title mt-4 text-[2.1rem] leading-tight sm:text-5xl">{% block legal_title %}{% endblock %}</h1>
+    <p class="mt-4 text-sm text-text-muted">{% t "Dernière mise à jour" %} : {% block legal_updated %}{% endblock %}</p>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16">
+  <div class="mx-auto grid w-full max-w-5xl gap-8 px-4 sm:px-8 lg:grid-cols-[220px_1fr]">
+    <nav class="legal-nav" aria-label="{% t 'Informations légales' %}">
+      <a href="{% url 'marketing:privacy' %}" class="{% if request.resolver_match.url_name == 'privacy' %}is-active{% endif %}">{% icon "shield-check" size=16 %} {% t "Confidentialité" %}</a>
+      <a href="{% url 'marketing:terms' %}" class="{% if request.resolver_match.url_name == 'terms' %}is-active{% endif %}">{% icon "badge-check" size=16 %} {% t "Conditions d'utilisation" %}</a>
+      <a href="{% url 'marketing:contact' %}">{% icon "mail" size=16 %} {% t "Nous contacter" %}</a>
+    </nav>
+    <article class="legal-text">
+      {% block legal_body %}{% endblock %}
+    </article>
+  </div>
+</section>
+{% endblock %}

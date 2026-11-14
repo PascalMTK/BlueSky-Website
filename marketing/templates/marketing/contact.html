@@ -54,6 +54,7 @@
       {% else %}
         <form method="post" class="contact-form">
           {% csrf_token %}
+          {% include "core/partials/honeypot.html" %}
           <div>
             <p class="eyebrow text-brand-blue">{% t "Envoyez votre demande" %}</p>
             <h2 class="mt-2 text-[1.5rem] font-extrabold leading-tight tracking-tight text-text sm:text-2xl">{% t "Comment pouvons-nous vous aider ?" %}</h2>
@@ -110,14 +111,22 @@
         <p class="mt-1 text-sm font-bold text-text">{% t "En face de l'Hôtel Hypnose" %}</p>
         <a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+Hypnose+Lubumbashi" target="_blank" rel="noreferrer noopener" class="mt-2 inline-flex items-center gap-2 text-xs font-extrabold text-brand-blue hover:underline">{% t "Obtenir l'itinéraire" %} {% icon "arrow-up-right" size=14 %}</a>
       </div>
-      <iframe
-        src="https://www.google.com/maps?q=Hotel+Hypnose,+Lubumbashi,+Democratic+Republic+of+the+Congo&amp;output=embed"
-        title="{% t 'Carte du siège social Blue Sky à Lubumbashi' %}"
-        class="contact-map-frame"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen
-      ></iframe>
+      {# Google Maps loads only after cookie consent (or this one map on demand). #}
+      <div class="contact-map-embed" data-consent-embed>
+        <div class="contact-map-placeholder">
+          {% icon "map-pin" size=28 %}
+          <p>{% t "La carte est fournie par Google Maps, qui peut déposer des cookies." %}</p>
+          <button type="button" class="btn btn-secondary btn-md" data-consent-load>{% t "Afficher la carte" %}</button>
+        </div>
+        <iframe
+          data-consent-src="https://www.google.com/maps?q=Hotel+Hypnose,+Lubumbashi,+Democratic+Republic+of+the+Congo&amp;output=embed"
+          title="{% t 'Carte du siège social Blue Sky à Lubumbashi' %}"
+          class="contact-map-frame"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -133,7 +142,7 @@
       </p>
     </div>
     <figure class="overflow-hidden rounded-2xl">
-      <img src="{% static 'img/community-brand-student-2.png' %}" alt="{% blockt %}Un membre de la communauté Blue Sky portant un t-shirt à l'effigie de la marque{% endblockt %}" class="aspect-[4/3] h-full w-full object-cover" loading="lazy">
+      <img src="{% static 'img/community-brand-student-2.webp' %}" alt="{% blockt %}Un membre de la communauté Blue Sky portant un t-shirt à l'effigie de la marque{% endblockt %}" class="aspect-[4/3] h-full w-full object-cover" loading="lazy">
     </figure>
   </div>
 </section>

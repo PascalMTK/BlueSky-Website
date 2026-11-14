@@ -2,6 +2,7 @@ from django import forms
 
 from core.data import COUNTRIES
 from core.forms import StyledFormMixin
+from core.antispam import HoneypotMixin
 from core.i18n import SOURCE_LANGUAGE, translate, translated_choices
 
 from .models import ContactMessage
@@ -21,7 +22,7 @@ def _country_choices(lang):
     )
 
 
-class ContactForm(StyledFormMixin, forms.ModelForm):
+class ContactForm(HoneypotMixin, StyledFormMixin, forms.ModelForm):
     full_name = forms.CharField(
         label="Nom complet",
         min_length=2,
@@ -50,6 +51,7 @@ class ContactForm(StyledFormMixin, forms.ModelForm):
     message = forms.CharField(
         label="Votre message",
         min_length=10,
+        max_length=3000,
         widget=forms.Textarea,
         error_messages={
             "required": "Votre message est un peu court",

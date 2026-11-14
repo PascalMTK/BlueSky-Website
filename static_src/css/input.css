@@ -1829,3 +1829,65 @@ main > section.bg-surface { background-color: color-mix(in srgb, var(--color-sur
 .fee-calc-result small { display: block; margin-top: .45rem; color: rgba(255,255,255,.5); font-size: .7rem; }
 .fee-calc-amount input::-webkit-outer-spin-button, .fee-calc-amount input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .fee-calc-amount input { -moz-appearance: textfield; appearance: textfield; }
+
+/* ==========================================================================
+   Launch checklist: cookies, legal pages, anti-spam field, map consent,
+   contrast
+   ========================================================================== */
+/* Cookie banner */
+.cookie-banner { position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 80; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; max-width: 56rem; margin-inline: auto; border: 1px solid var(--color-border); border-radius: 1.25rem; background: var(--color-surface); padding: 1.1rem 1.25rem; box-shadow: 0 30px 70px -30px rgba(11,25,48,.55); }
+.cookie-banner[hidden] { display: none; }
+.cookie-banner-text { flex: 1 1 22rem; min-width: 0; color: var(--color-text-muted); font-size: .875rem; line-height: 1.55; }
+.cookie-banner-title { margin-bottom: .2rem; color: var(--color-text); font-size: .95rem; font-weight: 800; }
+.cookie-banner-text a { color: var(--color-brand-blue); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.cookie-banner-actions { display: flex; flex: 0 0 auto; gap: .5rem; }
+.cookie-btn { min-height: 2.75rem; border-radius: .8rem; padding: 0 1.2rem; font-size: .875rem; font-weight: 700; }
+.cookie-btn-primary { background: var(--color-brand-blue-deep); color: #fff; }
+.cookie-btn-primary:hover { background: var(--color-brand-blue); }
+.cookie-btn-ghost { border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text); }
+.cookie-btn-ghost:hover { border-color: var(--color-brand-blue); }
+@media (max-width: 639px) {
+  .cookie-banner { left: .6rem; right: .6rem; bottom: .6rem; padding: 1rem; }
+  .cookie-banner-actions { width: 100%; }
+  .cookie-btn { flex: 1; }
+}
+
+/* Anti-spam field: invisible to people, still in the form for bots. */
+.hp-field { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; overflow: hidden; }
+
+/* Contact map: placeholder until Google Maps is allowed */
+.contact-map-embed { position: relative; }
+.contact-map-embed .contact-map-frame { display: none; }
+.contact-map-embed.is-loaded .contact-map-frame { display: block; }
+.contact-map-embed.is-loaded .contact-map-placeholder { display: none; }
+.contact-map-placeholder { display: flex; min-height: 16rem; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; padding: 2rem 1.25rem; background: linear-gradient(135deg, var(--color-surface-muted), var(--color-surface)); color: var(--color-brand-blue); text-align: center; }
+.contact-map-placeholder p { max-width: 24rem; color: var(--color-text-muted); font-size: .875rem; }
+@media (min-width: 640px) { .contact-map-placeholder { min-height: 26rem; } }
+
+/* Legal pages */
+.legal-nav { display: flex; flex-wrap: wrap; gap: .4rem; align-self: start; }
+@media (min-width: 1024px) { .legal-nav { position: sticky; top: 7rem; flex-direction: column; } }
+.legal-nav a { display: inline-flex; align-items: center; gap: .55rem; border: 1px solid var(--color-border); border-radius: .8rem; background: var(--color-surface); padding: .6rem .85rem; color: var(--color-text); font-size: .875rem; font-weight: 700; }
+.legal-nav a:hover { border-color: var(--color-brand-blue); color: var(--color-brand-blue); }
+.legal-nav a.is-active { border-color: var(--color-brand-blue-deep); background: var(--color-brand-blue-deep); color: #fff; }
+.legal-text { min-width: 0; border: 1px solid var(--color-border); border-radius: 1.25rem; background: var(--color-surface); padding: 1.4rem; color: var(--color-text); font-size: .95rem; line-height: 1.75; }
+@media (min-width: 640px) { .legal-text { padding: 2.25rem 2.5rem; } }
+.legal-text .legal-lead { color: var(--color-text-muted); font-size: 1.02rem; }
+.legal-text h2 { margin: 1.8rem 0 .5rem; color: var(--color-brand-blue-deep); font-size: 1.1rem; font-weight: 800; }
+.legal-text p + p { margin-top: .6rem; }
+.legal-text ul { margin: .5rem 0; padding-left: 1.2rem; list-style: disc; }
+.legal-text li { margin: .3rem 0; }
+.legal-text a, .legal-link { color: var(--color-brand-blue); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Footer legal links */
+.footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.25rem; }
+.footer-legal nav { display: flex; flex-wrap: wrap; gap: .35rem 1rem; }
+.footer-legal a, .footer-legal button { color: rgba(255,255,255,.72); font-size: .75rem; font-weight: 600; }
+.footer-legal a:hover, .footer-legal button:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Contrast: faint grey text on dark areas made easier to read */
+.footer-bottom { color: rgba(255,255,255,.66); }
+.footer-contact small, .contact-facts small { color: rgba(255,255,255,.66); }
+.dash-sidebar-label { color: rgba(255,255,255,.58); }
+.auth-legal { opacity: 1; }
+.auth-legal a { color: var(--color-brand-blue); font-weight: 600; }

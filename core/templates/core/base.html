@@ -15,12 +15,26 @@
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon.png' %}">
   <meta name="theme-color" content="#0b1930">
 
+  <!-- Canonical URL and social previews (Facebook, WhatsApp, LinkedIn, X). -->
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Blue Sky Money Transfer">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+  <meta property="og:title" content="{% block og_title %}{% block title_og %}Blue Sky, transfert d'argent international{% endblock %}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Transferts d'argent dans 9 pays africains, en agence et accompagnés par notre équipe. Tarifs clairs, suivi humain.{% endblock %}">
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.jpg' %}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Blue Sky Money Transfer : votre argent voyage, vos liens restent.">
+  <meta name="twitter:card" content="summary_large_image">
+
   <!-- Editorial type pairing: Fraunces for display headings, Inter for UI/body. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,560;9..144,650;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{% static 'css/output.css' %}?v=20261114-11">
+  <link rel="stylesheet" href="{% static 'css/output.css' %}?v=20261114-12">
 
   {% block extra_head %}{% endblock %}
 </head>
@@ -38,6 +52,8 @@
       {% block body %}{% endblock %}
     </main>
   </div>
+
+  {% include "core/partials/cookie_consent.html" %}
 
   <!-- Global Deferred Scripts -->
   <script src="{% static 'js/motion.js' %}?v=20261114-2" defer></script>

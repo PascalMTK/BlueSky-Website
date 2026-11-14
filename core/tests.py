@@ -49,3 +49,53 @@ class AccessRulesTests(TestCase):
         response = self.client.post(reverse("admin:login"), {"username": "client@example.com", "password": "pass12345"})
         self.assertEqual(response.status_code, 200)  # form shown again with an error
         self.assertNotIn("_auth_user_id", self.client.session)
+
+
+class LaunchChecklistTests(TestCase):
+    """Privacy/terms pages, robots.txt, sitemap, social previews, anti-spam."""
+
+    def setUp(self):
+        from django.core.cache import cache
+        cache.clear()
+
+    def test_legal_pages_exist_and_are_linked_in_footer(self):
+        for name in ("marketing:privacy", "marketing:terms"):
+            self.assertEqual(self.client.get(reverse(name)).status_code, 200)
+        home = self.client.get(reverse("marketing:home"))
+        self.assertContains(home, reverse("marketing:privacy"))
+        self.assertContains(home, reverse("marketing:terms"))
+
+    def test_robots_and_sitemap(self):
+        robots = self.client.get("/robots.txt")
+        self.assertEqual(robots.status_code, 200)
+        self.assertContains(robots, "Disallow: /admin/")
+        self.assertContains(robots, "sitemap.xml")
+        sitemap = self.client.get("/sitemap.xml")
+        self.assertEqual(sitemap["Content-Type"], "application/xml; charset=utf-8")
+        self.assertContains(sitemap, reverse("marketing:tariffs"))
+        self.assertNotContains(sitemap, "/gestion/")
+
+    def test_social_preview_and_cookie_banner(self):
+        home = self.client.get(reverse("marketing:home"))
+        self.assertContains(home, 'property="og:image"')
+        self.assertContains(home, "og-image.jpg")
+        self.assertContains(home, "data-cookie-banner")
+
+    def test_contact_honeypot_drops_spam_silently(self):
+        from marketing.models import ContactMessage
+
+        data = {"full_name": "Robot", "email": "bot@example.com", "country": "", "service": "transfert",
+                "message": "Buy cheap things now please", "website": "http://spam.example"}
+        response = self.client.post(reverse("marketing:contact"), data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["sent"])
+        self.assertFalse(ContactMessage.objects.exists())
+
+    def test_contact_rate_limit(self):
+        from marketing.models import ContactMessage
+
+        data = {"full_name": "Grace", "email": "grace@example.com", "country": "", "service": "transfert",
+                "message": "Bonjour, quels sont vos horaires ?"}
+        for _ in range(7):
+            self.client.post(reverse("marketing:contact"), data)
+        self.assertEqual(ContactMessage.objects.count(), 5)

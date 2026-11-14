@@ -1,0 +1,56 @@
+{% extends "marketing/legal_base.html" %}
+{% load i18n_extra %}
+{% block title %}{% t "Politique de confidentialité" %} | Blue Sky{% endblock %}
+{% block description %}Comment Blue Sky collecte, utilise et protège vos données personnelles, et quels sont vos droits.{% endblock %}
+{% block legal_title %}{% t "Politique de confidentialité" %}{% endblock %}
+{% block legal_updated %}14 novembre 2026{% endblock %}
+{% block legal_body %}
+<p class="legal-lead">Blue Sky Money Transfer (« Blue Sky », « nous ») respecte votre vie privée. Cette page explique quelles données nous collectons sur ce site, pourquoi, combien de temps nous les gardons et comment exercer vos droits.</p>
+
+<h2>1. Qui est responsable de vos données</h2>
+<p>Blue Sky Money Transfer, {{ SITE.head_office_address }}. Pour toute question sur vos données : <a href="mailto:{{ SITE.primary_email }}">{{ SITE.primary_email }}</a> ou <a href="tel:{{ SITE.primary_phone }}">{{ SITE.primary_phone }}</a>.</p>
+
+<h2>2. Les données que nous collectons</h2>
+<ul>
+  <li><strong>Compte client</strong> : nom complet, adresse e-mail, téléphone, pays et mot de passe (stocké chiffré, jamais lisible).</li>
+  <li><strong>Historique de transferts</strong> : les transferts que vous enregistrez vous-même (bénéficiaire, pays, montant, moyen de paiement, note). Aucun argent n'est envoyé depuis le site.</li>
+  <li><strong>Épargne</strong> : numéro de pièce d'identité, adresse et opérations, si vous ouvrez un compte épargne.</li>
+  <li><strong>Formulaire de contact</strong> : nom, e-mail, pays, service demandé et votre message.</li>
+  <li><strong>Données techniques</strong> : cookies nécessaires au fonctionnement du site (voir section 6).</li>
+</ul>
+
+<h2>3. Pourquoi nous les utilisons</h2>
+<ul>
+  <li>Créer et sécuriser votre compte, vérifier votre adresse e-mail.</li>
+  <li>Vous permettre de garder un historique personnel de vos transferts et bénéficiaires.</li>
+  <li>Gérer votre compte épargne et vos opérations.</li>
+  <li>Répondre à vos messages et vous accompagner.</li>
+  <li>Protéger le site contre les abus et le spam.</li>
+</ul>
+<p>Nous ne vendons jamais vos données et ne les utilisons pas à des fins publicitaires.</p>
+
+<h2>4. Qui peut y accéder</h2>
+<p>Seule l'équipe Blue Sky habilitée y accède, pour vous servir. Le site est hébergé par PythonAnywhere ; nos e-mails passent par notre fournisseur de messagerie. Ces prestataires traitent les données uniquement pour notre compte.</p>
+
+<h2>5. Durée de conservation</h2>
+<ul>
+  <li>Compte, historique et épargne : tant que votre compte est actif, puis jusqu'à 5 ans pour nos obligations légales et comptables.</li>
+  <li>Messages de contact : 2 ans après notre dernier échange.</li>
+</ul>
+
+<h2>6. Cookies</h2>
+<ul>
+  <li><strong>Nécessaires</strong> (toujours actifs) : session de connexion, protection des formulaires (CSRF), langue choisie et mémorisation de votre choix de cookies.</li>
+  <li><strong>Optionnels</strong> (seulement si vous acceptez) : la carte Google Maps de la page Contact et, s'il est activé, l'outil de mesure d'audience. Ces services peuvent déposer leurs propres cookies.</li>
+</ul>
+<p>Vous pouvez changer d'avis à tout moment : <button type="button" class="legal-link" data-cookie-settings>{% t "Gérer les cookies" %}</button>.</p>
+
+<h2>7. Vos droits</h2>
+<p>Vous pouvez demander l'accès, la correction ou la suppression de vos données, ou vous opposer à leur utilisation. Écrivez-nous à <a href="mailto:{{ SITE.primary_email }}">{{ SITE.primary_email }}</a> ; nous répondons sous 30 jours. Vous pouvez aussi supprimer vous-même vos transferts enregistrés depuis votre espace client.</p>
+
+<h2>8. Sécurité</h2>
+<p>Connexion chiffrée (HTTPS), mots de passe chiffrés, vérification de l'adresse e-mail et accès à l'administration réservé à l'équipe habilitée.</p>
+
+<h2>9. Modifications</h2>
+<p>Nous pouvons mettre à jour cette politique. La date en haut de la page indique la dernière version.</p>
+{% endblock %}
