@@ -1,13 +1,14 @@
 {% extends "emails/base.html" %}
-{% block kicker %}Épargne{% endblock %}
-{% block preheader %}Votre compte épargne est actif.{% endblock %}
-{% block title %}Votre compte épargne est actif{% endblock %}
+{% load i18n_extra %}
+{% block kicker %}{% t "Épargne" %}{% endblock %}
+{% block preheader %}{% t "Votre compte épargne est actif." %}{% endblock %}
+{% block title %}{% t "Votre compte épargne est actif" %}{% endblock %}
 {% block body %}
-<p style="margin:0 0 16px;">Bonne nouvelle : votre compte épargne Blue Sky est ouvert.</p>
+<p style="margin:0 0 16px;">{% t "Bonne nouvelle : votre compte épargne Blue Sky est ouvert." %}</p>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e4eaf3;border-radius:12px;">
-  <tr><td style="padding:12px 16px;color:#5b6675;font-size:13px;">N° de fiche</td><td align="right" style="padding:12px 16px;font-weight:700;color:#0b1930;">{{ account.fiche_number }}</td></tr>
-  <tr><td style="padding:12px 16px;border-top:1px solid #e4eaf3;color:#5b6675;font-size:13px;">Solde</td><td align="right" style="padding:12px 16px;border-top:1px solid #e4eaf3;font-weight:700;color:#0b1930;">{{ account.balance }} $</td></tr>
+  <tr><td style="padding:12px 16px;color:#5b6675;font-size:13px;">{% t "N° de fiche" %}</td><td align="right" style="padding:12px 16px;font-weight:700;color:#0b1930;">{{ account.fiche_number }}</td></tr>
+  <tr><td style="padding:12px 16px;border-top:1px solid #e4eaf3;color:#5b6675;font-size:13px;">{% t "Solde" %}</td><td align="right" style="padding:12px 16px;border-top:1px solid #e4eaf3;font-weight:700;color:#0b1930;">{{ account.balance }} $</td></tr>
 </table>
-<p style="margin:16px 0 0;">Vous pouvez maintenant demander des dépôts et des retraits depuis votre espace.</p>
+<p style="margin:16px 0 0;">{% t "Vous pouvez maintenant demander des dépôts et des retraits depuis votre espace." %}</p>
 {% endblock %}
-{% block action %}{% include "emails/_button.html" with url=savings_url label="Voir mon épargne" %}{% endblock %}
+{% block action %}{% t "Voir mon épargne" as label %}{% include "emails/_button.html" with url=savings_url label=label %}{% endblock %}

@@ -258,7 +258,7 @@ def contact(request):
             if rate_limited(request, "contact", limit=5, window_seconds=3600):
                 form.add_error(None, "Vous avez envoyé plusieurs messages récemment. Merci de réessayer dans une heure ou de nous écrire sur WhatsApp.")
             else:
-                send_contact_acknowledgement(form.save())
+                send_contact_acknowledgement(form.save(), lang=getattr(request, "active_language", "fr"))
                 sent = True
                 form = ContactForm(request=request)
     else:

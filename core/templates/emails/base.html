@@ -1,5 +1,5 @@
-{% load static %}<!doctype html>
-<html lang="fr">
+{% load static i18n_extra %}<!doctype html>
+<html lang="{{ lang|default:'fr' }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,14 +23,14 @@
 
         <!-- Card -->
         <tr><td style="background:#ffffff;padding:32px 28px 28px;">
-          {% if name %}<p style="margin:0 0 6px;color:#5b6675;font-size:15px;">Bonjour {{ name }},</p>{% endif %}
+          {% if name %}<p style="margin:0 0 6px;color:#5b6675;font-size:15px;">{{ greeting }} {{ name }},</p>{% endif %}
           <h1 style="margin:0 0 16px;color:#0b1930;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.25;font-weight:700;">{% block title %}{% endblock %}</h1>
           <div style="font-size:15px;line-height:1.65;color:#3b4656;">
             {% block body %}{% endblock %}
           </div>
           {% block action %}{% endblock %}
-          <p style="margin:26px 0 0;font-size:14px;line-height:1.6;color:#5b6675;">Une question ? Répondez simplement à cet e-mail ou écrivez-nous sur <a href="https://wa.me/{{ SITE.whatsapp_number }}" style="color:#1d4ed8;font-weight:700;text-decoration:none;">WhatsApp</a>.</p>
-          <p style="margin:14px 0 0;font-size:14px;color:#3b4656;">L'équipe Blue Sky</p>
+          <p style="margin:26px 0 0;font-size:14px;line-height:1.6;color:#5b6675;">{% t "Une question ? Répondez simplement à cet e-mail ou écrivez-nous sur" %} <a href="https://wa.me/{{ SITE.whatsapp_number }}" style="color:#1d4ed8;font-weight:700;text-decoration:none;">WhatsApp</a>.</p>
+          <p style="margin:14px 0 0;font-size:14px;color:#3b4656;">{% t "L'équipe Blue Sky" %}</p>
         </td></tr>
 
         <!-- Footer -->
@@ -39,7 +39,7 @@
             <strong style="color:#3b4656;">Blue Sky Money Transfer</strong> · {{ SITE.head_office_address }}<br>
             <a href="mailto:{{ SITE.primary_email }}" style="color:#1d4ed8;text-decoration:none;">{{ SITE.primary_email }}</a> · {{ SITE.primary_phone }} · <a href="{{ site_url }}" style="color:#1d4ed8;text-decoration:none;">africabluesky.online</a>
           </p>
-          <p style="margin:10px 0 0;font-size:11px;line-height:1.5;color:#9aa4b2;">{% block footnote %}Vous recevez cet e-mail car vous avez un compte ou une demande en cours chez Blue Sky.{% endblock %}</p>
+          <p style="margin:10px 0 0;font-size:11px;line-height:1.5;color:#9aa4b2;">{% block footnote %}{% t "Vous recevez cet e-mail car vous avez un compte ou une demande en cours chez Blue Sky." %}{% endblock %}</p>
         </td></tr>
 
       </table>

@@ -135,3 +135,45 @@ class BrandedEmailTests(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ["c@example.com"])
         self.assertIn("actif", mail.outbox[0].subject)
+
+
+@override_settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend")
+class EmailLanguageTests(TestCase):
+    """E-mails follow the language the client uses on the site."""
+
+    def setUp(self):
+        from django.core.cache import cache
+        cache.clear()
+
+    def test_english_signup_gets_english_code_and_welcome(self):
+        self.client.cookies["bluesky_lang"] = "en"
+        self.client.post(reverse("accounts:signup"), {
+            "full_name": "John Banda", "email": "john@example.com", "phone": "+260900000000",
+            "country": "Zambie", "password": "SecurePass123!", "password_confirm": "SecurePass123!",
+        })
+        user = User.objects.get(email="john@example.com")
+        self.assertEqual(user.language, "en")
+        otp = mail.outbox[0]
+        self.assertIn("Your Blue Sky verification code", otp.subject)
+        self.assertIn("Hello John", otp.alternatives[0][0])
+        code = re.search(r"\b\d{6}\b", otp.subject).group(0)
+        self.client.post(reverse("accounts:verify_otp"), {"code": code})
+        self.assertEqual(mail.outbox[1].subject, "Welcome to Blue Sky")
+
+    def test_staff_action_uses_the_clients_language_not_the_staff_members(self):
+        from savings.models import SavingsAccount
+        client = User.objects.create_user(email="amani@example.com", full_name="Amani Juma", password="x12345678", language="sw")
+        staff = User.objects.create_user(email="agent@example.com", full_name="Agent Test", password="x12345678", is_staff=True)
+        account = SavingsAccount.objects.create(user=client, id_number="TZ123", address="Dar es Salaam")
+        self.client.force_login(staff)
+        self.client.cookies["bluesky_lang"] = "fr"
+        self.client.post(reverse("staffpanel:activate_account", args=[account.pk]))
+        self.assertEqual(mail.outbox[0].subject, "Akaunti yako ya akiba ya Blue Sky imewashwa")
+        self.assertIn("Habari Amani", mail.outbox[0].alternatives[0][0])
+
+    def test_switching_language_while_signed_in_updates_the_account(self):
+        user = User.objects.create_user(email="marie@example.com", full_name="Marie Kalenga", password="x12345678")
+        self.client.force_login(user)
+        self.client.get(reverse("transfers:overview") + "?lang=sw")
+        user.refresh_from_db()
+        self.assertEqual(user.language, "sw")

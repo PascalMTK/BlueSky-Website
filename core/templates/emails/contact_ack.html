@@ -1,9 +1,10 @@
 {% extends "emails/base.html" %}
-{% block kicker %}Contact{% endblock %}
-{% block preheader %}Merci pour votre message, nous vous répondons rapidement.{% endblock %}
-{% block title %}Nous avons bien reçu votre message{% endblock %}
+{% load i18n_extra %}
+{% block kicker %}{% t "Contact" %}{% endblock %}
+{% block preheader %}{% t "Merci pour votre message, nous vous répondons rapidement." %}{% endblock %}
+{% block title %}{% t "Nous avons bien reçu votre message" %}{% endblock %}
 {% block body %}
-<p style="margin:0 0 16px;">Merci de nous avoir écrit. Un membre de notre équipe vous répond très prochainement, du lundi au samedi de 08h00 à 18h00.</p>
+<p style="margin:0 0 16px;">{% t "Merci de nous avoir écrit. Un membre de notre équipe vous répond très prochainement, du lundi au samedi de 08h00 à 18h00." %}</p>
 <div style="padding:14px 16px;border-left:4px solid #ffa456;border-radius:8px;background:#f6f8fc;color:#5b6675;font-size:14px;line-height:1.6;">{{ msg.message|linebreaksbr }}</div>
 {% endblock %}
-{% block footnote %}Vous recevez cet e-mail car vous avez écrit à Blue Sky depuis notre site.{% endblock %}
+{% block footnote %}{% t "Vous recevez cet e-mail car vous avez écrit à Blue Sky depuis notre site." %}{% endblock %}

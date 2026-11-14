@@ -1,9 +1,10 @@
 {% extends "emails/base.html" %}
-{% block kicker %}Épargne{% endblock %}
-{% block preheader %}Notre équipe vérifie vos informations.{% endblock %}
-{% block title %}Votre demande de compte épargne est reçue{% endblock %}
+{% load i18n_extra %}
+{% block kicker %}{% t "Épargne" %}{% endblock %}
+{% block preheader %}{% t "Notre équipe vérifie vos informations." %}{% endblock %}
+{% block title %}{% t "Votre demande de compte épargne est reçue" %}{% endblock %}
 {% block body %}
-<p style="margin:0 0 14px;">Merci ! Notre équipe vérifie vos informations et active votre compte épargne. Vous recevrez un e-mail dès que c'est fait.</p>
-<p style="margin:0;">Une fois le compte actif, vous pourrez demander des dépôts et des retraits depuis votre espace.</p>
+<p style="margin:0 0 14px;">{% t "Merci ! Notre équipe vérifie vos informations et active votre compte épargne. Vous recevrez un e-mail dès que c'est fait." %}</p>
+<p style="margin:0;">{% t "Une fois le compte actif, vous pourrez demander des dépôts et des retraits depuis votre espace." %}</p>
 {% endblock %}
-{% block action %}{% include "emails/_button.html" with url=savings_url label="Suivre ma demande" %}{% endblock %}
+{% block action %}{% t "Suivre ma demande" as label %}{% include "emails/_button.html" with url=savings_url label=label %}{% endblock %}

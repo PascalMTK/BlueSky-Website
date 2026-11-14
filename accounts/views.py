@@ -49,6 +49,7 @@ def signup_view(request):
                         phone=form.cleaned_data["phone"],
                         country=form.cleaned_data["country"],
                         is_active=False,
+                        language=getattr(request, "active_language", "fr"),
                     )
                     _send_otp(user)
             except Exception:
@@ -76,6 +77,10 @@ def login_view(request):
                 password=form.cleaned_data["password"],
             )
             if user is not None:
+                chosen = request.COOKIES.get("bluesky_lang")
+                if chosen in ("fr", "en", "sw") and user.language != chosen:
+                    user.language = chosen
+                    user.save(update_fields=["language"])
                 login(request, user)
                 return redirect(_safe_next(request, next_url))
             inactive_user = User.objects.filter(email=form.cleaned_data["email"], is_active=False).first()

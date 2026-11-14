@@ -27,6 +27,13 @@ class LanguageMiddleware:
 
         response = self.get_response(request)
 
+        # Remember the choice on the account so e-mails use the same language.
+        user = getattr(request, "user", None)
+        if requested in _VALID_CODES and user is not None and user.is_authenticated and getattr(user, "language", lang) != requested:
+            from django.contrib.auth import get_user_model
+
+            get_user_model().objects.filter(pk=user.pk).update(language=requested)
+
         if requested and requested in _VALID_CODES:
             response.set_cookie(LANG_COOKIE_NAME, lang, max_age=LANG_COOKIE_MAX_AGE)
 

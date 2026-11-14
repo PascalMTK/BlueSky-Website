@@ -35,6 +35,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, verbose_name="Adresse e-mail")
     phone = models.CharField(max_length=32, blank=True, verbose_name="Téléphone")
     country = models.CharField(max_length=100, blank=True, verbose_name="Pays")
+    # Language the client uses on the site (fr / en / sw): e-mails are sent in it.
+    language = models.CharField(
+        max_length=5, default="fr", verbose_name="Langue",
+        choices=[("fr", "Français"), ("en", "English"), ("sw", "Kiswahili")],
+    )
     is_active = models.BooleanField(default=True, verbose_name="Actif")
     is_staff = models.BooleanField(default=False, verbose_name="Membre de l'équipe")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Inscrit le")

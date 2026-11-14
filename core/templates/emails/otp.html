@@ -1,12 +1,13 @@
 {% extends "emails/base.html" %}
-{% block kicker %}Vérification{% endblock %}
-{% block preheader %}Votre code : {{ code }}. Il expire dans 10 minutes.{% endblock %}
-{% block title %}Votre code de vérification{% endblock %}
+{% load i18n_extra %}
+{% block kicker %}{% t "Vérification" %}{% endblock %}
+{% block preheader %}{{ code }} · {% t "Ce code expire dans 10 minutes." %}{% endblock %}
+{% block title %}{% t "Votre code de vérification" %}{% endblock %}
 {% block body %}
-<p style="margin:0 0 18px;">Saisissez ce code sur le site pour activer votre compte Blue Sky :</p>
+<p style="margin:0 0 18px;">{% t "Saisissez ce code sur le site pour activer votre compte Blue Sky :" %}</p>
 <div style="margin:0 0 18px;padding:18px;border-radius:14px;background:#0b1930;text-align:center;">
   <span style="font-family:Consolas,Menlo,monospace;font-size:34px;font-weight:700;letter-spacing:10px;color:#ffffff;">{{ code }}</span>
 </div>
-<p style="margin:0;">Ce code expire dans <strong>10 minutes</strong>. Ne le partagez avec personne : notre équipe ne vous le demandera jamais.</p>
+<p style="margin:0;">{% t "Ce code expire dans 10 minutes." %} {% t "Ne le partagez avec personne : notre équipe ne vous le demandera jamais." %}</p>
 {% endblock %}
-{% block footnote %}Si vous n'avez pas créé de compte Blue Sky, ignorez simplement cet e-mail.{% endblock %}
+{% block footnote %}{% t "Si vous n'avez pas créé de compte Blue Sky, ignorez simplement cet e-mail." %}{% endblock %}
