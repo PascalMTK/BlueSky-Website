@@ -81,9 +81,9 @@
       </nav>
 
       <div class="mnav-quick">
-        <span class="mnav-quick-link mnav-quick-wa wa-number">
+        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="mnav-quick-link mnav-quick-wa wa-number">
           {% icon "message-circle" size=18 %}<span>{{ SITE.whatsapp_display }}</span>
-        </span>
+        </a>
         <a href="tel:{{ SITE.primary_phone }}" class="mnav-quick-link">
           {% icon "phone" size=18 %}<span>{% t "Appeler" %}</span>
         </a>

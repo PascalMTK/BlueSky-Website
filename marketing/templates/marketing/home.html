@@ -29,7 +29,7 @@
         <div class="mt-9 flex flex-col gap-3 sm:flex-row">
           {# Money is sent at an agency (no online sending yet): lead people there. #}
           <a href="{% url 'marketing:countries' %}" class="btn btn-primary btn-lg">{% icon "map-pin" size=18 %} {% t "Trouver une agence" %}</a>
-          <span class="btn btn-secondary btn-lg text-white wa-number">{% icon "message-circle" size=18 %} WhatsApp : {{ SITE.whatsapp_display }}</span>
+          <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="btn btn-secondary btn-lg text-white wa-number">{% icon "message-circle" size=18 %} WhatsApp : {{ SITE.whatsapp_display }}</a>
         </div>
       </div>
 
@@ -123,7 +123,7 @@
     <p class="mx-auto mt-5 max-w-2xl text-white/75">{% t "Qu'il s'agisse de financer un projet de construction, de soutenir votre famille ou de faire grandir votre activité, Blue Sky vous accompagne dans" %} {{ COUNTRIES|length }} {% t "pays d'Afrique avec la même rigueur à chaque transfert." %}</p>
     <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
       <a href="{% url 'marketing:contact' %}" class="btn btn-primary btn-lg">{% t "Nous contacter pour ce service" %} {% icon "arrow-right" size=18 %}</a>
-      <span class="btn btn-secondary btn-lg wa-number">WhatsApp : {{ SITE.whatsapp_display }}</span>
+      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="btn btn-secondary btn-lg wa-number">WhatsApp : {{ SITE.whatsapp_display }}</a>
     </div>
   </div>
 </section>
@@ -287,7 +287,7 @@
           {% icon "piggy-bank" size=18 %} {% t "S'enrôler au service épargne" %}
         </a>
       {% endif %}
-      <p class="text-xs text-text-muted">{% t "Ou écrivez-nous directement sur" %} <span class="font-semibold text-brand-blue wa-number">WhatsApp : {{ SITE.whatsapp_display }}</span></p>
+      <p class="text-xs text-text-muted">{% t "Ou écrivez-nous directement sur" %} <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="font-semibold text-brand-blue wa-number">WhatsApp : {{ SITE.whatsapp_display }}</a></p>
     </div>
   </div>
 </section>

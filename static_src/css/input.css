@@ -1907,8 +1907,7 @@ main:has(.globe-3d-bg) .hero-atmosphere { opacity: .55; }
   .globe-3d-bg { top: 34%; left: -20vw; width: 125vw; opacity: .3; transform: translateY(-45%) perspective(900px) rotateY(10deg); }
 }
 
-/* WhatsApp is shown as a number to copy, not a link. */
-.wa-number { cursor: text; user-select: text; -webkit-user-select: text; }
-.btn.wa-number:hover, .contact-channel.wa-number:hover, .dash-help-card.wa-number:hover { transform: none; }
+/* WhatsApp: the number is shown and tapping it opens a chat. */
 .btn.wa-number { white-space: nowrap; }
+.transfer-notice-links .wa-number:hover { border-color: #25D366; color: #0f7a3d; }
 .transfer-notice-links .wa-number { display: inline-flex; align-items: center; gap: .4rem; border: 1px solid var(--color-border); border-radius: 999px; background: var(--color-surface); padding: .4rem .8rem; color: var(--color-brand-blue-deep); font-size: .8rem; font-weight: 700; }

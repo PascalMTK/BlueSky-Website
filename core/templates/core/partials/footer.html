@@ -11,7 +11,7 @@
       </div>
       <div class="footer-cta-actions">
         <a href="{% url 'marketing:countries' %}" class="btn btn-primary btn-lg">{% icon "map-pin" size=17 %} {% t "Trouver une agence" %}</a>
-        <span class="footer-wa wa-number">{% icon "message-circle" size=18 %} WhatsApp : {{ SITE.whatsapp_display }}</span>
+        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="footer-wa wa-number">{% icon "message-circle" size=18 %} WhatsApp : {{ SITE.whatsapp_display }}</a>
       </div>
     </div>
 

@@ -10,7 +10,7 @@ can record their own transfers to keep a personal history.
     <p class="transfer-notice-text">{% t "Blue Sky ne propose pas encore d'envoi d'argent en ligne. Pour envoyer de l'argent, rendez-vous dans une agence Blue Sky ou contactez-nous sur WhatsApp. Ici, vous pouvez enregistrer vos propres transferts pour garder un historique personnel." %}</p>
     <div class="transfer-notice-links">
       <a href="{% url 'marketing:countries' %}">{% icon "map-pin" size=14 %} {% t "Nos agences" %}</a>
-      <span class="wa-number">{% icon "message-circle" size=14 %} WhatsApp : {{ SITE.whatsapp_display }}</span>
+      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="wa-number">{% icon "message-circle" size=14 %} WhatsApp : {{ SITE.whatsapp_display }}</a>
     </div>
   </div>
 </div>

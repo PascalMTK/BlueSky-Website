@@ -94,7 +94,7 @@
     <p class="mt-4 max-w-2xl text-text-muted">{% t "Notre équipe vous confirme le tarif, le délai et le point de retrait le plus proche." %}</p>
     <div class="mt-7 flex flex-col gap-3 sm:flex-row">
       <a href="{% url 'marketing:countries' %}" class="btn btn-primary btn-lg">{% icon "map-pin" size=17 %} {% t "Trouver une agence" %}</a>
-      <span class="btn btn-secondary btn-lg wa-number">WhatsApp : {{ SITE.whatsapp_display }}</span>
+      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="btn btn-secondary btn-lg wa-number">WhatsApp : {{ SITE.whatsapp_display }}</a>
     </div>
   </div>
 </section>
