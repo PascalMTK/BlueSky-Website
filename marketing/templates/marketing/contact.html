@@ -19,11 +19,10 @@
     </div>
 
     <div class="contact-channels">
-      <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="contact-channel contact-channel-wa">
+      <div class="contact-channel contact-channel-wa wa-number">
         <span class="contact-channel-icon">{% icon "message-circle" size=20 %}</span>
-        <span class="min-w-0 flex-1"><small>{% t "Réponse rapide" %}</small><strong>WhatsApp</strong></span>
-        {% icon "arrow-up-right" size=16 css_class="contact-channel-arrow" %}
-      </a>
+        <span class="min-w-0 flex-1"><small>WhatsApp</small><strong>{{ SITE.whatsapp_display }}</strong></span>
+      </div>
       <a href="tel:{{ SITE.primary_phone }}" class="contact-channel">
         <span class="contact-channel-icon">{% icon "phone" size=19 %}</span>
         <span class="min-w-0 flex-1"><small>{% t "Téléphone" %}</small><strong>{{ SITE.primary_phone }}</strong></span>
@@ -49,7 +48,7 @@
           <span class="contact-sent-icon">{% icon "check-circle-2" size=30 %}</span>
           <h2 class="mt-2 text-xl font-extrabold text-text">{% t "Message envoyé" %}</h2>
           <p class="max-w-sm text-sm leading-relaxed text-text-muted">{% t "Merci de nous avoir contactés. Notre équipe vous répondra très prochainement." %}</p>
-          <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noreferrer noopener" class="btn btn-secondary btn-md mt-3">{% icon "message-circle" size=16 %} WhatsApp</a>
+          <span class="btn btn-secondary btn-md mt-3 wa-number">{% icon "message-circle" size=16 %} WhatsApp : {{ SITE.whatsapp_display }}</span>
         </div>
       {% else %}
         <form method="post" class="contact-form">

@@ -3,5 +3,4 @@
   {% include "core/partials/header.html" %}
   <main class="flex-1 {% if request.resolver_match.url_name != 'home' %}southern-africa-background{% endif %}">{% block content %}{% endblock %}</main>
   {% include "core/partials/footer.html" %}
-  {% include "core/partials/whatsapp_fab.html" %}
 {% endblock %}

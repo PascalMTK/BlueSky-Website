@@ -25,6 +25,6 @@
   </div>
 
   <p class="auth-help">{% icon "headset" size=15 %} {% t "Un problème pour vous connecter ?" %}
-    <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener">{% t "Écrivez-nous sur WhatsApp" %}</a>
+    <span class="wa-number">WhatsApp : {{ SITE.whatsapp_display }}</span>
   </p>
 {% endblock %}

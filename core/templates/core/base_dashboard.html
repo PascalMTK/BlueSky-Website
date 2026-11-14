@@ -19,13 +19,13 @@
         {% if request.user.is_staff %}
           <a href="{% url 'staffpanel:home' %}" class="dash-sidebar-link mt-4">{% icon "settings" size=17 %} {% t "Espace gestion" %}</a>
         {% endif %}
-        <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="dash-help-card">
+        <div class="dash-help-card wa-number">
           <span class="dash-help-icon">{% icon "message-circle" size=18 %}</span>
           <span>
             <strong>{% t "Besoin d'aide ?" %}</strong>
-            <small>{% t "Notre équipe répond sur WhatsApp" %}</small>
+            <small>WhatsApp : {{ SITE.whatsapp_display }}</small>
           </span>
-        </a>
+        </div>
       {% endblock %}
     </div>
 
