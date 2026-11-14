@@ -1416,15 +1416,22 @@ a.dash-stat:hover { transform: translateY(-2px); border-color: color-mix(in srgb
 .dash-shell main .grid > * { min-width: 0; }
 
 @media (max-width: 639px) {
-  /* Home: the nine agency cards become a swipeable rail instead of a
-     ~3000px stack; the next card peeks in to invite the swipe. */
-  .country-rail {
-    display: flex; gap: .9rem; overflow-x: auto; overscroll-behavior-x: contain;
-    margin-inline: -1.25rem; padding: .25rem 1.25rem 1rem;
-    scroll-snap-type: x mandatory; scroll-padding-inline: 1.25rem; scrollbar-width: none;
-  }
-  .country-rail::-webkit-scrollbar { display: none; }
-  .country-rail > article { flex: 0 0 84%; scroll-snap-align: start; }
+  /* Home: on phones the nine agency cards form a compact two-column grid,
+     so every country is visible at once with nothing cut off. The whole
+     card stays tappable and opens the contact dialog. */
+  .country-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+  .country-rail > article > div:first-child { height: 10.5rem; }
+  .country-rail > article > div:last-child { display: none; }
+  .country-rail .photo-tag { display: none; }
+  .country-rail .country-flag-pill { padding: .2rem .45rem .2rem .25rem; font-size: .6rem; }
+  .country-rail .country-flag-pill img { width: 18px; height: 12px; }
+  .country-rail article > div:first-child > div[class*="top-4"] { inset-inline: .6rem; top: .6rem; }
+  .country-rail article > div:first-child > div[class*="bottom-5"] { inset-inline: .75rem; bottom: .75rem; }
+  .country-rail h3 { font-size: 1.15rem !important; line-height: 1.1; }
+  .country-rail article p { font-size: .62rem; gap: .25rem; }
+  .country-rail .country-card { border-radius: 1rem; }
+  /* Odd count: the last card spans both columns instead of sitting alone. */
+  .country-rail > article:last-of-type:nth-of-type(odd) { grid-column: 1 / -1; }
 
   /* Dashboard pill nav: fade the right edge so it reads as scrollable. */
   .dash-mobile-nav { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
