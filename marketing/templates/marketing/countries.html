@@ -3,7 +3,7 @@
 {% block title %}{% t "Nos agences" %} | Blue Sky{% endblock %}
 {% block description %}Retrouvez les coordonnées de toutes les agences Blue Sky en RDC, Zambie, Namibie, Afrique du Sud, Zimbabwe, Kenya, Ouganda, Tanzanie et Malawi.{% endblock %}
 {% block content %}
-<canvas class="globe-3d-bg" data-globe3d aria-hidden="true"></canvas>
+<div class="globe-3d-bg" aria-hidden="true"></div>
 
 <section class="hero-premium relative overflow-hidden border-b border-border bg-surface-muted">
   <div class="hero-atmosphere" aria-hidden="true">
@@ -71,8 +71,4 @@
   </div>
 </section>
 
-{% endblock %}
-
-{% block extra_scripts %}
-<script src="{% static 'js/globe3d.js' %}?v=20261114-4" defer></script>
 {% endblock %}

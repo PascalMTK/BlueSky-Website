@@ -1892,8 +1892,17 @@ main > section.bg-surface { background-color: color-mix(in srgb, var(--color-sur
 .auth-legal { opacity: 1; }
 .auth-legal a { color: var(--color-brand-blue); font-weight: 600; }
 
-/* Countries page: 3D globe behind the content (static_src/js/globe3d.js) */
-.globe-3d-bg { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; opacity: .9; }
+/* Countries page: still 3D globe image behind the content (no animation). */
+.globe-3d-bg {
+  position: fixed; z-index: -1; pointer-events: none;
+  top: 56%; left: -9vw; width: min(60vw, 860px); aspect-ratio: 1100 / 1111;
+  transform: translateY(-45%) perspective(1200px) rotateY(14deg) rotateX(6deg);
+  background: url("../img/bg/globe-3d.webp") center / contain no-repeat;
+  opacity: .42;
+  filter: saturate(1.05) drop-shadow(0 40px 60px rgba(11,25,48,.18));
+}
 main:has(.globe-3d-bg) > section.hero-premium { background-color: color-mix(in srgb, var(--color-surface-muted) 55%, transparent); }
 main:has(.globe-3d-bg) .hero-atmosphere { opacity: .55; }
-@media (max-width: 767px) { .globe-3d-bg { opacity: .6; } }
+@media (max-width: 767px) {
+  .globe-3d-bg { top: 34%; left: -20vw; width: 125vw; opacity: .3; transform: translateY(-45%) perspective(900px) rotateY(10deg); }
+}
