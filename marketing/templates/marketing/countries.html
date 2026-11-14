@@ -27,7 +27,7 @@
           {% for code, city in hero_capitals %}
             <div class="relative overflow-hidden rounded-xl">
               {% include "core/partials/capital_blend.html" with code=code blend_class="absolute inset-0" %}
-              <span class="absolute bottom-3 left-3 text-[.62rem] font-bold uppercase tracking-[.16em] text-white/90">{{ city }}</span>
+              <span class="absolute bottom-3 left-3 text-xs font-semibold text-white">{{ city }}</span>
             </div>
           {% endfor %}
         </div>

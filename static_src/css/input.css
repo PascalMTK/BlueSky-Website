@@ -400,12 +400,21 @@ main article, main form, main [class*="shadow"] { background-clip: padding-box; 
    Layout helpers
    ========================================================================== */
 .page-shell { max-width: 1440px; margin-inline: auto; }
-.editorial-label {
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
+/* Eyebrow: a quiet, sentence-case label above a heading. No rule line, no
+   wide-tracked capitals; the colour carries it. `.editorial-label` is the
+   legacy name used across templates and shares the same look. */
+.eyebrow, .editorial-label {
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.003em;
+  text-transform: none;
 }
+.eyebrow-blue { color: var(--color-brand-blue); }
+.eyebrow-gold { color: #b9561a; }
+/* On navy / photo sections the gold tone switches to its light variant. */
+.text-white .eyebrow-gold, .bg-brand-blue-deep .eyebrow-gold, .hero-copy-glass .eyebrow-gold,
+.transfer-glass-card .eyebrow-gold, .section-photo-bg-dark .eyebrow-gold, .site-footer .eyebrow-gold { color: var(--color-brand-gold-light); }
 .text-brand-sky { color: #82adff; }
 .editorial-index { font-size: .7rem; font-weight: 700; letter-spacing: .06em; color: var(--color-text-muted); }
 .editorial-rule { border-top: 1px solid currentColor; }
@@ -1365,3 +1374,36 @@ a.dash-stat:hover { transform: translateY(-2px); border-color: color-mix(in srgb
 .dash-filter:hover { color: var(--color-text); background: var(--color-surface-muted); }
 .dash-filter.is-active { background: var(--color-brand-blue-deep); color: #fff; }
 .dash-table td p, .dash-table td span, .dash-table td a { white-space: nowrap; }
+
+/* ==========================================================================
+   Motion design: masked text reveals
+   motion.js splits headings and eyebrows into words, each wrapped in a
+   clipping mask. On entering the viewport the words rise out of their masks
+   one after another on an expo-out curve, so a heading "writes itself" from
+   its baseline instead of fading in as a block. The eyebrow leads, the
+   heading follows, the paragraph settles last. Skipped entirely under
+   prefers-reduced-motion (motion.js never splits in that case).
+   ========================================================================== */
+:root { --ease-expo: cubic-bezier(.16, 1, .3, 1); }
+.split-mask {
+  display: inline-block; overflow: hidden; vertical-align: top;
+  /* room for accents and descenders so the mask never crops glyphs */
+  padding: .1em .04em .14em 0; margin: -.1em -.04em -.14em 0;
+}
+.split-word { display: inline-block; will-change: transform; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-split] .split-word {
+    transform: translate3d(0, 112%, 0) rotate(3deg);
+    transform-origin: 0 100%;
+    transition: transform 1050ms var(--ease-expo);
+    transition-delay: calc(var(--split-base, 0ms) + var(--i, 0) * 48ms);
+  }
+  [data-split].is-revealed .split-word { transform: translate3d(0, 0, 0) rotate(0); }
+
+  /* Eyebrows: shorter travel, quicker, they set up the heading. */
+  [data-split="eyebrow"] .split-word { transform: translate3d(0, 105%, 0); transition-duration: 800ms; transition-delay: calc(var(--i, 0) * 35ms); }
+
+  /* Supporting copy right after a revealed heading: soft focus-in. */
+  [data-split-follow] { opacity: 0; filter: blur(6px); transform: translate3d(0, 14px, 0); transition: opacity 900ms ease, filter 900ms ease, transform 1000ms var(--ease-expo); transition-delay: var(--follow-delay, 380ms); }
+  [data-split-follow].is-revealed { opacity: 1; filter: none; transform: none; }
+}

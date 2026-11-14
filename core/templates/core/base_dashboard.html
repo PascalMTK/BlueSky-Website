@@ -49,7 +49,7 @@
     <header class="dash-topbar sticky top-0 z-40 flex h-[72px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
       <div class="lg:hidden">{% include "core/partials/logo.html" with extra_class="dash-mobile-logo" %}</div>
       <div class="hidden min-w-0 lg:block">
-        <p class="text-[.68rem] font-bold uppercase tracking-[.14em] text-text-muted">{% block topbar_kicker %}{% t "Espace client" %}{% endblock %}</p>
+        <p class="text-xs font-medium text-text-muted">{% block topbar_kicker %}{% t "Espace client" %}{% endblock %}</p>
         <p class="truncate text-sm font-semibold text-text">{% now "l j F Y" as today %}{{ today|capfirst }}</p>
       </div>
       <div class="flex items-center gap-2 sm:gap-3">

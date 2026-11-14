@@ -242,19 +242,102 @@
     update();
   }
 
+  // ---------- Masked text reveal ----------
+  // Wraps every word of `el` in .split-mask > .split-word, keeping inline
+  // markup (<br>, coloured <span>s, <em>) intact, and numbers the words so
+  // CSS can stagger them. Whitespace stays as plain text nodes, so the
+  // heading still reads naturally to screen readers and copy/paste.
+  function splitWords(el) {
+    var index = 0;
+    function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var parts = child.textContent.split(/(\s+)/);
+          if (parts.length === 1 && !parts[0]) return;
+          var fragment = document.createDocumentFragment();
+          parts.forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { fragment.appendChild(document.createTextNode(part)); return; }
+            var mask = document.createElement("span");
+            mask.className = "split-mask";
+            var word = document.createElement("span");
+            word.className = "split-word";
+            word.style.setProperty("--i", index++);
+            word.textContent = part;
+            mask.appendChild(word);
+            fragment.appendChild(mask);
+          });
+          node.replaceChild(fragment, child);
+        } else if (child.nodeType === 1 && child.tagName !== "BR" && child.tagName !== "SVG" && child.tagName !== "svg") {
+          walk(child);
+        }
+      });
+    }
+    walk(el);
+    return index;
+  }
+
+  function initTextReveal(hero) {
+    if (!("IntersectionObserver" in window)) return;
+    var selector = ".display-title, .eyebrow, .editorial-label, .dash-hero h1";
+    var elements = Array.prototype.slice.call(document.querySelectorAll(selector)).filter(function (el) {
+      return !el.closest("dialog") && !el.hasAttribute("data-split") && el.textContent.trim();
+    });
+    var followers = [];
+
+    elements.forEach(function (el) {
+      var isEyebrow = el.matches(".eyebrow, .editorial-label");
+      var words = splitWords(el);
+      el.setAttribute("data-split", isEyebrow ? "eyebrow" : "heading");
+      if (isEyebrow) return;
+
+      // A heading right under an eyebrow waits for it to land first.
+      var previous = el.previousElementSibling;
+      if (previous && previous.matches(".eyebrow, .editorial-label")) el.style.setProperty("--split-base", "140ms");
+
+      // The paragraph that follows a heading settles in once most words are up.
+      var next = el.nextElementSibling;
+      var inHero = hero && hero.contains(el);
+      if (!inHero && next && next.tagName === "P" && !next.hasAttribute("data-split")) {
+        next.setAttribute("data-split-follow", "");
+        next.style.setProperty("--follow-delay", Math.min(260 + words * 40, 700) + "ms");
+        followers.push([el, next]);
+      }
+    });
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-revealed");
+        followers.forEach(function (pair) { if (pair[0] === entry.target) pair[1].classList.add("is-revealed"); });
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: .2 });
+
+    elements.forEach(function (el) {
+      // Hero copy plays on load, after a beat, rather than waiting for scroll.
+      if (hero && hero.contains(el)) {
+        requestAnimationFrame(function () { setTimeout(function () { el.classList.add("is-revealed"); }, 120); });
+      } else {
+        observer.observe(el);
+      }
+    });
+  }
+
   function initHero(main) {
     var hero = main.querySelector("section:first-child");
     if (!hero || !hero.querySelector("h1")) return;
     var heading = hero.querySelector("h1");
-    var label = hero.querySelector(".editorial-label");
     var paragraph = heading.nextElementSibling;
     var actions = paragraph && paragraph.nextElementSibling;
     var image = hero.querySelector("img");
     var heroVisual = hero.querySelector("[data-hero-scene]");
-    var sequence = [label, heading, paragraph, actions, heroVisual || (image && image.parentElement)].filter(Boolean);
+    // Eyebrow and heading animate through the masked word reveal; the rest
+    // of the hero follows in sequence.
+    var sequence = [paragraph, actions, heroVisual || (image && image.parentElement)].filter(Boolean);
     sequence.forEach(function (element, index) {
       element.setAttribute("data-hero-motion", "");
-      element.style.setProperty("--motion-delay", (index * 70) + "ms");
+      element.style.setProperty("--motion-delay", (480 + index * 110) + "ms");
     });
   }
 
@@ -452,6 +535,8 @@
     initCountryCards(main);
     initHeroVideos(main);
     if (reducedMotion) return;
+    var heroSection = main.querySelector("section:first-child");
+    initTextReveal(heroSection && heroSection.querySelector("h1") ? heroSection : null);
     initHero(main);
     initSectionReveal(main);
     initCounters(main);
