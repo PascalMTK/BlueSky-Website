@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% load static i18n_extra %}
+{% block title %}{% t "Accès refusé" %} | Blue Sky{% endblock %}
+{% block body %}
+<div class="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
+  <p class="eyebrow eyebrow-gold">{% t "Accès refusé" %}</p>
+  <h1 class="display-title text-4xl sm:text-5xl">{% t "Cet espace ne vous est pas ouvert" %}</h1>
+  <p class="max-w-md text-text-muted">{% t "Votre compte n'a pas les droits nécessaires pour afficher cette page." %}</p>
+  <a href="/" class="btn btn-primary btn-lg mt-2">{% t "Retour à l'accueil" %}</a>
+</div>
+{% endblock %}

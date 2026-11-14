@@ -1,6 +1,7 @@
 from django.urls import reverse
 
 from core.data import COUNTRIES, SITE
+from core.decorators import home_url_for
 from core.i18n import AVAILABLE_LANGUAGES
 from django.db.utils import OperationalError, ProgrammingError
 
@@ -62,4 +63,7 @@ def site_data(request):
         "staff_nav_items": staff_nav_items,
         "AVAILABLE_LANGUAGES": AVAILABLE_LANGUAGES,
         "active_language": getattr(request, "active_language", "fr"),
+        # Where "Mon compte" leads: the management space for the team,
+        # the client space for everyone else.
+        "account_home_url": home_url_for(getattr(request, "user", None)),
     }

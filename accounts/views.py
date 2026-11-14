@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
-from core.decorators import guest_only
+from core.decorators import guest_only, home_url_for
 
 from .forms import LoginForm, OTPVerificationForm, SignupForm
 from .models import EmailVerification, User
@@ -33,7 +33,7 @@ def _safe_next(request, next_url):
         next_url, allowed_hosts={request.get_host()}
     ):
         return next_url
-    return "/tableau-de-bord/"
+    return home_url_for(request.user)
 
 
 @guest_only

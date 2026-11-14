@@ -16,6 +16,9 @@
       {% endblock %}
 
       {% block sidebar_extra %}
+        {% if request.user.is_staff %}
+          <a href="{% url 'staffpanel:home' %}" class="dash-sidebar-link mt-4">{% icon "settings" size=17 %} {% t "Espace gestion" %}</a>
+        {% endif %}
         <a href="https://wa.me/{{ SITE.whatsapp_number }}" target="_blank" rel="noopener" class="dash-help-card">
           <span class="dash-help-icon">{% icon "message-circle" size=18 %}</span>
           <span>
