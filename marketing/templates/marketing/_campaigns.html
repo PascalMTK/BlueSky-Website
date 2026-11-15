@@ -1,0 +1,39 @@
+﻿{% load static icons ui i18n_extra %}
+<section class="campaign-section gallery-editorial" aria-labelledby="campaign-heading" data-gallery>
+  <div class="campaign-shell">
+    <div class="gallery-heading">
+      <div>{% kicker "Annonces Blue Sky" tone="blue" %}<h2 id="campaign-heading" class="display-title">{% t "Des liens. Des projets." %}<br><em>{% t "De nouveaux horizons." %}</em></h2></div>
+      <p>{% t "À travers l'Afrique, chaque transfert raconte une histoire. Découvrez les nôtres." %}</p>
+    </div>
+    <div class="gallery-showcase">
+      <div class="gallery-story">
+        <span class="gallery-edition">BLUE SKY <span>—</span> {% t "LA COLLECTION" %}</span>
+        <div class="gallery-story-body" aria-live="polite" aria-atomic="true">
+          <p class="gallery-folio"><span data-feature-number>01</span><span>/ {{ campaigns|length|stringformat:"02d" }}</span></p>
+          <h3 data-feature-title>{{ campaigns.0.1 }}</h3>
+          <p data-feature-description>{{ campaigns.0.2 }}</p>
+        </div>
+        <a href="{% url 'marketing:countries' %}" class="gallery-agency">{% t "Trouver une agence" %} {% icon "arrow-up-right" size=19 %}</a>
+        <div class="gallery-player">
+          <div class="gallery-player-buttons"><button type="button" data-gallery-prev aria-label="{% t 'Précédent' %}">{% icon "arrow-left" size=19 %}</button><button type="button" data-gallery-next aria-label="{% t 'Suivant' %}">{% icon "arrow-right" size=19 %}</button></div>
+          <button type="button" data-gallery-play aria-pressed="false" data-play-label="{% t 'Lecture auto' %}" data-pause-label="{% t 'Mettre en pause' %}">{% t "Mettre en pause" %}</button>
+        </div>
+        <div class="gallery-timeline" aria-hidden="true"><span></span></div>
+      </div>
+      <div class="gallery-stage">
+        <span class="gallery-stage-label">{% t "À LA UNE" %}</span>
+        <a href="{% static 'img/campaigns/' %}{{ campaigns.0.0 }}" class="gallery-feature" data-feature-link aria-label="{% t 'Agrandir le visuel' %}"><img src="{% static 'img/campaigns/' %}{{ campaigns.0.0 }}" alt="{{ campaigns.0.1 }}" data-feature-image fetchpriority="high"><span class="gallery-feature-expand">{% icon "expand" size=17 %} {% t "Agrandir" %}</span></a>
+        <span class="gallery-stage-note">{% t "Votre avenir, notre engagement." %}</span>
+      </div>
+    </div>
+    <div class="gallery-strip-heading"><span>{% t "Explorer la collection" %}</span><span>{{ campaigns|length }} {% t "visuels" %}</span></div>
+    <div class="gallery-thumbnails" aria-label="{% t 'Choisir un visuel' %}">
+      {% for image, title, description in campaigns %}
+      <a href="{% static 'img/campaigns/' %}{{ image }}" class="gallery-thumbnail{% if forloop.first %} is-selected{% endif %}" data-gallery-image data-title="{% t title %}" data-description="{% t description %}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ forloop.counter }}. {% t title %}"><span class="gallery-thumbnail-image"><img src="{% static 'img/campaigns/' %}{{ image }}" alt="{% t title %}" loading="lazy" decoding="async"></span><span class="gallery-thumbnail-number">{{ forloop.counter|stringformat:"02d" }}</span></a>
+      {% endfor %}
+    </div>
+    <div class="campaign-footer"><span>{% icon "map-pin" size=17 %} {{ COUNTRIES|length }} {% t "pays, un même engagement" %}</span><a class="campaign-link" href="{% url 'marketing:contact' %}">{% t "Parlons de votre projet" %} {% icon "arrow-right" size=18 %}</a></div>
+  </div>
+  <dialog class="gallery-dialog" aria-label="{% t 'Visuel agrandi' %}"><div class="gallery-dialog-bar"><span data-gallery-caption></span><button type="button" data-gallery-close aria-label="{% t 'Fermer' %}">✕</button></div><img alt=""><div class="gallery-dialog-nav"><button type="button" data-modal-prev aria-label="{% t 'Précédent' %}">←</button><span data-gallery-count></span><button type="button" data-modal-next aria-label="{% t 'Suivant' %}">→</button></div></dialog>
+</section>
+<script src="{% static 'js/gallery.js' %}?v=20261115-3" defer></script>
